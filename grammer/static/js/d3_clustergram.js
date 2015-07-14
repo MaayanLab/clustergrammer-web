@@ -569,9 +569,9 @@ function initialize_clustergram(network_data){
   // set opacity scale 
   max_link = _.max( inst_links, function(d){ return Math.abs(d.value) } );
   // set max zscore opacity to arbitrary value of 4 zscore 
-  // opacity_scale = d3.scale.linear().domain([0, Math.abs(max_link.value) ]).clamp(true).range([0.0,1.0]) ; 
-  opacity_scale = d3.scale.linear().domain([0, 6 ]).clamp(true).range([0.0,1.0]) ; 
-  // opacity_scale = d3.scale.linear().domain([0, 1 ]).clamp(true).range([0.0,1.0]) ; 
+  opacity_scale = d3.scale.linear().domain([0, Math.abs(max_link.value) ]).clamp(true).range([0.0,1.0]) ; 
+  // opacity_scale = d3.scale.linear().domain([0, 6 ]).clamp(true).range([0.0,1.0]) ; 
+  // // opacity_scale = d3.scale.linear().domain([0, 1 ]).clamp(true).range([0.0,1.0]) ; 
 };
 
 function set_visualization_size(){

@@ -107,7 +107,10 @@ def jquery_upload_function():
     for i in range(len(lines)):
 
       # get inst_line
-      inst_line = lines[i].strip().split('\t')
+      inst_line = lines[i].split('\t')
+
+      # strip each element 
+      inst_line = [z.strip() for z in inst_line]
 
       print(inst_line)
 
@@ -116,10 +119,15 @@ def jquery_upload_function():
         tmp_col_labels = inst_line
 
         # add the labels
-        for inst_col in tmp_col_labels:
-          # ignore blank labels (may not occur)
-          if inst_col != '':
-            network['nodes']['col'].append(inst_col)
+        for inst_elem in range(len(tmp_col_labels)):
+
+          # skip the first element 
+          if inst_elem > 0:
+            # get the column label 
+            inst_col_label = tmp_col_labels[inst_elem]
+
+            # ignore first element 
+            network['nodes']['col'].append(inst_col_label)
 
       # get row labels 
       if i > 0:
