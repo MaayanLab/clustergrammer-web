@@ -13,6 +13,23 @@ function load_new_clustergram(network){
 	// pass the network data to d3_clustergram 
 	make_d3_clustergram(network);
 
+	// generate a list of genes for auto complete 
+	////////////////////////////////////////////////
+	// get all genes 
+	all_genes = [];
+
+	// loop through row_nodes
+	for (i=0; i<row_nodes.length; i++){
+		all_genes.push( row_nodes[i]['name'] ); 
+	};
+
+	// use Jquery autocomplete
+	////////////////////////////////
+  $( "#gene_search_box" ).autocomplete({
+    source: all_genes
+  });
+
+
 }
 
 // submit genes button 

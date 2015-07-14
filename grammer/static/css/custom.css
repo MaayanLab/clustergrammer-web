@@ -600,7 +600,7 @@ because the sidebar will be closed*/
   margin: 0 auto;
   color:#333;
   text-align: left;
-  margin-top: 0px;
+  margin-top: 10px;
   /*padding-top:5px;*/
   /*margin-bottom: 5px;*/
   font-size: 17px;
@@ -762,7 +762,7 @@ look like the input gene list text title*/
 }
 
 .prot_class{
-  font-size: 11px;
+  /*font-size: 16px;*/
 }
 
 /*initialize the title of res key*/
@@ -845,8 +845,8 @@ look like the input gene list text title*/
 
 /*reduce the padding on the buttons*/
 .btn{
-  padding-top:2px;
-  padding-bottom:2px;
+  /*padding-top:2px;*/
+  /*padding-bottom:2px;*/
 }
 
 #submit_gene_button{

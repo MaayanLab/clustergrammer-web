@@ -145,7 +145,7 @@ def jquery_upload_function():
   else:
     print('error in file upload - check filetype')
 
-    return 'something'
+    return error
 
   # # return an error if the request is not a post 
   # else:

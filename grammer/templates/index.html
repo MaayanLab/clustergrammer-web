@@ -163,23 +163,25 @@ Row-C	0.2	0.1	2.5
   </footer>
 
   <!-- Modal -->
-  <div id='modal_no_input' class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+  <div id='modal_wrong_filetype' class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="gridSystemModalLabel">Please input genes</h4>
+          <h4 class="modal-title" id="gridSystemModalLabel">Filetype error:</h4>
         </div>
         <div class="modal-body">
 
           <div class="container-fluid">
-            <p>Input one human/mouse gene symbol per line. </p>
+
+	          <h4 class="modal-title" id="gridSystemModalLabel">Please input .txt or .tsv files only.</h4>
+            <!-- <p>Input one human/mouse gene symbol per line. </p>
             <p>For instance:</p> 
             <div>PER1</div>
             <div>SENP3</div>
             <div>TOP2A</div>
             <div>PTPN7</div>
-            <div>...</div>
+            <div>...</div> -->
 
           </div>
         </div>
@@ -223,6 +225,8 @@ Row-C	0.2	0.1	2.5
 
   <script>
   
+  
+
   // switch to homepage 
   function to_homepage(){
     // switch to homepage 
@@ -230,49 +234,9 @@ Row-C	0.2	0.1	2.5
     d3.selectAll('#homepage_view').style('display','block');
   }
 
-  // gene expression view 
-  function to_ccle_gene_exp(){
-
-    // swap views 
-    d3.selectAll('#homepage_view').style('display','none');
-    d3.select('#svg_div_tfsub').style('display','none');
-    d3.select('#gene_exp_view').style('display','block');
-    d3.select('#svg_div_exp').style('display','block');
-
-    // Define missing zscores for protein types 
-    ////////////////////////////////////////////
-    missing_z = {
-      'ALL':[0,20,25],
-      'TF':[],
-      'KIN':[],
-      'PP':[],
-      'ACT':[35,40],
-      'DACT':[40],
-      'MET':[35,40],
-      'DMET':[30,35,40],
-      'GPCR':[],
-      'IC':[]
-    };
-
-    // request_json 
-    ccle_params = {};
-    ccle_params['gc'] = 'ini';
-    ccle_params['cutoff'] = 3.5;
-    ccle_params['order'] = 'clust';
-
-    // set global variable for svg type
-    select_svg_div = 'svg_div_exp';
-
-    // make a clustergram 
-    change_class_clustergram('ALL');
-
-  }
- 
-
-  </script>
-
-<!-- Jquery upload file -->
-<script type="text/javascript">
+  
+  // Jquery Upload file 
+  /////////////////////////
 
   // display the upload button 
   // prevent the style from changing as scripts are loaded
@@ -352,6 +316,8 @@ Row-C	0.2	0.1	2.5
           // loader.stop();
           // console.log(network);
           console.log('request failed')
+          $.unblockUI();
+	        $('#modal_wrong_filetype').modal()
         }
       });
 
