@@ -79,6 +79,8 @@ def python_function():
 @app.route('/jquery_upload/', methods=['GET','POST'])
 def jquery_upload_function():
   import flask 
+  import make_exp_clustergram
+  import d3_clustergram
   import numpy as np
   
   # # don't know if I need this 
@@ -123,8 +125,14 @@ def jquery_upload_function():
         # save row labels 
         network['nodes']['row'].append(inst_line[0])
 
+        # get data (still strings)
+        inst_data_row = inst_line[1:]
+
+        # convert strings to floats 
+        inst_data_row = [float(x) for x in inst_data_row]
+
         # save the row data as an arry 
-        inst_data_row =  np.asarray(inst_line[1:]) 
+        inst_data_row =  np.asarray(inst_data_row) 
 
         # initialize the matrix 
         if i == 1:
@@ -137,11 +145,14 @@ def jquery_upload_function():
     # check status of matrix   
     print(network['data_mat'])
 
-    # convert data_mat to list before exporting as json
-    network['data_mat'] = network['data_mat'].tolist()
+    # # convert data_mat to list before exporting as json
+    # network['data_mat'] = network['data_mat'].tolist()
+
+    # run make_grammer_clustergram 
+    d3_json = make_exp_clustergram.make_grammer_clustergram(network)
 
     # return the network in json form 
-    return flask.jsonify(network)
+    return flask.jsonify(d3_json)
 
   # return an error if the request is not a post 
   else:

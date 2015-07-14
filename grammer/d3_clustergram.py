@@ -15,8 +15,9 @@ def write_json_single_value(nodes, clust_order, mat, full_path, targets = [], ev
 	for i in range(len(nodes['row'])):
 		inst_dict = {}
 		inst_dict['name'] = nodes['row'][i]
+		# clust
 		inst_dict['clust'] = clust_order['clust']['row'].index(i)
-		# do not need to get index
+		# rank - do not need to get index
 		inst_dict['rank'] = clust_order['rank']['row'][i]
 		# add gene type - initialize gene type as other 
 		inst_gene_type = 'other'
@@ -42,8 +43,9 @@ def write_json_single_value(nodes, clust_order, mat, full_path, targets = [], ev
 	for i in range(len(nodes['col'])):
 		inst_dict = {}
 		inst_dict['name'] = nodes['col'][i]
+		# clust 
 		inst_dict['clust'] = clust_order['clust']['col'].index(i)
-		# do not need to get index
+		# rank - do not need to get index
 		inst_dict['rank'] = clust_order['rank']['col'][i]
 		d3_json['col_nodes'].append(inst_dict)
 
@@ -84,14 +86,23 @@ def make_network_json_single_value(nodes, clust_order, mat ):
 	for i in range(len(nodes['row'])):
 		inst_dict = {}
 		inst_dict['name'] = nodes['row'][i]
-		inst_dict['sort'] = clust_order['row'].index(i)
+		# inst_dict['sort'] = clust_order['row'].index(i)
+		# clust
+		inst_dict['clust'] = clust_order['clust']['row'].index(i)
+		# rank - do not need to get index
+		inst_dict['rank'] = clust_order['rank']['row'][i]
 		d3_json['row_nodes'].append(inst_dict)
 
 	# append col dicts to array 
 	for i in range(len(nodes['col'])):
 		inst_dict = {}
 		inst_dict['name'] = nodes['col'][i]
-		inst_dict['sort'] = clust_order['col'].index(i)
+		# inst_dict['sort'] = clust_order['col'].index(i)
+		# clust 
+		inst_dict['clust'] = clust_order['clust']['col'].index(i)
+		# rank - do not need to get index
+		inst_dict['rank'] = clust_order['rank']['col'][i]
+		
 		d3_json['col_nodes'].append(inst_dict)
 
 	# links - generate edge list 
@@ -437,6 +448,9 @@ def filter_sim_mat(sim_mat_uf, nodes_uf, sim_cutoff, min_meet_thresh):
 
 def threshold_vect_comparison(x, y, cutoff):
 	import numpy as np 
+
+
+	# import pdb; pdb.set_trace()
 
 	# x vector 
 	############

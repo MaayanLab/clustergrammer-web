@@ -336,14 +336,15 @@ function make_d3_clustergram(network_data) {
         output_string = 'M '+origin_y+',0 L ' + start_y + ',' + start_x + ', L ' + final_y + ','+final_x+' Z';
         return output_string;
        })
-    // .attr('fill','#eee')
-    // change the colors of the triangles 
-    .attr('fill', function(d) {
-      // look up color using data_group
-      inst_color = res_color_dict[d.name];
-      // console.log(inst_color)
-      return inst_color;
-    });
+    // keep the column triangles grey
+    .attr('fill','#eee')
+    // // change the colors of the triangles 
+    // .attr('fill', function(d) {
+    //   // look up color using data_group
+    //   inst_color = res_color_dict[d.name];
+    //   // console.log(inst_color)
+    //   return inst_color;
+    // });
 
 
   // Rects to hide spillover 

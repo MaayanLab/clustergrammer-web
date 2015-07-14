@@ -1,9 +1,26 @@
 def main():
 
-	# make expression clustergrams 
-	make_expression_clustergrams()
+	# # make expression clustergrams 
+	# make_expression_clustergrams()
 
 	# return d3_json
+
+	# make grammer clustergram 
+	make_grammer_clustergram() 
+
+# make grammer clustergram 
+def make_grammer_clustergram(network):
+	import d3_clustergram
+
+	# cluster rows and columns 
+	compare_cutoff = 0
+	min_num_comp = 0
+	clust_order = d3_clustergram.cluster_row_and_column( network['nodes'], network['data_mat'], 'cosine', compare_cutoff, min_num_comp )
+
+	# write the clustergram 
+	d3_json = d3_clustergram.make_network_json_single_value(network['nodes'], clust_order, network['data_mat'])
+
+	return d3_json
 
 # make tf-sub clustergram 
 def tf_clust(tf_name):
@@ -45,7 +62,6 @@ def tf_clust(tf_name):
 	target_genes = list(set(target_genes).intersection(diff_exp_genes))
 
 	print('there are ' + str(len(target_genes)) + ' genes targeted by ' + str(tf_name))
-
 
 	# generate clustergram 
 	#########################
