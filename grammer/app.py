@@ -23,11 +23,11 @@ ENTRY_POINT = '/grammer'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/grammer/grammer' ## original 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/grammer/grammer' ## original 
 
-# # for docker development
-# SERVER_ROOT = '/app/grammer'
+# for docker development
+SERVER_ROOT = '/app/grammer'
 
 
 # define allowed extension
@@ -130,8 +130,8 @@ def jquery_upload_function():
         if i > 1:
           network['data_mat'] = np.vstack( (network['data_mat'], inst_data_row) )
 
-    # check status of matrix   
-    print(network['data_mat'])
+    # # check status of matrix   
+    # print(network['data_mat'])
 
     # # convert data_mat to list before exporting as json
     # network['data_mat'] = network['data_mat'].tolist()
