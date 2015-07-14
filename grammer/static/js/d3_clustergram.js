@@ -24,9 +24,8 @@ function make_d3_clustergram(network_data) {
   d3.select('#footer_div')
     .style('margin-left','0px');
 
-
-  // highlight resource types - set up type/color association
-  highlight_resource_types();
+  // // highlight resource types - set up type/color association
+  // highlight_resource_types();
 
   // define the variable zoom, a d3 method 
   zoom = d3.behavior.zoom().scaleExtent([1,real_zoom*zoom_switch]).on('zoom',zoomed);

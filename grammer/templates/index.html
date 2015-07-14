@@ -86,9 +86,6 @@
                   <!-- button container -->
                   <div id='button_container'>
                     
-                    
-
-                    
                     <div id='toggle_order' class="btn-group" data-toggle="buttons" >
                       <label class="btn btn-primary active prot_class" onclick="ccle_params['order']='clust'; reorder_clust_rank();">
                         <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
@@ -98,8 +95,6 @@
                       </label>
                     </div>
                   </div>
-
-                  
 
                   <!-- input box for gene search -->
                   <div id='gene_search_container' class='row'>
@@ -216,10 +211,6 @@
   // switch to homepage 
   function to_homepage(){
     // switch to homepage 
-    // d3.select('#clust_instruct_container').style('display','none');
-    // d3.select('#clustergram_container').style('display','none');
-    // d3.selectAll('.initial_paragraph').style('display','block');
-    // d3.select('#website_title').style('display','block');
     d3.select('#gene_exp_view').style('display','none');
     d3.selectAll('#homepage_view').style('display','block');
   }
@@ -262,89 +253,6 @@
 
   }
  
-  // transcription factor view 
-  function tf_sub_all_cl(){
-
-    d3.select('#gene_exp_view').style('display','block');
-    d3.selectAll('#homepage_view').style('display','none');
-    d3.select('#svg_div_exp').style('display','none');
-    d3.select('#svg_div_tfsub').style('display','block');
-
-    console.log('make tfsub clustergram')
-
-    // visualization parameters 
-    ccle_params = {};
-    // ccle_params['gc'] = 'ini';
-    // ccle_params['cutoff'] = 3.5;
-    ccle_params['order'] = 'clust';
-    
-    // load tfsub clustergram 
-    ////////////////////////////
-    // select current visualization div 
-    select_svg_div = 'svg_div_tfsub';  
-
-    load_tfsub_clustergram();
-
-    // // request_json 
-    // ccle_params = {};
-    // ccle_params['gc'] = 'ini';
-    // ccle_params['cutoff'] = 3.5;
-    // ccle_params['order'] = 'clust';
-
-    // // make a clustergram 
-    // change_class_clustergram('ALL');
-
-  }
-
-
-
-function make_tf_viz(){
-    // making post 
-    /////////////////////////////////
-    // manually set url (local - works for local and docker)
-    url = '/grammer/'
-
-    // define global variables 
-    // initialize protein class 
-    var inst_prot_class = 'TF';
-    // save global variable 
-    glob_prot_class = inst_prot_class;
-    viz_type = 'tf_sub';
-    inst_zscore_cutoff = 3;
-
-    // request_json 
-    req_json = {};
-    req_json['viz_type'] = 'tf_sub';
-    req_json['name'] = 'SMARCA4';
-
-    // request format 
-    var posting = $.post( url, req_json );
-    
-    // make first clustergram 
-    // set up wait message before request is made 
-    $.blockUI({ css: { 
-            border: 'none', 
-            padding: '15px', 
-            backgroundColor: '#000', 
-            '-webkit-border-radius': '10px', 
-            '-moz-border-radius': '10px', 
-            opacity: .8, 
-            color: '#fff' 
-        } });
-
-    // get the visualization json from server 
-    posting.done( function( network_data ) { 
-      // // global network_data
-      // global_network_data = network_data ;
-      // // make d3 visualization
-      // make_d3_clustergram(network_data)
-      // turn off the wait sign 
-      console.log(network_data)
-      $.unblockUI();
-    });
-  }
-
-
 
   </script>
 
@@ -355,6 +263,13 @@ function make_tf_viz(){
   // prevent the style from changing as scripts are loaded
   d3.select('#searchForm').style('display','block')
 
+  // global parameters for visualization
+  ccle_params = {};
+  ccle_params['order'] = 'clust';
+
+  // set global variable for svg type
+  select_svg_div = 'svg_div_exp';
+  
   // request clustergram 
   $( "#searchForm" ).submit( function( event ) {
 
@@ -410,6 +325,8 @@ function make_tf_viz(){
           d3.select('#svg_div_tfsub').style('display','none');
           d3.select('#gene_exp_view').style('display','block');
           d3.select('#svg_div_exp').style('display','block');
+
+          load_new_clustergram();
 
           return false
         },
