@@ -73,6 +73,8 @@ Row-B	3.0	0.0	8.0
 Row-C	0.2	0.1	2.5
             </pre>
 
+              <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
+
             <form id='searchForm' action="{{ url_for('jquery_upload_function') }}" method=post enctype=multipart/form-data>
               <input type=file name=file title='Choose File' onClick="console.log('clicking choose file button')" >
               <input class='btn btn-primary' id='file_upload_button'  type=submit value=Upload>
