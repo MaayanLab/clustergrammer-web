@@ -1,0 +1,16 @@
+grammer 7-14-2015
+	I'm working on an app that allows a user to input a tsv separated matrix and obtain a clutergram visualization. I have a few bugs that need to be fixed so that the clustergram will work for small matrices. 
+
+	Here's how to get into debug mode in javascript: 
+  // debugger
+  debugger;
+
+To Do
+	1. fix overflow on the left bug
+	2. fix thin tiles bug
+	3. fix overflow from left side of column labels bug
+	4. determine if network formatting is incorreact and alert user rather than failing
+	5. set color of the clustergram based on matrix data, black for positive data only, red/blue for up/dn data. 
+	6. allow uploading excel files using python's excel uploading capabilities 
+  
+

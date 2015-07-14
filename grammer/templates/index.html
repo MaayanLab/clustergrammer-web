@@ -162,7 +162,7 @@ Row-C	0.2	0.1	2.5
     </div>
   </footer>
 
-  <!-- Modal -->
+  <!-- Modals -->
   <div id='modal_wrong_filetype' class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -174,20 +174,33 @@ Row-C	0.2	0.1	2.5
 
           <div class="container-fluid">
 
-	          <h4 class="modal-title" id="gridSystemModalLabel">Please input .txt or .tsv files only.</h4>
-            <!-- <p>Input one human/mouse gene symbol per line. </p>
-            <p>For instance:</p> 
-            <div>PER1</div>
-            <div>SENP3</div>
-            <div>TOP2A</div>
-            <div>PTPN7</div>
-            <div>...</div> -->
+	          <h5 class="modal-title" id="gridSystemModalLabel">Please input .txt or .tsv files only.</h5>
 
           </div>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
+
+  <div id='modal_no_file' class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gridSystemModalLabel">No File Chosen:</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="container-fluid">
+
+	          <h5 class="modal-title" id="gridSystemModalLabel">Please select a file to upload using the Choose File buton.</h5>
+
+          </div>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
 
   <!-- Vendor -->
   <!-- jQuery -->
@@ -258,10 +271,6 @@ Row-C	0.2	0.1	2.5
    // only upload if there is a file 
    if (d3.select('.file-input-name').empty()==false){
 
-
-      // // debugger
-      // debugger;
-
       // get data from forms 
       $form = $( this );
 
@@ -321,7 +330,9 @@ Row-C	0.2	0.1	2.5
         }
       });
 
-
+   }
+   else{
+    $('#modal_no_file').modal()
    }
 
   });
