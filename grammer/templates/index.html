@@ -269,7 +269,7 @@
 
   // set global variable for svg type
   select_svg_div = 'svg_div_exp';
-  
+
   // request clustergram 
   $( "#searchForm" ).submit( function( event ) {
 
@@ -312,12 +312,15 @@
         cache: false,
         contentType: false,
         processData: false,
-        success: function(data) {
+        success: function(network) {
 
           // callback function 
           //////////////////////
+
+          // save clustergram is global variable
+          global_network_data = network;
           console.log('success')
-          console.log(data)
+          console.log(network)
           $.unblockUI();
 
           // swap views 
@@ -326,13 +329,13 @@
           d3.select('#gene_exp_view').style('display','block');
           d3.select('#svg_div_exp').style('display','block');
 
-          load_new_clustergram();
+          load_new_clustergram(network);
 
           return false
         },
-        error: function(data) {
+        error: function(network) {
           // loader.stop();
-          // console.log(data);
+          // console.log(network);
           console.log('request failed')
         }
       });
