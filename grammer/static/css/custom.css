@@ -834,6 +834,9 @@ look like the input gene list text title*/
 #homepage_view{
   display: block;
   position:relative;
+  /*shift away from side*/
+  margin-left: 10px;
+  margin-top: 5px;
 }
 
 #to_homepage{
@@ -854,9 +857,16 @@ look like the input gene list text title*/
 /*initialize no view for upload button*/
 #searchForm{
   display: none;
+  margin-top: 20px;
 }
 
 /*position file upload button*/
 #file_upload_button{
   margin-left: 5px;
+}
+
+/*style example_tsv*/
+#example_tsv{
+  width:275px;
+  padding-left: 20px;
 }

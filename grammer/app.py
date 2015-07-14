@@ -109,6 +109,8 @@ def jquery_upload_function():
       # get inst_line
       inst_line = lines[i].strip().split('\t')
 
+      print(inst_line)
+
       # get column labels from first row 
       if i == 0:
         tmp_col_labels = inst_line

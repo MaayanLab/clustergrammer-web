@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
     <link rel="stylesheet" href="static/css/custom.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="static/lib/css/prettify.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,7 +36,7 @@
 
 </head>
 
-<body>
+<body onload="prettyPrint()">
 
   <div id="wrapper" class='toggled'>
 
@@ -62,6 +63,15 @@
 
               <h1 id='website_title'> grammer </h1>
               <p class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and searchable clustergram. </p>
+
+              <p class='initial_paragraph'>The uploaded matrix should have the following format: </p>
+
+            <pre id='example_tsv' class='prettyprint'> 
+	Col-A	Col-B	Col-C
+Row-A	0.0	-0.1	1.0
+Row-B	3.0	0.0	8.0
+Row-C	0.2	0.1	2.5
+            </pre>
 
             <form id='searchForm' action="{{ url_for('jquery_upload_function') }}" method=post enctype=multipart/form-data>
               <input type=file name=file title='Choose File' onClick="console.log('clicking choose file button')" >
@@ -202,6 +212,9 @@
     $('input[type=file]').bootstrapFileInput();
     $('.file-inputs').bootstrapFileInput();
   </script>
+  <script type="text/javascript" src="static/lib/js/prettify.js"> </script>
+
+  <!-- style code -->
   <!-- Clustergram Scripts -->
   <script src='static/js/d3_clustergram.js'></script>
   <script src='static/js/load_local_network.js'></script>
