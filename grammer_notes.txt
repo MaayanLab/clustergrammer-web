@@ -6,10 +6,12 @@ grammer 7-14-2015
   debugger;
 
 To Do
-	1. fix overflow on the left bug
-	2. fix thin tiles bug
-	3. fix overflow from left side of column labels bug
+	*. fix overflow on the left bug
+	*. fix thin tiles bug
 	4. determine if network formatting is incorreact and alert user rather than failing
+	
+Low priority 
+	3. fix overflow from left side of column labels bug
 	5. set color of the clustergram based on matrix data, black for positive data only, red/blue for up/dn data. 
 	6. allow uploading excel files using python's excel uploading capabilities 
   

@@ -663,9 +663,11 @@ function set_visualization_size(){
   ////////////////////////
   // set up a scale that will prevent the visualization
   // from stretching a few rows across the entire width 
-  prevent_col_stetch = d3.scale.linear().domain([1,20]).range([0.05,1]).clamp('true');
+  var prevent_col_stretch = d3.scale.linear().domain([1,20]).range([0.05,1]).clamp('true');
 
-  viz_width = svg_width * prevent_col_stetch(col_nodes.length) ; 
+  //!! temporarily disable this 
+  // viz_width = svg_width * prevent_col_stretch(col_nodes.length) ; 
+  viz_width = svg_width  ; 
 
   // viz_height 
   ////////////////
