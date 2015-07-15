@@ -21,11 +21,11 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' ## original 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' ## original 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
 
 
 # define allowed extension
