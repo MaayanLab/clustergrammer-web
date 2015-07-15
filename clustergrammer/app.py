@@ -15,17 +15,17 @@ from flask import send_from_directory
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
 
-ENTRY_POINT = '/grammer'
+ENTRY_POINT = '/clustergrammer'
 
 # switch for local and docker development 
 # docker_vs_local
 ##########################################
 
 # for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/grammer/grammer' ## original 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' ## original 
 
 # # for docker development
-# SERVER_ROOT = '/app/grammer'
+# SERVER_ROOT = '/app/clustergrammer'
 
 
 # define allowed extension
@@ -42,7 +42,7 @@ def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
 
-@app.route("/grammer/")
+@app.route("/clustergrammer/")
 def index():
   print('Rendering index template')
   return render_template("index.html")
@@ -50,7 +50,7 @@ def index():
 
 # Jquery upload file 
 ############################
-@app.route('/grammer/jquery_upload/', methods=['GET','POST'])
+@app.route('/clustergrammer/jquery_upload/', methods=['GET','POST'])
 def jquery_upload_function():
   import flask 
   import make_exp_clustergram

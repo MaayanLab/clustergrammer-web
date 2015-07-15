@@ -1,1 +1,1 @@
-from grammer.app import app as application
+from clustergrammer.app import app as application
