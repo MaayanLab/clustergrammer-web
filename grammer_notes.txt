@@ -14,5 +14,29 @@ Low priority
 	3. fix overflow from left side of column labels bug
 	5. set color of the clustergram based on matrix data, black for positive data only, red/blue for up/dn data. 
 	6. allow uploading excel files using python's excel uploading capabilities 
-  
 
+grammer 7-15-2015  
+
+	Avi recommended changes
+		1. Suggests to rename it Clustogrammer instead of grammer
+		2. Add options
+			a. colors
+			b. cluster by rows or columns only
+			c. specify distance metric
+			d. specify linkage type
+		3. Allow users to manually swap the orders of the rows and columns
+		4. Provide save functionality to SVG, EPS, PNG, PDF
+		5. PRovide APIs that will submit the matrix to you as a JSON and they you will fire the app in a new winow or embedded in an existing page. 
+
+	I'm going to implement the following changes, which are a combination of my own and Avi's changes. 
+
+	To Do
+		1. save data to mongodb, provide permanent link to user 
+		1.1 provide export image capability, SVG, EPS, PNG, PDF
+		2. add user login 
+		3. add clustering/viz options (manual reordering)
+		4. Provide API that GEO2Enrichr can talk to 
+		5. add note taking capabilities 
+
+mongodb
+	Qiaonan will send me the ip address for mongodb, the one hosted on one of our servers. I can then make a database within the mongodb, use robmongo for something(?) and then write to the database using Pymongo. 
