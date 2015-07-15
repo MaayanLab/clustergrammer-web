@@ -21,11 +21,11 @@ ENTRY_POINT = '/grammer'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/grammer/grammer' ## original 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/grammer/grammer' ## original 
 
-# for docker development
-SERVER_ROOT = '/app/grammer'
+# # for docker development
+# SERVER_ROOT = '/app/grammer'
 
 
 # define allowed extension
