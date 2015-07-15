@@ -1,0 +1,49 @@
+Adding user `r' ...
+Adding new group `r' (1000) ...
+Registered executor on ada.1425mad.mssm.edu
+Starting task grammer.8842d3d0-2a71-11e5-9006-56847afe9799
+Forked command at 10340
+/bin/sh -c exit `docker wait mesos-9e93d9e5-4b5b-4bbe-9b72-e5854f204fa9` 
+Adding user `r' ...
+Adding new group `r' (1000) ...
+Adding new user `r' (1000) with group `r' ...
+Creating home directory `/home/r' ...
+Copying files from `/etc/skel' ...
+Server URL         : http://localhost/
+Server Root        : /etc/app
+Server Conf        : /etc/app/httpd.conf
+Error Log File     : /etc/app/error_log (warn)
+Environ Variables  : /etc/app/envvars
+Control Script     : /etc/app/apachectl
+Request Capacity   : 5 (1 process * 5 threads)
+Request Timeout    : 60 (seconds)
+Queue Backlog      : 100 (connections)
+Queue Timeout      : 45 (seconds)
+Server Capacity    : 20 (event/worker), 20 (prefork)
+Server Backlog     : 500 (connections)
+Locale Setting     : C.UTF-8
+[Tue Jul 14 21:45:17 2015] [notice] Apache/2.2.22 (Debian) mod_wsgi/4.4.11 Python/2.7.3 configured -- resuming normal operations
+[Tue Jul 14 21:46:51 2015] [error] Rendering index template
+[Tue Jul 14 21:48:31 2015] [error] Rendering index template
+[Tue Jul 14 21:49:12 2015] [error] Rendering index template
+[Tue Jul 14 21:50:23 2015] [error] Rendering index template
+[Tue Jul 14 21:56:22 2015] [error] Rendering index template
+[Tue Jul 14 21:59:51 2015] [error] Rendering index template
+[Tue Jul 14 22:03:19 2015] [error] Rendering index template
+[Tue Jul 14 22:07:04 2015] [error] Rendering index template
+[Tue Jul 14 22:24:30 2015] [error] Rendering index template
+[Tue Jul 14 22:31:11 2015] [error] Rendering index template
+[Tue Jul 14 22:31:49 2015] [error] Rendering index template
+[Tue Jul 14 22:31:56 2015] [error] Rendering index template
+[Tue Jul 14 22:38:01 2015] [error] /usr/lib/python2.7/dist-packages/scipy/spatial/distance.py:313: RuntimeWarning: invalid value encountered in double_scalars
+[Tue Jul 14 22:38:01 2015] [error]   dist = 1.0 - np.dot(u, v) / (norm(u) * norm(v))
+Shutting down
+Sending SIGTERM to process tree at pid 10340
+Killing the following process trees:
+[ 
+-+- 10340 /bin/sh -c exit `docker wait mesos-9e93d9e5-4b5b-4bbe-9b72-e5854f204fa9` 
+ \--- 10341 docker wait mesos-9e93d9e5-4b5b-4bbe-9b72-e5854f204fa9 
+]
+Command terminated with signal Terminated (pid: 10340)
+
+POST http://amp.pharm.mssm.edu/jquery_upload/ 404 (Not Found)

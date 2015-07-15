@@ -12,8 +12,6 @@ from flask import send_from_directory
 # # change routing of logs when running docker 
 # logging.basicConfig(stream=sys.stderr) 
 
-
-
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
 
@@ -52,7 +50,7 @@ def index():
 
 # Jquery upload file 
 ############################
-@app.route('/jquery_upload/', methods=['GET','POST'])
+@app.route('/grammer/jquery_upload/', methods=['GET','POST'])
 def jquery_upload_function():
   import flask 
   import make_exp_clustergram
