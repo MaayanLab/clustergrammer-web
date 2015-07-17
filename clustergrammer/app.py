@@ -9,6 +9,23 @@ from logging.handlers import RotatingFileHandler
 import os
 from flask import send_from_directory
 
+# import mongo related things 
+# method from donorschoose not working 
+# from pymongo import Connection
+
+# method from python_mongo_tutorial
+from pymongo import MongoClient
+
+import json
+from bson import json_util
+from bson.json_util import dumps
+
+# set up connection 
+client = MongoClient()
+
+db = client.new_db
+
+
 # # change routing of logs when running docker 
 # logging.basicConfig(stream=sys.stderr) 
 
@@ -45,6 +62,8 @@ def send_static(path):
 @app.route("/clustergrammer/")
 def index():
   print('Rendering index template')
+
+
   return render_template("index.html")
 
 
@@ -57,6 +76,13 @@ def jquery_upload_function():
   import d3_clustergram
   import numpy as np
   
+  # add some database interaction
+  ##################################
+  cursor = db.new_collection.find()
+  # print all documents in database 
+  for doc in cursor:
+    print(doc)
+
   # # don't know if I need this 
   # error = None 
 
