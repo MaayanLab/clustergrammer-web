@@ -20,12 +20,6 @@ import json
 from bson import json_util
 from bson.json_util import dumps
 
-# set up connection 
-client = MongoClient()
-
-db = client.new_db
-
-
 # # change routing of logs when running docker 
 # logging.basicConfig(stream=sys.stderr) 
 
@@ -90,6 +84,11 @@ def jquery_upload_function():
   # # python dbeugger
   # ###################
   # import pdb; pdb.set_trace()
+
+
+  # set up connection 
+  client = MongoClient()
+  db = client.new_db
 
   # get the filename 
   inst_filename = flask.request.files['file'].filename
@@ -158,60 +157,28 @@ def jquery_upload_function():
     # # check status of matrix   
     # print(network['data_mat'])
 
-    # # convert data_mat to list before exporting as json
-    # network['data_mat'] = network['data_mat'].tolist()
-
     # run make_grammer_clustergram 
     d3_json = make_exp_clustergram.make_grammer_clustergram(network)
 
+    # convert data_mat to list before exporting as json
+    network['data_mat'] = network['data_mat'].tolist()
 
-    # inst_dict = d3_json
-
-    print(d3_json.keys())
-    print(d3_json['links'][0])
-
-    # # make dictionary 
-    # inst_dict = {}
-    # inst_dict['where'] = [1,1]
-
-    export_dict = d3_json
-
-    inst_dict = {'source': 0, 'target': 0, 'value': -0.79280357071999996}
-
-    # # change numpyfloat to float 
-    # export_dict['value'] = float(export_dict['value'])
-
-    export_dict = dict(export_dict)
-
-    print('\n\nexport_dict')
-    print(type(export_dict))
-    print(export_dict)
-    for inst_key in export_dict:
-      print(type(export_dict[inst_key]))
-
-    print('\n\n')
-    
-
-    print('inst_dict')
-    print(type(inst_dict))
-    print(inst_dict)
-    for inst_key in inst_dict:
-      print(type(inst_dict[inst_key]))
-
-    print('\n\n')
-
-    # # # d3_json_export = flask.jsonify(d3_json)
-    # d3_json_export = d3_json['row_nodes'][0]
-
-    # print(type(d3_json_export))
-
-    # from bson import Binary, Code
-    # from bson.json_util import dumps
+    # generate export dictionary 
+    ###############################
+    export_dict = {}
+    # save name of network 
+    export_dict['name'] = inst_filename
+    # initial network information, including data_mat array
+    export_dict['network'] = network
+    # d3 json used for visualization (already clustered)
+    export_dict['d3_json'] = d3_json
 
     # save json as new collection 
     ##################################
-    # db.networks.insert( inst_dict )    
     db.networks.insert( export_dict )    
+
+    # close client
+    client.close()
 
     # return the network in json form 
     return flask.jsonify(d3_json)
@@ -224,7 +191,6 @@ def jquery_upload_function():
   # # return an error if the request is not a post 
   # else:
   #   return 'erorr'
-
 
 
 if __name__ == "__main__":
