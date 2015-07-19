@@ -49,19 +49,34 @@ def allowed_file(filename):
 @app.route(ENTRY_POINT + '/<path:path>') ## original 
 # @crossdomain(origin='*')
 def send_static(path):
-  
   return send_from_directory(SERVER_ROOT, path)
 
 
 @app.route("/clustergrammer/")
 def index():
   print('Rendering index template')
-
-
   return render_template("index.html")
 
+# load previous result route 
+@app.route('/clustergrammer/load_saved/', methods=['GET'])
+def load_saved():
+  import flask
 
-# Jquery upload file 
+  # set up connection 
+  client = MongoClient()
+  db = client.new_db
+
+  # make query for data with name 'from_excel.txt'
+  cursor = db.networks.find_one({'name':'from_excel.txt'})
+
+  print(cursor['name'])
+
+  # close connection 
+  client.close()
+
+  return flask.jsonify( cursor['d3_json'] ) 
+
+# Jquery upload file route 
 ############################
 @app.route('/clustergrammer/jquery_upload/', methods=['GET','POST'])
 def jquery_upload_function():
@@ -70,21 +85,8 @@ def jquery_upload_function():
   import d3_clustergram
   import numpy as np
   
-  # # add some database interaction
-  # ##################################
-  # cursor = db.new_collection.find()
-
-  # # print all documents in database 
-  # for doc in cursor:
-  #   print(doc)
-
   # # don't know if I need this 
   # error = None 
-
-  # # python dbeugger
-  # ###################
-  # import pdb; pdb.set_trace()
-
 
   # set up connection 
   client = MongoClient()
@@ -153,9 +155,6 @@ def jquery_upload_function():
         # add rows to matrix
         if i > 1:
           network['data_mat'] = np.vstack( (network['data_mat'], inst_data_row) )
-
-    # # check status of matrix   
-    # print(network['data_mat'])
 
     # run make_grammer_clustergram 
     d3_json = make_exp_clustergram.make_grammer_clustergram(network)

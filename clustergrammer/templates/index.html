@@ -80,6 +80,8 @@ Row-C	0.2	0.1	2.5
               <input class='btn btn-primary' id='file_upload_button'  type=submit value=Upload>
             </form>
 
+            <input class='btn btn-primary' id='load_saved' type=submit value=Load onClick="load_saved_clust();" >
+
             </div>
             <!-- end homepage -->
 
@@ -262,7 +264,7 @@ Row-C	0.2	0.1	2.5
   // set global variable for svg type
   select_svg_div = 'svg_div_exp';
 
-  // request clustergram 
+  // submit file for clustering
   $( "#searchForm" ).submit( function( event ) {
 
     // stop form from working normally 
@@ -337,6 +339,91 @@ Row-C	0.2	0.1	2.5
    }
 
   });
+
+  // request saved clustergram 
+  function load_saved_clust(){
+  
+
+    console.log('loading previously saved document')
+
+    // set up wait message before request is made 
+    $.blockUI({ css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .8, 
+            color: '#fff' 
+        } });
+
+    $.get( "load_saved", function( network ) {
+      console.log('successful get request')
+
+      // callback function 
+      //////////////////////
+
+      // save clustergram is global variable
+      global_network_data = network;
+      console.log('success')
+      console.log(network)
+      $.unblockUI();
+
+      // swap views 
+      d3.selectAll('#homepage_view').style('display','none');
+      d3.select('#svg_div_tfsub').style('display','none');
+      d3.select('#gene_exp_view').style('display','block');
+      d3.select('#svg_div_exp').style('display','block');
+
+      load_new_clustergram(network);
+
+      $.unblockUI();
+    });
+
+    // $.ajax({
+    //   url: 'clustergrammer/load_saved/',
+    //   type: 'GET',
+    //   // data: form_data,
+    //   // Tell jQuery not to process data or worry about content-type.
+    //   cache: false,
+    //   contentType: false,
+    //   processData: false,
+    //   success: function(network) {
+
+    //     console.log('successful get request')
+
+    //   //   // callback function 
+    //   //   //////////////////////
+
+    //   //   // save clustergram is global variable
+    //   //   global_network_data = network;
+    //   //   console.log('success')
+    //   //   console.log(network)
+    //   //   $.unblockUI();
+
+    //   //   // swap views 
+    //   //   d3.selectAll('#homepage_view').style('display','none');
+    //   //   d3.select('#svg_div_tfsub').style('display','none');
+    //   //   d3.select('#gene_exp_view').style('display','block');
+    //   //   d3.select('#svg_div_exp').style('display','block');
+
+    //   //   load_new_clustergram(network);
+
+    //   //   return false
+    //   },
+    //   error: function(network) {
+    //     // // loader.stop();
+    //     // // console.log(network);
+    //     // console.log('request failed')
+    //     // $.unblockUI();
+    //     // $('#modal_wrong_filetype').modal()
+
+    //     console.log('unsuccessful get request')
+    //   }
+
+    // });
+
+  };
 
 </script>
 
