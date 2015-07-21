@@ -35,8 +35,33 @@ grammer 7-15-2015
 		1.1 provide export image capability, SVG, EPS, PNG, PDF
 		2. add user login 
 		3. add clustering/viz options (manual reordering)
-		4. Provide API that GEO2Enrichr can talk to 
+		4. Provide API that GEO2Enrichr can comunitate with 
 		5. add note taking capabilities 
+		6. d3 viz changes
+			1. add row and col labels into svg and have inputs for these
+			2. fix zoom reset bug
+			3. fix hover highlighting bug
+			4. add row labeling triangles 
+			5. remove global variables 
+			6. set sizing to outside div
+			7. clean up column label spillover on left side
+			8. clean up variable height of tiles
+			9. fix narrow tile bug 
+			10. allow column search 
+			11. improve row/column highlighting search 
+			12. add triangles on row labels 
+			13. add optional callback function for clicking on tile 
+			14. get canvas version of the code working (will consist of one svg and one canvas)
+			15. set up optional highlighting of tiles if there is evidence added
+			16. set up optional highlighting of rows/cols if there is evidence 
+			17. clean up how the matrix is made in d3_clustergram.js 
+			18. resize matrix with current view 
+			19. have variable domain/range controls
+			20. automatically identify clusters and control cluster sizes using variable incosistency 
+			21. add general ability to have bars on col and row titles 
+			22. have two fold group identification, user supplied groups as well as automatically identified groups 
+			23. add customizable major-row and major-col titles 
+
 
 mongodb
 	Qiaonan will send me the ip address for mongodb, the one hosted on one of our servers. I can then make a database within the mongodb, use robmongo for something(?) and then write to the database using Pymongo. 

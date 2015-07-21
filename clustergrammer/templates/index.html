@@ -240,8 +240,6 @@ Row-C	0.2	0.1	2.5
 
   <script>
   
-  
-
   // switch to homepage 
   function to_homepage(){
     // switch to homepage 
@@ -343,7 +341,6 @@ Row-C	0.2	0.1	2.5
   // request saved clustergram 
   function load_saved_clust(){
   
-
     console.log('loading previously saved document')
 
     // set up wait message before request is made 
@@ -357,11 +354,9 @@ Row-C	0.2	0.1	2.5
             color: '#fff' 
         } });
 
+    // get request 
     $.get( "load_saved", function( network ) {
       console.log('successful get request')
-
-      // callback function 
-      //////////////////////
 
       // save clustergram is global variable
       global_network_data = network;
@@ -375,6 +370,7 @@ Row-C	0.2	0.1	2.5
       d3.select('#gene_exp_view').style('display','block');
       d3.select('#svg_div_exp').style('display','block');
 
+      // load new clustergram 
       load_new_clustergram(network);
 
       $.unblockUI();
