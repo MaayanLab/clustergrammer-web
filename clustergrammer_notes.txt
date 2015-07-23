@@ -39,21 +39,25 @@ grammer 7-15-2015
 		5. add note taking capabilities 
 		6. d3 viz changes
 			2. fix zoom reset bug
-			3. fix hover highlighting bug - it appears to only hover when its over the border lines 
-			6. set sizing to outside div
-			7. clean up column label spillover on left side
 			8. clean up variable height of tiles
 			9. fix narrow tile bug 
 			10. allow column search 
 			11. improve row/column highlighting search 
-			13. add optional callback function for clicking on tile 
 			15. set up optional highlighting of tiles if there is evidence added
 			20. automatically identify clusters and control cluster sizes using variable incosistency 
 			21. add general ability to have bars on col and row titles 
-			22. have two fold group identification, user supplied groups as well as automatically identified groups 
+			22. add simplified hierarchical clustes view made from colored rects 
 			25. have the numeric value appear on hover over a tile
+			16. clean up the css, there are a huge number of unnecessary components in the custom css 
+			17. add initial ordering as an optional argument, default to 'clust'
+			19. improve onclick callback function - prevent click when dragging and double clicking 
 			14. get canvas version of the code working (will consist of one svg and one canvas)
-			15. fix scrolling bug, the entire page scrolls slightly to the left or right when panning the clustergram
+			-. fix hover highlighting bug - it appears to only hover when its over the border lines 
+			-. set sizing to outside div
+			-. clean up column label spillover on left side
+			-. add optional callback function for clicking on tile 
+			-. fix scrolling bug, the entire page scrolls slightly to the left or right when panning the clustergram
+			-. allow fixed or variable clustergram size, default to varaible with required outer margins 
 			-. clean up how the matrix is made in d3_clustergram.js 
 			-. have variable domain/range cutoff controls, have it default to the max up/dn from the data 
 			-. add row and col labels into svg and have inputs for these
