@@ -38,25 +38,27 @@ grammer 7-15-2015
 		4. Provide API that GEO2Enrichr can comunitate with 
 		5. add note taking capabilities 
 		6. d3 viz changes
-			1. add simplified hierarchical clustes view made from colored rects 
-			2. fix zoom reset bug
-			8. clean up variable height of tiles
-			9. fix narrow tile bug 
-			10. allow column search 
-			11. improve row/column highlighting search 
-			15. set up optional highlighting of tiles if there is evidence added
-			20. automatically identify clusters and control cluster sizes using variable incosistency 
-			21. add general ability to have bars on col and row titles 
-			25. have the numeric value appear on hover over a tile
-			16. clean up the css, there are a huge number of unnecessary components in the custom css 
-			17. add initial ordering as an optional argument, default to 'clust'
-			19. improve onclick callback function - prevent click when dragging and double clicking 
-			14. get canvas version of the code working (will consist of one svg and one canvas)
-			15. set up variable color triangles 
-			16. allow ordering by user-defined categories 
-			17. allow more than one user-defined categories with user-defined category-names and colors 
-			18. keep the horizontal white lines in place during the transition - only move the tiles 
-				- user defined categories can be defined in the row/col nodes or in the input matrix 
+			1. add general ability to have bars on col and row titles 
+			2. add dendrogram-like view made from colored rects 
+			3. fix zoom reset col/row label reordering bug
+			4. clean up variable height of tiles
+			5. fix narrow tile bug 
+			6. improve row/column highlighting search 
+			7. set up optional highlighting of tiles if there is evidence added
+			8. automatically identify clusters and control cluster sizes using variable incosistency 
+			9. have the numeric value appear on hover over a tile
+			10. clean up the css, there are a huge number of unnecessary components in the custom css 
+			11. add initial ordering as an optional argument, default to 'clust'
+			12. improve onclick callback function - prevent click when dragging and double clicking 
+			13. get canvas version of the code working (will consist of one svg and one canvas)
+			14. set up variable color triangles 
+			15. allow ordering by user-defined categories 
+			16. allow more than one user-defined categories with user-defined category-names and colors 
+			17. keep the horizontal white lines in place during the transition - only move the tiles 
+			18. allow manual switching of rows and columns (its not clear how to allow the user to control this)
+			19. column search highlighting only (no zooming)
+			-. allow column search (this is not a feature I want right now, I will limit column search to highlighting)
+			- user defined categories can be defined in the row/col nodes or in the input matrix 
 			-. fix hover highlighting bug - it appears to only hover when its over the border lines 
 			-. set sizing to outside div
 			-. clean up column label spillover on left side
