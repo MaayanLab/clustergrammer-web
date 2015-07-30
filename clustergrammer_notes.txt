@@ -37,40 +37,50 @@ grammer 7-15-2015
 		3. add clustering/viz options (manual reordering)
 		4. Provide API that GEO2Enrichr can comunitate with 
 		5. add note taking capabilities 
-		6. d3 viz changes
-			1. add onclick callback function for group rects that will return group rows/cols 
-			2. allow ordering by user-defined categories 
-			3. add general ability to have bars on col and row titles 
-			4. fix zoom reset col/row label reordering bug
-			5. clean up variable height of tiles
-			6. fix narrow tile bug 
-			7. improve row/column highlighting search 
-			8. have the numeric value appear on hover over a tile
-			9. clean up the css, there are a huge number of unnecessary components in the custom css 
-			10. improve onclick callback function - prevent click when dragging and double clicking 
-			11. get canvas version of the code working (will consist of one svg and one canvas)
-			12. keep the horizontal white lines in place during the transition - only move the tiles 
-			13. column search highlighting only (no zooming)
-			14. allow manual switching of rows and columns (its not clear how to allow the user to control this)
-			-. set up variable color triangles 
-			-. set up optional highlighting of tiles if there is evidence added
-			-. automatically identify clusters and control cluster sizes using variable incosistency 
-			-. add dendrogram-like view made from colored rects 
-			-. allow column search (this is not a feature I want right now, I will limit column search to highlighting)
-			-. add initial ordering as an optional argument, default to 'clust'
-			- user defined categories can be defined in the row/col nodes or in the input matrix 
-			-. fix hover highlighting bug - it appears to only hover when its over the border lines 
-			-. set sizing to outside div
-			-. clean up column label spillover on left side
-			-. add optional callback function for clicking on tile 
-			-. fix scrolling bug, the entire page scrolls slightly to the left or right when panning the clustergram
-			-. allow fixed or variable clustergram size, default to varaible with required outer margins 
-			-. clean up how the matrix is made in d3_clustergram.js 
-			-. have variable domain/range cutoff controls, have it default to the max up/dn from the data 
-			-. add row and col labels into svg and have inputs for these
-			-. add row labeling triangles 
-			-. remove global variables 
-			--. allow more than one user-defined categories with user-defined category-names and colors (not going to do this)
+
+	d3_clustergram to do 
+		1. add README.md 
+
+	Low Priority 
+		0. modularize the group highlighting section - have the slider only return the cutoff and row, then do the rest automatically
+		0. set up class key for row/col
+		1. add general ability to have bars on col and row titles 
+		1. clean up variable height of tiles
+		2. fix narrow tile bug 
+		3. improve row/column highlighting search 
+		4. have the numeric value appear on hover over a tile
+		5. improve onclick callback function - prevent click when dragging and double clicking 
+		6. get canvas version of the code working (will consist of one svg and one canvas)
+		7. keep the horizontal white lines in place during the transition - only move the tiles 
+		8. column search highlighting only (no zooming)
+		9. allow manual switching of rows and columns (its not clear how to allow the user to control this)
+		10. possibly add clicking on class triangles 
+
+	Done 
+		-. upgrade the d3_clustergram gist with new d3_clustergram.js 
+		-. clean up the css, there are a huge number of unnecessary components in the custom css 
+		-. allow ordering by user-defined categories 
+		-. fix zoom reset col/row label reordering bug
+		-. add onclick callback function for group rects that will return group rows/cols 
+		-. set up variable color triangles 
+		-. set up optional highlighting of tiles if there is evidence added
+		-. automatically identify clusters and control cluster sizes using variable incosistency 
+		-. add dendrogram-like view made from colored rects 
+		-. add initial ordering as an optional argument, default to 'clust'
+		-. user defined categories can be defined in the row/col nodes or in the input matrix 
+		-. fix hover highlighting bug - it appears to only hover when its over the border lines 
+		-. set sizing to outside div
+		-. clean up column label spillover on left side
+		-. add optional callback function for clicking on tile 
+		-. fix scrolling bug, the entire page scrolls slightly to the left or right when panning the clustergram
+		-. allow fixed or variable clustergram size, default to varaible with required outer margins 
+		-. clean up how the matrix is made in d3_clustergram.js 
+		-. have variable domain/range cutoff controls, have it default to the max up/dn from the data 
+		-. add row and col labels into svg and have inputs for these
+		-. add row labeling triangles 
+		-. remove global variables 
+		--. allow column search (this is not a feature I want right now, I will limit column search to highlighting)
+		--. allow more than one user-defined categories with user-defined category-names and colors (not going to do this)
 
 
 	row/col nodes will have the following information 

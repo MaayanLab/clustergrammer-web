@@ -67,7 +67,8 @@ def load_saved():
   db = client.new_db
 
   # make query for data with name 'from_excel.txt'
-  cursor = db.networks.find_one({'name':'from_excel.txt'})
+  # cursor = db.networks.find_one({'name':'from_excel.txt'})
+  cursor = db.networks.find_one({'name':'small_neurolincs_matrix.txt'})
 
   print(cursor['name'])
 
