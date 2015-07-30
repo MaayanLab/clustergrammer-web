@@ -8,27 +8,51 @@ function change_zscore_clustergram(inst_zscore_cutoff){
 
 };
 
-function load_new_clustergram(network){
+function load_new_clustergram(network_data){
 
-	// pass the network data to d3_clustergram 
-	make_d3_clustergram(network);
+	// // pass the network data to d3_clustergram 
+	// make_d3_clustergram(network);
 
-	// generate a list of genes for auto complete 
-	////////////////////////////////////////////////
-	// get all genes 
-	all_genes = [];
+	// define the outer margins of the visualization 
+	var outer_margins = {
+	    'top':10,
+	    'bottom':40,
+	    'left':180,
+	    'right':70
+	  };
 
-	// loop through row_nodes
-	for (i=0; i<row_nodes.length; i++){
-		all_genes.push( row_nodes[i]['name'] ); 
+	// define callback function for clicking on tile 
+	function click_tile_callback(tile_info){
+		console.log('my callback')
+		console.log('clicking on ' + tile_info.row + ' row and ' + tile_info.col + ' col with value ' + String(tile_info.value))
 	};
 
-	// use Jquery autocomplete
-	////////////////////////////////
-  $( "#gene_search_box" ).autocomplete({
-    source: all_genes
-  });
+	// define callback function for clicking on group 
+	function click_group_callback(group_info){
+		console.log('running user defined click group callback')
+		console.log(group_info.type);
+		console.log(group_info.nodes);
+		console.log(group_info.info);
+	};
 
+	// define arguments object 
+	var arguments_obj = {
+		'network_data': network_data,
+		'svg_div_id': 'svg_div',
+		// 'row_label':'Rows',
+		// 'col_label':'Columns',
+	  'outer_margins': outer_margins,
+	  // 'input_domain':7,
+	  'click_tile': click_tile_callback,
+	  'click_group': click_group_callback
+	  // 'resize':'no',
+	  // 'order':'rank'
+	};
+
+	// make clustergram: pass network_data and the div name where the svg should be made 
+	d3_clustergram.make_clust( arguments_obj );
+
+	
 
 }
 
