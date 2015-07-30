@@ -101,10 +101,10 @@ Row-C	0.2	0.1	2.5
                   <div id='button_container'>
                     
                     <div id='toggle_order' class="btn-group" data-toggle="buttons" >
-                      <label class="btn btn-primary active prot_class" onclick="ccle_params['order']='clust'; reorder_clust_rank();">
+                      <label class="btn btn-primary active prot_class" onclick="d3_clustergram.reorder_clust_rank('clust');">
                         <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
                       </label>
-                      <label class="btn btn-primary prot_class" onclick="ccle_params['order']='rank'; reorder_clust_rank();">
+                      <label class="btn btn-primary prot_class" onclick="d3_clustergram.reorder_clust_rank('rank');">
                         <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
                       </label>
                     </div>
@@ -115,7 +115,7 @@ Row-C	0.2	0.1	2.5
                       <input id='gene_search_box' type="text" class="form-control" placeholder="Input row" aria-describedby="sizing-addon2">
 
                       <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
-                        <label id='submit_gene_button' class="btn btn-primary active " onclick="find_gene_in_clust();">
+                        <label id='submit_gene_button' class="btn btn-primary active " onclick="d3_clustergram.find_gene_in_clust();">
                           <input type="radio" name="options" id="" autocomplete="off" checked > Search
                         </label>
                       </div>
@@ -132,7 +132,7 @@ Row-C	0.2	0.1	2.5
                   <!-- <div id='clust_and_row_container'> -->
                   <!-- </div> -->
                 <!-- </div> -->
-                
+
               </div>
             </div>
             <!-- end visualization -->
@@ -350,27 +350,61 @@ Row-C	0.2	0.1	2.5
             color: '#fff' 
         } });
 
-    // get request 
-    $.get( "load_saved", function( network ) {
-      console.log('successful get request')
 
-      // save clustergram is global variable
-      global_network_data = network;
-      console.log('success')
-      console.log(network)
-      $.unblockUI();
+    // // get request 
+    // $.get( "load_saved", function( network ) {
+    //   console.log('successful get request')
 
-      // swap views 
-      d3.selectAll('#homepage_view').style('display','none');
-      d3.select('#svg_div_tfsub').style('display','none');
-      d3.select('#gene_exp_view').style('display','block');
-      d3.select('#svg_div_exp').style('display','block');
+    //   // save clustergram is global variable
+    //   global_network_data = network;
+    //   console.log('success')
+    //   console.log(network)
 
-      // load new clustergram 
-      load_new_clustergram(network);
+    //   // swap views 
+    //   d3.selectAll('#homepage_view').style('display','none');
+    //   d3.select('#svg_div_tfsub').style('display','none');
+    //   d3.select('#gene_exp_view').style('display','block');
+    //   d3.select('#svg_div_exp').style('display','block');
 
-      $.unblockUI();
+    //   // load new clustergram 
+    //   load_new_clustergram(network);
+
+    //   $.unblockUI();
+    // });
+
+    $.ajax({
+      url: "load_saved",
+      type: "get", //send it through get method
+      // data:{ajaxid:4,UserID: UserID , EmailAddress:encodeURIComponent(EmailAddress)},
+      // data:{'id':'from_excel.txt'},
+      data:{'id':'small_neurolincs_matrix.txt'},
+      success: function(network) {
+
+        console.log('successful get request')
+
+        // save clustergram is global variable
+        global_network_data = network;
+        console.log('success')
+        console.log(network)
+
+        // swap views 
+        d3.selectAll('#homepage_view').style('display','none');
+        d3.select('#svg_div_tfsub').style('display','none');
+        d3.select('#gene_exp_view').style('display','block');
+        d3.select('#svg_div_exp').style('display','block');
+
+        // load new clustergram 
+        load_new_clustergram(network);
+
+        $.unblockUI();
+
+
+      },
+      error: function(xhr) {
+        //Do Something to handle error
+      }
     });
+
 
     // $.ajax({
     //   url: 'clustergrammer/load_saved/',

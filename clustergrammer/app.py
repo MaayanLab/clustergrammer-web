@@ -66,9 +66,18 @@ def load_saved():
   client = MongoClient()
   db = client.new_db
 
+  print('\n\nLoad Saved\n\n')
+
+  querystring = request.args
+
+  querystring = dict(querystring)
+  load_filename = querystring['id'][0]
+  print(load_filename)
+
   # make query for data with name 'from_excel.txt'
-  cursor = db.networks.find_one({'name':'from_excel.txt'})
+  # cursor = db.networks.find_one({'name':'from_excel.txt'})
   # cursor = db.networks.find_one({'name':'small_neurolincs_matrix.txt'})
+  cursor = db.networks.find_one({'name':load_filename})
 
   print(cursor['name'])
 
