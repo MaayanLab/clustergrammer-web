@@ -79,6 +79,7 @@ def load_saved():
   # cursor = db.networks.find_one({'name':'small_neurolincs_matrix.txt'})
   cursor = db.networks.find_one({'name':load_filename})
 
+  print('name')
   print(cursor['name'])
 
   # close connection 

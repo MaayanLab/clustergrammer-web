@@ -67,10 +67,10 @@
               <p class='initial_paragraph'>The uploaded matrix should have the following format: </p>
 
             <pre id='example_tsv' class='prettyprint'> 
-	Col-A	Col-B	Col-C
-Row-A	0.0	-0.1	1.0
-Row-B	3.0	0.0	8.0
-Row-C	0.2	0.1	2.5
+  Col-A Col-B Col-C
+Row-A 0.0 -0.1  1.0
+Row-B 3.0 0.0 8.0
+Row-C 0.2 0.1 2.5
             </pre>
 
               <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
@@ -172,7 +172,7 @@ Row-C	0.2	0.1	2.5
 
           <div class="container-fluid">
 
-	          <h5 class="modal-title" id="gridSystemModalLabel">Please check your uploaded file to make sure it is in the correct tab-separated format and that it has the correct extension of .txt or .tsv.</h5>
+            <h5 class="modal-title" id="gridSystemModalLabel">Please check your uploaded file to make sure it is in the correct tab-separated format and that it has the correct extension of .txt or .tsv.</h5>
 
           </div>
         </div>
@@ -191,7 +191,7 @@ Row-C	0.2	0.1	2.5
 
           <div class="container-fluid">
 
-	          <h5 class="modal-title" id="gridSystemModalLabel">Please select a file to upload using the Choose File buton.</h5>
+            <h5 class="modal-title" id="gridSystemModalLabel">Please select a file to upload using the Choose File buton.</h5>
 
           </div>
         </div>
@@ -322,7 +322,7 @@ Row-C	0.2	0.1	2.5
           // console.log(network);
           console.log('request failed')
           $.unblockUI();
-	        $('#modal_wrong_filetype').modal()
+          $('#modal_wrong_filetype').modal()
         }
       });
 
@@ -376,8 +376,8 @@ Row-C	0.2	0.1	2.5
       url: "load_saved",
       type: "get", //send it through get method
       // data:{ajaxid:4,UserID: UserID , EmailAddress:encodeURIComponent(EmailAddress)},
-      // data:{'id':'from_excel.txt'},
-      data:{'id':'small_neurolincs_matrix.txt'},
+      data:{'id':'from_excel.txt'},
+      // data:{'id':'small_neurolincs_matrix.txt'},
       success: function(network) {
 
         console.log('successful get request')
@@ -456,4 +456,3 @@ Row-C	0.2	0.1	2.5
 
 </body>
 
-</html>
