@@ -14,7 +14,7 @@ def load_file(req_file, allowed_file):
 
   # set up connection 
   client = MongoClient()
-  db = client.new_db
+  db = client.clustergrammer
 
   # get the filename 
   inst_filename = req_file.filename
@@ -27,9 +27,12 @@ def load_file(req_file, allowed_file):
 
     net.load_lines_from_tsv_to_net(lines)
 
+    # # swap nans for zero 
+    # net.swap_nan_for_zero()
+
     # filter the matrix using cutoff and min_num_meet
     ###################################################
-    cutoff_meet = 0
+    cutoff_meet = 0.01
     min_num_meet = 2
     net.filter_network_thresh( cutoff_meet, min_num_meet )
 
@@ -40,19 +43,19 @@ def load_file(req_file, allowed_file):
     net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)
 
 
-    # # generate export dictionary 
-    # ###############################
-    # export_dict = {}
-    # # save name of network 
-    # export_dict['name'] = inst_filename
+    # generate export dictionary 
+    ###############################
+    export_dict = {}
+    # save name of network 
+    export_dict['name'] = inst_filename
     # # initial network information, including data_mat array
-    # export_dict['network'] = network
-    # # d3 json used for visualization (already clustered)
-    # export_dict['d3_json'] = d3_json
+    print(net.export_net_json('dat'))
+    # d3 json used for visualization (already clustered)
+    export_dict['viz'] = net.viz
 
-    # # save json as new collection 
-    # ##################################
-    # db.networks.insert( export_dict )    
+    # save json as new collection 
+    ##################################
+    db.networks.insert( export_dict )    
 
     # close client
     client.close()

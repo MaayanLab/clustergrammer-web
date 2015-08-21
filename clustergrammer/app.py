@@ -63,7 +63,7 @@ def load_saved():
 
   # set up connection 
   client = MongoClient()
-  db = client.new_db
+  db = client.clustergrammer
 
   print('\n\nLoad Saved\n\n')
 
