@@ -6,6 +6,11 @@ def load_file(req_file, allowed_file):
   import make_exp_clustergram
   from pymongo import MongoClient
   from flask import request
+  # import network class from Network.py
+  from d3_clustergram_class import Network
+
+  # initiate class network 
+  net = Network()
 
   # set up connection 
   client = MongoClient()
@@ -20,86 +25,41 @@ def load_file(req_file, allowed_file):
     # read file
     lines = req_file.readlines()
 
-    # initialize dictionary 
-    #############################
-    network = {}
-    network['nodes'] = {}
-    network['nodes']['row'] = []
-    network['nodes']['col'] = []
+    net.load_lines_from_tsv_to_net(lines)
 
-    # get the row and column labels and data from lines 
-    #####################################################
-    for i in range(len(lines)):
+    # filter the matrix using cutoff and min_num_meet
+    ###################################################
+    cutoff_meet = 0
+    min_num_meet = 2
+    net.filter_network_thresh( cutoff_meet, min_num_meet )
 
-      # get inst_line
-      inst_line = lines[i].split('\t')
+    # cluster 
+    #############
+    cutoff_comp = 0
+    min_num_comp = 2
+    net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)
 
-      # strip each element 
-      inst_line = [z.strip() for z in inst_line]
 
-      # get column labels from first row 
-      if i == 0:
-        tmp_col_labels = inst_line
+    # # generate export dictionary 
+    # ###############################
+    # export_dict = {}
+    # # save name of network 
+    # export_dict['name'] = inst_filename
+    # # initial network information, including data_mat array
+    # export_dict['network'] = network
+    # # d3 json used for visualization (already clustered)
+    # export_dict['d3_json'] = d3_json
 
-        # add the labels
-        for inst_elem in range(len(tmp_col_labels)):
-
-          # skip the first element 
-          if inst_elem > 0:
-            # get the column label 
-            inst_col_label = tmp_col_labels[inst_elem]
-
-            # ignore first element 
-            network['nodes']['col'].append(inst_col_label)
-
-      # get row labels 
-      if i > 0:
-
-        # save row labels 
-        network['nodes']['row'].append(inst_line[0])
-
-        # get data (still strings)
-        inst_data_row = inst_line[1:]
-
-        # convert strings to floats 
-        inst_data_row = [float(x) for x in inst_data_row]
-
-        # save the row data as an arry 
-        inst_data_row =  np.asarray(inst_data_row) 
-
-        # initialize the matrix 
-        if i == 1:
-          network['data_mat'] = inst_data_row
-
-        # add rows to matrix
-        if i > 1:
-          network['data_mat'] = np.vstack( (network['data_mat'], inst_data_row) )
-
-    # run make_grammer_clustergram 
-    d3_json = make_exp_clustergram.make_grammer_clustergram(network)
-
-    # convert data_mat to list before exporting as json
-    network['data_mat'] = network['data_mat'].tolist()
-
-    # generate export dictionary 
-    ###############################
-    export_dict = {}
-    # save name of network 
-    export_dict['name'] = inst_filename
-    # initial network information, including data_mat array
-    export_dict['network'] = network
-    # d3 json used for visualization (already clustered)
-    export_dict['d3_json'] = d3_json
-
-    # save json as new collection 
-    ##################################
-    db.networks.insert( export_dict )    
+    # # save json as new collection 
+    # ##################################
+    # db.networks.insert( export_dict )    
 
     # close client
     client.close()
 
     # return the network in json form 
-    return flask.jsonify(d3_json)
+    # return flask.jsonify(d3_json)
+    return flask.jsonify(net.viz)
 
   else:
     print('error in file upload - check filetype')

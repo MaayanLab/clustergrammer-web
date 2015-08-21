@@ -23,12 +23,15 @@ class Network(object):
 		self.viz['links'] = []
 
 	def load_tsv_to_net(self, filename):
-		import numpy as np
 
 		f = open(filename,'r')
 		lines = f.readlines()
 		f.close()
 
+		self.load_lines_from_tsv_to_net(lines)
+
+	def load_lines_from_tsv_to_net(self, lines):
+		import numpy as np
 		# get row/col labels and data from lines 
 		for i in range(len(lines)):
 
