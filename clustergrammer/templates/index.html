@@ -67,10 +67,10 @@
               <p class='initial_paragraph'>The uploaded matrix should have the following format: </p>
 
             <pre id='example_tsv' class='prettyprint'> 
-  Col-A Col-B Col-C
-Row-A 0.0 -0.1  1.0
-Row-B 3.0 0.0 8.0
-Row-C 0.2 0.1 2.5
+       Col-A   Col-B   Col-C
+Row-A   0.0    -0.1     1.0
+Row-B   3.0     0.0     8.0
+Row-C   0.2     0.1     2.5
             </pre>
 
               <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
@@ -101,10 +101,10 @@ Row-C 0.2 0.1 2.5
                   <div id='button_container'>
                     
                     <div id='toggle_order' class="btn-group" data-toggle="buttons" >
-                      <label class="btn btn-primary active prot_class" onclick="d3_clustergram.reorder_clust_rank('clust');">
+                      <label class="btn btn-primary active prot_class" onclick="d3_clustergram.reorder('clust');">
                         <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
                       </label>
-                      <label class="btn btn-primary prot_class" onclick="d3_clustergram.reorder_clust_rank('rank');">
+                      <label class="btn btn-primary prot_class" onclick="d3_clustergram.reorder('rank');">
                         <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
                       </label>
                     </div>
@@ -115,7 +115,7 @@ Row-C 0.2 0.1 2.5
                       <input id='gene_search_box' type="text" class="form-control" placeholder="Input row" aria-describedby="sizing-addon2">
 
                       <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
-                        <label id='submit_gene_button' class="btn btn-primary active " onclick="d3_clustergram.find_gene_in_clust();">
+                        <label id='submit_gene_button' class="btn btn-primary active " onclick="d3_clustergram.find_row();">
                           <input type="radio" name="options" id="" autocomplete="off" checked > Search
                         </label>
                       </div>
