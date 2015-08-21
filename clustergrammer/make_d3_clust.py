@@ -43,19 +43,24 @@ def load_file(req_file, allowed_file):
     net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)
 
 
+    # convert data matrix to list 
+    net.dat['mat'] = net.dat['mat'].tolist()
+    net.dat['node_info'] = []
+
     # generate export dictionary 
     ###############################
     export_dict = {}
     # save name of network 
     export_dict['name'] = inst_filename
-    # # initial network information, including data_mat array
-    print(net.export_net_json('dat'))
+    # initial network information, including data_mat array
+    export_dict['dat'] = net.dat
     # d3 json used for visualization (already clustered)
     export_dict['viz'] = net.viz
 
     # save json as new collection 
     ##################################
-    db.networks.insert( export_dict )    
+    tmp_id = db.networks.insert( export_dict ) 
+    print(tmp_id)
 
     # close client
     client.close()
