@@ -51,8 +51,11 @@ def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
 
-@app.route("/clustergrammer/")
-def index():
+@app.route("/clustergrammer/<tmp>")
+# @app.route("/clustergrammer/")
+def index(tmp):
+# def index():
+  print(tmp)
   print('Rendering index template')
   return render_template("index.html")
 
