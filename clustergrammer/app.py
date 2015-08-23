@@ -57,7 +57,7 @@ def index(tmp):
 # def index():
   print(tmp)
   print('Rendering index template')
-  return render_template("index.html")
+  return render_template('index.html', flask_var='some crazy string')
 
 # load previous result route 
 @app.route('/clustergrammer/load_saved/', methods=['GET'])
@@ -87,7 +87,10 @@ def load_saved():
   # close connection 
   client.close()
 
-  return flask.jsonify( cursor['d3_json'] ) 
+  # return flask.jsonify( cursor['d3_json'] ) 
+
+  # return render_template("index.html")
+  return redirect('/clustergrammer/redirected_url')
 
 # Jquery upload file route 
 ############################
