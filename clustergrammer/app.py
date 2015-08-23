@@ -83,7 +83,7 @@ def viz(user_objid):
   client.close()
 
   print('Rendering viz template')
-  return render_template('viz.html', viz_network=cursor['name'])
+  return render_template('viz.html', viz_network=cursor['viz'])
 
 
 # load previous result route 

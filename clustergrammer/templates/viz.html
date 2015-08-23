@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <base href='/clustergrammer/'>
 
-    <title>clustergrammer</title>
+    <title>CSTgram</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="static/lib/css/bootstrap.css" rel="stylesheet">
@@ -25,165 +25,71 @@
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
     <link rel="stylesheet" href="static/css/custom.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="static/lib/css/prettify.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 
-<body onload="prettyPrint()">
+<body>
 
-  <div id="wrapper" class='toggled'>
 
-    <!-- Sidebar -->
-    <div id="sidebar-wrapper">
-      <p class='sidebar_labels'>sidebar</p>
-    </div>
-    <!-- end sidebar -->
+  <div id='viz_view'>
 
-    <!-- Page Content used for sidebar toggle -->
-    <div id="page-content-wrapper">
+    <div id='clust_instruct_container' >
+      <h1 id='viz_website_title' onClick='to_homepage()' >clustergrammer</h1>
 
-      <!-- main container - required --> 
-      <div id='main_container'>
-
-        <!-- this row is - required fluid causes problems --> 
-        <div class="row" > 
-
-          <!-- hold_views - holds all views -->
-          <div id='hold_views' class="col-lg-12">
-
-            <!-- visualization -->
-            <div id='viz_container'>
-
-              <div id='gene_exp_view' class='row'>
-                <div id='clust_instruct_container' >
-                  <h1 id='viz_website_title' onClick='to_homepage()' >clustergrammer </h1>
-
-                  <div id='viz_gmt_labels'></div>
-
-                  <div class='title_viz_instructs'>About:</div>
-                  <div class='viz_instruct_text'> The clustergram can be zoomed into using scroll, reordered using the cluster/rank switch or by clicking row/column labels, and rows can be searched using the search button. </div>
-
-                  <!-- button container -->
-                  <div id='button_container'>
-                    
-                    <div id='toggle_order' class="btn-group" data-toggle="buttons" >
-                      <label class="btn btn-primary active prot_class" onclick="d3_clustergram.reorder('clust');">
-                        <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
-                      </label>
-                      <label class="btn btn-primary prot_class" onclick="d3_clustergram.reorder('rank');">
-                        <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
-                      </label>
-                    </div>
-                  </div>
-
-                  <!-- input box for gene search -->
-                  <div id='gene_search_container' class='row'>
-                      <input id='gene_search_box' type="text" class="form-control" placeholder="Input row" aria-describedby="sizing-addon2">
-
-                      <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
-                        <label id='submit_gene_button' class="btn btn-primary active " onclick="d3_clustergram.find_row();">
-                          <input type="radio" name="options" id="" autocomplete="off" checked > Search
-                        </label>
-                      </div>
-                  </div>
-
-                  <button id='to_homepage' type="submit" class='btn btn-primary buttons' onClick='to_homepage()' >Rerun clustergrammer</button>
-
-                </div>
-
-                <!-- exp div -->
-                <div id='svg_div' class='svg_div' ></div>
-
-                <!-- <div id='clustergram_container' > -->
-                  <!-- <div id='clust_and_row_container'> -->
-                  <!-- </div> -->
-                <!-- </div> -->
-
-              </div>
-            </div>
-            <!-- end visualization -->
-
-          </div> 
-          <!-- end single column -->
-
-        </div>
-        <!-- end row -->
+      <div class='gene_exp_view'>
+        <div class='viz_instruct_text'> Clustergrammer information.</div>
 
       </div>
-      <!-- end main container -->
 
+      <!-- input box for gene search -->
+      <div id='gene_search_container' class='row'>
+          <input id='gene_search_box' type="text" class="form-control" placeholder="Input Gene" aria-describedby="sizing-addon2">
+
+          <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
+            <label id='submit_gene_button' class="btn btn-primary active " onclick="d3_clustergram.find_row();">
+              <input type="radio" name="options" id="" autocomplete="off" checked > Search
+            </label>
+          </div>
+      </div>
+
+      <div id='toggle_order' class="btn-group" data-toggle="buttons" >
+        <label class="btn btn-primary active prot_class" onclick="d3_clustergram.reorder('clust');">
+          <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
+        </label>
+        <label class="btn btn-primary prot_class" onclick="d3_clustergram.reorder('rank');">
+          <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
+        </label>
+      </div>
+      
+      <p>set column group size</p>
+      <div id="slider_col"></div>
+      <p>set row group size</p>
+      <div id="slider_row"></div>
+
+      <button id='to_homepage' type="submit" class='btn btn-primary buttons' onClick='to_homepage()' >Return to Homepage</button>
     </div>
-    <!-- end page content wrapper -->
 
-  </div> 
-  <!-- /end wrapper -->
+    <!-- exp div -->
+    <div id='svg_div' class='svg_div' ></div>
+  
+  </div>
+
 
   <footer id='footer_div' class="footer navbar-fixed-bottom">
     <div class="row" > 
       <div class="col-xs-12 footer_section"> 
-        <p class="text-muted">clustergrammer is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </p>
+        <p class="text-muted">CSTgram is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </p>
       </div>
     </div>
   </footer>
 
-  <!-- Modals -->
-  <div id='modal_wrong_filetype' class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="gridSystemModalLabel">File error:</h4>
-        </div>
-        <div class="modal-body">
-
-          <div class="container-fluid">
-
-            <h5 class="modal-title" id="gridSystemModalLabel">Please check your uploaded file to make sure it is in the correct tab-separated format and that it has the correct extension of .txt or .tsv.</h5>
-
-          </div>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-
-  <div id='modal_no_file' class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="gridSystemModalLabel">No File Chosen:</h4>
-        </div>
-        <div class="modal-body">
-
-          <div class="container-fluid">
-
-            <h5 class="modal-title" id="gridSystemModalLabel">Please select a file to upload using the Choose File buton.</h5>
-
-          </div>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-
-
   <!-- Vendor -->
   <!-- jQuery -->
   <script src="static/lib/js/jquery-1.11.2.min.js"></script>
-
   <!-- adding jquery links -->
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-
   <script src='static/lib/js/jquery.accordion.js'></script>
   <!-- Bootstrap Core JavaScript -->
-  <script src="static/lib/js/bootstrap.min.js"></script>
-  <script src="static/lib/js/bootstrap-switch.min.js"></script>
   <script src="static/lib/js/crossfilter.js"></script>
   <script src="static/lib/js/d3.js"></script>
   <script src="static/lib/js/dc.js"></script>
@@ -193,176 +99,20 @@
   <script src="static/lib/js/underscore.strings.js"></script>
   <script src='static/lib/js/blockUI.js'></script>
   <script src='static/lib/js/type_ahead.js'></script>
-  <!-- stylized file upload button -->
-  <!-- http://gregpike.net/demos/bootstrap-file-input/demo.html -->
-  <script type="text/javascript" src="static/lib/js/bootstrap.file-input.js"> </script>
-  <script type="text/javascript">
-    $('input[type=file]').bootstrapFileInput();
-    $('.file-inputs').bootstrapFileInput();
-  </script>
-  <script type="text/javascript" src="static/lib/js/prettify.js"> </script>
-
-  <!-- style code -->
+  <script src="static/lib/js/bootstrap.min.js"></script>
+  <script src="static/lib/js/bootstrap-switch.min.js"></script>
   <!-- Clustergram Scripts -->
   <script src='static/js/d3_clustergram.js'></script>
   <script src='static/js/load_local_network.js'></script>
 
   <script>
-  
-  // switch to homepage 
-  function to_homepage(){
-    // switch to homepage 
-    d3.select('#gene_exp_view').style('display','none');
-    d3.selectAll('#homepage_view').style('display','block');
-  }
 
-  
-  // Jquery Upload file 
-  /////////////////////////
+    network = {{ viz_network|tojson|safe }}
+    console.log( network )
+    load_new_clustergram( network );
 
-  // display the upload button 
-  // prevent the style from changing as scripts are loaded
-  d3.select('#searchForm').style('display','block')
-
-  // global parameters for visualization
-  ccle_params = {};
-  ccle_params['order'] = 'clust';
-
-  // set global variable for svg type
-  select_svg_div = 'svg_div_exp';
-
-  // submit file for clustering
-  $( "#searchForm" ).submit( function( event ) {
-
-    // stop form from working normally 
-    event.preventDefault();
-   
-   // only upload if there is a file 
-   if (d3.select('.file-input-name').empty()==false){
-
-      // get data from forms 
-      $form = $( this );
-
-      // get formdata
-      form_data = new FormData($form[0]);
-      console.log(form_data)
-
-      // get the url 
-      var url = $form.attr( "action" );
-
-      // set up wait message before request is made 
-      $.blockUI({ css: { 
-              border: 'none', 
-              padding: '15px', 
-              backgroundColor: '#000', 
-              '-webkit-border-radius': '10px', 
-              '-moz-border-radius': '10px', 
-              opacity: .8, 
-              color: '#fff' 
-          } });
-
-      $.ajax({
-        url: url,
-        type: 'POST',
-        data: form_data,
-        // Tell jQuery not to process data or worry about content-type.
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(network) {
-
-          // callback function 
-          //////////////////////
-
-          // save clustergram is global variable
-          global_network_data = network;
-          console.log('success')
-          console.log(network)
-          $.unblockUI();
-
-          // swap views 
-          d3.selectAll('#homepage_view').style('display','none');
-          d3.select('#svg_div_tfsub').style('display','none');
-          d3.select('#gene_exp_view').style('display','block');
-          d3.select('#svg_div_exp').style('display','block');
-
-          load_new_clustergram(network);
-
-          return false
-        },
-        error: function(network) {
-          // loader.stop();
-          // console.log(network);
-          console.log('request failed')
-          $.unblockUI();
-          $('#modal_wrong_filetype').modal()
-        }
-      });
-
-   }
-   else{
-    $('#modal_no_file').modal()
-    console.log(data)
-   }
-
-  });
-
-  // request saved clustergram 
-  function load_saved_clust(){
-  
-    console.log('loading previously saved document')
-
-    // set up wait message before request is made 
-    $.blockUI({ css: { 
-            border: 'none', 
-            padding: '15px', 
-            backgroundColor: '#000', 
-            '-webkit-border-radius': '10px', 
-            '-moz-border-radius': '10px', 
-            opacity: .8, 
-            color: '#fff' 
-        } });
-
-    $.ajax({
-      url: "load_saved",
-      type: "get", //send it through get method
-      // data:{ajaxid:4,UserID: UserID , EmailAddress:encodeURIComponent(EmailAddress)},
-      data:{'id':'from_excel.txt'},
-      // data:{'id':'small_neurolincs_matrix.txt'},
-      success: function(network) {
-
-        console.log('successful get request')
-
-        // save clustergram is global variable
-        global_network_data = network;
-        console.log('success')
-
-        // // swap views 
-        // d3.selectAll('#homepage_view').style('display','none');
-        // d3.select('#svg_div_tfsub').style('display','none');
-        // d3.select('#gene_exp_view').style('display','block');
-        // d3.select('#svg_div_exp').style('display','block');
-
-        // // load new clustergram 
-        // load_new_clustergram(network);
-
-        $.unblockUI();
-
-
-      },
-      error: function(xhr) {
-        //Do Something to handle error
-      },
-      async:false
-    });
-
-
- 
-
-  };
-
-</script>
-
+  </script>
 
 </body>
 
+</html>
