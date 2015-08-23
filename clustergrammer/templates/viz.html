@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <base href='/clustergrammer/'>`
+    <base href='/clustergrammer/'>
 
     <title>clustergrammer</title>
 
@@ -80,17 +80,68 @@ Row-C   0.2     0.1     2.5
               <input class='btn btn-primary' id='file_upload_button'  type=submit value=Upload>
             </form>
 
-            <input class='btn btn-primary' id='load_saved' type=submit value=Load onClick="load_saved_clust();" >
+            <!-- <input class='btn btn-primary' id='load_saved' type=submit value=Load onClick="load_saved_clust();" > -->
 
             <!-- <form action="load_saved/" method="get">
                 <input type="submit" value="Go to my link location" 
                      name="Submit" id="frm1_submit" />
             </form> -->
-
-            <!-- <a href="load_saved/">load saved result</a> -->
+            <a href="load_saved/">load saved result</a>
 
             </div>
             <!-- end homepage -->
+
+            <!-- visualization -->
+            <div id='viz_container'>
+
+              <div id='gene_exp_view' class='row'>
+                <div id='clust_instruct_container' >
+                  <h1 id='viz_website_title' onClick='to_homepage()' >clustergrammer </h1>
+
+                  <div id='viz_gmt_labels'></div>
+
+                  <div class='title_viz_instructs'>About:</div>
+                  <div class='viz_instruct_text'> The clustergram can be zoomed into using scroll, reordered using the cluster/rank switch or by clicking row/column labels, and rows can be searched using the search button. </div>
+
+                  <!-- button container -->
+                  <div id='button_container'>
+                    
+                    <div id='toggle_order' class="btn-group" data-toggle="buttons" >
+                      <label class="btn btn-primary active prot_class" onclick="d3_clustergram.reorder('clust');">
+                        <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
+                      </label>
+                      <label class="btn btn-primary prot_class" onclick="d3_clustergram.reorder('rank');">
+                        <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- input box for gene search -->
+                  <div id='gene_search_container' class='row'>
+                      <input id='gene_search_box' type="text" class="form-control" placeholder="Input row" aria-describedby="sizing-addon2">
+
+                      <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
+                        <label id='submit_gene_button' class="btn btn-primary active " onclick="d3_clustergram.find_row();">
+                          <input type="radio" name="options" id="" autocomplete="off" checked > Search
+                        </label>
+                      </div>
+                  </div>
+
+                  <button id='to_homepage' type="submit" class='btn btn-primary buttons' onClick='to_homepage()' >Rerun clustergrammer</button>
+
+                </div>
+
+                <!-- exp div -->
+                <div id='svg_div' class='svg_div' ></div>
+
+                <!-- <div id='clustergram_container' > -->
+                  <!-- <div id='clust_and_row_container'> -->
+                  <!-- </div> -->
+                <!-- </div> -->
+
+              </div>
+            </div>
+            <!-- end visualization -->
 
           </div> 
           <!-- end single column -->
@@ -191,7 +242,14 @@ Row-C   0.2     0.1     2.5
 
   <script>
   
- 
+  // switch to homepage 
+  function to_homepage(){
+    // switch to homepage 
+    d3.select('#gene_exp_view').style('display','none');
+    d3.selectAll('#homepage_view').style('display','block');
+  }
+
+  
   // Jquery Upload file 
   /////////////////////////
 
@@ -327,7 +385,8 @@ Row-C   0.2     0.1     2.5
       },
       error: function(xhr) {
         //Do Something to handle error
-      }
+      },
+      async:false
     });
 
 

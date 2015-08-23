@@ -51,13 +51,39 @@ def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
 
-@app.route("/clustergrammer/<tmp>")
-# @app.route("/clustergrammer/")
-def index(tmp):
-# def index():
-  print(tmp)
+# @app.route("/clustergrammer/<tmp>")
+@app.route("/clustergrammer/")
+# def index(tmp):
+def index():
+  # print(tmp)
   print('Rendering index template')
-  return render_template('index.html', flask_var='some crazy string')
+  return render_template('index.html', flask_var='some crazy string!')
+
+
+@app.route("/clustergrammer/viz/<tmp>")
+def viz(tmp):
+  import flask
+  from bson.objectid import ObjectId
+
+  # 55d945129ff08807f604278b
+
+  print(tmp)
+  # set up connection 
+  client = MongoClient()
+  db = client.clustergrammer
+
+  # make query for data with name 'from_excel.txt'
+  cursor = db.networks.find_one({'_id': ObjectId(tmp) })
+
+  print('name')
+  print(cursor['name'])
+
+  # close connection 
+  client.close()
+
+  print('Rendering viz template')
+  return render_template('index.html', flask_var=tmp)
+
 
 # load previous result route 
 @app.route('/clustergrammer/load_saved/', methods=['GET'])
@@ -68,17 +94,12 @@ def load_saved():
   client = MongoClient()
   db = client.clustergrammer
 
-  print('\n\nLoad Saved\n\n')
-
+  # get filename 
   querystring = request.args
-
   querystring = dict(querystring)
   load_filename = querystring['id'][0]
-  print(load_filename)
 
   # make query for data with name 'from_excel.txt'
-  # cursor = db.networks.find_one({'name':'from_excel.txt'})
-  # cursor = db.networks.find_one({'name':'small_neurolincs_matrix.txt'})
   cursor = db.networks.find_one({'name':load_filename})
 
   print('name')
@@ -89,8 +110,11 @@ def load_saved():
 
   # return flask.jsonify( cursor['d3_json'] ) 
 
-  # return render_template("index.html")
-  return redirect('/clustergrammer/redirected_url')
+  clustergram_id= 'some-clustergram-id'
+  print(clustergram_id)
+  print('\n\n\n')
+  return render_template('index.html', flask_var='loading saved data')
+  # return redirect('/clustergrammer/redirected_url/')
 
 # Jquery upload file route 
 ############################
