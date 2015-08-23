@@ -60,29 +60,30 @@ def index():
   return render_template('index.html', flask_var='some crazy string!')
 
 
-@app.route("/clustergrammer/viz/<tmp>")
-def viz(tmp):
+@app.route("/clustergrammer/viz/<user_objid>")
+def viz(user_objid):
   import flask
   from bson.objectid import ObjectId
 
   # 55d945129ff08807f604278b
 
-  print(tmp)
+  print(user_objid)
   # set up connection 
   client = MongoClient()
   db = client.clustergrammer
 
   # make query for data with name 'from_excel.txt'
-  cursor = db.networks.find_one({'_id': ObjectId(tmp) })
+  cursor = db.networks.find_one({'_id': ObjectId(user_objid) })
 
   print('name')
   print(cursor['name'])
+  print(cursor['viz'])
 
   # close connection 
   client.close()
 
   print('Rendering viz template')
-  return render_template('index.html', flask_var=tmp)
+  return render_template('viz.html', viz_network=cursor['name'])
 
 
 # load previous result route 

@@ -58,39 +58,6 @@
           <!-- hold_views - holds all views -->
           <div id='hold_views' class="col-lg-12">
 
-            <!-- homepage -->
-            <div id='homepage_view' class='row'>
-
-              <h1 id='website_title'> clustergrammer  {{flask_var}}</h1>
-              <p class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and searchable clustergram. </p>
-
-              <p class='initial_paragraph'>The uploaded matrix should have the following format: </p>
-
-            <pre id='example_tsv' class='prettyprint'> 
-       Col-A   Col-B   Col-C
-Row-A   0.0    -0.1     1.0
-Row-B   3.0     0.0     8.0
-Row-C   0.2     0.1     2.5
-            </pre>
-
-              <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
-
-            <form id='searchForm' action="{{ url_for('jquery_upload_function') }}" method=post enctype=multipart/form-data>
-              <input type=file name=file title='Choose File' onClick="console.log('clicking choose file button')" >
-              <input class='btn btn-primary' id='file_upload_button'  type=submit value=Upload>
-            </form>
-
-            <!-- <input class='btn btn-primary' id='load_saved' type=submit value=Load onClick="load_saved_clust();" > -->
-
-            <!-- <form action="load_saved/" method="get">
-                <input type="submit" value="Go to my link location" 
-                     name="Submit" id="frm1_submit" />
-            </form> -->
-            <a href="load_saved/">load saved result</a>
-
-            </div>
-            <!-- end homepage -->
-
             <!-- visualization -->
             <div id='viz_container'>
 
