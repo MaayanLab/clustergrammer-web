@@ -66,7 +66,11 @@ def load_file(req_file, allowed_file):
 
     # return the network in json form 
     # return flask.jsonify(d3_json)
-    return flask.jsonify(net.viz)
+    # return flask.jsonify(net.viz)
+
+
+    # return id only 
+    return tmp_id
 
   else:
     print('error in file upload - check filetype')

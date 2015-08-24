@@ -107,10 +107,23 @@
 
   <script>
 
+    // set up wait message before request is made 
+    $.blockUI({ css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .8, 
+            color: '#fff' 
+        } });
+
     network = {{ viz_network|tojson|safe }}
     console.log( network )
     load_new_clustergram( network );
 
+  $.unblockUI();
+  
   </script>
 
 </body>

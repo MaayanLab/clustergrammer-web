@@ -57,7 +57,7 @@ def send_static(path):
 def index():
   # print(tmp)
   print('Rendering index template')
-  return render_template('index.html', flask_var='some crazy string!')
+  return render_template('index.html', flask_var='')
 
 
 @app.route("/clustergrammer/viz/<user_objid>")
@@ -65,7 +65,8 @@ def viz(user_objid):
   import flask
   from bson.objectid import ObjectId
 
-  # 55d945129ff08807f604278b
+  # 55d945129ff08807f604278b - from_excel.txt
+  # 55d945529ff08807f604278c
 
   print(user_objid)
   # set up connection 
@@ -130,9 +131,29 @@ def jquery_upload_function():
 
   req_file = flask.request.files['file']
 
-  d3_json = make_d3_clust.load_file( req_file, allowed_file )
+  # add to database 
 
-  return d3_json
+  # return visualization json 
+  # d3_json = make_d3_clust.load_file( req_file, allowed_file )
+
+  # # return net class 
+  # net = make_d3_clust.load_file(req_file, allowed_file)
+
+  # return net_id only 
+  net_id = make_d3_clust.load_file(req_file, allowed_file)
+
+  # redirect to vi
+  print('\n\n\n')
+  print(net_id)
+  print(type(net_id))
+  return redirect('/clustergrammer/viz/'+str(net_id))
+
+
+  # return d3_json
+
+
+
+
 
 
 if __name__ == "__main__":
