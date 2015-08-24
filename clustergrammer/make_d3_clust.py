@@ -9,6 +9,8 @@ def load_file(req_file, allowed_file):
   # import network class from Network.py
   from d3_clustergram_class import Network
 
+  print('\n\n\nLoading File\n###########\n\n\n')
+
   # initiate class network 
   net = Network()
 
@@ -58,13 +60,16 @@ def load_file(req_file, allowed_file):
 
     # save json as new collection 
     ##################################
-    net_id = db.networks.insert( export_dict ) 
+    tmp_id = db.networks.insert( export_dict ) 
+
+    # make net_id a string
+    tmp_id = str(tmp_id)
 
     # close client
     client.close()
 
     # return id only 
-    return net_id, net
+    return tmp_id, net
 
   else:
     print('error in file upload - check filetype')

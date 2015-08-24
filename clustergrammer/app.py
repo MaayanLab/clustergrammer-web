@@ -42,6 +42,7 @@ SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' ##
 ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
 # define global network - tmp !!
 net = []
+net_id = []
 
 def allowed_file(filename):
   return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -66,25 +67,28 @@ def index():
 def viz(user_objid):
   import flask
   from bson.objectid import ObjectId
+  from copy import deepcopy
 
-  # load network from database 
+  # example mongodb ids 
   # 55d945129ff08807f604278b - from_excel.txt
   # 55d945529ff08807f604278c
+
+  global net_id
+
+  print('\n\nnet_id-viz\n'+ str(net_id) )
 
   # set up connection 
   client = MongoClient()
   db = client.clustergrammer
-
   # make query for data with name 'from_excel.txt'
   cursor = db.networks.find_one({'_id': ObjectId(user_objid) })
-
   # close connection 
   client.close()
+  d3_json = cursor['viz']
 
-  print('\nloading data from mongodb\n')
-  viz_json = cursor['viz']
+  net_id = deepcopy(user_objid)
 
-  return render_template('viz.html', viz_network=viz_json)
+  return render_template('viz.html', viz_network=d3_json)
 
 
 # load previous result route 
@@ -132,12 +136,19 @@ def jquery_upload_function():
   req_file = flask.request.files['file']
 
   global net
+  global net_id
 
   # cluster and add to database 
   net_id, net = make_d3_clust.load_file(req_file, allowed_file)
 
+  print('\n\n\nin upload function')
+  print(net_id + ' in jquery_upload')
+  print(type(net_id))
+  print('\n\n\n')
+
   # redirect to viz layout 
-  return redirect('/clustergrammer/viz/'+str(net_id))
+  print('redirecting to viz')
+  return redirect('/clustergrammer/viz/'+net_id)
 
 
 if __name__ == "__main__":
