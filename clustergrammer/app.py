@@ -77,16 +77,26 @@ def viz(user_objid):
 
   print('\n\nnet_id-viz\n'+ str(net_id) )
 
-  # set up connection 
-  client = MongoClient()
-  db = client.clustergrammer
-  # make query for data with name 'from_excel.txt'
-  cursor = db.networks.find_one({'_id': ObjectId(user_objid) })
-  # close connection 
-  client.close()
-  d3_json = cursor['viz']
+  if net_id == user_objid and type(net) is not list:
 
-  net_id = deepcopy(user_objid)
+    # use preloaded network 
+    d3_json = deepcopy(net.viz)
+    print('\n\nusing global network\n##################n\n')
+
+  else:
+
+    # set up connection 
+    client = MongoClient()
+    db = client.clustergrammer
+    # make query for data with name 'from_excel.txt'
+    cursor = db.networks.find_one({'_id': ObjectId(user_objid) })
+    # close connection 
+    client.close()
+    d3_json = cursor['viz']
+    net_id = deepcopy(user_objid)
+
+    print('\n\nloading from mongodb\n##################n\n')
+
 
   return render_template('viz.html', viz_network=d3_json)
 
