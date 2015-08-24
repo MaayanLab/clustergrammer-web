@@ -58,19 +58,13 @@ def load_file(req_file, allowed_file):
 
     # save json as new collection 
     ##################################
-    tmp_id = db.networks.insert( export_dict ) 
-    print(tmp_id)
+    net_id = db.networks.insert( export_dict ) 
 
     # close client
     client.close()
 
-    # return the network in json form 
-    # return flask.jsonify(d3_json)
-    # return flask.jsonify(net.viz)
-
-
     # return id only 
-    return tmp_id
+    return net_id, net
 
   else:
     print('error in file upload - check filetype')
