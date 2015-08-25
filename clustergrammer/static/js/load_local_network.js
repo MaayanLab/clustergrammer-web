@@ -39,8 +39,8 @@ function load_new_clustergram(network_data){
 	var arguments_obj = {
 		'network_data': network_data,
 		'svg_div_id': 'svg_div',
-		'row_label':'Rows',
-		'col_label':'Columns',
+		// 'row_label':'Rows',
+		// 'col_label':'Columns',
 	  'outer_margins': outer_margins,
 	  // 'input_domain':7,
 	  'click_tile': click_tile_callback,
