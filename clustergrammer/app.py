@@ -58,7 +58,6 @@ def send_static(path):
 @app.route("/clustergrammer/")
 # def index(tmp):
 def index():
-  # print(tmp)
   print('Rendering index template')
   return render_template('index.html', flask_var='')
 
@@ -74,13 +73,12 @@ def viz(user_objid):
   # 55d945529ff08807f604278c - med ccle
 
   global net_id
-
-  print('\n\nnet_id-viz\n'+ str(net_id) )
+  global net
 
   if net_id == user_objid and type(net) is not list:
 
     # use preloaded network 
-    d3_json = deepcopy(net.viz)
+    d3_json = deepcopy(net['viz'])
     print('\n\nusing global network\n##################n\n')
 
   else:
@@ -89,14 +87,14 @@ def viz(user_objid):
     client = MongoClient()
     db = client.clustergrammer
     # make query for data with name 'from_excel.txt'
-    cursor = db.networks.find_one({'_id': ObjectId(user_objid) })
+    net = db.networks.find_one({'_id': ObjectId(user_objid) })
+
     # close connection 
     client.close()
-    d3_json = cursor['viz']
+    d3_json = net['viz']
     net_id = deepcopy(user_objid)
 
     print('\n\nloading from mongodb\n##################n\n')
-
 
   return render_template('viz.html', viz_network=d3_json)
 
@@ -118,17 +116,12 @@ def load_saved():
   # make query for data with name 'from_excel.txt'
   cursor = db.networks.find_one({'name':load_filename})
 
-  print('name')
-  print(cursor['name'])
-
   # close connection 
   client.close()
 
   # return flask.jsonify( cursor['d3_json'] ) 
 
   clustergram_id= 'some-clustergram-id'
-  print(clustergram_id)
-  print('\n\n\n')
   return render_template('index.html', flask_var='loading saved data')
   # return redirect('/clustergrammer/redirected_url/')
 
@@ -150,11 +143,6 @@ def jquery_upload_function():
 
   # cluster and add to database 
   net_id, net = make_d3_clust.load_file(req_file, allowed_file)
-
-  print('\n\n\nin upload function')
-  print(net_id + ' in jquery_upload')
-  print(type(net_id))
-  print('\n\n\n')
 
   # redirect to viz layout 
   print('redirecting to viz')
