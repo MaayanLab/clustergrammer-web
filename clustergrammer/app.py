@@ -40,9 +40,9 @@ SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' ##
 
 # define allowed extension
 ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
-# define global network - tmp !!
-net = []
-net_id = []
+# define global network 
+gnet = []
+gnet_id = []
 
 def allowed_file(filename):
   return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -72,14 +72,14 @@ def viz(user_objid):
   # 55d945129ff08807f604278b - from_excel.txt
   # 55d945529ff08807f604278c - med ccle
 
-  global net_id
-  global net
+  global gnet_id
+  global gnet
 
-  if net_id == user_objid and type(net) is not list:
+  if gnet_id == user_objid and type(gnet) is not list:
 
     # use preloaded network 
-    d3_json = deepcopy(net['viz'])
     print('\n\nusing global network\n##################n\n')
+    d3_json = deepcopy(gnet['viz'])
 
   else:
 
@@ -87,12 +87,12 @@ def viz(user_objid):
     client = MongoClient()
     db = client.clustergrammer
     # make query for data with name 'from_excel.txt'
-    net = db.networks.find_one({'_id': ObjectId(user_objid) })
+    gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
 
     # close connection 
     client.close()
-    d3_json = net['viz']
-    net_id = deepcopy(user_objid)
+    d3_json = gnet['viz']
+    gnet_id = deepcopy(user_objid)
 
     print('\n\nloading from mongodb\n##################n\n')
 
@@ -138,11 +138,16 @@ def jquery_upload_function():
 
   req_file = flask.request.files['file']
 
-  global net
-  global net_id
+  global gnet
+  global gnet_id
 
   # cluster and add to database 
   net_id, net = make_d3_clust.load_file(req_file, allowed_file)
+
+  # make network a dictionary 
+  gnet = {}
+  gnet['viz'] = net.viz
+  gnet_id = net_id
 
   # redirect to viz layout 
   print('redirecting to viz')
