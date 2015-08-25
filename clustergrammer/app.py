@@ -84,7 +84,7 @@ def viz(user_objid):
   else:
 
     # set up connection 
-    client = MongoClient()
+    client = MongoClient('146.203.54.165')
     db = client.clustergrammer
     # make query for data with name 'from_excel.txt'
     gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
@@ -105,7 +105,7 @@ def load_saved():
   import flask
 
   # set up connection 
-  client = MongoClient()
+  client = MongoClient('146.203.54.165')
   db = client.clustergrammer
 
   # get filename 

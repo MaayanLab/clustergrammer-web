@@ -15,7 +15,7 @@ def load_file(req_file, allowed_file):
   net = Network()
 
   # set up connection 
-  client = MongoClient()
+  client = MongoClient('146.203.54.165')
   db = client.clustergrammer
 
   # get the filename 
@@ -60,6 +60,7 @@ def load_file(req_file, allowed_file):
 
     # save json as new collection 
     ##################################
+    print('loading data to matrix')
     tmp_id = db.networks.insert( export_dict ) 
 
     # make net_id a string

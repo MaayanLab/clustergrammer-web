@@ -32,6 +32,8 @@ RUN pip install poster
 # use apt-get to install scipy
 RUN apt-get -y install python-numpy python-scipy python-matplotlib 
 
+RUN pip install pymongo
+
 # add code
 ADD . /app
 

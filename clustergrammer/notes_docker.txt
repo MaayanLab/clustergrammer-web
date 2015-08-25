@@ -1,99 +1,106 @@
+------------------- latest instructions -----------------------
 
+docker build -t 146.203.54.165:5000/clustergrammer:latest .
+docker run -it --rm -p 8087:80 146.203.54.165:5000/clustergrammer:latest
+docker push 146.203.54.165:5000/clustergrammer:latest
+
+
+------------------ old instructions --------------------------------
 -- Docker instructions 
 
-	Locally
-		sudo docker build -t maayanlab/clustergram_flask:latest .
+    Locally
+        sudo docker build -t maayanlab/clustergram_flask:latest .
 
-		sudo docker run -it --rm -p 80:80 maayanlab/clustergram_flask:latest
+        sudo docker run -it --rm -p 80:80 maayanlab/clustergram_flask:latest
 
-		sudo docker push maayanlab/clustergram_flask:latest
+        sudo docker push maayanlab/clustergram_flask:latest
 
 -- Loretta
 
-		docker pull maayanlab/clustergram_flask:latest
+        docker pull maayanlab/clustergram_flask:latest
 
-		# run an instance of it and remove it after its done running
-		docker run -it --rm -p 8087:80 maayanlab/clustergram_flask:latest
+        # run an instance of it and remove it after its done running
+        docker run -it --rm -p 8087:80 maayanlab/clustergram_flask:latest
 
-		# run it in daemonized form 
-		docker run -d -p 8087:80 maayanlab/clustergram_flask:latest
+        # run it in daemonized form 
+        docker run -d -p 8087:80 maayanlab/clustergram_flask:latest
 
-		# see docker containers
-		docker ps -a
+        # see docker containers
+        docker ps -a
 
-		# remove a docker container 
-		docker rm [container id]
+        # remove a docker container 
+        docker rm [container id]
 
-		# stop or start container 
-		docker stop/start [container id]
+        # stop or start container 
+        docker stop/start [container id]
 
-		# access
-		http://amp.pharm.mssm.edu/clustergram_flask
+        # access
+        http://amp.pharm.mssm.edu/clustergram_flask
 
 Mac specific 
-	
-	# start boot2docker 
-	spotlight boot2docker and click the icon 
+    
+    # start boot2docker 
+    spotlight boot2docker and click the icon 
 
-	# build 
-	sudo docker build -t maayanlab/clustergram_flask:latest .
+    # build 
+    sudo docker build -t maayanlab/clustergram_flask:latest .
 
-	# view images 
-	docker images 
+    # view images 
+    docker images 
 
-	# run
-	docker run -it --rm -p 8087:80 clustergram_flask:latest
+    # run
+    docker run -it --rm -p 8087:80 clustergram_flask:latest
 
-	# get ip boot2docker ip 
+    # get ip boot2docker ip 
 
-	# remove image
-	docker rmi <image id>
+    # remove image
+    docker rmi <image id>
 
 
 # example building docker: enrichrgram example  
 ###################################################
-	
-	# build the image (delete old ones using rmi)
-	# e.g. docker rmi <image id> 
-	docker build -t maayanlab/enrichrgram:latest .
+    
+    # build the image (delete old ones using rmi)
+    # e.g. docker rmi <image id> 
+    docker build -t maayanlab/enrichrgram:latest .
 
-	# run it and make sure it works locally
-	# problems usually arise with directories 
-	docker run -it --rm -p 8087:80 maayanlab/enrichrgram:latest 
+    # run it and make sure it works locally
+    # problems usually arise with directories 
+    docker run -it --rm -p 8087:80 maayanlab/enrichrgram:latest 
 
-	# view docker image 
-	# and go into container 
-		docker ps # see running processes, containers
-		docker exec -it <docker_container_id> bash
+    # view docker image 
+    # and go into container 
+        docker ps # see running processes, containers
+        docker exec -it <docker_container_id> bash
 
-	# push to maayanlab dockerhub
-	# marathon will take the latest image 
-	docker push maayanlab/enrichrgram:latest
-		<login> corn normal pw 
+    # push to maayanlab dockerhub
+    # marathon will take the latest image 
+    docker push maayanlab/enrichrgram:latest
+        <login> corn normal pw 
 
-	# deploy to marathon (only needs to be done once)
-	use postman (the chrome extension)
-	use the example template json Matthew posted on Confluence 
-	send the post request
+    # deploy to marathon (only needs to be done once)
+    use postman (the chrome extension)
+    use the example template json Matthew posted on Confluence 
+    send the post request
 
-	# restart app in elizabeth marathon
-	go to the gui for marathon and restart enrichrgram 
+    # restart app in elizabeth marathon
+    go to the gui for marathon and restart enrichrgram 
 
-	(the template has now been saved to postman)
+    (the template has now been saved to postman)
 
-	--- there is a problem with the name enrichrgram, it is being routed to enrichr
+    --- there is a problem with the name enrichrgram, it is being routed to enrichr
 
 
 # how to update
-	do a docker push, then go to marathon elizabeth:8080 and restart app (button on the left)
+    do a docker push, then go to marathon elizabeth:8080 and restart app (button on the left)
 
-	it can also be accessed through elizabeth/enrichrgram
+    it can also be accessed through elizabeth/enrichrgram
 
 
 # postman notes
 
 put request
-	maayanlab:sudoystemsbiology@elizabeth:8080/v2/apps/enrichrgram
+    maayanlab:sudoystemsbiology@elizabeth:8080/v2/apps/enrichrgram
 
 Content-Type application/json
 
@@ -139,11 +146,11 @@ raw format json
 6-24-2015 
 push to local docker repo by changing the tag. Instructions are on 
 
-	http://amp.pharm.mssm.edu/confluence/display/AP/Docker
+    http://amp.pharm.mssm.edu/confluence/display/AP/Docker
 
 an example is 
 
-	docker tag enrichr 146.203.54.165:5000/enrichr
+    docker tag enrichr 146.203.54.165:5000/enrichr
 
 -----------------
 
