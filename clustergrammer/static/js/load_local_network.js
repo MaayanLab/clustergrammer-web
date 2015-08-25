@@ -15,10 +15,10 @@ function load_new_clustergram(network_data){
 
 	// define the outer margins of the visualization 
 	var outer_margins = {
-	    'top':10,
-	    'bottom':40,
-	    'left':180,
-	    'right':70
+	    'top':7,
+	    'bottom':32,
+	    'left':200,
+	    'right':30
 	  };
 
 	// define callback function for clicking on tile 
@@ -39,12 +39,13 @@ function load_new_clustergram(network_data){
 	var arguments_obj = {
 		'network_data': network_data,
 		'svg_div_id': 'svg_div',
-		// 'row_label':'Rows',
-		// 'col_label':'Columns',
+		'row_label':'Rows',
+		'col_label':'Columns',
 	  'outer_margins': outer_margins,
 	  // 'input_domain':7,
 	  'click_tile': click_tile_callback,
-	  'click_group': click_group_callback
+	  'click_group': click_group_callback,
+	  'col_overflow':0.8
 	  // 'resize':'no',
 	  // 'order':'rank'
 	};

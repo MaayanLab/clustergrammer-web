@@ -71,7 +71,7 @@ def viz(user_objid):
 
   # example mongodb ids 
   # 55d945129ff08807f604278b - from_excel.txt
-  # 55d945529ff08807f604278c
+  # 55d945529ff08807f604278c - med ccle
 
   global net_id
 
