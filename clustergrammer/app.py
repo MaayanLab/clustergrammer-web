@@ -8,13 +8,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import os
 from flask import send_from_directory
-
-# import mongo related things 
-# method from donorschoose not working 
-# from pymongo import Connection
-# method from python_mongo_tutorial
 from pymongo import MongoClient
-
 import json
 from bson import json_util
 from bson.json_util import dumps
@@ -37,7 +31,6 @@ SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' ##
 # # for docker development
 # SERVER_ROOT = '/app/clustergrammer'
 
-
 # define allowed extension
 ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
 # define global network 
@@ -46,7 +39,6 @@ gnet_id = []
 
 def allowed_file(filename):
   return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
 
 @app.route(ENTRY_POINT + '/<path:path>') ## original 
 # @crossdomain(origin='*')
@@ -98,6 +90,10 @@ def viz(user_objid):
 
   return render_template('viz.html', viz_network=d3_json)
 
+@app.route('/clustergrammer/mock_g2e/')
+def mock_g2e():
+
+  return render_template('mock_g2e.html', flask_var ='mock g2e')
 
 # load previous result route 
 @app.route('/clustergrammer/load_saved/', methods=['GET'])
@@ -121,7 +117,6 @@ def load_saved():
 
   # return flask.jsonify( cursor['d3_json'] ) 
 
-  clustergram_id= 'some-clustergram-id'
   return render_template('index.html', flask_var='loading saved data')
   # return redirect('/clustergrammer/redirected_url/')
 
