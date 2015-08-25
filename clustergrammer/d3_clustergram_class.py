@@ -222,6 +222,42 @@ class Network(object):
 		# add mat_info with substrate information 
 		self.dat['mat_info'] = mat_info
 
+	def load_ccle_to_net(self, prot_type):
+		import scipy 
+		import numpy as np
+
+		# load ccle data 
+		ccle = self.load_json_to_dict('CCLE/nsclc_allzc.json')
+		ccle['data_z'] = np.asarray(ccle['data_z'], dtype = float)
+
+		# load protein type lists 
+		gs_list = self.load_json_to_dict('gene_classes_harmonogram.json')
+
+		# generate node lists 
+		# find the protein-types that are in ccle 
+		self.dat['nodes']['row'] = sorted(list(set(gs_list[prot_type]).intersection(ccle['gene'])))
+		self.dat['nodes']['col'] = ccle['cell_lines']
+
+
+		# initialize mat
+		self.dat['mat'] = scipy.zeros([ len(self.dat['nodes']['row']), len(self.dat['nodes']['col']) ])
+
+		# loop through rows and cols
+		for i in range(len(self.dat['nodes']['row'])):
+			for j in range(len(self.dat['nodes']['col'])):
+
+				# get inst_row and inst_col
+				inst_row = self.dat['nodes']['row'][i]
+				inst_col = self.dat['nodes']['col'][j]
+
+				# find gene and cl index in zscored data 
+				index_x = ccle['gene'].index(inst_row)
+				index_y = ccle['cell_lines'].index(inst_col)
+
+				# map primary data to mat 
+				self.dat['mat'][i,j] = ccle['data_z'][index_x, index_y]
+
+
 	def load_g2e_to_net(self, g2e):
 		import numpy as np
 
@@ -298,7 +334,7 @@ class Network(object):
 			exp_dict = deepcopy( self.dat)
 			# convert numpy array to list 
 			exp_dict['mat'] = exp_dict['mat'].tolist()
-			# tmp remove node_info 
+			#!! tmp remove node_info 
 			exp_dict['node_info'] = []
 		elif net_type == 'viz':
 			exp_dict = self.viz
@@ -522,7 +558,10 @@ class Network(object):
 			# get name of the node 
 			inst_dict['name'] = inst_nodes[i]
 			# sum values of the node
-			inst_dict['total'] = np.sum(inst_mat[i,:])
+			if rowcol == 'row':
+				inst_dict['total'] = np.sum(inst_mat[i,:])
+			else:
+				inst_dict['total'] = np.sum(inst_mat[:,i])
 			# add this to the list of dicts 
 			sum_term.append(inst_dict)
 
