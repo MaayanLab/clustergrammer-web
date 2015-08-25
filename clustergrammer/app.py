@@ -90,10 +90,96 @@ def viz(user_objid):
 
   return render_template('viz.html', viz_network=d3_json)
 
-@app.route('/clustergrammer/mock_g2e/')
-def mock_g2e():
+@app.route('/clustergrammer/g2e/', methods=['POST'])
+def proc_g2e():
+  import requests 
+  import json 
+  from d3_clustergram_class import Network
 
-  return render_template('mock_g2e.html', flask_var ='mock g2e')
+  global gnet_id
+  global gnet
+
+  if request.method == 'POST':
+    g2e_json = json.loads( request.data )
+
+    print('\n\n')
+    print(g2e_json.keys())
+    print(type(g2e_json))
+
+    # ini network obj 
+    net = Network()
+
+    # load g2e data into network 
+    net.load_g2e_to_net(g2e_json)
+
+    # swap nans for zeros
+    net.swap_nan_for_zero()
+
+    # filter the matrix using cutoff and min_num_meet
+    ###################################################
+    cutoff_meet = 0.5
+    min_num_meet = 10
+    net.filter_network_thresh( cutoff_meet, min_num_meet )
+
+    # cluster 
+    #############
+    cutoff_comp = 0.25
+    min_num_comp = 3  
+    net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)
+
+    # generate export dictionary 
+    ###############################
+    export_dict = {}
+    # save name of network 
+    export_dict['name'] = 'tmp'
+    # initial network information, including data_mat array
+    export_dict['dat'] = net.export_net_json('dat')
+    # d3 json used for visualization (already clustered)
+    export_dict['viz'] = net.export_net_json('viz')
+
+    # set up connection 
+    client = MongoClient('146.203.54.165')
+    db = client.clustergrammer
+
+    # save json as new collection 
+    ##################################
+    print('loading data to matrix')
+    net_id = db.networks.insert( export_dict ) 
+
+    # close client
+    client.close()
+
+    # make network a dictionary 
+    gnet = {}
+    gnet['viz'] = net.viz
+    net_id = str(net_id)
+    gnet_id = net_id
+
+    # redirect to viz layout 
+    print('redirecting to viz')
+    return redirect('/clustergrammer/viz/'+net_id)
+
+  else:
+
+    client.close()
+
+    return error 
+
+# @app.route('/clustergrammer/mock_g2e/')
+# def mock_g2e():
+#   import requests
+#   import json 
+
+#   post_url = 'localhost:/clustergrammer/g2e/'
+
+#   params = {'g2e_name':'something'}
+
+#   post_response = requests.post(post_url, files=params)
+
+#   print(post_response)
+
+
+#   return render_template('mock_g2e.html', flask_var ='mock g2e')
 
 # load previous result route 
 @app.route('/clustergrammer/load_saved/', methods=['GET'])

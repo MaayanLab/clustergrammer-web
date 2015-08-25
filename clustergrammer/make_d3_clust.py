@@ -14,10 +14,6 @@ def load_file(req_file, allowed_file):
   # initiate class network 
   net = Network()
 
-  # set up connection 
-  client = MongoClient('146.203.54.165')
-  db = client.clustergrammer
-
   # get the filename 
   inst_filename = req_file.filename
   
@@ -58,6 +54,10 @@ def load_file(req_file, allowed_file):
     # d3 json used for visualization (already clustered)
     export_dict['viz'] = net.viz
 
+    # set up connection 
+    client = MongoClient('146.203.54.165')
+    db = client.clustergrammer
+
     # save json as new collection 
     ##################################
     print('loading data to matrix')
@@ -74,5 +74,6 @@ def load_file(req_file, allowed_file):
 
   else:
     print('error in file upload - check filetype')
+
 
     return error
