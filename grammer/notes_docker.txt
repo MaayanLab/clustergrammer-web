@@ -1,0 +1,237 @@
+
+-- Docker instructions 
+
+	Locally
+		sudo docker build -t maayanlab/clustergram_flask:latest .
+
+		sudo docker run -it --rm -p 80:80 maayanlab/clustergram_flask:latest
+
+		sudo docker push maayanlab/clustergram_flask:latest
+
+-- Loretta
+
+		docker pull maayanlab/clustergram_flask:latest
+
+		# run an instance of it and remove it after its done running
+		docker run -it --rm -p 8087:80 maayanlab/clustergram_flask:latest
+
+		# run it in daemonized form 
+		docker run -d -p 8087:80 maayanlab/clustergram_flask:latest
+
+		# see docker containers
+		docker ps -a
+
+		# remove a docker container 
+		docker rm [container id]
+
+		# stop or start container 
+		docker stop/start [container id]
+
+		# access
+		http://amp.pharm.mssm.edu/clustergram_flask
+
+Mac specific 
+	
+	# start boot2docker 
+	spotlight boot2docker and click the icon 
+
+	# build 
+	sudo docker build -t maayanlab/clustergram_flask:latest .
+
+	# view images 
+	docker images 
+
+	# run
+	docker run -it --rm -p 8087:80 clustergram_flask:latest
+
+	# get ip boot2docker ip 
+
+	# remove image
+	docker rmi <image id>
+
+
+# example building docker: enrichrgram example  
+###################################################
+	
+	# build the image (delete old ones using rmi)
+	# e.g. docker rmi <image id> 
+	docker build -t maayanlab/enrichrgram:latest .
+
+	# run it and make sure it works locally
+	# problems usually arise with directories 
+	docker run -it --rm -p 8087:80 maayanlab/enrichrgram:latest 
+
+	# view docker image 
+	# and go into container 
+		docker ps # see running processes, containers
+		docker exec -it <docker_container_id> bash
+
+	# push to maayanlab dockerhub
+	# marathon will take the latest image 
+	docker push maayanlab/enrichrgram:latest
+		<login> corn normal pw 
+
+	# deploy to marathon (only needs to be done once)
+	use postman (the chrome extension)
+	use the example template json Matthew posted on Confluence 
+	send the post request
+
+	# restart app in elizabeth marathon
+	go to the gui for marathon and restart enrichrgram 
+
+	(the template has now been saved to postman)
+
+	--- there is a problem with the name enrichrgram, it is being routed to enrichr
+
+
+# how to update
+	do a docker push, then go to marathon elizabeth:8080 and restart app (button on the left)
+
+	it can also be accessed through elizabeth/enrichrgram
+
+
+# postman notes
+
+put request
+	maayanlab:sudoystemsbiology@elizabeth:8080/v2/apps/enrichrgram
+
+Content-Type application/json
+
+raw format json 
+
+{
+    "instances": 1,
+    "cpus": 0.5,
+    "mem": 256,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "maayanlab/enrichrgram",
+            "forcePullImage":true,
+            "network": "BRIDGE",
+            "portMappings": [{"containerPort": 80, "hostPort": 0, "protocol": "tcp"}]
+        }
+    }
+}
+
+----
+
+{
+    "instances": 1,
+    "cpus": 0.5,
+    "mem": 256,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "maayanlab/enrichrgram",
+            "forcePullImage":true,
+            "network": "BRIDGE",
+            "portMappings": [{"containerPort": 80, "hostPort": 0, "protocol": "tcp"}]
+        }
+    }
+}
+
+
+
+
+------------------
+
+6-24-2015 
+push to local docker repo by changing the tag. Instructions are on 
+
+	http://amp.pharm.mssm.edu/confluence/display/AP/Docker
+
+an example is 
+
+	docker tag enrichr 146.203.54.165:5000/enrichr
+
+-----------------
+
+{
+    "id":"harmonogram",
+    "instances": 1,
+    "cpus": 0.5,
+    "mem": 256,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "146.203.54.165:5000/harmonogram",
+            "forcePullImage":true,
+            "network": "BRIDGE",
+            "portMappings": [{"containerPort": 80, "hostPort": 0, "protocol": "tcp"}]
+        }
+    }
+}
+
+----
+on maayanlab 
+amp.pharm.mssm.edu 
+
+vim /etc/apache2/conf.d/proxies.conf
+
+service apache2 restart 
+service apache2 status
+
+
+---
+
+view harmonogram on elizabeth
+http://elizabeth/harmonogram/
+
+view marathon 
+elizabeth:8080 
+
+
+
+--------------------
+6-25-2015
+
+We have a new proxying system set up. I had to change the post to a put and add labels, public:true, see below:
+
+{
+    "id":"harmonogram",
+    "instances": 1,
+    "cpus": 0.5,
+    "mem": 256,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "146.203.54.165:5000/harmonogram",
+            "forcePullImage":true,
+            "network": "BRIDGE",
+            "portMappings": [{"containerPort": 80, "hostPort": 0, "protocol": "tcp"}]
+        }
+    },
+  "labels":{
+    "public":"true"
+  }
+}
+
+
+I got the following response 
+
+{
+    "version": "2015-06-25T19:34:13.827Z",
+    "deploymentId": "a3f3fa96-5dae-4b17-8870-8c713b65d345"
+}
+
+I made the following post for enrichrgram 
+
+{
+    "id":"enrichrgram",
+    "instances": 1,
+    "cpus": 0.5,
+    "mem": 256,
+    "container": {
+        "type": "DOCKER",
+        "docker": {
+            "image": "146.203.54.165:5000/enrichrgram",
+            "forcePullImage":true,
+            "network": "BRIDGE",
+            "portMappings": [{"containerPort": 80, "hostPort": 0, "protocol": "tcp"}]
+        }
+    },
+  "labels":{
+    "public":"true"
+  }
+}

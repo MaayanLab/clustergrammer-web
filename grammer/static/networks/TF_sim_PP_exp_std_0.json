@@ -1,0 +1,1887 @@
+{
+  "row_nodes": [
+    {
+      "rank": 21, 
+      "gc": "PP", 
+      "name": "PTPRU", 
+      "clust": 19
+    }, 
+    {
+      "rank": 18, 
+      "gc": "PP", 
+      "name": "CTDSP2", 
+      "clust": 20
+    }, 
+    {
+      "rank": 33, 
+      "gc": "PP", 
+      "name": "CDKN3", 
+      "clust": 32
+    }, 
+    {
+      "rank": 20, 
+      "gc": "PP", 
+      "name": "DUSP14", 
+      "clust": 18
+    }, 
+    {
+      "rank": 34, 
+      "gc": "PP", 
+      "name": "DUSP10", 
+      "clust": 25
+    }, 
+    {
+      "rank": 22, 
+      "gc": "PP", 
+      "name": "SGPP2", 
+      "clust": 17
+    }, 
+    {
+      "rank": 23, 
+      "gc": "PP", 
+      "name": "DUSP19", 
+      "clust": 16
+    }, 
+    {
+      "rank": 6, 
+      "gc": "PP", 
+      "name": "DUSP1", 
+      "clust": 15
+    }, 
+    {
+      "rank": 0, 
+      "gc": "PP", 
+      "name": "DUSP4", 
+      "clust": 33
+    }, 
+    {
+      "rank": 16, 
+      "gc": "PP", 
+      "name": "PGAM5", 
+      "clust": 14
+    }, 
+    {
+      "rank": 9, 
+      "gc": "PP", 
+      "name": "EYA3", 
+      "clust": 21
+    }, 
+    {
+      "rank": 27, 
+      "gc": "PP", 
+      "name": "NT5C2", 
+      "clust": 13
+    }, 
+    {
+      "rank": 25, 
+      "gc": "PP", 
+      "name": "ALPI", 
+      "clust": 12
+    }, 
+    {
+      "rank": 19, 
+      "gc": "PP", 
+      "name": "PHPT1", 
+      "clust": 11
+    }, 
+    {
+      "rank": 11, 
+      "gc": "PP", 
+      "name": "IMPA1", 
+      "clust": 30
+    }, 
+    {
+      "rank": 26, 
+      "gc": "PP", 
+      "name": "IMPA2", 
+      "clust": 10
+    }, 
+    {
+      "rank": 4, 
+      "gc": "PP", 
+      "name": "PPAPDC2", 
+      "clust": 9
+    }, 
+    {
+      "rank": 13, 
+      "gc": "PP", 
+      "name": "MTM1", 
+      "clust": 8
+    }, 
+    {
+      "rank": 12, 
+      "gc": "PP", 
+      "name": "ACP6", 
+      "clust": 26
+    }, 
+    {
+      "rank": 32, 
+      "gc": "PP", 
+      "name": "VPS29", 
+      "clust": 34
+    }, 
+    {
+      "rank": 14, 
+      "gc": "PP", 
+      "name": "PFKFB3", 
+      "clust": 0
+    }, 
+    {
+      "rank": 29, 
+      "gc": "PP", 
+      "name": "PMM1", 
+      "clust": 3
+    }, 
+    {
+      "rank": 1, 
+      "gc": "PP", 
+      "name": "PPP3CB", 
+      "clust": 1
+    }, 
+    {
+      "rank": 28, 
+      "gc": "PP", 
+      "name": "PSPH", 
+      "clust": 22
+    }, 
+    {
+      "rank": 5, 
+      "gc": "PP", 
+      "name": "PTPN1", 
+      "clust": 27
+    }, 
+    {
+      "rank": 2, 
+      "gc": "PP", 
+      "name": "PTPRE", 
+      "clust": 28
+    }, 
+    {
+      "rank": 15, 
+      "gc": "PP", 
+      "name": "PTPRG", 
+      "clust": 7
+    }, 
+    {
+      "rank": 3, 
+      "gc": "PP", 
+      "name": "PTP4A1", 
+      "clust": 24
+    }, 
+    {
+      "rank": 24, 
+      "gc": "PP", 
+      "name": "PPAP2C", 
+      "clust": 6
+    }, 
+    {
+      "rank": 17, 
+      "gc": "PP", 
+      "name": "SYNJ1", 
+      "clust": 5
+    }, 
+    {
+      "rank": 31, 
+      "gc": "PP", 
+      "name": "MTMR3", 
+      "clust": 23
+    }, 
+    {
+      "rank": 7, 
+      "gc": "PP", 
+      "name": "MTMR6", 
+      "clust": 31
+    }, 
+    {
+      "rank": 8, 
+      "gc": "PP", 
+      "name": "MTMR4", 
+      "clust": 4
+    }, 
+    {
+      "rank": 30, 
+      "gc": "PP", 
+      "name": "PPM1F", 
+      "clust": 29
+    }, 
+    {
+      "rank": 10, 
+      "gc": "PP", 
+      "name": "FIG4", 
+      "clust": 2
+    }
+  ], 
+  "col_nodes": [
+    {
+      "rank": 44, 
+      "name": "MED6", 
+      "clust": 58
+    }, 
+    {
+      "rank": 45, 
+      "name": "SCML2", 
+      "clust": 12
+    }, 
+    {
+      "rank": 14, 
+      "name": "MYBBP1A", 
+      "clust": 49
+    }, 
+    {
+      "rank": 38, 
+      "name": "ATF7", 
+      "clust": 50
+    }, 
+    {
+      "rank": 65, 
+      "name": "KLF6", 
+      "clust": 5
+    }, 
+    {
+      "rank": 26, 
+      "name": "ZNF675", 
+      "clust": 48
+    }, 
+    {
+      "rank": 33, 
+      "name": "ELF3", 
+      "clust": 53
+    }, 
+    {
+      "rank": 50, 
+      "name": "ELK3", 
+      "clust": 6
+    }, 
+    {
+      "rank": 6, 
+      "name": "ZNF292", 
+      "clust": 47
+    }, 
+    {
+      "rank": 18, 
+      "name": "FOXE1", 
+      "clust": 57
+    }, 
+    {
+      "rank": 0, 
+      "name": "ADNP", 
+      "clust": 69
+    }, 
+    {
+      "rank": 13, 
+      "name": "ZKSCAN5", 
+      "clust": 59
+    }, 
+    {
+      "rank": 49, 
+      "name": "HBP1", 
+      "clust": 46
+    }, 
+    {
+      "rank": 31, 
+      "name": "GLI1", 
+      "clust": 45
+    }, 
+    {
+      "rank": 39, 
+      "name": "GTF3C1", 
+      "clust": 44
+    }, 
+    {
+      "rank": 28, 
+      "name": "HOXC9", 
+      "clust": 70
+    }, 
+    {
+      "rank": 5, 
+      "name": "ZNF677", 
+      "clust": 43
+    }, 
+    {
+      "rank": 10, 
+      "name": "ZNF879", 
+      "clust": 42
+    }, 
+    {
+      "rank": 23, 
+      "name": "ZNF391", 
+      "clust": 41
+    }, 
+    {
+      "rank": 43, 
+      "name": "ZNF568", 
+      "clust": 40
+    }, 
+    {
+      "rank": 40, 
+      "name": "ZNF470", 
+      "clust": 39
+    }, 
+    {
+      "rank": 20, 
+      "name": "ZNF880", 
+      "clust": 38
+    }, 
+    {
+      "rank": 41, 
+      "name": "MLLT3", 
+      "clust": 37
+    }, 
+    {
+      "rank": 67, 
+      "name": "MSX2", 
+      "clust": 55
+    }, 
+    {
+      "rank": 70, 
+      "name": "ATF1", 
+      "clust": 0
+    }, 
+    {
+      "rank": 19, 
+      "name": "ATF3", 
+      "clust": 51
+    }, 
+    {
+      "rank": 68, 
+      "name": "NR4A2", 
+      "clust": 8
+    }, 
+    {
+      "rank": 64, 
+      "name": "ASCC1", 
+      "clust": 36
+    }, 
+    {
+      "rank": 56, 
+      "name": "PHF20", 
+      "clust": 62
+    }, 
+    {
+      "rank": 54, 
+      "name": "PKNOX1", 
+      "clust": 7
+    }, 
+    {
+      "rank": 21, 
+      "name": "RRN3", 
+      "clust": 35
+    }, 
+    {
+      "rank": 51, 
+      "name": "HES6", 
+      "clust": 34
+    }, 
+    {
+      "rank": 47, 
+      "name": "BATF3", 
+      "clust": 33
+    }, 
+    {
+      "rank": 11, 
+      "name": "ATF7IP", 
+      "clust": 64
+    }, 
+    {
+      "rank": 35, 
+      "name": "ZNF415", 
+      "clust": 1
+    }, 
+    {
+      "rank": 57, 
+      "name": "HDAC8", 
+      "clust": 32
+    }, 
+    {
+      "rank": 60, 
+      "name": "MESP1", 
+      "clust": 31
+    }, 
+    {
+      "rank": 12, 
+      "name": "ZNF253", 
+      "clust": 30
+    }, 
+    {
+      "rank": 22, 
+      "name": "GATAD2B", 
+      "clust": 29
+    }, 
+    {
+      "rank": 52, 
+      "name": "ZNF490", 
+      "clust": 28
+    }, 
+    {
+      "rank": 4, 
+      "name": "PURB", 
+      "clust": 27
+    }, 
+    {
+      "rank": 61, 
+      "name": "OVOL2", 
+      "clust": 54
+    }, 
+    {
+      "rank": 36, 
+      "name": "ZNF250", 
+      "clust": 67
+    }, 
+    {
+      "rank": 25, 
+      "name": "RB1", 
+      "clust": 26
+    }, 
+    {
+      "rank": 55, 
+      "name": "BCL3", 
+      "clust": 25
+    }, 
+    {
+      "rank": 2, 
+      "name": "TGIF2", 
+      "clust": 63
+    }, 
+    {
+      "rank": 27, 
+      "name": "DMRTA1", 
+      "clust": 24
+    }, 
+    {
+      "rank": 29, 
+      "name": "SMARCA4", 
+      "clust": 23
+    }, 
+    {
+      "rank": 16, 
+      "name": "SMARCD3", 
+      "clust": 22
+    }, 
+    {
+      "rank": 7, 
+      "name": "SP2", 
+      "clust": 21
+    }, 
+    {
+      "rank": 69, 
+      "name": "STAT4", 
+      "clust": 11
+    }, 
+    {
+      "rank": 62, 
+      "name": "TAF9", 
+      "clust": 10
+    }, 
+    {
+      "rank": 30, 
+      "name": "NKX2-1", 
+      "clust": 20
+    }, 
+    {
+      "rank": 59, 
+      "name": "ZNF19", 
+      "clust": 2
+    }, 
+    {
+      "rank": 63, 
+      "name": "ZSCAN20", 
+      "clust": 52
+    }, 
+    {
+      "rank": 3, 
+      "name": "ZNF43", 
+      "clust": 65
+    }, 
+    {
+      "rank": 32, 
+      "name": "ZNF85", 
+      "clust": 61
+    }, 
+    {
+      "rank": 34, 
+      "name": "ZNF131", 
+      "clust": 4
+    }, 
+    {
+      "rank": 8, 
+      "name": "ZNF133", 
+      "clust": 19
+    }, 
+    {
+      "rank": 1, 
+      "name": "ZNF138", 
+      "clust": 68
+    }, 
+    {
+      "rank": 24, 
+      "name": "ZNF213", 
+      "clust": 18
+    }, 
+    {
+      "rank": 46, 
+      "name": "ZSCAN5A", 
+      "clust": 17
+    }, 
+    {
+      "rank": 58, 
+      "name": "ZNF576", 
+      "clust": 56
+    }, 
+    {
+      "rank": 66, 
+      "name": "ZNF665", 
+      "clust": 66
+    }, 
+    {
+      "rank": 37, 
+      "name": "ZNF528", 
+      "clust": 9
+    }, 
+    {
+      "rank": 17, 
+      "name": "PHF5A", 
+      "clust": 60
+    }, 
+    {
+      "rank": 53, 
+      "name": "BLZF1", 
+      "clust": 16
+    }, 
+    {
+      "rank": 9, 
+      "name": "HDAC3", 
+      "clust": 15
+    }, 
+    {
+      "rank": 42, 
+      "name": "ZNF235", 
+      "clust": 14
+    }, 
+    {
+      "rank": 48, 
+      "name": "LHX2", 
+      "clust": 3
+    }, 
+    {
+      "rank": 15, 
+      "name": "CREB5", 
+      "clust": 13
+    }
+  ], 
+  "links": [
+    {
+      "source": 0, 
+      "target": 41, 
+      "value": 0.81339464130013217, 
+      "evi": 0
+    }, 
+    {
+      "source": 1, 
+      "target": 24, 
+      "value": 0.68633750024222107, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 0, 
+      "value": 0.97575978355235615, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 10, 
+      "value": -0.96398729918232906, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 11, 
+      "value": -0.78632156514642437, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 15, 
+      "value": 0.29575740574329157, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 23, 
+      "value": 0.80063454139100887, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 24, 
+      "value": 0.77683966244316327, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 26, 
+      "value": 0.86651987119696394, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 28, 
+      "value": 0.559182602037261, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 33, 
+      "value": -0.38349505261602967, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 34, 
+      "value": 0.75752826597944001, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 36, 
+      "value": 0.83469655933190312, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 42, 
+      "value": -0.98785976794163544, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 45, 
+      "value": -0.35293733615389322, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 50, 
+      "value": 0.94326800353081663, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 53, 
+      "value": 0.58507959886462635, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 55, 
+      "value": 0.019412976157767825, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 56, 
+      "value": -0.49724782690044211, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 59, 
+      "value": -0.78692852256563484, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 60, 
+      "value": -0.51909604389750674, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 62, 
+      "value": 0.59145695852083058, 
+      "evi": 0
+    }, 
+    {
+      "source": 2, 
+      "target": 64, 
+      "value": 0.51092050958729474, 
+      "evi": 0
+    }, 
+    {
+      "source": 3, 
+      "target": 41, 
+      "value": 0.79361446571415506, 
+      "evi": 0
+    }, 
+    {
+      "source": 4, 
+      "target": 22, 
+      "value": 0.58195167297955419, 
+      "evi": 0
+    }, 
+    {
+      "source": 4, 
+      "target": 29, 
+      "value": 0.56811660981218459, 
+      "evi": 0
+    }, 
+    {
+      "source": 4, 
+      "target": 33, 
+      "value": 0.73203497112954119, 
+      "evi": 0
+    }, 
+    {
+      "source": 4, 
+      "target": 42, 
+      "value": 0.60704431538292791, 
+      "evi": 0
+    }, 
+    {
+      "source": 4, 
+      "target": 48, 
+      "value": -0.98442868323350141, 
+      "evi": 0
+    }, 
+    {
+      "source": 4, 
+      "target": 53, 
+      "value": 0.69138451002847801, 
+      "evi": 0
+    }, 
+    {
+      "source": 4, 
+      "target": 56, 
+      "value": 0.81609550465433434, 
+      "evi": 0
+    }, 
+    {
+      "source": 4, 
+      "target": 59, 
+      "value": 0.44115475653889225, 
+      "evi": 0
+    }, 
+    {
+      "source": 5, 
+      "target": 52, 
+      "value": 0.81578073645855087, 
+      "evi": 0
+    }, 
+    {
+      "source": 6, 
+      "target": 1, 
+      "value": 0.93819337048522344, 
+      "evi": 0
+    }, 
+    {
+      "source": 6, 
+      "target": 56, 
+      "value": -0.074126558976162604, 
+      "evi": 0
+    }, 
+    {
+      "source": 7, 
+      "target": 33, 
+      "value": -0.77854665943438195, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 1, 
+      "value": -0.4847312837802551, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 4, 
+      "value": 0.43029829450018586, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 7, 
+      "value": 0.048665139085362186, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 8, 
+      "value": -0.94964967135804801, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 10, 
+      "value": -0.34414769096228248, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 13, 
+      "value": -0.52995231952739541, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 15, 
+      "value": -0.57168333788280745, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 17, 
+      "value": -0.81205034531420539, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 23, 
+      "value": 0.74974100525573817, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 24, 
+      "value": 0.70705723856398728, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 25, 
+      "value": -0.55999135698844094, 
+      "evi": 1
+    }, 
+    {
+      "source": 8, 
+      "target": 26, 
+      "value": 0.49864873843302915, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 27, 
+      "value": 0.76795430160887268, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 33, 
+      "value": -0.78583684690435196, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 34, 
+      "value": -0.31323634873034312, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 42, 
+      "value": -0.42622481298918213, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 43, 
+      "value": -0.50888848187717772, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 44, 
+      "value": 0.70545430517137875, 
+      "evi": 1
+    }, 
+    {
+      "source": 8, 
+      "target": 54, 
+      "value": 0.23639179897967033, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 55, 
+      "value": -0.65128694546481825, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 57, 
+      "value": 0.064546512287796287, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 59, 
+      "value": -0.93326715981965935, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 63, 
+      "value": -0.76974036975400129, 
+      "evi": 0
+    }, 
+    {
+      "source": 8, 
+      "target": 69, 
+      "value": -0.038308813896326344, 
+      "evi": 0
+    }, 
+    {
+      "source": 9, 
+      "target": 33, 
+      "value": -0.37116223312670149, 
+      "evi": 0
+    }, 
+    {
+      "source": 9, 
+      "target": 51, 
+      "value": 0.93302204432184122, 
+      "evi": 0
+    }, 
+    {
+      "source": 10, 
+      "target": 5, 
+      "value": -0.53297772816275346, 
+      "evi": 0
+    }, 
+    {
+      "source": 10, 
+      "target": 24, 
+      "value": -0.096138823209280355, 
+      "evi": 1
+    }, 
+    {
+      "source": 10, 
+      "target": 39, 
+      "value": 0.94469132137578316, 
+      "evi": 0
+    }, 
+    {
+      "source": 10, 
+      "target": 40, 
+      "value": -0.56876915947052264, 
+      "evi": 0
+    }, 
+    {
+      "source": 10, 
+      "target": 42, 
+      "value": 0.35641341459059117, 
+      "evi": 0
+    }, 
+    {
+      "source": 10, 
+      "target": 51, 
+      "value": -0.23519331180483327, 
+      "evi": 0
+    }, 
+    {
+      "source": 10, 
+      "target": 56, 
+      "value": 0.033646753071758906, 
+      "evi": 0
+    }, 
+    {
+      "source": 10, 
+      "target": 65, 
+      "value": -0.13890962890941516, 
+      "evi": 0
+    }, 
+    {
+      "source": 11, 
+      "target": 24, 
+      "value": 0.87602751990428385, 
+      "evi": 0
+    }, 
+    {
+      "source": 11, 
+      "target": 66, 
+      "value": 0.96073199418821131, 
+      "evi": 0
+    }, 
+    {
+      "source": 12, 
+      "target": 54, 
+      "value": 0.98596800752252767, 
+      "evi": 0
+    }, 
+    {
+      "source": 12, 
+      "target": 69, 
+      "value": -0.023489287661017322, 
+      "evi": 0
+    }, 
+    {
+      "source": 13, 
+      "target": 24, 
+      "value": 0.75523845806639378, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 0, 
+      "value": -0.22677699915704541, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 9, 
+      "value": -0.46966638672575733, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 11, 
+      "value": 0.32327605754439959, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 16, 
+      "value": -0.092202734051517465, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 21, 
+      "value": -0.61520262038882656, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 24, 
+      "value": -0.015297221957087714, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 33, 
+      "value": 0.11874517023490871, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 34, 
+      "value": -0.096247807240794847, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 41, 
+      "value": -0.69966727736294931, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 48, 
+      "value": 0.27626467032793056, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 51, 
+      "value": 0.84001237695217468, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 63, 
+      "value": 0.14364293008771345, 
+      "evi": 0
+    }, 
+    {
+      "source": 14, 
+      "target": 65, 
+      "value": 0.36099530626274623, 
+      "evi": 0
+    }, 
+    {
+      "source": 15, 
+      "target": 50, 
+      "value": 0.97951326697226671, 
+      "evi": 0
+    }, 
+    {
+      "source": 16, 
+      "target": 9, 
+      "value": -0.86754453668059384, 
+      "evi": 0
+    }, 
+    {
+      "source": 17, 
+      "target": 24, 
+      "value": -0.36448313398948318, 
+      "evi": 0
+    }, 
+    {
+      "source": 17, 
+      "target": 63, 
+      "value": 0.79521556684740169, 
+      "evi": 0
+    }, 
+    {
+      "source": 18, 
+      "target": 15, 
+      "value": -0.45367899308851944, 
+      "evi": 0
+    }, 
+    {
+      "source": 18, 
+      "target": 41, 
+      "value": 0.98649286202830555, 
+      "evi": 0
+    }, 
+    {
+      "source": 18, 
+      "target": 55, 
+      "value": 0.073661591716482011, 
+      "evi": 0
+    }, 
+    {
+      "source": 18, 
+      "target": 56, 
+      "value": 0.079937821764971662, 
+      "evi": 0
+    }, 
+    {
+      "source": 18, 
+      "target": 59, 
+      "value": -0.41036273130297407, 
+      "evi": 0
+    }, 
+    {
+      "source": 18, 
+      "target": 63, 
+      "value": -0.15832904133077719, 
+      "evi": 0
+    }, 
+    {
+      "source": 18, 
+      "target": 64, 
+      "value": 0.27258770851525183, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 1, 
+      "value": 0.24821299889963855, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 3, 
+      "value": 0.51413524494957985, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 4, 
+      "value": -0.13474399878930488, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 5, 
+      "value": 0.059002298303555745, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 6, 
+      "value": 0.51985074735763848, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 9, 
+      "value": 0.50452477995697209, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 10, 
+      "value": -0.62814104653678049, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 13, 
+      "value": 0.46457838830961307, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 14, 
+      "value": -0.061964050655252789, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 15, 
+      "value": 0.45923756706049346, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 19, 
+      "value": 0.63779184797892241, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 20, 
+      "value": 0.52216421153825909, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 24, 
+      "value": 0.44502367531927678, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 27, 
+      "value": 0.83211690409170869, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 28, 
+      "value": 0.38495762755602791, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 29, 
+      "value": -0.93153511159007096, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 32, 
+      "value": 0.72160628881409317, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 33, 
+      "value": -0.24941549774017058, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 34, 
+      "value": 0.39269506387835396, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 36, 
+      "value": 0.5429544849552318, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 38, 
+      "value": -0.57584720141326962, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 40, 
+      "value": -0.50455256928154668, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 42, 
+      "value": -0.45888775401878723, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 45, 
+      "value": -0.27077281350721361, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 46, 
+      "value": 0.34957992244950753, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 47, 
+      "value": -0.94017703580798884, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 49, 
+      "value": -0.92103394644970149, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 53, 
+      "value": 0.42428694639340625, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 55, 
+      "value": -0.090764399860311817, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 56, 
+      "value": -0.33295816374442633, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 57, 
+      "value": 0.63804294973018338, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 58, 
+      "value": -0.90561687095104659, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 59, 
+      "value": -0.17643527237688139, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 61, 
+      "value": 0.71189296014140602, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 62, 
+      "value": 0.39446548816919003, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 63, 
+      "value": -0.062724209215174298, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 67, 
+      "value": -0.27147291276548202, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 68, 
+      "value": 0.62604327724403908, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 69, 
+      "value": 0.78585099882726916, 
+      "evi": 0
+    }, 
+    {
+      "source": 19, 
+      "target": 70, 
+      "value": -0.76092023873164782, 
+      "evi": 0
+    }, 
+    {
+      "source": 20, 
+      "target": 6, 
+      "value": 0.83336247897303917, 
+      "evi": 0
+    }, 
+    {
+      "source": 20, 
+      "target": 41, 
+      "value": 0.032770813719787406, 
+      "evi": 0
+    }, 
+    {
+      "source": 20, 
+      "target": 63, 
+      "value": -0.47132608553924848, 
+      "evi": 0
+    }, 
+    {
+      "source": 20, 
+      "target": 70, 
+      "value": 0.050522921160783496, 
+      "evi": 0
+    }, 
+    {
+      "source": 21, 
+      "target": 31, 
+      "value": 0.94031657419928427, 
+      "evi": 0
+    }, 
+    {
+      "source": 21, 
+      "target": 35, 
+      "value": 0.73022540792889168, 
+      "evi": 0
+    }, 
+    {
+      "source": 21, 
+      "target": 63, 
+      "value": 0.68779214737756644, 
+      "evi": 0
+    }, 
+    {
+      "source": 22, 
+      "target": 16, 
+      "value": -0.9019371612885323, 
+      "evi": 0
+    }, 
+    {
+      "source": 22, 
+      "target": 34, 
+      "value": -0.9661942527333105, 
+      "evi": 0
+    }, 
+    {
+      "source": 22, 
+      "target": 52, 
+      "value": -0.95554853692144937, 
+      "evi": 0
+    }, 
+    {
+      "source": 22, 
+      "target": 62, 
+      "value": -0.28621901504693348, 
+      "evi": 0
+    }, 
+    {
+      "source": 22, 
+      "target": 65, 
+      "value": -0.10143895145109405, 
+      "evi": 0
+    }, 
+    {
+      "source": 23, 
+      "target": 33, 
+      "value": 0.68001616798679121, 
+      "evi": 0
+    }, 
+    {
+      "source": 23, 
+      "target": 34, 
+      "value": 0.47698889299897684, 
+      "evi": 0
+    }, 
+    {
+      "source": 23, 
+      "target": 35, 
+      "value": 0.37501033443345078, 
+      "evi": 0
+    }, 
+    {
+      "source": 23, 
+      "target": 63, 
+      "value": 0.63648718934251602, 
+      "evi": 0
+    }, 
+    {
+      "source": 24, 
+      "target": 4, 
+      "value": 0.26794481660219516, 
+      "evi": 0
+    }, 
+    {
+      "source": 24, 
+      "target": 25, 
+      "value": -0.053712818816006092, 
+      "evi": 0
+    }, 
+    {
+      "source": 24, 
+      "target": 30, 
+      "value": -0.59221443995120571, 
+      "evi": 0
+    }, 
+    {
+      "source": 24, 
+      "target": 57, 
+      "value": 0.020308953431839694, 
+      "evi": 0
+    }, 
+    {
+      "source": 24, 
+      "target": 69, 
+      "value": -0.46143761946801454, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 2, 
+      "value": -0.74943511318080458, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 4, 
+      "value": 0.63463588035860985, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 7, 
+      "value": 0.041790570935431259, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 11, 
+      "value": -0.33923087511057659, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 18, 
+      "value": -0.56928197322730334, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 24, 
+      "value": 0.02750844829880672, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 29, 
+      "value": 0.40972990506976847, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 34, 
+      "value": -0.13919970050789066, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 44, 
+      "value": 0.30935287205588025, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 47, 
+      "value": 0.72739757198485933, 
+      "evi": 1
+    }, 
+    {
+      "source": 25, 
+      "target": 57, 
+      "value": -0.39025081036042453, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 65, 
+      "value": -0.52453045194723424, 
+      "evi": 0
+    }, 
+    {
+      "source": 25, 
+      "target": 69, 
+      "value": -0.51160849508590944, 
+      "evi": 0
+    }, 
+    {
+      "source": 26, 
+      "target": 62, 
+      "value": 0.55197997173649893, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 24, 
+      "value": 0.38271763868081021, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 25, 
+      "value": -0.013312158501346039, 
+      "evi": 1
+    }, 
+    {
+      "source": 27, 
+      "target": 26, 
+      "value": 0.897723464716495, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 28, 
+      "value": 0.11938037048678163, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 33, 
+      "value": -0.55142250090077471, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 37, 
+      "value": -0.76983019536307484, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 45, 
+      "value": -0.61705233104766943, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 50, 
+      "value": 0.72693529708877103, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 55, 
+      "value": -0.47243792049869571, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 56, 
+      "value": -0.71984415213020103, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 67, 
+      "value": -0.61106425282795662, 
+      "evi": 0
+    }, 
+    {
+      "source": 27, 
+      "target": 69, 
+      "value": 0.57558969962897433, 
+      "evi": 0
+    }, 
+    {
+      "source": 28, 
+      "target": 23, 
+      "value": 0.29742132775866414, 
+      "evi": 0
+    }, 
+    {
+      "source": 28, 
+      "target": 34, 
+      "value": 0.58484677441406352, 
+      "evi": 0
+    }, 
+    {
+      "source": 29, 
+      "target": 6, 
+      "value": -0.13843832156717717, 
+      "evi": 0
+    }, 
+    {
+      "source": 29, 
+      "target": 56, 
+      "value": 0.7706364051874004, 
+      "evi": 0
+    }, 
+    {
+      "source": 30, 
+      "target": 12, 
+      "value": 0.91744845179321899, 
+      "evi": 0
+    }, 
+    {
+      "source": 30, 
+      "target": 24, 
+      "value": -0.23306969526559196, 
+      "evi": 0
+    }, 
+    {
+      "source": 30, 
+      "target": 33, 
+      "value": 0.81430325256447944, 
+      "evi": 0
+    }, 
+    {
+      "source": 30, 
+      "target": 34, 
+      "value": 0.38408807076025897, 
+      "evi": 0
+    }, 
+    {
+      "source": 30, 
+      "target": 63, 
+      "value": 0.76577133245408857, 
+      "evi": 0
+    }, 
+    {
+      "source": 31, 
+      "target": 6, 
+      "value": -0.9364835781126617, 
+      "evi": 0
+    }, 
+    {
+      "source": 31, 
+      "target": 24, 
+      "value": -0.21747385670093067, 
+      "evi": 0
+    }, 
+    {
+      "source": 31, 
+      "target": 29, 
+      "value": 0.93808702730894866, 
+      "evi": 0
+    }, 
+    {
+      "source": 31, 
+      "target": 34, 
+      "value": -0.77020990906638787, 
+      "evi": 0
+    }, 
+    {
+      "source": 31, 
+      "target": 42, 
+      "value": 0.63091930148021624, 
+      "evi": 0
+    }, 
+    {
+      "source": 31, 
+      "target": 46, 
+      "value": -0.650134383588024, 
+      "evi": 0
+    }, 
+    {
+      "source": 31, 
+      "target": 59, 
+      "value": 0.50054596647297933, 
+      "evi": 0
+    }, 
+    {
+      "source": 31, 
+      "target": 63, 
+      "value": 0.15593344918050089, 
+      "evi": 0
+    }, 
+    {
+      "source": 31, 
+      "target": 64, 
+      "value": -0.27170834361748852, 
+      "evi": 0
+    }, 
+    {
+      "source": 32, 
+      "target": 14, 
+      "value": 0.57777652814797009, 
+      "evi": 0
+    }, 
+    {
+      "source": 32, 
+      "target": 24, 
+      "value": -0.90660529023916769, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 0, 
+      "value": -0.097768850519240003, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 4, 
+      "value": 0.40699952368889769, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 7, 
+      "value": 0.83521597834204642, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 9, 
+      "value": 0.18739096939878674, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 11, 
+      "value": 0.048771912745272372, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 24, 
+      "value": 0.38391892148644602, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 34, 
+      "value": 0.055762294239359522, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 54, 
+      "value": 0.36255061563333602, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 65, 
+      "value": -0.26046059152130829, 
+      "evi": 0
+    }, 
+    {
+      "source": 33, 
+      "target": 69, 
+      "value": 0.5480061681536208, 
+      "evi": 0
+    }, 
+    {
+      "source": 34, 
+      "target": 41, 
+      "value": -0.48736246327889443, 
+      "evi": 0
+    }, 
+    {
+      "source": 34, 
+      "target": 42, 
+      "value": 0.77299797100937062, 
+      "evi": 0
+    }, 
+    {
+      "source": 34, 
+      "target": 53, 
+      "value": -0.4394714939377713, 
+      "evi": 0
+    }
+  ]
+}

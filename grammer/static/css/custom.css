@@ -1,0 +1,862 @@
+#number-projects-nd {
+    font-size: 60px;
+}
+
+#total-donations-nd {
+    font-size: 60px;
+}
+
+.dc-chart g.row text {
+    fill: black;
+    font-size: 12px;
+}
+
+#rank_switch{
+  position:relative;
+  /*top:100px;*/
+  display: block;
+}
+
+.bootstrap-switch{
+  margin-left: 0px;
+}
+
+#searchForm{
+/*  width:200px;
+  margin-left: -7px; */
+  width:99%;
+  margin: 0 auto;
+}
+
+
+
+/* prevents horizontal scrolling */
+html {
+  /*min-width: 1040px;*/
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/*body {*/
+  /*position: relative;*/
+  /*font-family: "Helvetica Neue", Helvetica, sans-serif;*/
+  /*margin: 1em auto 2em auto;*/
+  /*width: px;*/
+/*}*/
+
+h1 {
+  font-size: 45px;
+  font-weight: 300;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-top: 2em;
+}
+
+/*h1, h2 {*/
+  /*text-rendering: optimizeLegibility;*/
+/*}*/
+
+/*h2 a {*/
+  /*color: #ccc;*/
+  /*left: -20px;*/
+/*}*/
+
+footer {
+  margin-left: 200px;
+  text-align: center;
+  background-color: #f5f5f5;
+  font-size: 13px;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+header aside {
+  margin-top: 82px;
+}
+
+header aside,
+aside {
+  color: #636363;
+  text-align: right;
+}
+
+#the_aside {
+  font-size: 12px;
+  /*left: 715px;*/
+  /*position: absolute;*/
+  /*vertical-align: top;*/
+  width: 300px;
+  margin-top:0px;
+  margin-left:10px;
+  /*display:inline-block;*/
+}
+
+.attribution {
+  font-size: small;
+  margin-bottom: 2em;
+}
+
+body > p, li > p {
+  line-height: 1.5em;
+}
+
+body > p {
+  width: 720px;
+}
+
+body > blockquote {
+  width: 640px;
+}
+
+li {
+  /*width: 680px;*/
+}
+
+a {
+  color: steelblue;
+}
+
+a:not(:hover) {
+  text-decoration: none;
+}
+
+/* removed it from textarea*/
+pre, code {
+  font-family: "Menlo", monospace;
+}
+
+code {
+  line-height: 1em;
+}
+
+textarea {
+  font-size: 100%;
+}
+
+body > pre {
+  border-left: solid 2px #ccc;
+  padding-left: 18px;
+  margin: 2em 0 2em -20px;
+}
+
+.html .value,
+.javascript .string,
+.javascript .regexp {
+  color: #756bb1;
+}
+
+.html .tag,
+.css .tag,
+.javascript .keyword {
+  color: #3182bd;
+}
+
+.comment {
+  color: #636363;
+}
+
+.html .doctype,
+.javascript .number {
+  color: #31a354;
+}
+
+.html .attribute,
+.css .attribute,
+.javascript .class,
+.javascript .special {
+  color: #e6550d;
+}
+
+
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+sup, sub {
+  line-height: 0;
+}
+
+q:before,
+blockquote:before {
+  content: "â€œ";
+}
+
+q:after,
+blockquote:after {
+  content: "â€";
+}
+
+blockquote:before {
+  position: absolute;
+  left: 2em;
+}
+
+blockquote:after {
+  position: absolute;
+}
+
+.background {
+  fill: #eee;
+}
+
+line {
+  stroke: white; 
+  /*#fff;*/
+}
+
+text.active {
+  /*fill: blue;*/
+  font-weight: bold;
+}
+
+
+
+
+.bar_graph_text{
+  font-size:10px;
+}
+
+
+
+/*#network{
+  font-size:11px;
+}*/
+
+#link_description{
+  margin-bottom:2px;
+}
+
+#bar_title_holder{
+  font-size:12px;
+  margin-left: 10px;
+}
+
+#kinase_bar_title{
+  margin-left:0px;
+  margin-bottom:15px;
+  width:50%;
+  font-size:15px;
+  dfon
+}
+
+#term_bar_title{
+  margin-left:180px;
+  margin-bottom:15px;
+  width:50%;
+  font-size:15px;
+}
+
+#cluster_title{
+  font-size:15px;
+  font-weight:bold;
+  margin-left:80px;
+  margin-bottom:5px;
+  margin-top:10px;
+  /*margin-right:auto;*/
+  width:100%;
+}
+
+#kinase_bar_graph{
+  margin-top:7px;
+  height:300px;
+  width:250px;
+  overflow:auto;
+}
+
+#cluster_bar_graph{
+  margin-top:5px;
+  height:300px;
+  width:370px;
+  overflow-y:auto;
+}
+
+#cluster_bar_title{
+  margin-top:7px;
+}
+
+
+#term_bar_graph{
+  margin-top:5px;
+  height:300px;
+  width:120px;
+  overflow:auto;
+}
+
+#bar_graph_instructions{
+  margin-top:2px;
+  margin-bottom:2px;
+}
+
+aside{
+  margin-top:0px;
+}
+
+h4{
+  margin-bottom: 5px;
+}
+
+
+
+li{
+  display:inline;
+}
+
+#toggle a:link, a:visited {
+    display: inline-block;
+    font-weight: bold;
+    color: black;
+    background-color: #C8C8C8;
+    width: 120px;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+#toggle a:hover, a:active {
+    background-color: #909090;
+}
+
+#network_info{
+  background-color: #909090;
+}
+
+
+#order_network{
+  margin-bottom: 15px;
+}
+
+
+.cell_instructions{
+  margin:15px; 
+}
+
+#cell_instructions_div{
+  margin-top:30px;
+}
+
+#instructions_intersect{
+  margin-top:25px;
+}
+
+#title_substrates{
+  margin-left:40px;
+  margin-bottom:10px;
+  margin-top:30px;
+  font-size:13px;
+}
+
+
+
+#choose_protein{
+  margin-top:10px;
+  width:50%;
+  float:left;
+}
+#choose_zscore{
+  margin-top:10px;
+  margin-left:5px;
+  width:45%;
+}
+
+#col_title{
+  font-size: 20px;
+  display: block;
+  margin-left:140px;
+  margin-top:2px;
+  font-weight: 300;
+}
+
+#row_title{
+  font-size:20px;
+  display: block;
+  transform:rotate(-90deg );
+  float:left;
+  /*this is sensitive to the length of the 
+  row title*/
+  margin-left: -13px;
+  margin-top: 300px;
+  font-weight: 300;
+}
+
+.svg_div{
+  /*margin-top: 0px;*/
+  /*margin-left: 50px;*/
+  position:absolute;
+  top:0px;
+  left:25px;
+  /*position:fixed;*/
+  /*float:left;*/
+}
+
+#main_svg{
+  /*position:fixed;*/
+  /*top:100px;
+  left:280px;*/
+  /*need to reduce this from -47px
+  not sure why*/
+  margin-left: 0px;
+  font-size:8.0px;
+  display:inline-block;
+ }
+
+#input_col{
+  width:100px;
+}
+
+#viz_col{
+  width:800px;
+}
+
+
+/** {
+  border-radius: : 0 !important ;
+}*/
+
+
+
+.sidebar-nav > .sidebar-brand {
+  height: 50px;
+  font-size: 18px;
+  line-height: 60px;
+  width:99%;
+  margin:0 auto;
+  color:#999999;
+  text-align: center;
+  position: relative;
+}
+
+#sidebar_input_genes{
+  /*width:99%;*/
+  /*margin:0 auto;*/
+}
+
+
+#sidebar_order_switch{
+  width:50%;
+  margin:0 auto;
+}
+
+.sidebar_labels{
+  color:#999999;
+  width:50%;
+  margin:0 auto;
+  text-align: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+/*try to get auto height*/
+#wrapper{
+  height:100vh;
+}
+
+#main_container{
+  position: relative;
+  /*need to figure out why I need this margin*/
+  margin-left: 30px;
+  /*!! need to improve this*/
+  /*width:100%;*/
+  /*height:1000px;*/
+}
+
+#clust_and_row_container{
+  /*so that the child div can be positioned absolutely*/
+  position: relative;
+}
+
+/*the viz container is wider
+than the initial container 
+because the sidebar will be closed*/
+#viz_container{
+  position: relative;
+  /*!! this constraints the width of svg*/
+  /*width: 80%;*/
+  /*background-color: blue;*/
+}
+
+#clustergram_container{
+  display: block;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #f5f5f5;
+  margin-top: 10px;
+  /*set height here so that it will 
+  look normal with out clustergram*/
+  /*height: 950px;*/
+
+  /*reduced sidebar width
+  margin-left used to be 260px*/
+  /*lowered from 220 to 210*/
+  margin-left: 210px;
+}
+
+#clust_instruct_container{
+  display: block;
+  padding-left: 0px;
+  border-left: 0px;
+  /*border-style: solid;*/
+  /*border-width: 5px;*/
+  /*border-color: #f5f5f5;*/
+  /*set up fixed positions*/
+  position:absolute;
+  /*reduce sidebar width - used to ge 245px*/
+  width:200px;
+  /*needs to be improved !!*/
+  /*margin-left: 5px;*/
+  padding-right: 0px;
+}
+
+#website_title{
+  margin-top: 20px;
+  /*display: none;*/
+  font-size: 30px;
+}
+
+#selected_gmts_group{
+  margin-top: 25px;
+  margin-left: -20px;
+  padding-left: 0px;
+}
+
+.selected_gmts{
+  font-size: 17px;
+  font-weight: 300;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-top: 5px;
+  /*background: blue;*/
+  opacity:0;
+  width:700px;
+}
+
+#title_selected_libraries{
+  font-size: 25px;
+  font-weight: 300;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-top: 0px;
+  /*background: blue;*/
+  /*opacity:0;*/
+}
+
+#add_new_gmt{
+  font-size: 35px;
+  font-weight: 300;
+  /*margin-top: 10px;*/
+  width:30px;
+  /*text-align: center;*/
+  /*line-height: 40px;*/
+  vertical-align: middle;
+  /*background: blue;*/
+  opacity: 0;
+  margin-left: -20px;
+}
+
+.remove_existing_gmt{
+  font-size: 35px;
+  font-weight: 400;
+  /*margin-top: 10px;*/
+  width:30px;
+  text-align: center;
+  line-height: 17px;
+  vertical-align: middle;
+  /*background: blue;*/
+  margin-left: 10px;
+}
+
+#gene_input_box{
+  height:200px;
+  width: 75%;
+  margin: 0 auto;
+  position:relative;
+  display:block;
+  resize:none;
+  font-size: 15px;
+  font-weight: 300;
+  padding-left: 6px;
+}
+
+#title_input_gene_list{
+  width:99%;
+  margin: 0 auto;
+  color:white;
+  text-align: center;
+  margin-top: 32px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 300;
+}
+
+/*title for instructions*/
+.title_viz_instructs{
+  width:99%;
+  margin: 0 auto;
+  color:#333;
+  text-align: left;
+  margin-top: 0px;
+  /*padding-top:5px;*/
+  /*margin-bottom: 5px;*/
+  font-size: 17px;
+  font-weight: 300;
+  /*clear float left*/
+  clear:both;
+  padding-left: 0px;
+}
+
+/*homepage container for gmt labels in homepage*/
+#container_gmt_labels{
+  display: none;
+}
+
+/*add margins around viz gmt labels*/
+#viz_gmt_labels{
+  margin-top: 0px;
+  margin-bottom: 20px;
+  display: none;
+}
+
+/*reduce the size of the text in the viz label*/
+.viz_gmt_label_text{
+  /*font-size: 12px;*/
+}
+
+/* the instructions for the visualization should
+look like the input gene list text title*/
+.viz_instruct_text{
+  width:99%;
+  margin: 0 auto;
+  color:#333;
+  text-align: justify;
+  /*margin-top:10px;*/
+  /*margin-bottom: 10px;*/
+  font-size: 12px;
+  font-weight: 300;
+  padding-left: 0px;
+}
+
+.initial_paragraph{
+  font-size: 20px;
+  width:590px;
+  font-weight: 300;
+  /*display: none;*/
+}
+
+
+
+#title_gmt_menu{
+  display: none;
+  color:white;
+  padding-top:12px;
+  padding-bottom:12px;
+  padding-left:20px;
+  width:410px;
+  text-align: left; 
+  background: #333333;  
+  font-size: 22px;
+  font-weight: 300;
+}
+
+.h_top{
+  padding-left:20px;
+  width:410px;
+  text-align: left; 
+  background: #8C8C8C;
+  font-size: 17px;
+  font-weight: 300;
+  border-radius: 0;
+  opacity: 0;
+}
+
+.h_medium{
+  padding-left:30px;
+  width:410px;
+  text-align: left; 
+  background: #D0D0D0;
+  border-radius: 0;
+  font-size: 15px;
+  font-weight: 300;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+#gmt_menu{
+  display: none;
+  margin-top: 20px;
+  margin-left: 0px;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.buttons{
+  font-size: 15px;
+  font-weight: 300;
+
+}
+
+.glyph_squares{
+  float: left;
+  margin-right: 10px;
+  margin-top: 0px;
+}
+
+#submit_genes_button{
+  width:141px;
+  margin-bottom: 10px;
+}
+
+/*clear button*/
+#clear_input_button{
+  opacity: 0.90;
+}
+
+/*return to previous enrichrgram button*/
+#return_prev_button{
+  width: 140px;
+  margin-top: 40px;
+  opacity: 0.9;
+}
+
+/*modify enrichrgram*/
+#modify_enrichrgram_button{
+  opacity: 1.0;
+}
+
+.form-group{
+  margin-bottom: 10px;
+}
+
+/*footer - shift it with the sidebar*/
+#footer_div{
+  margin-left: 0px;
+}
+
+/*title for the visualization*/
+#viz_website_title{
+  /*reduced width sidebar - font size 
+  used to be 40*/
+  font-size: 30px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+#class_buttons{
+  /*reduced width sidebar 
+  margin-left used to be 30*/
+  /*margin-left: 28px;*/
+  margin-top:10px;
+}
+
+#toggle_order{
+  /*reduced width sidebar 
+  margin-left used to be 45*/
+  margin-left: 38px;
+  margin-top: 20px;
+  margin-bottom:5px;
+}
+
+.prot_class{
+  font-size: 11px;
+}
+
+/*initialize the title of res key*/
+#res_color_key_title{
+  display: none;
+}
+
+/*div holding res color key */
+#res_color_key_div{
+  margin-top: 0px;
+  /*set height so that the elements below
+  will be placed correctly*/
+  height: 50px;
+}
+
+/*resource names in key*/
+.res_names_in_key{
+  padding-left: 0px;
+  padding-right: 0px;
+  font-size:12px;
+  margin-left: -10px;
+}
+
+/*container for prot class and sorting buttons*/
+#button_container{
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/*container for gene search box*/
+#gene_search_container{
+  margin-top: 10px;
+  /*needed for some reason*/
+  margin-left: 0px;
+  display: none:;
+}
+
+/*gene search box */
+#gene_search_box{
+  width:120px;
+  /*float:left;*/
+  /*display: none;*/
+}
+
+/*gene search button*/
+#gene_search_button{
+  /*width:50px;*/
+  /*float:left;*/
+  margin-top:4px;
+  /*display: none;*/
+}
+
+/*clear float left*/
+#clear{
+  clear:both;
+}
+
+/*fizing jquery autocomplete*/
+.ui-menu-item{
+  float:left;
+  clear: left;
+}
+
+/*initialize webpage in homepage view*/
+#gene_exp_view{
+  display: none;
+}
+
+#homepage_view{
+  display: block;
+  position:relative;
+}
+
+#to_homepage{
+  margin-top:10px;
+}
+
+/*reduce the padding on the buttons*/
+.btn{
+  padding-top:2px;
+  padding-bottom:2px;
+}
+
+#submit_gene_button{
+  padding-top:6px;
+  padding-bottom:6px;
+}
+
+/*initialize no view for upload button*/
+#searchForm{
+  display: none;
+}
+
+/*position file upload button*/
+#file_upload_button{
+  margin-left: 5px;
+}

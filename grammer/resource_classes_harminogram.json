@@ -1,0 +1,1002 @@
+{
+  "Achilles_Cell_Line_Gene_Essentiality_Profiles": {
+    "description": "fitness scores for cell lines following single gene knockdowns", 
+    "data_type": "phenotyping", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-cell associations by sensitivity of cell line to gene knockdown"
+  }, 
+  "HPRD_Protein-Protein_Interactions": {
+    "description": "protein-protein interactions from low-throughput or high-throughput studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from low-throughput or high-throughput protein-protein interaction data"
+  }, 
+  "Graph_of_Medicine_EHR_Text-mining_Clinical_Term_Annotations": {
+    "description": "co-occurrence frequencies for pairs of medical terms in electronic health records", 
+    "data_type": "text-mining", 
+    "attribute_type": "clinical term", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-clinical term associations by co-occurrence frequency in electronic health records"
+  }, 
+  "TRANSFAC_Predicted_Transcription_Factor_Targets": {
+    "description": "target genes of transcription factors  predicted using known transcription factor binding site motifs", 
+    "data_type": "prediction", 
+    "attribute_type": "transcription factor", 
+    "attribute_group": "gene\n", 
+    "data_group": "genomics", 
+    "association": "gene-transcription factor associations predicted using known transcription factor binding site motifs"
+  }, 
+  "GO_Biological_Process_Annotations": {
+    "description": "curated annotations of genes with biological processes", 
+    "data_type": "literature curation", 
+    "attribute_type": "biological process", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-biological process associations from curated gene annotations"
+  }, 
+  "ProteomicsDB_Cell_and_Tissue_Protein_Expression_Profiles": {
+    "description": "protein expression profiles for tissues and cell lines reprocessed from many proteomics datasets", 
+    "data_type": "protein expression mass spectrometry", 
+    "attribute_type": "cell or tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "proteomics", 
+    "association": "gene-cell or tissue associations by differential expression of protein across tissues and cell lines"
+  }, 
+  "Biocarta_Pathways": {
+    "description": "sets of proteins participating in pathways", 
+    "data_type": "literature curation", 
+    "attribute_type": "pathway", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-pathway associations from curated pathways"
+  }, 
+  "BioGPS_Cell_Line_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for the NCI-60 panel of cancer cell lines measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-cell associations by differential expression of gene across cell lines"
+  }, 
+  "DrugBank_Drug_Targets": {
+    "description": "targets of drugs by manual literature curation", 
+    "data_type": "literature curation", 
+    "attribute_type": "drug", 
+    "attribute_group": "chemical\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-drug associations by manual literature curation"
+  }, 
+  "Virus_MINT_Protein-Viral_Protein_Interactions": {
+    "description": "interactions between viral and human proteins manually curated from literature", 
+    "data_type": "literature curation", 
+    "attribute_type": "viral protein", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-viral protein associations from curated protein interaction studies"
+  }, 
+  "Combined_Pathways": {
+    "description": "sets of proteins participating in pathways aggregated from the following pathway databases: Biocarta, HumanCyc, KEGG, NCI-Nature, Panther, Reactome, and Wikipathways", 
+    "data_type": "data aggregation", 
+    "attribute_type": "pathway", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-pathway associations from curated pathways"
+  }, 
+  "CCLE_Cell_Line_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for cancer cell lines measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-cell associations by differential expression of gene across cell lines"
+  }, 
+  "dbGAP_Gene-Trait_Associations": {
+    "description": "gene-trait associations curated from genetic association studies", 
+    "data_type": "genetic association", 
+    "attribute_type": "trait", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-trait associations curated from genetic association studies"
+  }, 
+  "BIND_Biomolecular_Interactions": {
+    "description": "biomolecular interactions from low-throughput or high-throughput studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from low-throughput or high-throughput protein-protein interaction data"
+  }, 
+  "Allen_Brain_Atlas_Adult_Human_Brain_Tissue_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for 6 adult human brain tissue samples measured by microarray spanning ~300 brain structures", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "tissue sample", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue sample associations by differential expression of gene across tissue samples"
+  }, 
+  "PC_Protein-Protein_Interactions": {
+    "description": "protein-protein interactions from low-throughput or high-throughput studies aggregated by Pathway Commons from the following databases: Reactome, NCI Pathways, PhosphoSite, HumanCyc, HPRD, PANTHER, DIP, BioGRID, IntAct, BIND, Transfac, MiRTarBase, Drugbank, Recon X, Comparative Toxicogenomics Database, and KEGG", 
+    "data_type": "data aggregation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from low-throughput or high-throughput protein-protein interaction data"
+  }, 
+  "NURSA_Protein_Complexes": {
+    "description": "proteins identified by mass spectrometry in complexes isolated from cultured cells by immuno-precipitation", 
+    "data_type": "protein complex IP-MS", 
+    "attribute_type": "protein complex", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "proteomics", 
+    "association": "gene-protein complex associations by identification of protein in complex recovered using IP-MS"
+  }, 
+  "GTEx_eQTL": {
+    "description": "significance values for all gene-SNP pairs testing likelihood that SNP affects gene expression", 
+    "data_type": "eQTL mapping", 
+    "attribute_type": "SNP", 
+    "attribute_group": "sequence feature\n", 
+    "data_group": "genomics", 
+    "association": "gene-SNP associations by likelihood that SNP regulates gene"
+  }, 
+  "MSigDB_Signatures_of_Differentially_Expressed_Genes_for_Cancer_Gene_Perturbations": {
+    "description": "oncogenic signatures of genes differentially expressed following cancer gene perturbations", 
+    "data_type": "gene expression microarray or RNA-seq", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-gene associations by differential expression of gene A following perturbation of gene B"
+  }, 
+  "OMIM_Gene-Disease_Associations": {
+    "description": "disease- or phenotype-causing gene mutations for heritable human diseases or phenotypes curated from biomedical publications", 
+    "data_type": "literature curation", 
+    "attribute_type": "phenotype", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-phenotype associations by literature evidence for phenotype-causing gene mutations"
+  }, 
+  "GTEx_Tissue_Sample_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for tissue samples measured by RNA-seq", 
+    "data_type": "gene expression RNA-seq", 
+    "attribute_type": "tissue sample", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue sample associations by differential expression of gene across tissue samples"
+  }, 
+  "TISSUES_Experimental_Tissue_Protein_Expression_Evidence_Scores": {
+    "description": "protein tissue expression evidence scores by integrating experimental data", 
+    "data_type": "data aggregation", 
+    "attribute_type": "tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "proteomics", 
+    "association": "gene-tissue associations by integrating evidence from experimental studies"
+  }, 
+  "SILAC_Signatures_of_Differentially_Phosphorylated_Proteins_for_Protein_Ligands": {
+    "description": "phosphorylation levels of proteins in cell lines following ligand treatment measured by SILAC", 
+    "data_type": "protein phosphorylation SILAC", 
+    "attribute_type": "ligand (protein)", 
+    "attribute_group": "gene\n", 
+    "data_group": "proteomics", 
+    "association": "gene-ligand (protein) associations by differential phosphorylation of protein following treatment of cells with ligand"
+  }, 
+  "IntAct_Biomolecular_Interactions": {
+    "description": "biomolecular interactions from low-throughput or high-throughput studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from low-throughput or high-throughput protein-protein interaction data"
+  }, 
+  "Allen_Brain_Atlas_Developing_Human_Brain_Tissue_Gene_Expression_Profiles_by_Microarray": {
+    "description": "mRNA expression profiles for human brain tissue samples measured by microarray spanning 27 time points and 26 brain structures", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue sample associations by differential expression of gene across tissue samples"
+  }, 
+  "HMDB_Metabolites_of_Enzymes": {
+    "description": "biomolecular interactions between metabolites and proteins, such as processing enzymes, curated from literature", 
+    "data_type": "literature curation", 
+    "attribute_type": "metabolite", 
+    "attribute_group": "chemical\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-metabolite associations by manual literature curation"
+  }, 
+  "HPM_Cell_and_Tissue_Protein_Expression_Profiles": {
+    "description": "protein expression profiles for tissues and cell lines measured by mass spectrometry", 
+    "data_type": "protein expression mass spectrometry", 
+    "attribute_type": "cell or tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "proteomics", 
+    "association": "gene-cell or tissue associations by differential expression of protein across tissues and cell lines"
+  }, 
+  "ESCAPE_Omics_Signatures_of_Genes_and_Proteins_for_Stem_Cells": {
+    "description": "sets of target genes of transcription factors from published ChIP-chip, ChIP-seq, and other transcription factor binding site profiling studies;sets of differentially expressed genes following perturbation of a protein from gene expression data in GEO; sets of interacting proteins from high- and low-throughput protein-protein interaction studies; sets of targets of microRNAs from public databases, computationally predicted or experimentally verified", 
+    "data_type": "data aggregation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "omics", 
+    "association": "gene-gene associations from studies profiling targets of transcription factors, differentially expressed genes after gene perturbation, protein-protein interactions, or targets of microRNAs"
+  }, 
+  "GTEx_Tissue_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for tissues measured by RNA-seq", 
+    "data_type": "gene expression RNA-seq", 
+    "attribute_type": "tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue associations by differential expression of gene across tissues"
+  }, 
+  "TISSUES_Curated_Tissue_Protein_Expression_Evidence_Scores": {
+    "description": "protein tissue expression evidence scores by manual literature curation", 
+    "data_type": "literature curation", 
+    "attribute_type": "tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-tissue associations by integrating evidence from manual literature curation"
+  }, 
+  "GAD_High_Level_Gene-Disease_Associations": {
+    "description": "gene-disease associations curated from genetic association studies", 
+    "data_type": "genetic association", 
+    "attribute_type": "disease", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-disease associations curated from genetic association studies"
+  }, 
+  "UniProt_Protein_Domain_Annotations": {
+    "description": "protein domains predicted for gene products based on sequence similarity to known domain signatures", 
+    "data_type": "prediction", 
+    "attribute_type": "protein domain", 
+    "attribute_group": "structural feature\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-protein domain associations by sequence similarity to domain signatures"
+  }, 
+  "DEPOD_Substrates_of_Phosphatases": {
+    "description": "phosphatase-substrate interactions manually curated from literature and databases of protein annotations or protein interactions", 
+    "data_type": "data aggregation", 
+    "attribute_type": "phosphatase", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "substrate-phosphatase associations from curation of literature and protein informatics databases"
+  }, 
+  "PID_Pathways": {
+    "description": "sets of proteins participating in pathways", 
+    "data_type": "literature curation", 
+    "attribute_type": "pathway", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-pathway associations from curated pathways"
+  }, 
+  "HuGE_Navigator_Gene-Phenotype_Associations": {
+    "description": "gene-phenotype associations extracted from published GWAS by automated text-mining", 
+    "data_type": "genetic association", 
+    "attribute_type": "phenotype", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-phenotype associations by automated GWAS curation"
+  }, 
+  "Roadmap_Epigenomics_Cell_and_Tissue_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for primary cells and tissues measured by RNA-seq", 
+    "data_type": "gene expression RNA-seq", 
+    "attribute_type": "cell or tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-cell or tissue associations by differential expression of gene across cell and tissue types"
+  }, 
+  "Roadmap_Epigenomics_Cell_and_Tissue_DNA_Accessibility_Profiles": {
+    "description": "DNA accessibility profiles for primary cells and tissues measured by Dnase-seq", 
+    "data_type": "DNA accessibility DNase-seq", 
+    "attribute_type": "cell or tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "genomics", 
+    "association": "gene-cell or tissue associations by differential accessibility of gene across cell and tissue types"
+  }, 
+  "HPA_Tissue_Sample_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for tissue samples measured by RNA-seq", 
+    "data_type": "gene expression RNA-seq", 
+    "attribute_type": "tissue sample", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue sample associations by differential expression of gene across tissue samples"
+  }, 
+  "SILAC_Signatures_of_Differentially_Phosphorylated_Proteins_for_Drugs": {
+    "description": "phosphorylation levels of proteins in cell lines following drug treatment measured by SILAC", 
+    "data_type": "protein phosphorylation SILAC", 
+    "attribute_type": "drug", 
+    "attribute_group": "chemical\n", 
+    "data_group": "proteomics", 
+    "association": "gene-drug associations by differential phosphorylation of protein following treatment of cells with drug"
+  }, 
+  "GEO_Signatures_of_Differentially_Expressed_Genes_for_Diseases": {
+    "description": "mRNA expression profiles for cell lines or tissues following disease perturbation measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "disease", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-disease associations by differential expression of gene following disease perturbation"
+  }, 
+  "Heiser_Cell_Line_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for breast cancer cell lines measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-cell associations by differential expression of gene across cell lines"
+  }, 
+  "HumanCyc_Biomolecular_Interactions": {
+    "description": "biomolecular interactions by pathway", 
+    "data_type": "literature curation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from curated pathways"
+  }, 
+  "LOCATE_Protein_Localization_Annotations": {
+    "description": "subcellular localization of proteins from low-throughput or high-throughput protein localization assays", 
+    "data_type": "data aggregation", 
+    "attribute_type": "cellular component", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "proteomics", 
+    "association": "gene-cellular component associations from low-throughput or high-throughput protein localization assays"
+  }, 
+  "Roadmap_Epigenomics_Histone_Modification_Site_Profiles": {
+    "description": "histone modification profiles for primary cells and tissues measured by ChIP-seq", 
+    "data_type": "histone modification ChIP-seq", 
+    "attribute_type": "histone modification site profile", 
+    "attribute_group": "molecular profile\n", 
+    "data_group": "genomics", 
+    "association": "gene-histone modification site profile associations by modification of histone near gene in cell or tissue"
+  }, 
+  "SILAC_Signatures_of_Differentially_Phosphorylated_Proteins_for_Gene_Perturbations": {
+    "description": "phosphorylation levels of proteins in cell lines following genetic perturbation (knockdown, knockout, over-expression, mutation) measured by SILAC", 
+    "data_type": "protein phosphorylation SILAC", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "proteomics", 
+    "association": "gene-gene associations by differential phosphorylation of protein following genetic perturbation of cells"
+  }, 
+  "Guide_to_Pharmacology_Chemical_Ligands_of_Receptors": {
+    "description": "ligand-receptor interactions curated by experts", 
+    "data_type": "literature curation", 
+    "attribute_type": "ligand (chemical)", 
+    "attribute_group": "chemical\n", 
+    "data_group": "physical interactions", 
+    "association": "receptor-ligand (chemical) associations by expert curation"
+  }, 
+  "CTD_Gene-Chemical_Interactions": {
+    "description": "chemical-gene interactions curated from literature", 
+    "data_type": "literature curation", 
+    "attribute_type": "chemical", 
+    "attribute_group": "chemical\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-chemical associations by manual literature curation"
+  }, 
+  "GeneRIF_Biological_Term_Annotations": {
+    "description": "statements describing functions of genes distilled from biomedical publications", 
+    "data_type": "literature curation", 
+    "attribute_type": "biological term", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-biological term associations from literature-supported statements describing functions of genes"
+  }, 
+  "HPA_Tissue_Protein_Expression_Profiles": {
+    "description": "semiquantitative protein expression profiles for tissues measured by immunohistochemistry", 
+    "data_type": "protein expression immunohistochemistry", 
+    "attribute_type": "tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "proteomics", 
+    "association": "gene-tissue associations by differential expression of protein across tissues"
+  }, 
+  "GO_Cellular_Component_Annotations": {
+    "description": "curated annotations of genes with cellular components", 
+    "data_type": "literature curation", 
+    "attribute_type": "cellular component", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-cellular component associations from curated gene annotations"
+  }, 
+  "PhosphoSitePlus_Substrates_of_Kinases": {
+    "description": "kinase-substrate interactions curated from low-throughput or high-throughput phosphoproteomics studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "kinase", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "substrate-kinase associations from low-throughput or high-throughput phosphoproteomics data"
+  }, 
+  "MiRTarBase_microRNA_Targets": {
+    "description": "target genes of microRNAs from published experiments", 
+    "data_type": "data aggregation", 
+    "attribute_type": "microRNA", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-microRNA associations from low-throughput or high-throughput microRNA targeting studies"
+  }, 
+  "DISEASES_Text-mining_Gene-Disease_Assocation_Evidence_Scores": {
+    "description": "gene-disease co-occurrence scores from text-mining biomedical abstracts", 
+    "data_type": "text-mining", 
+    "attribute_type": "disease", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-disease associations from automated text-mining of biomedical literature"
+  }, 
+  "GAD_Gene-Disease_Associations": {
+    "description": "positive and negative gene-disease associations curated from genetic association studies", 
+    "data_type": "genetic association", 
+    "attribute_type": "disease", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-disease associations curated from genetic association studies"
+  }, 
+  "HPO_Gene-Disease_Associations": {
+    "description": "phenotype-causing gene mutations of human phenotypes from disease knowledgebases", 
+    "data_type": "data aggregation", 
+    "attribute_type": "phenotype", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-phenotype associations by mapping disease genes to disease phenotypes"
+  }, 
+  "KEGG_Biomolecular_Interactions": {
+    "description": "biomolecular interactions by pathway", 
+    "data_type": "literature curation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from curated pathways"
+  }, 
+  "ENCODE_Transcription_Factor_Targets": {
+    "description": "target genes of transcription factors from ChIP-seq transcription factor binding site profiles", 
+    "data_type": "transcription factor ChIP-seq", 
+    "attribute_type": "transcription factor", 
+    "attribute_group": "gene\n", 
+    "data_group": "genomics", 
+    "association": "gene-transcription factor associations by binding of transcription factor near transcription start site of gene"
+  }, 
+  "ENCODE_Histone_Modification_Site_Profiles": {
+    "description": "histone modification profiles for cell lines measured by ChIP-seq", 
+    "data_type": "histone modification ChIP-seq", 
+    "attribute_type": "histone modification site profile", 
+    "attribute_group": "molecular profile\n", 
+    "data_group": "genomics", 
+    "association": "gene-histone modification site profile associations by modification of histone near gene in cell line"
+  }, 
+  "GEO_Signatures_of_Differentially_Expressed_Genes_for_Small_Molecules": {
+    "description": "mRNA expression profiles for cell lines or tissues following chemical perturbation measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "small molecule", 
+    "attribute_group": "chemical\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-small molecule associations by differential expression of gene following chemical perturbation"
+  }, 
+  "Klijn_Cell_Line_Gene_Mutation_Profiles": {
+    "description": "gene mutations in cancer cell lines measured by SNP microarray", 
+    "data_type": "single nucleotide polymorphism microarray", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "genomics", 
+    "association": "gene-cell associations by mutation of gene in cell line"
+  }, 
+  "BioGPS_Human_Cell_and_Tissue_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for human tissues and cell lines measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "cell or tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-cell or tissue associations by differential expression of gene across cell lines/tissues"
+  }, 
+  "DISEASES_Experimental_Gene-Disease_Assocation_Evidence_Scores": {
+    "description": "disease gene evidence scores by integrating experimental data (GWAS)", 
+    "data_type": "genetic association", 
+    "attribute_type": "disease", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-disease associations by integrating evidence from experimental studies"
+  }, 
+  "Klijn_Cell_Line_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for cancer cell lines measured by RNA-seq", 
+    "data_type": "gene expression RNA-seq", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-cell associations by differential expression of gene across cell lines"
+  }, 
+  "Klijn_Cell_Line_Gene_CNV_Profiles": {
+    "description": "gene-level copy number variation profiles for cancer cell lines measured by SNP microarray", 
+    "data_type": "copy number variation microarray", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "genomics", 
+    "association": "gene-cell associations by copy number variation of gene across cell lines"
+  }, 
+  "CMAP_Signatures_of_Differentially_Expressed_Genes_for_Small_Molecules": {
+    "description": "mRNA expression profiles for cell lines following  chemical perturbation measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "small molecule", 
+    "attribute_group": "chemical\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-small molecule associations by differential expression of gene following chemical perturbation"
+  }, 
+  "KEGG_Pathways": {
+    "description": "sets of proteins participating in pathways", 
+    "data_type": "literature curation", 
+    "attribute_type": "pathway", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-pathway associations from curated pathways"
+  }, 
+  "Phosphosite_Textmining_Biological_Term_Annotations": {
+    "description": "occurrence frequencies for biological terms in abstracts of publications describing phosphosites", 
+    "data_type": "text-mining", 
+    "attribute_type": "biological term", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-biological term associations by occurrence of biological term in abstracts of publications describing phosphosite on protein"
+  }, 
+  "Recon_X_Biomolecular_Interactions": {
+    "description": "biomolecular interactions from network reconstruction", 
+    "data_type": "prediction", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from reconstructed metabolic network"
+  }, 
+  "CTD_Gene-Disease_Associations": {
+    "description": "disease-gene interactions curated from literature", 
+    "data_type": "literature curation", 
+    "attribute_type": "disease", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-disease associations by manual literature curation"
+  }, 
+  "TRANSFAC_Curated_Transcription_Factor_Targets": {
+    "description": "target genes of transcription factors manually curated from low-throughput or high-throughput transcription factor functional studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "transcription factor", 
+    "attribute_group": "gene\n", 
+    "data_group": "genomics", 
+    "association": "gene-transcription factor associations from low-throughput or high-throughput transcription factor functional studies"
+  }, 
+  "PID_Biomolecular_Interactions": {
+    "description": "biomolecular interactions by pathway", 
+    "data_type": "literature curation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from curated pathways"
+  }, 
+  "Reactome_Pathways": {
+    "description": "sets of proteins participating in pathways", 
+    "data_type": "literature curation", 
+    "attribute_type": "pathway", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-pathway associations from curated pathways"
+  }, 
+  "CHEA_Transcription_Factor_Binding_Site_Profiles": {
+    "description": "transcription factor binding site profiles from published ChIP-chip, ChIP-seq, and other transcription factor functional studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "transcription factor binding site profile", 
+    "attribute_group": "molecular profile\n", 
+    "data_group": "genomics", 
+    "association": "gene-transcription factor binding site profile associations from low-throughput or high-throughput transcription factor functional studies"
+  }, 
+  "HumanCyc_Pathways": {
+    "description": "sets of proteins participating in pathways", 
+    "data_type": "literature curation", 
+    "attribute_type": "pathway", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-pathway associations from curated pathways"
+  }, 
+  "HPA_Tissue_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for tissues measured by RNA-seq", 
+    "data_type": "gene expression RNA-seq", 
+    "attribute_type": "tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue associations by differential expression of gene across tissues"
+  }, 
+  "KinomeScan_Kinase_Inhibitor_Targets": {
+    "description": "kinase inhibitor targets from percent inhibition of kinases by small molecules measured using purified kinases", 
+    "data_type": "chemical bioactivity", 
+    "attribute_type": "chemical", 
+    "attribute_group": "chemical\n", 
+    "data_group": "physical interactions", 
+    "association": "kinase-chemical associations by percent inhibition of kinase by chemical"
+  }, 
+  "L1000_CMAP_Signatures_of_Differentially_Expressed_Genes_for_Gene_Knockdowns": {
+    "description": "mRNA expression profiles for cell lines following gene knockdown measured using the L1000 bead-based expression assay", 
+    "data_type": "gene expression L1000 assay", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-gene associations by differential expression of gene A following knockdown of gene B"
+  }, 
+  "HPA_Cell_Line_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for cell lines measured by RNA-Seq", 
+    "data_type": "gene expression RNA-seq", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-cell associations by differential expression of gene across cell lines"
+  }, 
+  "GWASdb_SNP-Phenotype_Associations": {
+    "description": "SNP-phenotype association p-values curated from published GWAS", 
+    "data_type": "genetic association", 
+    "attribute_type": "phenotype", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-phenotype associations by manual GWAS curation"
+  }, 
+  "GEO_Signatures_of_Differentially_Expressed_Genes_for_Kinase_Perturbations": {
+    "description": "mRNA expression profiles for cell lines or tissues following kinase perturbation (inhibition, activation, knockdown, knockout, over-expression, mutation) measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "kinase", 
+    "attribute_group": "gene\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-kinase associations by differential expression of gene following perturbation of kinase"
+  }, 
+  "GEO_Signatures_of_Differentially_Expressed_Genes_for_Gene_Perturbations": {
+    "description": "mRNA expression profiles for cell lines or tissues following genetic perturbation (knockdown, knockout, over-expression, mutation) measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-gene associations by differential expression of gene A following perturbation of gene B"
+  }, 
+  "CHEA_Transcription_Factor_Targets": {
+    "description": "target genes of transcription factors from published ChIP-chip, ChIP-seq, and other transcription factor binding site profiling studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "transcription factor", 
+    "attribute_group": "gene\n", 
+    "data_group": "genomics", 
+    "association": "gene-transcription factor associations from low-throughput or high-throughput transcription factor functional studies"
+  }, 
+  "BioGRID_Protein-Protein_Interactions": {
+    "description": "protein-protein interactions from low-throughput or high-throughput studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from low-throughput or high-throughput protein-protein interaction data"
+  }, 
+  "KEA_Substrates_of_Kinases": {
+    "description": "protein substrates of kinases from published low-throughput and high-throughput phosphoproteomics studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "kinase", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "substrate-kinase associations from low-throughput or high-throughput phosphoproteomics data"
+  }, 
+  "ENCODE_Transcription_Factor_Binding_Site_Profiles": {
+    "description": "transcription factor binding site profiles for cell lines measured by ChIP-seq", 
+    "data_type": "transcription factor ChIP-seq", 
+    "attribute_type": "transcription factor binding site profile", 
+    "attribute_group": "molecular profile\n", 
+    "data_group": "genomics", 
+    "association": "gene-transcription factor binding site profile associations by binding of transcription factor near transcription start site of gene in cell line"
+  }, 
+  "GDSC_Cell_Line_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for cancer cell lines measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-cell associations by differential expression of gene across cell lines"
+  }, 
+  "Reactome_Biomolecular_Interactions": {
+    "description": "biomolecular interactions by pathway", 
+    "data_type": "literature curation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from curated pathways"
+  }, 
+  "PANTHER_Biomolecular_Interactions": {
+    "description": "biomolecular interactions by pathway", 
+    "data_type": "literature curation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from curated pathways"
+  }, 
+  "GeneSigDB_Published_Gene_Signatures": {
+    "description": "gene signatures reported in the literature that were derived from analysis of transcriptomic or proteomic data", 
+    "data_type": "data aggregation", 
+    "attribute_type": "PubMedID", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "omics", 
+    "association": "gene-PubMedID associations by PubMedID of publication reporting gene signature"
+  }, 
+  "GO_Molecular_Function_Annotations": {
+    "description": "curated annotations of genes with molecular functions", 
+    "data_type": "literature curation", 
+    "attribute_type": "molecular function", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-molecular function associations from curated gene annotations"
+  }, 
+  "COMPARTMENTS_Experimental_Protein_Localization_Evidence_Scores": {
+    "description": "protein subcellular localization evidence scores by integrating experimental data", 
+    "data_type": "data aggregation", 
+    "attribute_type": "cellular component", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "proteomics", 
+    "association": "gene-cellular component associations by integrating evidence from experimental studies"
+  }, 
+  "CCLE_Cell_Line_Gene_Mutation_Profiles": {
+    "description": "gene-level mutation profiles for cancer cell lines measured by hybrid capture sequencing", 
+    "data_type": "gene mutation hybrid capture sequencing", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "genomics", 
+    "association": "gene-cell associations by mutation of gene in cell line"
+  }, 
+  "Wikipathways_Pathways": {
+    "description": "sets of proteins participating in pathways", 
+    "data_type": "literature curation", 
+    "attribute_type": "pathway", 
+    "attribute_group": "functional term, phrase or reference", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-pathway associations from curated pathways"
+  }, 
+  "ClinVar_SNP-Phenotype_Associations": {
+    "description": "SNP-phenotype associations curated by ClinVar users from various sources", 
+    "data_type": "genetic association", 
+    "attribute_type": "phenotype", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-phenotype associations by crowd-sourced curation"
+  }, 
+  "COSMIC_Cell_Line_Gene_Mutation_Profiles": {
+    "description": "gene mutations in cancer cell lines from low-throughput or high-throughput studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "genomics", 
+    "association": "gene-cell associations by mutation of gene in cell line"
+  }, 
+  "JASPAR_Transcription_Factor_Targets": {
+    "description": "target genes of transcription factors  predicted using known transcription factor binding site motifs", 
+    "data_type": "prediction", 
+    "attribute_type": "transcription factor", 
+    "attribute_group": "gene\n", 
+    "data_group": "genomics", 
+    "association": "gene-transcription factor associations predicted using known transcription factor binding site motifs"
+  }, 
+  "Kinativ_Kinase_Inhibitor_Bioactivity_Profiles": {
+    "description": "percent inhibition of kinases by small molecules measured in cell lysates", 
+    "data_type": "chemical bioactivity", 
+    "attribute_type": "chemical bioactivity profile", 
+    "attribute_group": "molecular profile\n", 
+    "data_group": "physical interactions", 
+    "association": "kinase-chemical bioactivity profile associations by percent inhibition of kinase by chemical in cell line"
+  }, 
+  "COMPARTMENTS_Text-mining_Protein_Localization_Evidence_Scores": {
+    "description": "gene-cellular compartment co-occurrence scores from text-mining biomedical abstracts", 
+    "data_type": "text-mining", 
+    "attribute_type": "cellular component", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-cellular component associations from automated text-mining of biomedical literature"
+  }, 
+  "Guide_to_Pharmacology_Protein_Ligands_of_Receptors": {
+    "description": "ligand-receptor interactions curated by experts", 
+    "data_type": "literature curation", 
+    "attribute_type": "ligand (protein)", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "receptor-ligand (protein) associations by expert curation"
+  }, 
+  "MPO_Gene-Phenotype_Associations": {
+    "description": "observed phenotypes of transgenic mice collected from mouse phenotyping studies", 
+    "data_type": "phenotyping", 
+    "attribute_type": "phenotype", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-phenotype associations from phenotyping studies of knockout mice"
+  }, 
+  "SNPedia_Navigator_SNP-Phenotype_Associations": {
+    "description": "SNP-phenotype associations curated by SNPedia users from various sources", 
+    "data_type": "genetic association", 
+    "attribute_type": "phenotype", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-phenotype associations by crowd-sourced curation"
+  }, 
+  "TISSUES_Text-mining_Tissue_Protein_Expression_Evidence_Scores": {
+    "description": "gene-tissue co-occurrence scores from text-mining biomedical abstracts", 
+    "data_type": "text-mining", 
+    "attribute_type": "tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-tissue associations from automated text-mining of biomedical literature"
+  }, 
+  "GEO_Signatures_of_Differentially_Expressed_Genes_for_Transcription_Factor_Perturbations": {
+    "description": "mRNA expression profiles for cell lines or tissues following transcription factor perturbation (inhibition, activation, knockdown, knockout, over-expression, mutation) measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "transcription factor", 
+    "attribute_group": "gene\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-transcription factor associations by differential expression of gene following perturbation of transcription factor"
+  }, 
+  "TCGA_Signatures_of_Differentially_Expressed_Genes_for_Tumors": {
+    "description": "mRNA expression profiles for tumor and normal tissue samples measured by RNA-seq", 
+    "data_type": "gene expression RNA-seq", 
+    "attribute_type": "tissue sample", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue sample associations by differential expression of gene across tissue samples"
+  }, 
+  "GWAS_Catalog_SNP-Phenotype_Associations": {
+    "description": "SNP-phenotype association p-values curated from published GWAS", 
+    "data_type": "genetic association", 
+    "attribute_type": "phenotype", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-phenotype associations by manual GWAS curation"
+  }, 
+  "GWASdb_SNP-Disease_Associations": {
+    "description": "SNP-disease association p-values curated from published GWAS", 
+    "data_type": "genetic association", 
+    "attribute_type": "disease", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-disease associations by manual GWAS curation"
+  }, 
+  "TargetScan_microRNA_Targets": {
+    "description": "target genes of microRNAs predicted by searching genes for sites matching known miRNA seed regions", 
+    "data_type": "prediction", 
+    "attribute_type": "microRNA", 
+    "attribute_group": "gene\n", 
+    "data_group": "genomics", 
+    "association": "gene-microRNA associations predicted using known miRNA seed sequences"
+  }, 
+  "MotifMap_Transcription_Factor_Targets": {
+    "description": "target genes of transcription factors  predicted using known transcription factor binding site motifs", 
+    "data_type": "prediction", 
+    "attribute_type": "transcription factor", 
+    "attribute_group": "gene\n", 
+    "data_group": "genomics", 
+    "association": "gene-transcription factor associations predicted using known transcription factor binding site motifs"
+  }, 
+  "Allen_Brain_Atlas_Prenatal_Human_Brain_Tissue_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for 4 human prenatal brain tissue samples measured by microarray spanning 4 time points and ~300 brain structures", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue sample associations by differential expression of gene across tissue samples"
+  }, 
+  "CCLE_Cell_Line_Gene_CNV_Profiles": {
+    "description": "gene-level copy number variation profiles for cancer cell lines measured by SNP microarray", 
+    "data_type": "copy number variation microarray", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "genomics", 
+    "association": "gene-cell associations by copy number variation of gene across cell lines"
+  }, 
+  "Hub_Protein_Protein-Protein_Interactions": {
+    "description": "sets of proteins interacting with hub proteins", 
+    "data_type": "data aggregation", 
+    "attribute_type": "hub", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-hub associations from aggregated protein-protein interaction data"
+  }, 
+  "COSMIC_Cell_Line_Gene_CNV_Profiles": {
+    "description": "gene-level copy number variation profiles for cancer cell lines measured by SNP microarray", 
+    "data_type": "copy number variation microarray", 
+    "attribute_type": "cell", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "genomics", 
+    "association": "gene-cell associations by copy number variation of gene across cell lines"
+  }, 
+  "L1000_CMAP_Signatures_of_Differentially_Expressed_Genes_for_Small_Molecules": {
+    "description": "mRNA expression profiles for cell lines following  chemical perturbation measured using the L1000 bead-based expression assay", 
+    "data_type": "gene expression L1000 assay", 
+    "attribute_type": "small molecule", 
+    "attribute_group": "chemical\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-small molecule associations by differential expression of gene following chemical perturbation"
+  }, 
+  "CORUM_Protein_Complexes": {
+    "description": "proteins participating in complexes by manual literature curation", 
+    "data_type": "literature curation", 
+    "attribute_type": "protein complex", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-protein complex associations from curated complexes"
+  }, 
+  "GEO_Signatures_of_Differentially_Expressed_Genes_for_Viral_Infections": {
+    "description": "mRNA expression profiles for cell lines or tissues following virus perturbation measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "virus", 
+    "attribute_group": "organism\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-disease associations by differential expression of gene following virus perturbation"
+  }, 
+  "PANTHER_Pathways": {
+    "description": "sets of proteins participating in pathways", 
+    "data_type": "literature curation", 
+    "attribute_type": "pathway", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-pathway associations from curated pathways"
+  }, 
+  "COMPARTMENTS_Curated_Protein_Localization_Evidence_Scores": {
+    "description": "protein subcellular localization evidence scores by manual literature curation", 
+    "data_type": "literature curation", 
+    "attribute_type": "cellular component", 
+    "attribute_group": "functional term, phrase or reference\n", 
+    "data_group": "structural or functional annotations", 
+    "association": "gene-cellular component associations by integrating evidence from manual literature curation"
+  }, 
+  "BioGPS_Mouse_Cell_and_Tissue_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for mouse tissues and cell lines measured by microarray", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "cell or tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-cell or tissue associations by differential expression of gene across cell lines/tissues"
+  }, 
+  "Allen_Brain_Atlas_Adult_Mouse_Brain_Tissue_Gene_Expression_Profiles": {
+    "description": "mRNA expression profiles for adult mouse brain tissues measured by in-situ hybridization spanning ~2000 anatomically defined brain structures", 
+    "data_type": "gene expression in situ hybridization", 
+    "attribute_type": "tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue associations by differential expression of gene across tissues"
+  }, 
+  "Roadmap_Epigenomics_Cell_and_Tissue_DNA_Methylation_Profiles": {
+    "description": "DNA methylation profiles for primary cells and tissues measured by bisulfite sequencing, MeDIP-seq or MRE-seq", 
+    "data_type": "DNA methylation bisulfite sequencing, MeDIP-seq, or MRE-seq", 
+    "attribute_type": "cell or tissue", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "genomics", 
+    "association": "gene-cell or tissue associations by differential methylation of gene across cell and tissue types"
+  }, 
+  "NURSA_Protein-Protein_Interactions": {
+    "description": "protein-protein interactions inferred from membership in complexes identified by immuno-precipitation followed by mass spectrometry", 
+    "data_type": "protein complex IP-MS", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "proteomics", 
+    "association": "gene-gene associations by co-occurrence of proteins in complexes recovered using IP-MS"
+  }, 
+  "MSigDB_Cancer_Gene_Co-expression_Modules": {
+    "description": "computational signatures of genes co-expressed with cancer related genes", 
+    "data_type": "gene expression microarray or RNA-seq", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-gene associations by co-expression of genes across collections of microarray samples "
+  }, 
+  "DISEASES_Curated_Gene-Disease_Assocation_Evidence_Scores": {
+    "description": "disease gene evidence scores by manual literature curation", 
+    "data_type": "literature curation", 
+    "attribute_type": "disease", 
+    "attribute_group": "disease, phenotype or trait\n", 
+    "data_group": "disease or phenotype associations", 
+    "association": "gene-disease associations by integrating evidence from manual literature curation"
+  }, 
+  "DIP_Protein-Protein_Interactions": {
+    "description": "protein-protein interactions from low-throughput or high-throughput studies", 
+    "data_type": "data aggregation", 
+    "attribute_type": "gene", 
+    "attribute_group": "gene\n", 
+    "data_group": "physical interactions", 
+    "association": "gene-gene associations from low-throughput or high-throughput protein-protein interaction data"
+  }, 
+  "Allen_Brain_Atlas_Developing_Human_Brain_Tissue_Gene_Expression_Profiles_by_RNA-seq": {
+    "description": "mRNA expression profiles for human brain tissue samples measured by RNA-seq spanning 31 time points and 26 brain structures", 
+    "data_type": "gene expression microarray", 
+    "attribute_type": "tissue sample", 
+    "attribute_group": "cell or tissue\n", 
+    "data_group": "transcriptomics", 
+    "association": "gene-tissue sample associations by differential expression of gene across tissue samples"
+  }
+}

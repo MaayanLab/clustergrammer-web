@@ -1,0 +1,18 @@
+The Dockerfile starts by getting a clean debian image. Then it gets the latest available repos usig apt-get update. Then it installs python, apache, python packages, numpy scipy. Then it creates a directory in the container called app, adds my directory ajax_flask to app, adds wsgi.py and boot.sh. It then exposes the port 80. funally, it runs the command boot.sh in the app folder and does a redundant tail command on the error log. 
+
+The boot.sh command: 
+	add user r
+	moves to the app directory 
+	runs mod_wsgi-express setup-serveer wsgi.py with port 80, user r, group r and the server root /etc/app
+
+	Then it changes the file type of /etc/app/handler.wsgi using chmod a+x. 
+
+	Then it starts the apache program using /etc/app/apachectl start
+
+	Fially it keeps a tail on the error log which keeps the process running. 
+
+	I want to figure out how to get the server to host at some subdirectory rather than localhost. 
+
+	The flask app gives the output server url http://localhost/. I think this is what I change. 
+
+
