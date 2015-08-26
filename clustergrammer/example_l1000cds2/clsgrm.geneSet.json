@@ -1,0 +1,1062 @@
+{
+  "_id": "55dde8f09a6ec4f2b805d9aa",
+  "input": {
+    "aggravate": false,
+    "meta": [
+      {
+        "key": "Tag",
+        "value": "Gene-set Example",
+        "_mouseover": false,
+        "$$hashKey": "object:159"
+      }
+    ],
+    "data": {
+      "upGenes": [
+        "KIAA0907",
+        "KDM5A",
+        "CDC25A",
+        "EGR1",
+        "GADD45B",
+        "RELB",
+        "TERF2IP",
+        "SMNDC1",
+        "TICAM1",
+        "NFKB2",
+        "RGS2",
+        "NCOA3",
+        "ICAM1",
+        "TEX10",
+        "CNOT4",
+        "ARID4B",
+        "CLPX",
+        "CHIC2",
+        "CXCL2",
+        "FBXO11",
+        "MTF2",
+        "CDK2",
+        "DNTTIP2",
+        "GADD45A",
+        "GOLT1B",
+        "POLR2K",
+        "NFKBIE",
+        "GABPB1",
+        "ECD",
+        "PHKG2",
+        "RAD9A",
+        "NET1",
+        "KIAA0753",
+        "EZH2",
+        "NRAS",
+        "ATP6V0B",
+        "CDK7",
+        "CCNH",
+        "SENP6",
+        "TIPARP",
+        "FOS",
+        "ARPP19",
+        "TFAP2A",
+        "KDM5B",
+        "NPC1",
+        "TP53BP2",
+        "NUSAP1"
+      ],
+      "dnGenes": [
+        "SCCPDH",
+        "KIF20A",
+        "FZD7",
+        "USP22",
+        "PIP4K2B",
+        "CRYZ",
+        "GNB5",
+        "EIF4EBP1",
+        "PHGDH",
+        "RRAGA",
+        "SLC25A46",
+        "RPA1",
+        "HADH",
+        "DAG1",
+        "RPIA",
+        "P4HA2",
+        "MACF1",
+        "TMEM97",
+        "MPZL1",
+        "PSMG1",
+        "PLK1",
+        "SLC37A4",
+        "GLRX",
+        "CBR3",
+        "PRSS23",
+        "NUDCD3",
+        "CDC20",
+        "KIAA0528",
+        "NIPSNAP1",
+        "TRAM2",
+        "STUB1",
+        "DERA",
+        "MTHFD2",
+        "BLVRA",
+        "IARS2",
+        "LIPA",
+        "PGM1",
+        "CNDP2",
+        "BNIP3",
+        "CTSL1",
+        "CDC25B",
+        "HSPA8",
+        "EPRS",
+        "PAX8",
+        "SACM1L",
+        "HOXA5",
+        "TLE1",
+        "PYGL",
+        "TUBB6",
+        "LOXL1"
+      ]
+    }
+  },
+  "result": [
+    {
+      "name": "CGP-60474",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CHIC2",
+          "CXCL2",
+          "DNTTIP2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "RELB",
+          "RGS2",
+          "TFAP2A",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "DOXORUBICIN",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CNOT4",
+          "CXCL2",
+          "GADD45B",
+          "KDM5B",
+          "KIAA0907",
+          "MTF2",
+          "NET1",
+          "RGS2",
+          "TFAP2A",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "BRD-K19220233",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "DNTTIP2",
+          "FBXO11",
+          "GADD45B",
+          "KDM5B",
+          "KIAA0907",
+          "MTF2",
+          "NET1",
+          "RAD9A",
+          "TEX10",
+          "TICAM1",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "BRD-U00779237",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CHIC2",
+          "CLPX",
+          "DNTTIP2",
+          "GABPB1",
+          "KDM5B",
+          "MTF2",
+          "NET1",
+          "RGS2",
+          "TICAM1",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "BMS-387032",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "CXCL2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "RELB",
+          "RGS2",
+          "TEX10",
+          "TFAP2A",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "AT-7519",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "CNOT4",
+          "GABPB1",
+          "ICAM1",
+          "KIAA0907",
+          "NET1",
+          "RELB",
+          "RGS2",
+          "TEX10",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": [
+          "LOXL1"
+        ]
+      }
+    },
+    {
+      "name": "BRD-K77681376",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CLPX",
+          "CNOT4",
+          "DNTTIP2",
+          "FBXO11",
+          "GABPB1",
+          "KDM5B",
+          "MTF2",
+          "NET1",
+          "NUSAP1",
+          "RGS2",
+          "TICAM1",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "BRD-K85853281",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDK7",
+          "CLPX",
+          "CNOT4",
+          "CXCL2",
+          "EZH2",
+          "KIAA0907",
+          "NET1",
+          "RGS2",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "alvocidib",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CXCL2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "MTF2",
+          "RELB",
+          "RGS2",
+          "TIPARP"
+        ],
+        "dn/up": [
+          "RPIA"
+        ]
+      }
+    },
+    {
+      "name": "ER 27319 maleate",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDK7",
+          "CNOT4",
+          "CXCL2",
+          "KDM5B",
+          "KIAA0907",
+          "MTF2",
+          "NET1",
+          "RGS2",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "Doxorubicin hydrochloride",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CXCL2",
+          "DNTTIP2",
+          "KDM5B",
+          "MTF2",
+          "NET1",
+          "RGS2",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "ZM 336372",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "EZH2",
+          "NUSAP1"
+        ],
+        "dn/up": [
+          "EIF4EBP1",
+          "GLRX",
+          "LIPA",
+          "MTHFD2",
+          "P4HA2",
+          "PGM1",
+          "PHGDH",
+          "PRSS23"
+        ]
+      }
+    },
+    {
+      "name": "16-HYDROXYTRIPTOLIDE",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CLPX",
+          "CNOT4",
+          "GABPB1",
+          "MTF2",
+          "NET1",
+          "RAD9A",
+          "TEX10",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "daunorubicin",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CNOT4",
+          "CXCL2",
+          "EZH2",
+          "KDM5B",
+          "KIAA0907",
+          "NET1",
+          "RGS2",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "S1216",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CXCL2",
+          "EZH2",
+          "KIAA0907",
+          "NET1",
+          "RGS2",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "entinostat",
+      "overlap": {
+        "up/dn": [
+          "CDC25A"
+        ],
+        "dn/up": [
+          "BLVRA",
+          "CTSL1",
+          "FZD7",
+          "GLRX",
+          "GNB5",
+          "LIPA",
+          "NIPSNAP1",
+          "P4HA2",
+          "PRSS23"
+        ]
+      }
+    },
+    {
+      "name": "CGP-60474",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "EGR1",
+          "GADD45A",
+          "GADD45B",
+          "NET1",
+          "RGS2",
+          "TFAP2A",
+          "TICAM1",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "AT-7519",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "NET1",
+          "RELB",
+          "RGS2",
+          "TEX10",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "CGP-60474",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CHIC2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "RELB",
+          "RGS2",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "CGP-60474",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "CXCL2",
+          "DNTTIP2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "RELB",
+          "RGS2",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "alvocidib",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CDK7",
+          "GADD45A",
+          "MTF2",
+          "NET1",
+          "TFAP2A",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": [
+          "GNB5"
+        ]
+      }
+    },
+    {
+      "name": "CGP-60474",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "EGR1",
+          "GADD45A",
+          "GADD45B",
+          "MTF2",
+          "NET1",
+          "RGS2",
+          "TFAP2A",
+          "TICAM1",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "BMS-387032",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "GADD45A",
+          "GADD45B",
+          "MTF2",
+          "NET1",
+          "RGS2",
+          "TFAP2A",
+          "TICAM1",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "AT-7519",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "CNOT4",
+          "GABPB1",
+          "GADD45A",
+          "GADD45B",
+          "MTF2",
+          "NET1",
+          "TFAP2A",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "Ro 31-8220 mesylate",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CXCL2",
+          "DNTTIP2",
+          "GABPB1",
+          "KDM5B",
+          "NET1",
+          "RGS2",
+          "TICAM1",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "DAUNORUBICIN",
+      "overlap": {
+        "up/dn": [
+          "ARPP19",
+          "CDC25A",
+          "CDK7",
+          "CXCL2",
+          "GADD45B",
+          "KDM5B",
+          "KIAA0907",
+          "NET1",
+          "RGS2",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "geldanamycin",
+      "overlap": {
+        "up/dn": [
+          "CDC25A"
+        ],
+        "dn/up": [
+          "EIF4EBP1",
+          "EPRS",
+          "HSPA8",
+          "MTHFD2",
+          "P4HA2",
+          "TLE1",
+          "TMEM97",
+          "TUBB6"
+        ]
+      }
+    },
+    {
+      "name": "BRD-K92158425",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CLPX",
+          "CNOT4",
+          "GABPB1",
+          "KDM5B",
+          "MTF2",
+          "NET1",
+          "RGS2",
+          "TEX10",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "BRD-K01896723",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDK7",
+          "FBXO11",
+          "GABPB1",
+          "NCOA3",
+          "NET1",
+          "RAD9A",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "daunorubicin",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDK7",
+          "GABPB1",
+          "GADD45B",
+          "KDM5B",
+          "KIAA0907",
+          "MTF2",
+          "NCOA3",
+          "NET1",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "BRD-K77547920",
+      "overlap": {
+        "up/dn": [
+          "CDC25A"
+        ],
+        "dn/up": [
+          "CBR3",
+          "EIF4EBP1",
+          "EPRS",
+          "HSPA8",
+          "MTHFD2",
+          "P4HA2",
+          "TMEM97"
+        ]
+      }
+    },
+    {
+      "name": "dactinomycin",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CLPX",
+          "CXCL2",
+          "NET1",
+          "RGS2",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "656402-250MG",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "CNOT4",
+          "CXCL2",
+          "GADD45B",
+          "KDM5B",
+          "MTF2",
+          "RGS2",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "F3055",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CXCL2",
+          "GADD45B",
+          "KDM5B",
+          "MTF2",
+          "NET1",
+          "RGS2",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "HY-10005",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CHIC2",
+          "GABPB1",
+          "KDM5B",
+          "KIAA0907",
+          "MTF2",
+          "NCOA3",
+          "NET1",
+          "TEX10",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "230752",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CDK7",
+          "CHIC2",
+          "CNOT4",
+          "GADD45B",
+          "KDM5B",
+          "MTF2",
+          "NET1",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "S1205",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CHIC2",
+          "CNOT4",
+          "DNTTIP2",
+          "FBXO11",
+          "GABPB1",
+          "KDM5B",
+          "MTF2",
+          "NET1",
+          "TEX10",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "CGP-60474",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "DNTTIP2",
+          "GADD45A",
+          "GADD45B",
+          "TFAP2A",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": [
+          "GNB5",
+          "SLC37A4"
+        ]
+      }
+    },
+    {
+      "name": "AZD-7762",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "CXCL2",
+          "GADD45B",
+          "ICAM1",
+          "RELB"
+        ],
+        "dn/up": [
+          "CBR3",
+          "HOXA5",
+          "KIF20A",
+          "PLK1"
+        ]
+      }
+    },
+    {
+      "name": "BMS-387032",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CXCL2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "RELB",
+          "RGS2",
+          "TEX10",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "alvocidib",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CHIC2",
+          "CXCL2",
+          "GADD45A",
+          "ICAM1",
+          "RELB",
+          "RGS2",
+          "TFAP2A",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "alvocidib",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CXCL2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "RGS2",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "PF-562271",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "RELB",
+          "RGS2",
+          "TICAM1",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "AZD-5438",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CHIC2",
+          "GADD45A",
+          "GADD45B",
+          "ICAM1",
+          "MTF2",
+          "NET1",
+          "RELB",
+          "RGS2",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "CGP-60474",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CHIC2",
+          "CXCL2",
+          "DNTTIP2",
+          "GADD45A",
+          "ICAM1",
+          "RELB",
+          "RGS2",
+          "TIPARP"
+        ],
+        "dn/up": [
+          "SLC37A4"
+        ]
+      }
+    },
+    {
+      "name": "nintedanib",
+      "overlap": {
+        "up/dn": [
+          "CDC25A"
+        ],
+        "dn/up": [
+          "BLVRA",
+          "CTSL1",
+          "GLRX",
+          "GNB5",
+          "LIPA",
+          "MACF1",
+          "NIPSNAP1",
+          "PGM1"
+        ]
+      }
+    },
+    {
+      "name": "CGP-60474",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "CHIC2",
+          "EGR1",
+          "GADD45A",
+          "NET1",
+          "RGS2",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": [
+          "TUBB6"
+        ]
+      }
+    },
+    {
+      "name": "BMS-387032",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "GADD45A",
+          "GADD45B",
+          "NET1",
+          "RGS2",
+          "TFAP2A",
+          "TIPARP",
+          "TP53BP2"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "alvocidib",
+      "overlap": {
+        "up/dn": [
+          "ARID4B",
+          "CDC25A",
+          "EGR1",
+          "GADD45A",
+          "GADD45B",
+          "MTF2",
+          "NET1",
+          "RGS2",
+          "TFAP2A",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    },
+    {
+      "name": "AT-7519",
+      "overlap": {
+        "up/dn": [
+          "CDC25A",
+          "CNOT4",
+          "EGR1",
+          "GADD45A",
+          "KIAA0907",
+          "NET1",
+          "RGS2",
+          "TFAP2A",
+          "TIPARP"
+        ],
+        "dn/up": []
+      }
+    }
+  ]
+}

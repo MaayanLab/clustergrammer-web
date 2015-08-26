@@ -25,11 +25,11 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
 
 ######################################
 
@@ -209,19 +209,25 @@ def l1000cds2_upload():
   import make_d3_clust
   import json 
 
-  # # don't know if I need this 
-  # error = None 
-
   print('in l1000cds2_upload')
+
   if request.method == 'POST':
+
     print('\n\n\n\n\n')
-    print('recieving a post requets')
-    print(request)
-    # load to json 
-    print('name of file')
-    print(request.files['file'])
-    # l1000cds2_json = json.loads(request.data)
-    # print(l1000cds2_json.keys())
+    print('recieving a post request')
+
+    # get data from file 
+    print('read the file ')
+    req_file = request.files['file']
+
+    # read in the json from the file 
+    l1000cds2 = json.loads( req_file.read() ) 
+
+    # check the keys in l1000cds2
+    print(l1000cds2.keys())
+
+    
+    
     print('\n\n\n\n\n')
 
   return redirect('/clustergrammer/viz/55d945129ff08807f604278b')
@@ -229,7 +235,7 @@ def l1000cds2_upload():
 
 # Jquery upload file route 
 ############################
-@app.route('/clustergrammer/jquery_upload/', methods=['GET','POST'])
+@app.route('/clustergrammer/jquery_upload/', methods=['POST'])
 def jquery_upload_function():
   import flask 
   import d3_clustergram
@@ -238,22 +244,23 @@ def jquery_upload_function():
   # # don't know if I need this 
   # error = None 
 
-  req_file = flask.request.files['file']
+  if request.method == 'POST':
+    req_file = flask.request.files['file']
 
-  global gnet
-  global gnet_id
+    global gnet
+    global gnet_id
 
-  # cluster and add to database 
-  net_id, net = make_d3_clust.load_file(req_file, allowed_file)
+    # cluster and add to database 
+    net_id, net = make_d3_clust.load_file(req_file, allowed_file)
 
-  # make network a dictionary 
-  gnet = {}
-  gnet['viz'] = net.viz
-  gnet_id = net_id
+    # make network a dictionary 
+    gnet = {}
+    gnet['viz'] = net.viz
+    gnet_id = net_id
 
-  # redirect to viz layout 
-  print('redirecting to viz')
-  return redirect('/clustergrammer/viz/'+net_id)
+    # redirect to viz layout 
+    print('redirecting to viz')
+    return redirect('/clustergrammer/viz/'+net_id)
 
 
 if __name__ == "__main__":
