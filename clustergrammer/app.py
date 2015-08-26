@@ -25,11 +25,11 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
 
 ######################################
 
@@ -218,8 +218,10 @@ def l1000cds2_upload():
     print('recieving a post requets')
     print(request)
     # load to json 
-    l1000cds2_json = json.loads(request.data)
-    print(l1000cds2_json.keys())
+    print('name of file')
+    print(request.files['file'])
+    # l1000cds2_json = json.loads(request.data)
+    # print(l1000cds2_json.keys())
     print('\n\n\n\n\n')
 
   return redirect('/clustergrammer/viz/55d945129ff08807f604278b')
