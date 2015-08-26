@@ -25,11 +25,13 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+
+######################################
 
 # define allowed extension
 ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
@@ -165,46 +167,38 @@ def proc_g2e():
 
     return error 
 
-# @app.route('/clustergrammer/mock_g2e/')
-# def mock_g2e():
-#   import requests
-#   import json 
+@app.route('/clustergrammer/l1000cds2/', methods=['POST'])
+def proc_l1000cds2():
+  import requests 
+  import json 
+  from d3_clustergram_class import Network
 
-#   post_url = 'localhost:/clustergrammer/g2e/'
+  global gnet_id
+  global gnet
 
-#   params = {'g2e_name':'something'}
+  if request.method == 'POST':
+    g2e_json = json.loads( request.data )
 
-#   post_response = requests.post(post_url, files=params)
+    print('\n\n')
+    print(g2e_json.keys())
+    print(type(g2e_json))
 
-#   print(post_response)
+    # ini network obj 
+    net = Network()
+
+    # # load g2e data into network 
+    # net.load_g2e_to_net(g2e_json)
 
 
-#   return render_template('mock_g2e.html', flask_var ='mock g2e')
+    # tmp redirect mock visualization 
+    return redirect('/clustergrammer/viz/55d945129ff08807f604278b')
 
-# load previous result route 
-@app.route('/clustergrammer/load_saved/', methods=['GET'])
-def load_saved():
-  import flask
+  else:
 
-  # set up connection 
-  client = MongoClient('146.203.54.165')
-  db = client.clustergrammer
+    client.close()
 
-  # get filename 
-  querystring = request.args
-  querystring = dict(querystring)
-  load_filename = querystring['id'][0]
+    return error 
 
-  # make query for data with name 'from_excel.txt'
-  cursor = db.networks.find_one({'name':load_filename})
-
-  # close connection 
-  client.close()
-
-  # return flask.jsonify( cursor['d3_json'] ) 
-
-  return render_template('index.html', flask_var='loading saved data')
-  # return redirect('/clustergrammer/redirected_url/')
 
 # Jquery upload file route 
 ############################

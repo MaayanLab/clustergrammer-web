@@ -12,6 +12,12 @@
 
     <title>clustergrammer</title>
 
+    <!-- <intercept-url pattern="static/icons.map.ico" access="ROLE_ANONYMOUS" /> -->
+    <!-- <link rel='shortcut icon' href='static/icons/map.ico' type='image/x-icon'/ >  -->
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='map.ico') }}">
+
+
     <!-- Bootstrap Core CSS -->
     <link href="static/lib/css/bootstrap.css" rel="stylesheet">
 
