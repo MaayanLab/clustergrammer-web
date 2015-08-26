@@ -81,12 +81,72 @@ class Network(object):
   def load_l1000cds2(self, l1000cds2):
     import scipy
     
-    mat = scipy.zeros([10,10])
 
-    print(mat)
+    # grab row nodes - all up and down genes 
+    self.dat['nodes']['row'] = l1000cds2['input']['data']['upGenes'] + l1000cds2['input']['data']['dnGenes']
+
+    # grab col nodes - input sig and drugs 
+    self.dat['nodes']['col'] = []
+    self.dat['nodes']['col'].append('Input Signature')
+
+    # add the names from all the results 
+    all_results = l1000cds2['result']
+
+    for inst_result in all_results:
+      self.dat['nodes']['col'].append(inst_result['name'])
+
+    # initialize the matrix 
+    self.dat['mat'] = scipy.zeros([ len(self.dat['nodes']['row']), len(self.dat['nodes']['col']) ])
+
+    # fill in the matrix with l10000 data 
+    ########################################
+
+    # fill in gene sigature as first column 
+    for inst_gene in self.dat['nodes']['row']:
+
+      # get gene index 
+      inst_gene_index = self.dat['nodes']['row'].index(inst_gene)
+
+      # if gene is in up add 1 otherwise add -1 
+      if inst_gene in l1000cds2['input']['data']['upGenes']:
+        self.dat['mat'][inst_gene_index, 0] = 1
+      else:
+        self.dat['mat'][inst_gene_index, 0] = -1
+
+    # loop through drug results 
+    for inst_result in all_results:
+
+      # get result index 
+      inst_result_index = self.dat['nodes']['col'].index(inst_result['name'])
+
+      # if up/dn then it should be negative since the drug is dn 
+      for inst_dn in inst_result['overlap']['up/dn']:
+
+        # get gene index 
+        inst_gene_index = self.dat['nodes']['row'].index(inst_dn)
+
+        # save -1 to gene row and drug column 
+        self.dat['mat'][ inst_gene_index, inst_result_index ] = -1 
+       
+      # if dn/up then it should be positive since the drug is up 
+      for inst_up in inst_result['overlap']['dn/up']:
+
+        # get gene index
+        inst_gene_index = self.dat['nodes']['row'].index(inst_up)
+
+        # save 1 to gene row and drug column 
+        self.dat['mat'][ inst_gene_index, inst_result_index ] = 1
 
 
+    print(self.dat['mat'])
 
+    # temporarily reverse input signature so that the drug signatures will be clustered near
+    # the input signature, the reverse it again before outputting visualization signature 
+    self.dat['mat'][:,0] = -self.dat['mat'][:,0]
+
+
+    # switch back signature 
+    self.dat['mat'][:,0] = -self.dat['mat'][:,0]
 
 
   def load_cst_kea_enr_to_net(self, enr, pval_cutoff):
