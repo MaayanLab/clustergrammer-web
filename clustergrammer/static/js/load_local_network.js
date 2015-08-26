@@ -10,6 +10,8 @@ function change_zscore_clustergram(inst_zscore_cutoff){
 
 function load_new_clustergram(network_data){
 
+	console.log('in load new clustergram')
+
 	// // pass the network data to d3_clustergram 
 	// make_d3_clustergram(network);
 

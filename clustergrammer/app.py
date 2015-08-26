@@ -167,38 +167,6 @@ def proc_g2e():
 
     return error 
 
-# @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
-# def proc_l1000cds2():
-#   import requests 
-#   import json 
-#   from d3_clustergram_class import Network
-
-#   global gnet_id
-#   global gnet
-
-#   if request.method == 'POST':
-#     g2e_json = json.loads( request.data )
-
-#     print('\n\n')
-#     print(g2e_json.keys())
-#     print(type(g2e_json))
-
-#     # ini network obj 
-#     net = Network()
-
-#     # # load g2e data into network 
-#     # net.load_g2e_to_net(g2e_json)
-
-
-#     # tmp redirect mock visualization 
-#     return redirect('/clustergrammer/viz/55d945129ff08807f604278b')
-
-#   else:
-
-#     client.close()
-
-#     return error 
-
 
 # l1000cds2
 ############################
@@ -208,29 +176,64 @@ def l1000cds2_upload():
   import d3_clustergram
   import make_d3_clust
   import json 
+  from d3_clustergram_class import Network 
+  from pymongo import MongoClient
 
+  print('\n\n\n\n\n')
   print('in l1000cds2_upload')
+  print('recieving a post request')
 
-  if request.method == 'POST':
+  # get data from file 
+  print('read the file ')
+  req_file = request.files['file']
 
-    print('\n\n\n\n\n')
-    print('recieving a post request')
+  # read in the json from the file 
+  l1000cds2 = json.loads( req_file.read() ) 
 
-    # get data from file 
-    print('read the file ')
-    req_file = request.files['file']
+  # initialize network 
+  net = Network()
 
-    # read in the json from the file 
-    l1000cds2 = json.loads( req_file.read() ) 
+  # check the keys in l1000cds2
+  print(l1000cds2.keys())
 
-    # check the keys in l1000cds2
-    print(l1000cds2.keys())
+  print('load network, cluster, get visualization, and redirect to viz')  
 
-    
-    
-    print('\n\n\n\n\n')
+  # load l1000cds2 to .dat 
+  net.load_l1000cds2(l1000cds2)
 
-  return redirect('/clustergrammer/viz/55d945129ff08807f604278b')
+  # cluster 
+  cutoff_comp = 1
+  min_num_comp = 2
+  net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)  
+
+  # generate export dictionary 
+  ###############################
+  export_dict = {}
+  # save name of network 
+  export_dict['name'] = 'tmp'
+  # initial network information, including data_mat array
+  export_dict['dat'] = net.export_net_json('dat')
+  # d3 json used for visualization (already clustered)
+  export_dict['viz'] = net.viz
+ 
+  # set up connection 
+  client = MongoClient('146.203.54.165')
+  db = client.clustergrammer
+
+  # save json as new collection 
+  ##################################
+  print('loading data to matrix')
+  tmp_id = db.networks.insert( export_dict ) 
+
+  # make net_id a string
+  tmp_id = str(tmp_id)
+
+  # close client
+  client.close()
+
+  print('\n\n\n\n\n')
+
+  return redirect('/clustergrammer/viz/'+tmp_id)
 
 
 # Jquery upload file route 

@@ -602,6 +602,7 @@ var d3_clustergram = (function() {
     // get the total number of colors
     var num_colors = params.rand_colors.length;
 
+    console.log(row_nodes)
     // row groups - only add if the rows have a group attribute
     if (_.has(row_nodes[0], 'group') === true || _.has(col_nodes[0],
         'group')) {

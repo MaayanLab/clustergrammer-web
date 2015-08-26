@@ -138,8 +138,6 @@ class Network(object):
         self.dat['mat'][ inst_gene_index, inst_result_index ] = 1
 
 
-    print(self.dat['mat'])
-
     # temporarily reverse input signature so that the drug signatures will be clustered near
     # the input signature, the reverse it again before outputting visualization signature 
     self.dat['mat'][:,0] = -self.dat['mat'][:,0]
