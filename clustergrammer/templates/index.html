@@ -83,16 +83,15 @@ Row-C   0.2     0.1     2.5
 
             <!-- used to have id id='searchForm' in order to run ajax -->
             <form  action="{{ url_for('jquery_upload_function') }}" method=post enctype=multipart/form-data>
-              <input type=file name=file title='Choose File' onClick="console.log('clicking choose file button')" >
-              <input class='btn btn-primary' id='file_upload_button'  type=submit value=Upload>
+              <input type=file name=file title='Choose File'  >
+              <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
             </form>
 
-            <!-- <input class='btn btn-primary' id='load_saved' type=submit value=Load onClick="load_saved_clust();" > -->
-
-            <!-- <form action="load_saved/" method="get">
-                <input type="submit" value="Go to my link location" 
-                     name="Submit" id="frm1_submit" />
+            <!-- <form  action="{{ url_for('l1000cds2_upload') }}" method=post enctype=multipart/form-data>
+              <input type=file name=file title='Choose File'  >
+              <input class='btn btn-primary' id='file_upload_button'  type=submit value=Upload>
             </form> -->
+
 
             <!-- <a href="load_saved/">load saved result</a> -->
 

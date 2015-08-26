@@ -7,6 +7,7 @@ docker push 146.203.54.165:5000/clustergrammer:latest
 use this to check mongodb 
 db.getCollection('networks').find({}).sort({_id:-1}) 
 
+
 ------------------ old instructions --------------------------------
 -- Docker instructions 
 

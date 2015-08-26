@@ -167,37 +167,62 @@ def proc_g2e():
 
     return error 
 
+# @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
+# def proc_l1000cds2():
+#   import requests 
+#   import json 
+#   from d3_clustergram_class import Network
+
+#   global gnet_id
+#   global gnet
+
+#   if request.method == 'POST':
+#     g2e_json = json.loads( request.data )
+
+#     print('\n\n')
+#     print(g2e_json.keys())
+#     print(type(g2e_json))
+
+#     # ini network obj 
+#     net = Network()
+
+#     # # load g2e data into network 
+#     # net.load_g2e_to_net(g2e_json)
+
+
+#     # tmp redirect mock visualization 
+#     return redirect('/clustergrammer/viz/55d945129ff08807f604278b')
+
+#   else:
+
+#     client.close()
+
+#     return error 
+
+
+# l1000cds2
+############################
 @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
-def proc_l1000cds2():
-  import requests 
+def l1000cds2_upload():
+  import requests
+  import d3_clustergram
+  import make_d3_clust
   import json 
-  from d3_clustergram_class import Network
 
-  global gnet_id
-  global gnet
+  # # don't know if I need this 
+  # error = None 
 
+  print('in l1000cds2_upload')
   if request.method == 'POST':
-    g2e_json = json.loads( request.data )
+    print('\n\n\n\n\n')
+    print('recieving a post requets')
+    print(request)
+    # load to json 
+    l1000cds2_json = json.loads(request.data)
+    print(l1000cds2_json.keys())
+    print('\n\n\n\n\n')
 
-    print('\n\n')
-    print(g2e_json.keys())
-    print(type(g2e_json))
-
-    # ini network obj 
-    net = Network()
-
-    # # load g2e data into network 
-    # net.load_g2e_to_net(g2e_json)
-
-
-    # tmp redirect mock visualization 
-    return redirect('/clustergrammer/viz/55d945129ff08807f604278b')
-
-  else:
-
-    client.close()
-
-    return error 
+  return redirect('/clustergrammer/viz/55d945129ff08807f604278b')
 
 
 # Jquery upload file route 
