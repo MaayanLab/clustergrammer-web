@@ -125,6 +125,9 @@ def viz_l1000cds2(user_objid):
 
     # close connection 
     client.close()
+    print('\n\nuser_objid')
+    print(user_objid)
+    print('\n\n')
     d3_json = gnet['viz']
     gnet_id = deepcopy(user_objid)
 
@@ -219,6 +222,7 @@ def l1000cds2_upload():
   import json 
   from d3_clustergram_class import Network 
   from pymongo import MongoClient
+  from bson.objectid import ObjectId
 
   print('\n\n\n\n\n')
   print('in l1000cds2_upload')
@@ -257,6 +261,8 @@ def l1000cds2_upload():
   export_dict['dat'] = {} # net.export_net_json('dat')
   # d3 json used for visualization (already clustered)
   export_dict['viz'] = net.viz
+  export_dict['_id'] = ObjectId(l1000cds2['_id'])
+  # print(l1000cds2['_id'])
  
   # set up connection 
   # client = MongoClient('146.203.54.165')
@@ -276,7 +282,7 @@ def l1000cds2_upload():
 
   print('\n\n\n\n\n')
 
-  return redirect('/clustergrammer/l1000cds2/'+tmp_id)
+  return redirect('/clustergrammer/l1000cds2/'+l1000cds2['_id'])
 
 
 # Jquery upload file route 
