@@ -48,13 +48,13 @@ def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
 
-# @app.route("/clustergrammer/<tmp>")
 @app.route("/clustergrammer/")
-# def index(tmp):
 def index():
-  print('Rendering index template')
   return render_template('index.html', flask_var='')
 
+@app.route("/clustergrammer/mock_l1000cds2")
+def mock_l1000cds2():
+  return render_template('mock_l1000cds2.html', flask_var='')
 
 @app.route("/clustergrammer/viz/<user_objid>")
 def viz(user_objid):
@@ -215,7 +215,8 @@ def l1000cds2_upload():
   # save name of network 
   export_dict['name'] = 'tmp'
   # initial network information, including data_mat array
-  export_dict['dat'] = net.export_net_json('dat')
+  #!! need to convert arrays to lists in .dat 
+  export_dict['dat'] = {} # net.export_net_json('dat')
   # d3 json used for visualization (already clustered)
   export_dict['viz'] = net.viz
  
