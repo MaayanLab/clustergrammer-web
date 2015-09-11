@@ -5,7 +5,7 @@ class Network(object):
   and a viz state where they are stored as: viz.links, viz.row_nodes, viz.col_nodes.
 
   The goal is to start in a data-state and produce a viz-state of the network that will be 
-  used as input to d3_clustergram.js.
+  used as input to clustergram.js.
   '''
 
   def __init__(self):
@@ -14,7 +14,23 @@ class Network(object):
     self.dat['nodes'] = {}
     self.dat['nodes']['row'] = []
     self.dat['nodes']['col'] = []
+
+    # node_info holds the orderings (ini, clust, rank), classification ('cl'), and other general information 
+    self.dat['node_info'] = {}
+    for inst_rc in self.dat['nodes']:
+      self.dat['node_info'][inst_rc] = {}
+      self.dat['node_info'][inst_rc]['ini'] = []
+      self.dat['node_info'][inst_rc]['clust'] = []
+      self.dat['node_info'][inst_rc]['rank'] = []
+      self.dat['node_info'][inst_rc]['info'] = []
+      # classification is specifically used to color the class triangles 
+      self.dat['node_info'][inst_rc]['cl'] = []
+      self.dat['node_info'][inst_rc]['value'] = []
+
+    # initialize matrix 
     self.dat['mat'] = []
+    # mat_info is an optional dictionary 
+    # so I'm not including it by default 
 
     # network: viz-state
     self.viz = {}
@@ -70,82 +86,113 @@ class Network(object):
         # save the row data as an array 
         inst_data_row = np.asarray(inst_data_row)
 
-        # initailize the matrix 
-        if i ==1:
+        # initailize matrix 
+        if i == 1:
           self.dat['mat'] = inst_data_row
 
-        # add rows to matri 
+        # add rows to matrix
         if i > 1: 
-          self.dat['mat']  = np.vstack( ( self.dat['mat'], inst_data_row ) )
+          self.dat['mat'] = np.vstack( ( self.dat['mat'], inst_data_row ) )
 
-  def load_l1000cds2(self, l1000cds2):
-    import scipy
-    
+  def load_hgram(self, filename):
+    import numpy as np
 
-    # grab row nodes - all up and down genes 
-    self.dat['nodes']['row'] = l1000cds2['input']['data']['upGenes'] + l1000cds2['input']['data']['dnGenes']
+    # example data format 
+    ###########################
+    #   # # DatasetName Achilles Cell Line Gene Essentiality Profiles
+    #   # # DatasetGroup  disease or phenotype associations
+    #   GeneSym NA  NA/DatasetID  1
+    #   1060P11.3 na  na  0
+    #   3.8-1.2 na  na  0
+    #   3.8-1.5 na  na  0
+    #   A1BG  na  na  0
+    #   A1BG-AS1  na  na  0
+    #   A1CF  na  na  0
+    #   A2M na  na  0 
 
-    # grab col nodes - input sig and drugs 
-    self.dat['nodes']['col'] = []
-    self.dat['nodes']['col'].append('Input Signature')
+    # processing steps
+    # line 1 has dataset names starting on 4th column 
+    # line 2 has dataset groups starting on 4th column 
+    # line 3 has column labels and dataset numbers, but no information that I need
+    # line 4 and after have gene symbols (first column) and values (4th and after columns)
 
-    # add the names from all the results 
-    all_results = l1000cds2['result']
+    # load gene classes for harmonogram 
+    gc = self.load_json_to_dict('gene_classes_harmonogram.json')
 
-    for inst_result in all_results:
-      self.dat['nodes']['col'].append(inst_result['name'])
+    f = open(filename,'r')
+    lines = f.readlines()
+    f.close()
 
-    # initialize the matrix 
-    self.dat['mat'] = scipy.zeros([ len(self.dat['nodes']['row']), len(self.dat['nodes']['col']) ])
+    # loop through the lines of the file 
+    for i in range(len(lines)):
 
-    # fill in the matrix with l10000 data 
-    ########################################
+      # get the inst_line and make list 
+      inst_line = lines[i].strip().split('\t')
 
-    # fill in gene sigature as first column 
-    for inst_gene in self.dat['nodes']['row']:
+      if i%1000 == 0: 
+        print(i)
 
-      # get gene index 
-      inst_gene_index = self.dat['nodes']['row'].index(inst_gene)
+      # line 1: get dataset names 
+      if i ==0:
 
-      # if gene is in up add 1 otherwise add -1 
-      if inst_gene in l1000cds2['input']['data']['upGenes']:
-        self.dat['mat'][inst_gene_index, 0] = 1
-      else:
-        self.dat['mat'][inst_gene_index, 0] = -1
+        # gather column information 
+        for j in range(len(inst_line)):
+          # skip the first three columns
+          if j > 2: 
+            # get inst label
+            inst_col = inst_line[j]
+            # gather column labels 
+            self.dat['nodes']['col'].append(inst_col)
 
-    # loop through drug results 
-    for inst_result in all_results:
+      # line 2: get dataset groups - do not save as 'cl', save as 'info' to sidestep clustergram.js code
+      if i ==1:
+        # gather column classification information 
+        for j in range(len(inst_line)):
+          # skip the first three columns
+          if j > 2: 
+            # get inst label
+            inst_col = inst_line[j]
+            # gather column labels 
+            self.dat['node_info']['col']['info'].append(inst_col)
 
-      # get result index 
-      inst_result_index = self.dat['nodes']['col'].index(inst_result['name'])
+      # line 3: no information 
 
-      # if up/dn then it should be negative since the drug is dn 
-      for inst_dn in inst_result['overlap']['up/dn']:
+      # line 4: get gene symbol and data 
+      if i > 2:
 
-        # get gene index 
-        inst_gene_index = self.dat['nodes']['row'].index(inst_dn)
+        # get gene 
+        inst_gene = inst_line[0]
+        # add gene to rows 
+        self.dat['nodes']['row'].append(inst_gene)
 
-        # save -1 to gene row and drug column 
-        self.dat['mat'][ inst_gene_index, inst_result_index ] = -1 
-       
-      # if dn/up then it should be positive since the drug is up 
-      for inst_up in inst_result['overlap']['dn/up']:
+        # not going to do this here
+        ############################
+        # # add protein type to classification and initialize class to other
+        # inst_prot_class = 'other'
+        # for inst_gc in gc:
+        #   if inst_gene in gc[inst_gc]:
+        #     inst_prot_class = inst_gc
+        # # add class to node_info
+        # self.dat['node_info']['row']['cl'].append(inst_prot_class)
 
-        # get gene index
-        inst_gene_index = self.dat['nodes']['row'].index(inst_up)
+        # grab data, convert to float, and make numpy array 
+        inst_data_row = inst_line[3:]
+        inst_data_row = [float(tmp_dat) for tmp_dat in inst_data_row]
+        inst_data_row = np.asarray(inst_data_row)
 
-        # save 1 to gene row and drug column 
-        self.dat['mat'][ inst_gene_index, inst_result_index ] = 1
+        # initialize matrix 
+        if i == 3:
+          self.dat['mat'] = inst_data_row
+
+        # add rows to matrix 
+        if i > 3:
+          self.dat['mat'] = np.vstack( ( self.dat['mat'], inst_data_row ) )
 
 
-    # temporarily reverse input signature so that the drug signatures will be clustered near
-    # the input signature, the reverse it again before outputting visualization signature 
-    self.dat['mat'][:,0] = -self.dat['mat'][:,0]
-
-
-    # switch back signature 
-    self.dat['mat'][:,0] = -self.dat['mat'][:,0]
-
+    print('\nthere are ' + str(len(self.dat['nodes']['row'])) + ' genes' )
+    print('there are ' + str(len(self.dat['nodes']['col'])) + ' resources\n' )
+    print('matrix shape')
+    print(self.dat['mat'].shape)
 
   def load_cst_kea_enr_to_net(self, enr, pval_cutoff):
     import scipy
@@ -326,7 +373,6 @@ class Network(object):
         # map primary data to mat 
         self.dat['mat'][i,j] = ccle['data_z'][index_x, index_y]
 
-
   def load_g2e_to_net(self, g2e):
     import numpy as np
 
@@ -387,6 +433,11 @@ class Network(object):
         # save inst_value to matrix 
         self.dat['mat'][row_index, col_index] = inst_value
 
+  def load_data_file_to_net(self, filename):
+    # load json from file to new dictionary 
+    inst_dat = self.load_json_to_dict(filename)
+    # convert dat['mat'] to numpy array and add to network 
+    self.load_data_to_net(inst_dat)
 
   def load_data_to_net(self, inst_net):
     ''' load data into nodes and mat, also convert mat to numpy array''' 
@@ -400,11 +451,9 @@ class Network(object):
     from copy import deepcopy
 
     if net_type == 'dat':
-      exp_dict = deepcopy( self.dat)
+      exp_dict = deepcopy(self.dat)
       # convert numpy array to list 
       exp_dict['mat'] = exp_dict['mat'].tolist()
-      #!! tmp remove node_info 
-      exp_dict['node_info'] = []
     elif net_type == 'viz':
       exp_dict = self.viz
 
@@ -455,37 +504,67 @@ class Network(object):
 
     print('\nfiltering network using cutoff of ' + str(cutoff) + ' and min_num_meet of ' + str(min_num_meet))
 
+    # transfer the nodes 
     nodes = {}
     nodes['row'] = []
     nodes['col'] = []
+
+    # transfer the 'info' part of node_info if necessary 
+    node_info = {}
+    node_info['row'] = []
+    node_info['col'] = []
 
     print( 'initial mat shape' + str(self.dat['mat'].shape ))
 
     # add rows with non-zero values 
     #################################
     for i in range(len(self.dat['nodes']['row'])):
+
       # get row name 
-      inst_row = self.dat['nodes']['row'][i]
+      inst_nodes_row = self.dat['nodes']['row'][i]
+
+      # get node info - disregard ini, clust, and rank orders
+      if len(self.dat['node_info']['row']['info']) > 0:
+        inst_node_info = self.dat['node_info']['row']['info'][i]
+
       # get row vect 
       row_vect = np.absolute(self.dat['mat'][i,:])
+
       # check if there are nonzero values 
       found_tuple = np.where(row_vect >= cutoff)
       if len(found_tuple[0])>=min_num_meet:
+
         # add name 
-        nodes['row'].append(inst_row)
+        nodes['row'].append(inst_nodes_row)
+
+        # add info if necessary 
+        if len(self.dat['node_info']['row']['info']) > 0:
+          node_info['row'].append(inst_node_info)
 
     # add cols with non-zero values 
     #################################
     for i in range(len(self.dat['nodes']['col'])):
+
       # get col name
-      inst_col = self.dat['nodes']['col'][i]
+      inst_nodes_col = self.dat['nodes']['col'][i]
+
+      # get node info - disregard ini, clust, and rank orders
+      if len(self.dat['node_info']['col']['info']) > 0:
+        inst_node_info = self.dat['node_info']['col']['info'][i]
+
       # get col vect 
       col_vect = np.absolute(self.dat['mat'][:,i])
+
       # check if there are nonzero values
       found_tuple = np.where(col_vect >= cutoff)
       if len(found_tuple[0])>=min_num_meet:
+
         # add name
-        nodes['col'].append(inst_col)
+        nodes['col'].append(inst_nodes_col)
+
+        # add info if necessary 
+        if len(self.dat['node_info']['col']['info']) > 0:
+          node_info['col'].append(inst_node_info)
 
     # cherrypick data from self.dat['mat'] 
     ##################################
@@ -495,6 +574,7 @@ class Network(object):
       filt_mat_up = scipy.zeros([ len(nodes['row']), len(nodes['col']) ])
       filt_mat_dn = scipy.zeros([ len(nodes['row']), len(nodes['col']) ])
     if 'mat_info' in self.dat:
+      # initialize filtered mat_info dictionary with tuple keys 
       filt_mat_info = {}
 
     # loop through the rows
@@ -517,8 +597,13 @@ class Network(object):
         if 'mat_info' in self.dat:
           filt_mat_info[(i,j)] = self.dat['mat_info'][(pick_row,pick_col)]
 
-    # save nodes 
+    # save nodes array - list of node names 
     self.dat['nodes'] = nodes
+
+    # save node_info array - list of node infos 
+    self.dat['node_info']['row']['info'] = node_info['row']
+    self.dat['node_info']['col']['info'] = node_info['col']
+
     # overwrite with new filtered data 
     self.dat['mat'] = filt_mat
     # overwrite with up/dn data if necessary 
@@ -538,8 +623,11 @@ class Network(object):
     '''
     import scipy
     import numpy as np 
+    from scipy.spatial.distance import pdist
+    from copy import deepcopy
 
-    print('\nclustering the matrix using dist_type ' + dist_type + ' with a comparison requirement of at least ' + str(cutoff) + ' instances above abs-value of ' + str(min_num_comp) +' in order to compare')
+    # print('\nclustering the matrix using dist_type ' + dist_type + ' with a comparison requirement of at least ' + str(cutoff) + ' instances above abs-value of ' + str(min_num_comp) +' in order to compare')
+    print('calculating distance matrix using ')
 
     # make distance matrices 
     ##########################
@@ -552,16 +640,31 @@ class Network(object):
     row_dm = scipy.zeros([num_row,num_row])
     col_dm = scipy.zeros([num_col,num_col])
 
-    # row dist mat 
-    for i in range(num_row):
-      for j in range(num_row):
-        # calculate distance of two rows 
-        row_dm[i,j] = self.calc_thresh_col_dist( self.dat['mat'][i,:], self.dat['mat'][j,:], cutoff, min_num_comp )
+    # # row dist mat 
+    # for i in range(num_row):
+    #   for j in range(num_row):
+    #     # calculate distance of two rows 
+    #     row_dm[i,j] = self.calc_thresh_col_dist( self.dat['mat'][i,:], self.dat['mat'][j,:], cutoff, min_num_comp )
 
-    # col dist mat 
-    for i in range(num_col):
-      for j in range(num_col):
-        col_dm[i,j] = self.calc_thresh_col_dist( self.dat['mat'][:,i], self.dat['mat'][:,j], cutoff, min_num_comp )
+    # # col dist mat 
+    # for i in range(num_col):
+    #   for j in range(num_col):
+    #     col_dm[i,j] = self.calc_thresh_col_dist( self.dat['mat'][:,i], self.dat['mat'][:,j], cutoff, min_num_comp )
+
+    # make copy of matrix 
+    tmp_mat = deepcopy(self.dat['mat'])
+
+    # calculate distance matrix 
+    row_dm = pdist( tmp_mat, metric='cosine' )
+    col_dm = pdist( tmp_mat.transpose(), metric='cosine' )
+
+    # prevent negative values and max distance is 1 for cosine
+    # row 
+    row_dm[row_dm < 0] = float(0)
+    row_dm[row_dm > 1] = float(1) 
+    # col
+    col_dm[col_dm < 0] = float(0)
+    col_dm[col_dm > 1] = float(1) 
 
     # replace nans with the maximum distance in the distance matries 
     row_dm[ np.isnan(row_dm) ] = np.nanmax(row_dm)
@@ -578,7 +681,7 @@ class Network(object):
     # cluster 
     ##############
     # cluster rows 
-    cluster_method = 'centroid'
+    cluster_method = 'average'
     clust_order['row']['clust'], clust_order['row']['group'] = self.clust_and_group_nodes(row_dm, cluster_method)
     clust_order['col']['clust'], clust_order['col']['group'] = self.clust_and_group_nodes(col_dm, cluster_method)
 
@@ -587,8 +690,18 @@ class Network(object):
     clust_order['row']['rank'] = self.sort_rank_nodes('row')
     clust_order['col']['rank'] = self.sort_rank_nodes('col')
 
-    # save to dat 
-    self.dat['node_info'] = clust_order
+    # save clustering orders to node_info 
+    # row
+    self.dat['node_info']['row']['ini']   = clust_order['row']['ini']
+    self.dat['node_info']['row']['clust'] = clust_order['row']['clust']
+    self.dat['node_info']['row']['rank']  = clust_order['row']['rank']
+    self.dat['node_info']['row']['group'] = clust_order['row']['group']
+    # col 
+    self.dat['node_info']['col']['ini']   = clust_order['col']['ini']
+    self.dat['node_info']['col']['clust'] = clust_order['col']['clust']
+    self.dat['node_info']['col']['rank']  = clust_order['col']['rank']
+    self.dat['node_info']['col']['group'] = clust_order['col']['group']
+
 
     # make the viz json - can optionally leave out dendrogram
     self.viz_json(dendro)
@@ -607,8 +720,8 @@ class Network(object):
     # generate distance cutoffs 
     inst_groups = {}
     for inst_dist in all_dist:
-      # inst_groups[inst_dist] = hier.fcluster(Y, inst_dist*dm.max(), 'inconsistent')  
-      inst_groups[inst_dist] = hier.fcluster(Y, inst_dist*dm.max(), 'distance')  
+      # inst_groups[inst_dist] = hier.fcluster(Y, inst_dist*dm.max(), 'inconsistent') 
+      inst_groups[inst_dist] = hier.fcluster(Y, inst_dist*dm.max(), 'distance') 
 
     return inst_clust_order, inst_groups
 
@@ -666,7 +779,7 @@ class Network(object):
     return inst_dist
 
   def viz_json(self, dendro=True):
-    ''' make the dictionary for the d3_clustergram.js visualization ''' 
+    ''' make the dictionary for the clustergram.js visualization '''
 
     # get dendrogram cutoff distances 
     all_dist = self.group_cutoffs()
@@ -680,11 +793,21 @@ class Network(object):
         inst_dict = {}
         inst_dict['name']  = self.dat['nodes'][inst_rc][i]
         inst_dict['ini']   = self.dat['node_info'][inst_rc]['ini'][i]
+        #!! clean this up so I do not have to get the index here 
         inst_dict['clust'] = self.dat['node_info'][inst_rc]['clust'].index(i)
         inst_dict['rank']  = self.dat['node_info'][inst_rc]['rank'][i]
+
         # add node class 'cl' - this could potentially be a list of several classes 
-        if 'cl' in self.dat['node_info'][inst_rc]:
+        # if 'cl' in self.dat['node_info'][inst_rc]:
+        if len(self.dat['node_info'][inst_rc]['cl']) > 0:
           inst_dict['cl'] = self.dat['node_info'][inst_rc]['cl'][i]
+        if len(self.dat['node_info'][inst_rc]['value']) > 0:
+          inst_dict['value'] = self.dat['node_info'][inst_rc]['value'][i]
+
+        # add node information 
+        # if 'info' in self.dat['node_info'][inst_rc]:
+        if len(self.dat['node_info'][inst_rc]['info']) > 0:
+          inst_dict['info'] = self.dat['node_info'][inst_rc]['info'][i]
 
         # group info 
         if dendro==True:
@@ -712,6 +835,7 @@ class Network(object):
             inst_dict['value_dn'] = self.dat['mat_dn'][i,j]
 
           # add information if necessary - use dictionary with tuple key
+          # each element of the matrix needs to have information 
           if 'mat_info' in self.dat:
             inst_dict['info'] = self.dat['mat_info'][(i,j)]
 

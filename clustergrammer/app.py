@@ -65,6 +65,7 @@ def viz(user_objid):
   # example mongodb ids 
   # 55d945129ff08807f604278b - from_excel.txt
   # 55d945529ff08807f604278c - med ccle
+  # 55f2458f9ff088ccfd32a805 - large ccle
 
   global gnet_id
   global gnet
