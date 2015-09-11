@@ -1295,6 +1295,16 @@ function Labels(){
         });
       });
 
+    // label the widest row and col labels
+    ////////////////////////////////////////
+    params.bounding_width_max = {};
+    params.bounding_width_max.row = 0;
+    d3.selectAll('.row_label_text').each(function() {
+      var tmp_width = d3.select(this).select('text').node().getBBox().width;
+      if (tmp_width > params.bounding_width_max.row) {
+      params.bounding_width_max.row = tmp_width;
+      }
+    });
 
     // row triangles
     ///////////////////////
@@ -1356,37 +1366,33 @@ function Labels(){
       // the enrichment bar should be 3/4ths of the height of the column labels
       params.labels.bar_scale_row = d3.scale
         .linear()
-        .domain([1, enr_max])
-        .range([0, params.norm_label.width.row]);
+        .domain([0, enr_max])
+        .range([0, params.bounding_width_max.row ]);
 
       // append column value bars
       if (Utils.has( params.network_data.row_nodes[0], 'value')) {
+
         row_labels
         .append('rect')
         .attr('class', 'row_bars')
         .attr('width', function(d) {
           var inst_value = 0;
-          if (d.value > 0){
-            inst_value = params.labels.bar_scale_row(d.value);
-          }
+          inst_value = params.labels.bar_scale_row( Math.abs(d.value) );
           return inst_value;
         })
 
         .attr('x', function(d) {
           var inst_value = 0;
-          if (d.value > 0){
-            inst_value = -params.labels.bar_scale_row(d.value);
-          }
+          inst_value = -params.labels.bar_scale_row( Math.abs(d.value) );
           return inst_value;
         })
 
         .attr('height', params.matrix.y_scale.rangeBand() )
-        .attr('fill', function() {
-          return 'red';
+        .attr('fill', function(d) {
+          return d.value > 0 ? params.matrix.tile_colors[0] : params.matrix.tile_colors[1];
         })
         .attr('opacity', 0.4);
       }
-      
       // return row_triangle_ini_group so that the dendrogram can be made 
       return row_triangle_ini_group;
   }   
@@ -1468,17 +1474,7 @@ function Labels(){
       return d.name.replace(/_/g, ' ');
       });
 
-    // label the widest row and col labels
-    ////////////////////////////////////////
-    params.bounding_width_max = {};
-    params.bounding_width_max.row = 0;
-    d3.selectAll('.row_label_text').each(function() {
-      var tmp_width = d3.select(this).select('text').node().getBBox().width;
-      if (tmp_width > params.bounding_width_max.row) {
-      params.bounding_width_max.row = tmp_width;
-      }
-    });
-
+    
     params.bounding_width_max.col = 0;
     d3.selectAll('.col_label_click').each(function() {
       var tmp_width = d3.select(this).select('text').node().getBBox().width;
@@ -2449,8 +2445,23 @@ function Zoom(params){
       d3.selectAll('.row_label_text').each(function() {
         d3.select(this).select('text')
           .style('font-size', params.labels.defalut_fs_row * params.viz.zoom_scale_font.row + 'px')
-          .attr('y', params.matrix.y_scale.rangeBand() * params.scale_font_offset(
-            params.viz.zoom_scale_font.row));
+          .attr('y', params.matrix.y_scale.rangeBand() * params.scale_font_offset(params.viz.zoom_scale_font.row));
+
+        if (Utils.has( params.network_data.row_nodes[0], 'value')) {
+          
+          d3.selectAll('.row_bars')
+          .attr('width', function(d) {
+            var inst_value = 0;
+            inst_value = params.labels.bar_scale_row(Math.abs(d.value))*params.viz.zoom_scale_font.row;
+            return inst_value;
+          })
+          .attr('x', function(d) {
+            var inst_value = 0;
+            inst_value = -params.labels.bar_scale_row(Math.abs(d.value))*params.viz.zoom_scale_font.row;
+            return inst_value;
+          });
+        }
+
       });
 
     } else {
@@ -2462,8 +2473,7 @@ function Zoom(params){
       });
     }
 
-    if (params.bounding_width_max.col * (params.zoom.scale() / params.viz.zoom_switch) >
-      params.norm_label.width.col) {
+    if (params.bounding_width_max.col * (params.zoom.scale() / params.viz.zoom_switch) > params.norm_label.width.col) {
       params.viz.zoom_scale_font.col = params.norm_label.width.col / (params.bounding_width_max
           .col * (params.zoom.scale() / params.viz.zoom_switch));
 
@@ -2472,6 +2482,18 @@ function Zoom(params){
         d3.select(this).select('text')
           .style('font-size', params.labels.defalut_fs_col * params.viz.zoom_scale_font
             .col + 'px');
+
+      if (Utils.has( params.network_data.col_nodes[0], 'value')) {
+        d3.selectAll('.col_bars')
+          .attr('width', function(d) {
+            var inst_value = 0;
+            if (d.value > 0){
+              inst_value = params.labels.bar_scale_col(d.value)*params.labels.defalut_fs_col;
+            }
+            return inst_value;
+          })
+        }
+
       });
 
     } else {
@@ -2485,33 +2507,9 @@ function Zoom(params){
 
     // column value bars
     ///////////////////////
+    // console.log(zoom_y)
+    
 
-    if (Utils.has( params.network_data.col_nodes[0], 'value')) {
-      d3.selectAll('.col_bars')
-        .attr('width', function(d) {
-          var inst_value = 0;
-          if (d.value > 0){
-            inst_value = params.labels.bar_scale_col(d.value)/zoom_x;
-          }
-          return inst_value;
-        })
-
-      d3.selectAll('.row_bars')
-        .attr('width', function(d) {
-          var inst_value = 0;
-          if (d.value > 0){
-            inst_value = params.labels.bar_scale_row(d.value)/zoom_x;
-          }
-          return inst_value;
-        })
-        .attr('x', function(d) {
-          var inst_value = 0;
-          if (d.value > 0){
-            inst_value = -params.labels.bar_scale_row(d.value)/zoom_x;
-          }
-          return inst_value;
-        });
-    }
 
     // //!! change the size of the highlighting rects
     // //////////////////////////////////////////////
@@ -2768,22 +2766,21 @@ function Zoom(params){
           }
           return inst_value;
         })
+        }
+
+      if (Utils.has( params.network_data.row_nodes[0], 'value')) {
 
         d3.selectAll('.row_bars')
           .transition()
           .duration(search_duration)
           .attr('width', function(d) {
           var inst_value = 0;
-          if (d.value > 0){
-            inst_value = params.labels.bar_scale_row(d.value)/zoom_x;
-          }
+          inst_value = params.labels.bar_scale_row(Math.abs(d.value));
           return inst_value;
         })
         .attr('x', function(d) {
           var inst_value = 0;
-          if (d.value > 0){
-            inst_value = -params.labels.bar_scale_row(d.value)/zoom_x;
-          }
+          inst_value = -params.labels.bar_scale_row(Math.abs(d.value));
           return inst_value;
         });
 

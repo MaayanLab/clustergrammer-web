@@ -203,7 +203,7 @@ class Network(object):
 
     # grab col nodes - input sig and drugs 
     self.dat['nodes']['col'] = []
-    self.dat['nodes']['col'].append('Input Signature')
+    # self.dat['nodes']['col'].append('Input Signature')
 
     # add the names from all the results 
     all_results = l1000cds2['result']
@@ -218,16 +218,18 @@ class Network(object):
     ########################################
 
     # fill in gene sigature as first column 
-    for inst_gene in self.dat['nodes']['row']:
+    for i in range(len(self.dat['nodes']['row'])):
+
+      inst_gene = self.dat['nodes']['row'][i]
 
       # get gene index 
       inst_gene_index = self.dat['nodes']['row'].index(inst_gene)
 
       # if gene is in up add 1 otherwise add -1 
       if inst_gene in l1000cds2['input']['data']['upGenes']:
-        self.dat['mat'][inst_gene_index, 0] = 1
+        self.dat['node_info']['row']['value'].append(1)
       else:
-        self.dat['mat'][inst_gene_index, 0] = -1
+        self.dat['node_info']['row']['value'].append(-1)
 
     # loop through drug results 
     for inst_result in all_results:
@@ -254,9 +256,9 @@ class Network(object):
         self.dat['mat'][ inst_gene_index, inst_result_index ] = 1
 
 
-    # temporarily reverse input signature so that the drug signatures will be clustered near
-    # the input signature, the reverse it again before outputting visualization signature 
-    self.dat['mat'][:,0] = -self.dat['mat'][:,0]
+    # # temporarily reverse input signature so that the drug signatures will be clustered near
+    # # the input signature, the reverse it again before outputting visualization signature 
+    # self.dat['mat'][:,0] = -self.dat['mat'][:,0]
 
 
     # switch back signature 

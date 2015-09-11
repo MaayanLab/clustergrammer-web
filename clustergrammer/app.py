@@ -94,6 +94,44 @@ def viz(user_objid):
 
   return render_template('viz.html', viz_network=d3_json)
 
+@app.route("/clustergrammer/l1000cds2/<user_objid>")
+def viz_l1000cds2(user_objid):
+  import flask
+  from bson.objectid import ObjectId
+  from copy import deepcopy
+
+  # example mongodb ids 
+  # 55d945129ff08807f604278b - from_excel.txt
+  # 55d945529ff08807f604278c - med ccle
+  # 55f2458f9ff088ccfd32a805 - large ccle
+
+  global gnet_id
+  global gnet
+
+  if gnet_id == user_objid and type(gnet) is not list:
+
+    # use preloaded network 
+    print('\n\nusing global network\n##################n\n')
+    d3_json = deepcopy(gnet['viz'])
+
+  else:
+
+    # set up connection 
+    # client = MongoClient('146.203.54.165')
+    client = MongoClient()
+    db = client.clustergrammer
+    # make query for data with name 'from_excel.txt'
+    gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
+
+    # close connection 
+    client.close()
+    d3_json = gnet['viz']
+    gnet_id = deepcopy(user_objid)
+
+    print('\n\nloading from mongodb\n##################n\n')
+
+  return render_template('l1000cds2.html', viz_network=d3_json)
+
 @app.route('/clustergrammer/g2e/', methods=['POST'])
 def proc_g2e():
   import requests 
@@ -171,7 +209,7 @@ def proc_g2e():
     return error 
 
 
-# l1000cds2
+# l1000cds2 post 
 ############################
 @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
 def l1000cds2_upload():
@@ -238,7 +276,7 @@ def l1000cds2_upload():
 
   print('\n\n\n\n\n')
 
-  return redirect('/clustergrammer/viz/'+tmp_id)
+  return redirect('/clustergrammer/l1000cds2/'+tmp_id)
 
 
 # Jquery upload file route 

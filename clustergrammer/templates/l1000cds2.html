@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href='/clustergrammer/'>
+
+    <title>clustergrammer: L1000CDS2</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/lib/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="static/lib/css/simple-sidebar.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/lib/css/keen-dashboards.css">
+    <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
+    <link rel="stylesheet" href="static/lib/css/dc.css">
+    <link rel="stylesheet" href="static/css/specific.css" />
+    <link rel="stylesheet" href="static/css/jquery.accordion.css">
+    <link rel="stylesheet" href="static/css/custom.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+</head>
+
+<body>
+
+
+  <div id='viz_view'>
+
+    <div id='clust_instruct_container' >
+      <h1 id='viz_website_title'>L1000CDS2</h1>
+
+      <div class='gene_exp_view'>
+        <div class='viz_instruct_text'> Zoom into the clustergram using scroll, reorder using the buttons or by double-clicking row or column tiles, search for rows using the search box, and idenfity groups of rows or columns of varying size using the sliders.</div>
+
+      </div>
+
+      <!-- input box for gene search -->
+      <div id='gene_search_container' class='row'>
+          <input id='gene_search_box' type="text" class="form-control" placeholder="Input Gene" aria-describedby="sizing-addon2">
+
+          <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
+            <label id='submit_gene_button' class="btn btn-primary active " onclick="d3_clustergram.find_row();">
+              <input type="radio" name="options" id="" autocomplete="off" checked > Search
+            </label>
+          </div>
+      </div>
+
+      <div id='toggle_order' class="btn-group" data-toggle="buttons" >
+        <label class="btn btn-primary active prot_class" >
+          <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
+        </label>
+        <label class="btn btn-primary prot_class" >
+          <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
+        </label>
+      </div>
+      
+      <div id='slider_container'>
+        <p>set column group size</p>
+        <div id="slider_col"></div>
+        <p>set row group size</p>
+        <div id="slider_row"></div>
+      </div>
+
+      <!-- <button id='to_homepage' type="submit" class='btn btn-primary buttons' onClick='to_homepage()' >Return to Homepage</button> -->
+      <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
+    </div>
+
+    <!-- exp div -->
+    <div id='svg_div' class='svg_div' ></div>
+  
+  </div>
+
+
+  <footer id='footer_div' class="footer navbar-fixed-bottom">
+    <div class="row" > 
+      <div class="col-xs-12 footer_section"> 
+        <p class="text-muted">clustergrammer is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Vendor -->
+  <!-- jQuery -->
+  <script src="static/lib/js/jquery-1.11.2.min.js"></script>
+  <!-- adding jquery links -->
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src='static/lib/js/jquery.accordion.js'></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="static/lib/js/crossfilter.js"></script>
+  <script src="static/lib/js/d3.js"></script>
+  <script src="static/lib/js/dc.js"></script>
+  <script src="static/lib/js/queue.js"></script>
+  <script src="static/lib/js/keen.min.js"></script>
+  <script src="static/lib/js/underscore-min.js"></script>
+  <script src="static/lib/js/underscore.strings.js"></script>
+  <script src='static/lib/js/blockUI.js'></script>
+  <script src='static/lib/js/type_ahead.js'></script>
+  <script src="static/lib/js/bootstrap.min.js"></script>
+  <script src="static/lib/js/bootstrap-switch.min.js"></script>
+  <!-- Clustergram Scripts -->
+  <script src='static/js/d3_clustergram.js'></script>
+  <script src='static/js/load_local_network.js'></script>
+
+  <script>
+
+    // set up wait message before request is made 
+    $.blockUI({ css: { 
+            border: 'none', 
+            padding: '15px', 
+            backgroundColor: '#000', 
+            '-webkit-border-radius': '10px', 
+            '-moz-border-radius': '10px', 
+            opacity: .8, 
+            color: '#fff' 
+        } });
+
+    network_data = {{ viz_network|tojson|safe }}
+    console.log( network_data )
+    // load_new_clustergram( network );
+
+    // define the outer margins of the visualization
+    var outer_margins = {
+        'top':5,
+        'bottom':33,
+        'left':225,
+        'right':2
+      };
+
+    // define callback function for clicking on tile
+    function click_tile_callback(tile_info){
+      console.log('my callback');
+      console.log('clicking on ' + tile_info.row + ' row and ' + tile_info.col + ' col with value ' + String(tile_info.value))
+    }
+
+    // define callback function for clicking on group
+    function click_group_callback(group_info){
+      console.log('running user defined click group callback');
+      console.log(group_info.type);
+      console.log(group_info.nodes);
+      console.log(group_info.info);
+    }
+
+    // define arguments object
+    var arguments_obj = {
+      'network_data': network_data,
+      'svg_div_id': 'svg_div',
+      'row_label':'Input Genes',
+      'col_label':'Perturbagens',
+      'outer_margins': outer_margins,
+      'force_square':1
+      // 'opacity_scale':'log',
+      // 'input_domain':7,
+      // 'col_overflow':1
+      // 'transpose':true,
+      // 'do_zoom':false,
+      // 'tile_colors':['#ED9124','#1C86EE'],
+      // 'background_color':'orange',
+      // 'tile_title': true,
+      // 'click_tile': click_tile_callback,
+      // 'click_group': click_group_callback
+      // 'resize':false
+      // 'order':'rank'
+    };
+
+    // make clustergram: pass network_data and the div name where the svg should be made
+    var d3c = d3_clustergram(arguments_obj);
+
+    $('#gene_search_box').autocomplete({
+      source: d3c.get_genes()
+    });
+
+
+    $( "#slider_col" ).slider({
+      value:0.5,
+      min: 0,
+      max: 1,
+      step: 0.1,
+      slide: function( event, ui ) {
+
+        // get inst_index from slider
+        $( "#amount" ).val( "$" + ui.value );
+        var inst_index = ui.value*10;
+
+        // change group sizes
+        d3c.change_groups('col',inst_index)
+
+      }
+    });
+
+    $( "#amount" ).val( "$" + $( "#slider_col" ).slider( "value" ) );
+
+    $( "#slider_row" ).slider({
+      value:0.5,
+      min: 0,
+      max: 1,
+      step: 0.1,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.value );
+        var inst_index = ui.value*10;
+
+        // change group sizes
+        d3c.change_groups('row',inst_index)
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider_row" ).slider( "value" ) );
+
+    // submit genes button
+    $('#gene_search_box').keyup(function(e) {
+      if (e.keyCode === 13) {
+        var search_gene = $('#gene_search_box').val();
+        d3c.find_gene(search_gene);
+      }
+    });
+
+    $('#submit_gene_button').click(function() {
+      var gene = $('#gene_search_box').val();
+      d3c.find_gene(gene);
+    });
+
+    $('#toggle_order .btn').click(function(evt) {
+      var order_id = $(evt.target).find('input').attr('id').replace('_button', '');
+      d3c.reorder(order_id);
+    });    
+
+  $.unblockUI();
+  
+  </script>
+
+</body>
+
+</html>
