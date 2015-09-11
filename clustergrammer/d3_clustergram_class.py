@@ -198,18 +198,22 @@ class Network(object):
     import scipy
     
 
-    # grab row nodes - all up and down genes 
-    self.dat['nodes']['row'] = l1000cds2['input']['data']['upGenes'] + l1000cds2['input']['data']['dnGenes']
+    # # grab row nodes - all up and down genes 
+    # self.dat['nodes']['row'] = l1000cds2['input']['data']['upGenes'] + l1000cds2['input']['data']['dnGenes']
 
     # grab col nodes - input sig and drugs 
     self.dat['nodes']['col'] = []
-    # self.dat['nodes']['col'].append('Input Signature')
 
     # add the names from all the results 
     all_results = l1000cds2['result']
 
     for inst_result in all_results:
       self.dat['nodes']['col'].append(inst_result['name'])
+
+      for type_overlap in inst_result['overlap']:
+        self.dat['nodes']['row'].extend( inst_result['overlap'][type_overlap] )
+
+    self.dat['nodes']['row'] = list(set(self.dat['nodes']['row']))
 
     # initialize the matrix 
     self.dat['mat'] = scipy.zeros([ len(self.dat['nodes']['row']), len(self.dat['nodes']['col']) ])
@@ -232,10 +236,9 @@ class Network(object):
         self.dat['node_info']['row']['value'].append(-1)
 
     # loop through drug results 
-    for inst_result in all_results:
+    for inst_result_index in range(len(all_results)):
 
-      # get result index 
-      inst_result_index = self.dat['nodes']['col'].index(inst_result['name'])
+      inst_result = all_results[inst_result_index]
 
       # if up/dn then it should be negative since the drug is dn 
       for inst_dn in inst_result['overlap']['up/dn']:
@@ -255,14 +258,6 @@ class Network(object):
         # save 1 to gene row and drug column 
         self.dat['mat'][ inst_gene_index, inst_result_index ] = 1
 
-
-    # # temporarily reverse input signature so that the drug signatures will be clustered near
-    # # the input signature, the reverse it again before outputting visualization signature 
-    # self.dat['mat'][:,0] = -self.dat['mat'][:,0]
-
-
-    # switch back signature 
-    self.dat['mat'][:,0] = -self.dat['mat'][:,0]
 
   def load_cst_kea_enr_to_net(self, enr, pval_cutoff):
     import scipy
