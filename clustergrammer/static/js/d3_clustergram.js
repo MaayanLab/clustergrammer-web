@@ -125,8 +125,14 @@ function Config(args) {
     var class_rows = _.uniq(_.pluck(args.network_data.row_nodes, 'cl'));
     config.class_colors.row = {};
     _.each(class_rows, function(c_row, i) {
-      config.class_colors.row[c_row] = Colors.get_random_color(i+50);
+      if (i === 0) {
+        config.class_colors.row[c_row] = '#eee';
+      } else {
+        config.class_colors.row[c_row] = Colors.get_random_color(i);
+      }
     });
+
+    console.log(class_rows)
 
     // associate classes with colors
     var class_cols = _.uniq(_.pluck(args.network_data.col_nodes, 'cl'));
@@ -135,7 +141,7 @@ function Config(args) {
       if (i === 0) {
         config.class_colors.col[c_col] = '#eee';
       } else {
-        config.class_colors.col[c_col] = Colors.get_random_color(i+50);
+        config.class_colors.col[c_col] = Colors.get_random_color(i);
       }
     });
   }

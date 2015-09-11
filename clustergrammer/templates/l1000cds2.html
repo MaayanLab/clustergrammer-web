@@ -37,7 +37,7 @@
       <h1 id='viz_website_title'>L1000CDS2</h1>
 
       <div class='gene_exp_view'>
-        <div class='viz_instruct_text'> Zoom into the clustergram using scroll, reorder using the buttons or by double-clicking row or column tiles, search for rows using the search box, and idenfity groups of rows or columns of varying size using the sliders.</div>
+        <div class='viz_instruct_text'> Input genes are shown as rows with red/blue indicating up/dn expression. Perturbagens are shown as columns with their affect on gene expression shown as red/blue tiles indicating promotion/inhibition of gene expression.</div>
 
       </div>
 
@@ -59,6 +59,9 @@
         <label class="btn btn-primary prot_class" >
           <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
         </label>
+        <!-- <label class="btn btn-primary prot_class" >
+          <input type="radio" name="options" id="class_button" autocomplete="off" > Class
+        </label> -->
       </div>
       
       <div id='slider_container'>
@@ -151,7 +154,7 @@
     var arguments_obj = {
       'network_data': network_data,
       'svg_div_id': 'svg_div',
-      'row_label':'Input Genes',
+      'row_label':'Gene Signature',
       'col_label':'Perturbagens',
       'outer_margins': outer_margins,
       'force_square':1

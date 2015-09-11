@@ -235,6 +235,13 @@ class Network(object):
       else:
         self.dat['node_info']['row']['value'].append(-1)
 
+      # add class
+      # self.dat['node_info']['row']['cl'].append(0)
+
+    # save the name as a class
+    for i in range(len(self.dat['nodes']['col'])):  
+      self.dat['node_info']['col']['cl'].append(self.dat['nodes']['col'][i])
+
     # loop through drug results 
     for inst_result_index in range(len(all_results)):
 
