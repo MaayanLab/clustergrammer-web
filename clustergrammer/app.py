@@ -78,7 +78,8 @@ def viz(user_objid):
   else:
 
     # set up connection 
-    client = MongoClient('146.203.54.165')
+    # client = MongoClient('146.203.54.165')
+    client = MongoClient()
     db = client.clustergrammer
     # make query for data with name 'from_excel.txt'
     gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
@@ -140,7 +141,8 @@ def proc_g2e():
     export_dict['viz'] = net.export_net_json('viz')
 
     # set up connection 
-    client = MongoClient('146.203.54.165')
+    # client = MongoClient('146.203.54.165')
+    client = MongoClient()
     db = client.clustergrammer
 
     # save json as new collection 
@@ -217,7 +219,8 @@ def l1000cds2_upload():
   export_dict['viz'] = net.viz
  
   # set up connection 
-  client = MongoClient('146.203.54.165')
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient()
   db = client.clustergrammer
 
   # save json as new collection 

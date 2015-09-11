@@ -870,3 +870,7 @@ look like the input gene list text title*/
   width:275px;
   padding-left: 20px;
 }
+
+#slider_container{
+  margin-bottom: 10px;
+}
