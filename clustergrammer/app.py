@@ -259,7 +259,7 @@ def l1000cds2_upload():
   export_dict['name'] = 'tmp'
   # initial network information, including data_mat array
   #!! need to convert arrays to lists in .dat 
-  export_dict['dat'] = {} # net.export_net_json('dat')
+  export_dict['dat'] = json.loads(net.export_net_json('dat'))
   # d3 json used for visualization (already clustered)
   export_dict['viz'] = net.viz
   export_dict['_id'] = ObjectId(l1000cds2['_id'])

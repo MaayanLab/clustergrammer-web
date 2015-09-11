@@ -524,9 +524,11 @@ class Network(object):
 
     if net_type == 'dat':
       exp_dict = deepcopy(self.dat)
+
+      print(exp_dict)
       # convert numpy array to list 
       exp_dict['mat'] = exp_dict['mat'].tolist()
-      # !!convert everything to lists 
+
     elif net_type == 'viz':
       exp_dict = self.viz
 
@@ -793,8 +795,10 @@ class Network(object):
     # generate distance cutoffs 
     inst_groups = {}
     for inst_dist in all_dist:
-      # inst_groups[inst_dist] = hier.fcluster(Y, inst_dist*dm.max(), 'inconsistent') 
-      inst_groups[inst_dist] = hier.fcluster(Y, inst_dist*dm.max(), 'distance') 
+      inst_key = str(inst_dist).replace('.','')
+      print(inst_key)
+      inst_groups[inst_key] = hier.fcluster(Y, inst_dist*dm.max(), 'distance') 
+      inst_groups[inst_key] = inst_groups[inst_key].tolist()
 
     return inst_clust_order, inst_groups
 
@@ -886,6 +890,8 @@ class Network(object):
         if dendro==True:
           inst_dict['group'] = []
           for tmp_dist in all_dist:
+            # read group info in correct order 
+            tmp_dist = str(tmp_dist).replace('.','')
             inst_dict['group'].append( float( self.dat['node_info'][inst_rc]['group'][tmp_dist][i] ) )
 
         # append dictionary to list of nodes
