@@ -121,6 +121,7 @@ def viz_l1000cds2(user_objid):
     client = MongoClient()
     db = client.clustergrammer
     # make query for data with name 'from_excel.txt'
+
     gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
 
     # close connection 
@@ -272,10 +273,9 @@ def l1000cds2_upload():
   # save json as new collection 
   ##################################
   print('loading data to matrix')
-  tmp_id = db.networks.insert( export_dict ) 
-
-  # make net_id a string
-  tmp_id = str(tmp_id)
+  tmp = db.networks.find_one({'_id': ObjectId(l1000cds2['_id']) })
+  if tmp is None:
+    tmp_id = db.networks.insert( export_dict ) 
 
   # close client
   client.close()

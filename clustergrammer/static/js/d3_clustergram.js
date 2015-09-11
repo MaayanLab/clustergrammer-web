@@ -2454,7 +2454,6 @@ function Zoom(params){
           .attr('y', params.matrix.y_scale.rangeBand() * params.scale_font_offset(params.viz.zoom_scale_font.row));
 
         if (Utils.has( params.network_data.row_nodes[0], 'value')) {
-          
           d3.selectAll('.row_bars')
           .attr('width', function(d) {
             var inst_value = 0;
@@ -2477,6 +2476,21 @@ function Zoom(params){
           .style('font-size', params.labels.defalut_fs_row + 'px')
           .attr('y', params.matrix.y_scale.rangeBand() * 0.75);
       });
+
+      if (Utils.has( params.network_data.row_nodes[0], 'value')) {
+        d3.selectAll('.row_bars')
+        .attr('width', function(d) {
+          var inst_value = 0;
+          inst_value = params.labels.bar_scale_row(Math.abs(d.value));
+          return inst_value;
+        })
+        .attr('x', function(d) {
+          var inst_value = 0;
+          inst_value = -params.labels.bar_scale_row(Math.abs(d.value))  ;
+          return inst_value;
+        });
+      }
+
     }
 
     if (params.bounding_width_max.col * (params.zoom.scale() / params.viz.zoom_switch) > params.norm_label.width.col) {
@@ -2508,6 +2522,18 @@ function Zoom(params){
         d3.select(this).select('text')
           .style('font-size', params.labels.defalut_fs_col + 'px');
       });
+
+     if (Utils.has( params.network_data.col_nodes[0], 'value')) {
+        d3.selectAll('.col_bars')
+          .attr('width', function(d) {
+            var inst_value = 0;
+            if (d.value > 0){
+              inst_value = params.labels.bar_scale_col(d.value);
+            }
+            return inst_value;
+          })
+        }
+
     }
 
 
