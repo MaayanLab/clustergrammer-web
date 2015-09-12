@@ -282,6 +282,7 @@ class Network(object):
 
         # add result to list 
         self.dat['nodes']['col'].append(inst_result['name'])
+        self.dat['node_info']['col']['cl'].append(inst_result['name'])
 
         # concat up and down lists 
         inst_vect = inst_result['overlap']['up'] + inst_result['overlap']['dn']
