@@ -1,4 +1,21 @@
 def main():
+	import numpy as np
+
+	# a = np.array([[1],[2],[3]])
+	a = np.array([1,2,3])
+
+	b = np.array([[2],[3],[4]])
+
+	print(a)
+	print(a.reshape(-1,1))
+
+	# t = np.hstack((a.reshape(-1,1,b)))
+
+	# print(t)
+
+
+
+def thresh():	
 	import numpy as np 
 
 	# find common data above cutoff 

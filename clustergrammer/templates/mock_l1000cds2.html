@@ -67,7 +67,7 @@
             <!-- homepage -->
             <div id='homepage_view' class='row'>
 
-              <h1 id='website_title'> clustergrammer {{flask_var}}</h1>
+              <h1 id='website_title'> Mock L1000CDS2 {{flask_var}}</h1>
               <p class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and searchable clustergram. </p>
 
               <p class='initial_paragraph'>The uploaded matrix should have the following format: </p>
@@ -82,20 +82,20 @@ Row-C   0.2     0.1     2.5
               <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
 
             <!-- used to have id id='searchForm' in order to run ajax -->
-            <form  action="{{ url_for('jquery_upload_function') }}" method=post enctype=multipart/form-data>
+            <!-- <form  action="{{ url_for('jquery_upload_function') }}" method=post enctype=multipart/form-data>
               <input type=file name=file title='Choose File'  >
               <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
-            </form>
+            </form> -->
 
             <form  action="{{ url_for('l1000cds2_upload') }}" method=post enctype=multipart/form-data>
               <input type=file name=file title='test post here'  >
               <input class='btn btn-primary' id='file_upload_button'  type=submit value=Upload>
             </form>
 
-            <form  action="http://amp.pharm.mssm.edu/clustergrammer/l1000cds2/" method=post enctype=multipart/form-data>
+            <!-- <form  action="http://amp.pharm.mssm.edu/clustergrammer/l1000cds2/" method=post enctype=multipart/form-data>
               <input type=file name=file title='test post direct amp'  >
               <input class='btn btn-primary' id='file_upload_button'  type=submit value=Upload>
-            </form>
+            </form> -->
 
             <!-- <a href="load_saved/">load saved result</a> -->
 

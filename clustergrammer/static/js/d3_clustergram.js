@@ -469,6 +469,7 @@ function Matrix(network_data, svg_elem, params) {
     // remove zero values to make visualization faster
     var row_data = _.filter(inp_row_data, function(num) {
       return num.value !== 0;
+      // return Math.abs(num.value) > 0.01 ;
     });
 
     // generate tiles in the current row
@@ -1367,13 +1368,14 @@ function Labels(){
       });
 
       // get max value
-      var enr_max = _.max( row_nodes, function(d) { return Math.abs(d.value) } ).value ;
+      var enr_max = Math.abs(_.max( row_nodes, function(d) { return Math.abs(d.value) } ).value) ;
 
       // the enrichment bar should be 3/4ths of the height of the column labels
       params.labels.bar_scale_row = d3.scale
         .linear()
         .domain([0, enr_max])
-        .range([0, params.bounding_width_max.row ]);
+        // .range([0, 10* params.bounding_width_max.row ]);
+        .range([0, params.norm_label.width.row ]);
 
       // append column value bars
       if (Utils.has( params.network_data.row_nodes[0], 'value')) {
@@ -1595,7 +1597,7 @@ function Labels(){
 
     //!! CHD specific 
     // get max value
-    var enr_max = _.max( col_nodes, function(d) { return Math.abs(d.value) } ).value ;
+    var enr_max = Math.abs(_.max( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
 
     // the enrichment bar should be 3/4ths of the height of the column labels
     params.labels.bar_scale_col = d3.scale
@@ -2453,20 +2455,6 @@ function Zoom(params){
           .style('font-size', params.labels.defalut_fs_row * params.viz.zoom_scale_font.row + 'px')
           .attr('y', params.matrix.y_scale.rangeBand() * params.scale_font_offset(params.viz.zoom_scale_font.row));
 
-        if (Utils.has( params.network_data.row_nodes[0], 'value')) {
-          d3.selectAll('.row_bars')
-          .attr('width', function(d) {
-            var inst_value = 0;
-            inst_value = params.labels.bar_scale_row(Math.abs(d.value))*params.viz.zoom_scale_font.row;
-            return inst_value;
-          })
-          .attr('x', function(d) {
-            var inst_value = 0;
-            inst_value = -params.labels.bar_scale_row(Math.abs(d.value))*params.viz.zoom_scale_font.row;
-            return inst_value;
-          });
-        }
-
       });
 
     } else {
@@ -2493,6 +2481,20 @@ function Zoom(params){
 
     }
 
+    if (Utils.has( params.network_data.row_nodes[0], 'value')) {
+      d3.selectAll('.row_bars')
+      .attr('width', function(d) {
+        var inst_value = 0;
+        inst_value = params.labels.bar_scale_row(Math.abs(d.value))/zoom_y;
+        return inst_value;
+      })
+      .attr('x', function(d) {
+        var inst_value = 0;
+        inst_value = -params.labels.bar_scale_row(Math.abs(d.value))/zoom_y;
+        return inst_value;
+      });
+    }
+
     if (params.bounding_width_max.col * (params.zoom.scale() / params.viz.zoom_switch) > params.norm_label.width.col) {
       params.viz.zoom_scale_font.col = params.norm_label.width.col / (params.bounding_width_max
           .col * (params.zoom.scale() / params.viz.zoom_switch));
@@ -2502,17 +2504,6 @@ function Zoom(params){
         d3.select(this).select('text')
           .style('font-size', params.labels.defalut_fs_col * params.viz.zoom_scale_font
             .col + 'px');
-
-      if (Utils.has( params.network_data.col_nodes[0], 'value')) {
-        d3.selectAll('.col_bars')
-          .attr('width', function(d) {
-            var inst_value = 0;
-            if (d.value > 0){
-              inst_value = params.labels.bar_scale_col(d.value)*params.labels.defalut_fs_col;
-            }
-            return inst_value;
-          })
-        }
 
       });
 
@@ -2535,6 +2526,17 @@ function Zoom(params){
         }
 
     }
+
+    if (Utils.has( params.network_data.col_nodes[0], 'value')) {
+      d3.selectAll('.col_bars')
+        .attr('width', function(d) {
+          var inst_value = 0;
+          if (d.value > 0){
+            inst_value = params.labels.bar_scale_col(d.value)/zoom_y;
+          }
+          return inst_value;
+        })
+      }
 
 
     // column value bars
@@ -2807,12 +2809,12 @@ function Zoom(params){
           .duration(search_duration)
           .attr('width', function(d) {
           var inst_value = 0;
-          inst_value = params.labels.bar_scale_row(Math.abs(d.value));
+          inst_value = params.labels.bar_scale_row(Math.abs(d.value))/zoom_y;
           return inst_value;
         })
         .attr('x', function(d) {
           var inst_value = 0;
-          inst_value = -params.labels.bar_scale_row(Math.abs(d.value));
+          inst_value = -params.labels.bar_scale_row(Math.abs(d.value))/zoom_y;
           return inst_value;
         });
 
