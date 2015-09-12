@@ -132,8 +132,6 @@ function Config(args) {
       }
     });
 
-    console.log(class_rows)
-
     // associate classes with colors
     var class_cols = _.uniq(_.pluck(args.network_data.col_nodes, 'cl'));
     config.class_colors.col = {};
@@ -469,7 +467,6 @@ function Matrix(network_data, svg_elem, params) {
     // remove zero values to make visualization faster
     var row_data = _.filter(inp_row_data, function(num) {
       return num.value !== 0;
-      // return Math.abs(num.value) > 0.01 ;
     });
 
     // generate tiles in the current row
@@ -1379,7 +1376,6 @@ function Labels(){
 
       // append column value bars
       if (Utils.has( params.network_data.row_nodes[0], 'value')) {
-
         row_labels
         .append('rect')
         .attr('class', 'row_bars')
@@ -1401,6 +1397,7 @@ function Labels(){
         })
         .attr('opacity', 0.4);
       }
+      
       // return row_triangle_ini_group so that the dendrogram can be made 
       return row_triangle_ini_group;
   }   
@@ -1482,7 +1479,6 @@ function Labels(){
       return d.name.replace(/_/g, ' ');
       });
 
-    
     params.bounding_width_max.col = 0;
     d3.selectAll('.col_label_click').each(function() {
       var tmp_width = d3.select(this).select('text').node().getBBox().width;
@@ -2542,8 +2538,6 @@ function Zoom(params){
     // column value bars
     ///////////////////////
     // console.log(zoom_y)
-    
-
 
     // //!! change the size of the highlighting rects
     // //////////////////////////////////////////////
@@ -2866,5 +2860,5 @@ return {
     change_groups: viz.change_group,
     reorder: viz.reorder
 };
-  
+	
 }
