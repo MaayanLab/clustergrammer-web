@@ -555,7 +555,8 @@ class Network(object):
 
   def load_data_to_net(self, inst_net):
     ''' load data into nodes and mat, also convert mat to numpy array''' 
-    self.dat = inst_net
+    self.dat['nodes'] = inst_net['nodes']
+    self.dat['mat'] = inst_net['mat']
     # convert to numpy array 
     self.mat_to_numpy_arr()
 
@@ -744,7 +745,7 @@ class Network(object):
     from copy import deepcopy
 
     # print('\nclustering the matrix using dist_type ' + dist_type + ' with a comparison requirement of at least ' + str(cutoff) + ' instances above abs-value of ' + str(min_num_comp) +' in order to compare')
-    print('calculating distance matrix using ')
+    # print('calculating distance matrix using ')
 
     # make distance matrices 
     ##########################
@@ -838,7 +839,6 @@ class Network(object):
     inst_groups = {}
     for inst_dist in all_dist:
       inst_key = str(inst_dist).replace('.','')
-      print(inst_key)
       inst_groups[inst_key] = hier.fcluster(Y, inst_dist*dm.max(), 'distance') 
       inst_groups[inst_key] = inst_groups[inst_key].tolist()
 

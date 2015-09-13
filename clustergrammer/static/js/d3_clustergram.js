@@ -942,7 +942,7 @@ function VizParams(config){
     // svg size: less than svg size
     ///////////////////////////////////
     // 0.8 approximates the trigonometric distance required for hiding the spillover
-    var spillover_x_offset = label_scale(col_max_char) * 0.8 * params.col_label_scale;
+    var spillover_x_offset = label_scale(col_max_char) * 0.6 * params.col_label_scale;
 
     // get height and width from parent div
     params.viz.svg_dim = {};
