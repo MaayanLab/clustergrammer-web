@@ -252,8 +252,8 @@ def l1000cds2_upload():
   net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)  
 
   # redefine initial ordering - rank by gene signature values and pert scores 
-  net.dat['node_info']['row']['ini'] = net.sort_rank_node_values('row', False)
-  net.dat['node_info']['col']['ini'] = net.sort_rank_node_values('col', True)
+  net.dat['node_info']['row']['ini'] = net.sort_rank_node_values('row')
+  net.dat['node_info']['col']['ini'] = net.sort_rank_node_values('col')
   net.viz = {}
   net.viz['row_nodes'] = []
   net.viz['col_nodes'] = []

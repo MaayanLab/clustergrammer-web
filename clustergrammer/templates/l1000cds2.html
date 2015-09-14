@@ -37,7 +37,7 @@
       <h1 id='viz_website_title'>L1000CDS2gram</h1>
 
       <div class='gene_exp_view'>
-        <div class='viz_instruct_text'> Input genes are shown as rows with red/blue indicating up/dn expression. Perturbagens are shown as columns with their affect on gene expression shown as red/blue tiles indicating promotion/inhibition of gene expression.</div>
+        <div class='viz_instruct_text'> Input genes are shown as rows with red/blue indicating up/dn expression. Perturbagens are shown as columns with their effect on gene expression shown as red/blue tiles indicating promotion/inhibition of gene expression.</div>
 
       </div>
 
@@ -57,7 +57,7 @@
           <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
         </label>
         <label class="btn btn-primary prot_class" >
-          <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank  
+          <input type="radio" name="options" id="ini_button" autocomplete="off" > Rank  
         </label>
         <!-- <label class="btn btn-primary prot_class" >
           <input type="radio" name="options" id="class_button" autocomplete="off" > Class
@@ -121,7 +121,8 @@
             '-webkit-border-radius': '10px', 
             '-moz-border-radius': '10px', 
             opacity: .8, 
-            color: '#fff' 
+            color: '#fff', 
+            fadein:0
         } });
 
     network_data = {{ viz_network|tojson|safe }}
@@ -160,6 +161,7 @@
       // 'opacity_scale':'log',
       // 'input_domain':7,
       'col_overflow':0.7,
+      // 'bar_colors':['orange','blue '],
       // 'transpose':true,
       // 'do_zoom':false,
       // 'tile_colors':['#ED9124','#1C86EE'],
@@ -168,7 +170,7 @@
       // 'click_tile': click_tile_callback,
       // 'click_group': click_group_callback
       // 'resize':false
-      'order':'ini'
+      'order':'clust'
     };
 
     // make clustergram: pass network_data and the div name where the svg should be made

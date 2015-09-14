@@ -207,8 +207,9 @@ class Network(object):
       # grab col nodes - input sig and drugs 
       self.dat['nodes']['col'] = []
 
-      for inst_result in all_results:
-        self.dat['nodes']['col'].append(inst_result['name'])
+      for i in range(len(all_results)):
+        inst_result = all_results[i]
+        self.dat['nodes']['col'].append(inst_result['name']+'#'+str(i))
 
         self.dat['node_info']['col']['value'].append(inst_result['score'])
 
@@ -281,10 +282,11 @@ class Network(object):
         self.dat['node_info']['row']['value'].append(tmp_exp_vect[i])
 
       # gather result names 
-      for inst_result in all_results:
+      for i in range(len(all_results)):
 
+        inst_result = all_results[i]
         # add result to list 
-        self.dat['nodes']['col'].append(inst_result['name'])
+        self.dat['nodes']['col'].append(inst_result['name']+'#'+str(i))
         self.dat['node_info']['col']['cl'].append(inst_result['name'])
 
         # reverse signature, score [1,2]
@@ -852,7 +854,7 @@ class Network(object):
 
     return inst_clust_order, inst_groups
 
-  def sort_rank_node_values( self, rowcol, tmp_reverse=False ):
+  def sort_rank_node_values( self, rowcol ):
     import numpy as np
     from operator import itemgetter
     from copy import deepcopy
@@ -871,8 +873,8 @@ class Network(object):
       tmp_arr.append(inst_dict)
 
     # sort dictionary by value 
-    tmp_arr = sorted( tmp_arr, key=itemgetter('value'), reverse = tmp_reverse )
-    print(tmp_arr)
+    tmp_arr = sorted( tmp_arr, key=itemgetter('value') )
+
     # get list of sorted nodes 
     tmp_sort_nodes = []
     for inst_dict in tmp_arr:

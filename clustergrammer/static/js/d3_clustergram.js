@@ -53,6 +53,7 @@ function Config(args) {
     // matrix options 
     transpose: false,
     tile_colors: ['#FF0000', '#1C86EE'],
+    bar_colors: ['#FF0000', '#1C86EE'],
     tile_title: false,
     // Default domain is set to 0, which means that the domain will be set automatically
     input_domain: 0,
@@ -496,7 +497,7 @@ function Matrix(network_data, svg_elem, params) {
       })
       // switch the color based on up/dn value
       .style('fill', function(d) {
-      return d.value > 0 ? params.matrix.tile_colors[0] : params.matrix.tile_colors[1];
+        return d.value > 0 ? params.matrix.tile_colors[0] : params.matrix.tile_colors[1];
       })
       .on('mouseover', function(p) {
       // highlight row - set text to active if
@@ -587,7 +588,7 @@ function Matrix(network_data, svg_elem, params) {
       // switch the color based on up/dn value
       .style('fill', function(d) {
       // normal rule
-      return d.value > 0 ? params.matrix.tile_colors[0] : params.matrix.tile_colors[1];
+        return d.value > 0 ? params.matrix.tile_colors[0] : params.matrix.tile_colors[1];
       });
 
     tile
@@ -716,8 +717,8 @@ function Matrix(network_data, svg_elem, params) {
       })
       // switch the color based on up/dn value
       .style('fill', function() {
-      // rl_f (not released) orange
-      return params.matrix.tile_colors[1];
+        // rl_f (not released) orange
+        return params.matrix.tile_colors[1];
       });
 
     // append title to group
@@ -850,6 +851,7 @@ function VizParams(config){
     // Matrix Options 
     params.matrix = {};
     params.matrix.tile_colors = config.tile_colors;
+    params.matrix.bar_colors = config.bar_colors;
     params.matrix.tile_title = config.tile_title; 
  
     // Visualization Options 
@@ -1275,7 +1277,7 @@ function Labels(){
       .attr('text-anchor', 'end')
       .style('font-size', params.labels.defalut_fs_row + 'px')
       .text(function(d) {
-      return d.name;
+        return d.name.replace(/_/g, ' ').split('#')[0];
       });
 
     // append rectangle behind text
@@ -1409,7 +1411,7 @@ function Labels(){
 
         .attr('height', params.matrix.y_scale.rangeBand() )
         .attr('fill', function(d) {
-          return d.value > 0 ? params.matrix.tile_colors[0] : params.matrix.tile_colors[1];
+          return d.value > 0 ? params.matrix.bar_colors[0] : params.matrix.bar_colors[1];
         })
         .attr('opacity', 0.4);
       }
@@ -1489,10 +1491,8 @@ function Labels(){
       })
       // original font size
       .style('font-size', params.labels.defalut_fs_col + 'px')
-      // // !! simple font size
-      // .style('font-size', params.matrix.x_scale.rangeBand()*0.7+'px')
       .text(function(d) {
-      return d.name.replace(/_/g, ' ');
+        return d.name.replace(/_/g, ' ').split('#')[0];
       });
 
     params.bounding_width_max.col = 0;
@@ -1612,8 +1612,6 @@ function Labels(){
     var enr_max = Math.abs(_.max( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
     var enr_min = Math.abs(_.min( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
 
-    console.log(enr_max)
-
     // the enrichment bar should be 3/4ths of the height of the column labels
     params.labels.bar_scale_col = d3.scale
       .linear()
@@ -1634,9 +1632,8 @@ function Labels(){
       })
       // rotate labels - reduce width if rotating
       .attr('height', params.matrix.x_scale.rangeBand() * 0.66)
-      .attr('fill', function() {
-        // return d.color;
-        return 'red';
+      .attr('fill', function(d) {
+        return d.value > 0 ? params.matrix.bar_colors[0] : params.matrix.bar_colors[1];
       })
       .attr('opacity', 0.4);
     }
@@ -2095,7 +2092,10 @@ function Reorder(params){
     params.viz.run_trans = false;
 
     // load orders
-    if (inst_order === 'clust') {
+    if (inst_order === 'ini') {
+      params.matrix.x_scale.domain(params.matrix.orders.ini_row);
+      params.matrix.y_scale.domain(params.matrix.orders.ini_col);
+    } else if (inst_order === 'clust') {
       params.matrix.x_scale.domain(params.matrix.orders.clust_row);
       params.matrix.y_scale.domain(params.matrix.orders.clust_col);
     } else if (inst_order === 'rank') {
@@ -2517,19 +2517,19 @@ function Zoom(params){
           .attr('y', params.matrix.y_scale.rangeBand() * 0.75);
       });
 
-      if (Utils.has( params.network_data.row_nodes[0], 'value')) {
-        d3.selectAll('.row_bars')
-        .attr('width', function(d) {
-          var inst_value = 0;
-          inst_value = params.labels.bar_scale_row(Math.abs(d.value));
-          return inst_value;
-        })
-        .attr('x', function(d) {
-          var inst_value = 0;
-          inst_value = -params.labels.bar_scale_row(Math.abs(d.value))  ;
-          return inst_value;
-        });
-      }
+      // if (Utils.has( params.network_data.row_nodes[0], 'value')) {
+      //   d3.selectAll('.row_bars')
+      //   .attr('width', function(d) {
+      //     var inst_value = 0;
+      //     inst_value = params.labels.bar_scale_row(Math.abs(d.value));
+      //     return inst_value;
+      //   })
+      //   .attr('x', function(d) {
+      //     var inst_value = 0;
+      //     inst_value = -params.labels.bar_scale_row(Math.abs(d.value))  ;
+      //     return inst_value;
+      //   });
+      // }
 
     }
 
@@ -2566,16 +2566,16 @@ function Zoom(params){
           .style('font-size', params.labels.defalut_fs_col + 'px');
       });
 
-     if (Utils.has( params.network_data.col_nodes[0], 'value')) {
-        d3.selectAll('.col_bars')
-          .attr('width', function(d) {
-            var inst_value = 0;
-            if (d.value > 0){
-              inst_value = params.labels.bar_scale_col(d.value);
-            }
-            return inst_value;
-          })
-        }
+     // if (Utils.has( params.network_data.col_nodes[0], 'value')) {
+     //    d3.selectAll('.col_bars')
+     //      .attr('width', function(d) {
+     //        var inst_value = 0;
+     //        if (d.value > 0){
+     //          inst_value = params.labels.bar_scale_col(d.value);
+     //        }
+     //        return inst_value;
+     //      })
+     //    }
 
     }
 
@@ -2584,7 +2584,7 @@ function Zoom(params){
         .attr('width', function(d) {
           var inst_value = 0;
           if (d.value > 0){
-            inst_value = params.labels.bar_scale_col(d.value)/zoom_y;
+            inst_value = params.labels.bar_scale_col(d.value)/zoom_x;
           }
           return inst_value;
         })
