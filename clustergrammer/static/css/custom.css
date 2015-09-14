@@ -874,3 +874,9 @@ look like the input gene list text title*/
 #slider_container{
   margin-bottom: 10px;
 }
+
+#wait_message{
+  margin-left: 300px;
+  margin-top: 50px;
+  opacity: 0.5;
+}
