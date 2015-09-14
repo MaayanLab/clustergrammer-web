@@ -315,6 +315,39 @@ def jquery_upload_function():
     return redirect('/clustergrammer/viz/'+net_id)
 
 
+# CST 
+##############
+@app.route('/clustergrammer/cstgram/', methods=['GET'])
+def cstgram_home():
+
+  return render_template('cstgram_home.html', flask_var='')
+
+@app.route('/clustergrammer/cstgram_data/', methods=['POST'])
+def cstgram_data():
+  import json
+
+  # $.post( "cstgram_data/", {name:'nick'}).done(function(data){console.log(data)});
+
+  # post request on front ent 
+  ###############################
+  # $.ajax({
+  #           url: 'cstgram_data/',
+  #           type: 'post',
+  #           dataType: 'json',
+  #           success: function (data) {
+  #               console.log('here');
+  #           },
+  #           data: JSON.stringify(person)
+  #       });
+
+  if request.method == 'POST':
+    req_json = json.loads(request.get_data())
+
+    print(type(req_json))
+    print(req_json)
+
+    return 'some response from the server!!!'
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
  
