@@ -25,11 +25,11 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
 
 ######################################
 
@@ -79,8 +79,8 @@ def viz(user_objid):
   else:
 
     # set up connection 
-    # client = MongoClient('146.203.54.165')
-    client = MongoClient()
+    client = MongoClient('146.203.54.165')
+    # client = MongoClient()
     db = client.clustergrammer
     # make query for data with name 'from_excel.txt'
     gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
@@ -117,8 +117,8 @@ def viz_l1000cds2(user_objid):
   else:
 
     # set up connection 
-    # client = MongoClient('146.203.54.165')
-    client = MongoClient()
+    client = MongoClient('146.203.54.165')
+    # client = MongoClient()
     db = client.clustergrammer
     # make query for data with name 'from_excel.txt'
 
@@ -184,8 +184,8 @@ def proc_g2e():
     export_dict['viz'] = net.export_net_json('viz')
 
     # set up connection 
-    # client = MongoClient('146.203.54.165')
-    client = MongoClient()
+    client = MongoClient('146.203.54.165')
+    # client = MongoClient()
     db = client.clustergrammer
 
     # save json as new collection 
@@ -275,8 +275,8 @@ def l1000cds2_upload():
   # print(l1000cds2['_id'])
  
   # set up connection 
-  # client = MongoClient('146.203.54.165')
-  client = MongoClient()
+  client = MongoClient('146.203.54.165')
+  # client = MongoClient()
   db = client.clustergrammer
 
   # save json as new collection 
