@@ -210,8 +210,11 @@ class Network(object):
       for inst_result in all_results:
         self.dat['nodes']['col'].append(inst_result['name'])
 
+        self.dat['node_info']['col']['value'].append(inst_result['score'])
+
         for type_overlap in inst_result['overlap']:
           self.dat['nodes']['row'].extend( inst_result['overlap'][type_overlap] )
+
 
       self.dat['nodes']['row'] = sorted(list(set(self.dat['nodes']['row'])))
 
@@ -283,6 +286,12 @@ class Network(object):
         # add result to list 
         self.dat['nodes']['col'].append(inst_result['name'])
         self.dat['node_info']['col']['cl'].append(inst_result['name'])
+
+        # reverse signature, score [1,2]
+        if l1000cds2['input']['aggravate'] == False:
+          self.dat['node_info']['col']['value'].append( inst_result['score']-1 )
+        else:
+          self.dat['node_info']['col']['value'].append( 1 - inst_result['score'] )
 
         # concat up and down lists 
         inst_vect = inst_result['overlap']['up'] + inst_result['overlap']['dn']

@@ -219,7 +219,6 @@ def proc_g2e():
 def l1000cds2_upload():
   import requests
   import d3_clustergram
-  import make_d3_clust
   import json 
   from d3_clustergram_class import Network 
   from pymongo import MongoClient
