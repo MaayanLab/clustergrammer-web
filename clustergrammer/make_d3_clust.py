@@ -77,4 +77,4 @@ def load_file(req_file, allowed_file):
     print('error in file upload - check filetype')
 
 
-    return error
+    return 'error'

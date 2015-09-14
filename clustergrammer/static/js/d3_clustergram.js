@@ -182,7 +182,7 @@ function Config(args) {
 
 
   function is_supported_order(order) {
-    return order === 'clust' || order === 'rank' || order === 'class';
+    return order === 'ini' || order === 'clust' || order === 'rank' || order === 'class';
   }
 
   return config;
@@ -241,7 +241,13 @@ function Dendrogram(type, params, elem) {
   }
 
   function build_color_groups() {
-    for (i = 0; i < Colors.get_num_colors(); i++) {
+    var max_groups ;
+    if ( params.network_data.row_nodes.length > params.network_data.col_nodes.length){
+      max_groups = params.network_data.row_nodes;
+    } else {
+      max_groups = params.network_data.col_nodes;
+    }
+    for (i = 0; i < params.network_data.row_nodes.length; i++) {
       // grab colors from the list
       if (i === 1) {
         group_colors[i] = Colors.get_default_color();
@@ -466,7 +472,8 @@ function Matrix(network_data, svg_elem, params) {
 
     // remove zero values to make visualization faster
     var row_data = _.filter(inp_row_data, function(num) {
-      return num.value !== 0;
+      // return params.matrix.opacity_scale(Math.abs(num.value)) >= 0.05;
+      return params.matrix.opacity_scale(Math.abs(num.value)) > 0;
     });
 
     // generate tiles in the current row
@@ -483,9 +490,9 @@ function Matrix(network_data, svg_elem, params) {
       .attr('width', params.matrix.x_scale.rangeBand())
       .attr('height', params.matrix.y_scale.rangeBand() * 0.98)
       .style('fill-opacity', function(d) {
-      // calculate output opacity using the opacity scale
-      var output_opacity = params.matrix.opacity_scale(Math.abs(d.value));
-      return output_opacity;
+        // calculate output opacity using the opacity scale
+        var output_opacity = params.matrix.opacity_scale(Math.abs(d.value));
+        return output_opacity;
       })
       // switch the color based on up/dn value
       .style('fill', function(d) {
@@ -1013,8 +1020,12 @@ function VizParams(config){
 
     // Define Orderings
     params.matrix.orders = {
-      name: d3.range(col_nodes.length).sort(function(a, b) {
-        return d3.ascending(col_nodes[a].name, col_nodes[b].name);
+      // ini
+      ini_row: d3.range(col_nodes.length).sort(function(a, b) {
+        return col_nodes[b].ini - col_nodes[a].ini;
+      }),
+      ini_col: d3.range(row_nodes.length).sort(function(a, b) {
+        return row_nodes[b].ini - row_nodes[a].ini;
       }),
       // rank
       rank_row: d3.range(col_nodes.length).sort(function(a, b) {
@@ -1039,8 +1050,13 @@ function VizParams(config){
       })
     };
 
+    console.log(params.viz.inst_order)
+
     // Assign initial ordering for x_scale and y_scale
-    if (params.viz.inst_order === 'clust') {
+    if (params.viz.inst_order === 'ini') {
+      params.matrix.x_scale.domain(params.matrix.orders.ini_row);
+      params.matrix.y_scale.domain(params.matrix.orders.ini_col);
+    } else if (params.viz.inst_order === 'clust') {
       params.matrix.x_scale.domain(params.matrix.orders.clust_row);
       params.matrix.y_scale.domain(params.matrix.orders.clust_col);
     } else if (params.viz.inst_order === 'rank') {
@@ -1594,11 +1610,14 @@ function Labels(){
     //!! CHD specific 
     // get max value
     var enr_max = Math.abs(_.max( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
+    var enr_min = Math.abs(_.min( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
+
+    console.log(enr_max)
 
     // the enrichment bar should be 3/4ths of the height of the column labels
     params.labels.bar_scale_col = d3.scale
       .linear()
-      .domain([1, enr_max])
+      .domain([enr_min*0.75, enr_max])
       .range([0, params.norm_label.width.col]);
 
     // append column value bars
@@ -2073,11 +2092,7 @@ function Reorder(params){
    */
   function all_reorder(inst_order) {
 
-    // // load parameters from d3_clustergram
-    // var params = params;
-
-    // set running transition value
-    params.viz.run_trans = true;
+    params.viz.run_trans = false;
 
     // load orders
     if (inst_order === 'clust') {
@@ -2091,54 +2106,95 @@ function Reorder(params){
       params.matrix.y_scale.domain(params.matrix.orders.class_col);
     }
 
-    // define the t variable as the transition function
-    var t = viz.get_clust_group()
-      .transition().duration(2500);
+    // only animate transition if there are a small number of tiles 
+    if (d3.selectAll('.tile')[0].length < 10000){
 
-    // reorder matrix
-    t.selectAll('.row')
-      .attr('transform', function(d, i) {
-        return 'translate(0,' + params.matrix.y_scale(i) + ')';
-      })
-      .selectAll('.tile')
-      .attr('transform', function(d) {
-        return 'translate(' + params.matrix.x_scale(d.pos_x) + ' , 0)';
-      });
+      // define the t variable as the transition function
+      var t = viz.get_clust_group()
+        .transition().duration(2500);
 
-    // Move Row Labels
-    d3.select('#row_labels').selectAll('.row_label_text')
-      .transition().duration(2500)
-      .attr('transform', function(d, i) {
-        return 'translate(0,' + params.matrix.y_scale(i) + ')';
-      });
+      // reorder matrix
+      t.selectAll('.row')
+        .attr('transform', function(d, i) {
+          return 'translate(0,' + params.matrix.y_scale(i) + ')';
+        })
+        .selectAll('.tile')
+        .attr('transform', function(d) {
+          return 'translate(' + params.matrix.x_scale(d.pos_x) + ' , 0)';
+        });
 
-    // t.selectAll('.column')
-    d3.select('#col_labels').selectAll('.col_label_text')
-      .transition().duration(2500)
-      .attr('transform', function(d, i) {
-        return 'translate(' + params.matrix.x_scale(i) + ')rotate(-90)';
-      });
+      // Move Row Labels
+      d3.select('#row_labels').selectAll('.row_label_text')
+        .transition().duration(2500)
+        .attr('transform', function(d, i) {
+          return 'translate(0,' + params.matrix.y_scale(i) + ')';
+        });
 
-    // reorder row_label_triangle groups
-    d3.selectAll('.row_triangle_group')
-      .transition().duration(2500)
-      .attr('transform', function(d, i) {
-        return 'translate(0,' + params.matrix.y_scale(i) + ')';
-      });
+      // t.selectAll('.column')
+      d3.select('#col_labels').selectAll('.col_label_text')
+        .transition().duration(2500)
+        .attr('transform', function(d, i) {
+          return 'translate(' + params.matrix.x_scale(i) + ')rotate(-90)';
+        });
 
-    // reorder col_class groups
-    d3.selectAll('.col_class_group')
-      .transition().duration(2500)
-      .attr('transform', function(d, i) {
-        return 'translate(' + params.matrix.x_scale(i) + ',0)';
-      })
-      .each('end', function() {
-        // set running transition to 0
-        params.viz.run_trans = false;
-      });
+      // reorder row_label_triangle groups
+      d3.selectAll('.row_triangle_group')
+        .transition().duration(2500)
+        .attr('transform', function(d, i) {
+          return 'translate(0,' + params.matrix.y_scale(i) + ')';
+        });
 
-    // backup allow programmatic zoom
-    setTimeout(end_reorder, 2500);
+      // reorder col_class groups
+      d3.selectAll('.col_class_group')
+        .transition().duration(2500)
+        .attr('transform', function(d, i) {
+          return 'translate(' + params.matrix.x_scale(i) + ',0)';
+        });
+
+    } else {
+
+      // define the t variable as the transition function
+      var t = viz.get_clust_group()
+
+      // reorder matrix
+      t.selectAll('.row')
+        .attr('transform', function(d, i) {
+          return 'translate(0,' + params.matrix.y_scale(i) + ')';
+        })
+        .selectAll('.tile')
+        .attr('transform', function(d) {
+          return 'translate(' + params.matrix.x_scale(d.pos_x) + ' , 0)';
+        });
+
+      // Move Row Labels
+      d3.select('#row_labels').selectAll('.row_label_text')
+        .attr('transform', function(d, i) {
+          return 'translate(0,' + params.matrix.y_scale(i) + ')';
+        });
+
+      // t.selectAll('.column')
+      d3.select('#col_labels').selectAll('.col_label_text')
+        .attr('transform', function(d, i) {
+          return 'translate(' + params.matrix.x_scale(i) + ')rotate(-90)';
+        });
+
+      // reorder row_label_triangle groups
+      d3.selectAll('.row_triangle_group')
+        .attr('transform', function(d, i) {
+          return 'translate(0,' + params.matrix.y_scale(i) + ')';
+        });
+
+      // reorder col_class groups
+      d3.selectAll('.col_class_group')
+        .attr('transform', function(d, i) {
+          return 'translate(' + params.matrix.x_scale(i) + ',0)';
+        });      
+    }
+
+      params.viz.run_trans = false;
+      // backup allow programmatic zoom
+      setTimeout(end_reorder, 2500);
+
   }
 
   function row_reorder() {

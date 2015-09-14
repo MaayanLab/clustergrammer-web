@@ -852,6 +852,39 @@ class Network(object):
 
     return inst_clust_order, inst_groups
 
+  def sort_rank_node_values( self, rowcol, tmp_reverse=False ):
+    import numpy as np
+    from operator import itemgetter
+    from copy import deepcopy
+
+    # make a copy of nodes and node_info
+    inst_nodes = deepcopy(self.dat['nodes'][rowcol])
+    inst_vals  = deepcopy(self.dat['node_info'][rowcol]['value'])
+
+    tmp_arr = []
+    for i in range(len(inst_nodes)):
+      inst_dict = {}
+      # get name of the node 
+      inst_dict['name'] = inst_nodes[i]
+      # get value 
+      inst_dict['value'] = inst_vals[i]
+      tmp_arr.append(inst_dict)
+
+    # sort dictionary by value 
+    tmp_arr = sorted( tmp_arr, key=itemgetter('value'), reverse = tmp_reverse )
+    print(tmp_arr)
+    # get list of sorted nodes 
+    tmp_sort_nodes = []
+    for inst_dict in tmp_arr:
+      tmp_sort_nodes.append( inst_dict['name'] )
+
+    # get the sorted index 
+    sort_index = []
+    for inst_node in inst_nodes:
+      sort_index.append( tmp_sort_nodes.index(inst_node) )
+
+    return sort_index
+
   def sort_rank_nodes( self, rowcol ):
     import numpy as np
     from operator import itemgetter
@@ -886,7 +919,6 @@ class Network(object):
     for inst_node in inst_nodes:
       sort_index.append( tmp_sort_nodes.index(inst_node) )
 
-    # save the sorted ranks 
     return sort_index
 
   def calc_thresh_col_dist( self, vect_row, vect_col, cutoff, min_num_meet):
