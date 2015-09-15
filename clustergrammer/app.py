@@ -25,19 +25,20 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
 
 ######################################
 
 # define allowed extension
 ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
-# define global network 
-gnet = []
-gnet_id = []
+
+# # define global network 
+# gnet = []
+# gnet_id = []
 
 def allowed_file(filename):
   return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -52,10 +53,6 @@ def send_static(path):
 def index():
   return render_template('index.html', flask_var='')
 
-@app.route("/clustergrammer/mock_l1000cds2")
-def mock_l1000cds2():
-  return render_template('mock_l1000cds2.html', flask_var='')
-
 @app.route("/clustergrammer/viz/<user_objid>")
 def viz(user_objid):
   import flask
@@ -67,12 +64,12 @@ def viz(user_objid):
   # 55d945529ff08807f604278c - med ccle
   # 55f2458f9ff088ccfd32a805 - large ccle
 
-  global gnet_id
-  global gnet
+  # global gnet_id
+  # global gnet
 
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient()
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient()
   db = client.clustergrammer
   # make query for data with name 'from_excel.txt'
   gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
@@ -86,21 +83,20 @@ def viz(user_objid):
 
   return render_template('viz.html', viz_network=d3_json)
 
+@app.route("/clustergrammer/mock_l1000cds2")
+def mock_l1000cds2():
+  return render_template('mock_l1000cds2.html', flask_var='')
+
 @app.route("/clustergrammer/l1000cds2/<user_objid>")
 def viz_l1000cds2(user_objid):
   import flask
   from bson.objectid import ObjectId
   from copy import deepcopy
 
-  global gnet_id
-  global gnet
-
-
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient()
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient()
   db = client.clustergrammer
-  # make query for data with name 'from_excel.txt'
 
   gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
 
@@ -122,8 +118,8 @@ def proc_g2e():
   import json 
   from d3_clustergram_class import Network
 
-  global gnet_id
-  global gnet
+  # global gnet_id
+  # global gnet
 
   if request.method == 'POST':
     g2e_json = json.loads( request.data )
@@ -164,8 +160,8 @@ def proc_g2e():
     export_dict['viz'] = net.export_net_json('viz')
 
     # set up connection 
-    client = MongoClient('146.203.54.165')
-    # client = MongoClient()
+    # client = MongoClient('146.203.54.165')
+    client = MongoClient()
     db = client.clustergrammer
 
     # save json as new collection 
@@ -204,36 +200,17 @@ def l1000cds2_upload():
   from pymongo import MongoClient
   from bson.objectid import ObjectId
 
-  print('\n\n\n\n\n')
-  print('in l1000cds2_upload')
-  print('recieving a post request')
-
-  # import pdb ; pdb.set_trace()
-
-  # # get data from file 
-  # req_file = request.files['file']
-  # # read in the json from the file 
-  # l1000cds2 = json.loads( req_file.read() ) 
-
   # get the json 
   l1000cds2 = json.loads( request.form.get('signatures') )
 
-  # print(type(l1000cds2))
-  print(l1000cds2)
-
   # initialize network 
   net = Network()
-
-  # check the keys in l1000cds2
-  print(l1000cds2.keys())
-
-  print('load network, cluster, get visualization, and redirect to viz')  
 
   # load l1000cds2 to .dat 
   net.load_l1000cds2(l1000cds2)
 
   # cluster 
-  cutoff_comp = 1
+  cutoff_comp = 0
   min_num_comp = 2
   net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)  
 
@@ -250,32 +227,24 @@ def l1000cds2_upload():
   # generate export dictionary 
   ###############################
   export_dict = {}
-  # save name of network 
   export_dict['name'] = 'l1000cds2'
-  # initial network information, including data_mat array
-  #!! need to convert arrays to lists in .dat 
   export_dict['dat'] = net.export_net_json('dat')
-  # d3 json used for visualization (already clustered)
   export_dict['viz'] = net.viz
   export_dict['_id'] = ObjectId(l1000cds2['_id'])
-  # print(l1000cds2['_id'])
  
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient()
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient()
   db = client.clustergrammer
 
-  # save json as new collection 
+  # save to database 
   ##################################
-  print('loading data to matrix')
   tmp = db.networks.find_one({'_id': ObjectId(l1000cds2['_id']) })
   if tmp is None:
     tmp_id = db.networks.insert( export_dict ) 
 
   # close client
   client.close()
-
-  print('\n\n\n\n\n')
 
   return redirect('/clustergrammer/l1000cds2/'+l1000cds2['_id'])
 
@@ -286,7 +255,7 @@ def l1000cds2_upload():
 def jquery_upload_function():
   import flask 
   import d3_clustergram
-  import make_d3_clust
+  import load_tsv_file
 
   # # don't know if I need this 
   # error = None 
@@ -294,11 +263,11 @@ def jquery_upload_function():
   if request.method == 'POST':
     req_file = flask.request.files['file']
 
-    global gnet
-    global gnet_id
+    # global gnet
+    # global gnet_id
 
     # cluster and add to database 
-    net_id, net = make_d3_clust.load_file(req_file, allowed_file)
+    net_id, net = load_tsv_file.main(req_file, allowed_file)
 
     # make network a dictionary 
     gnet = {}
