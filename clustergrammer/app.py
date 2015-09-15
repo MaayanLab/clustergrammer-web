@@ -177,7 +177,7 @@ def proc_g2e():
     ###############################
     export_dict = {}
     # save name of network 
-    export_dict['name'] = 'tmp'
+    export_dict['name'] = 'g2e'
     # initial network information, including data_mat array
     export_dict['dat'] = net.export_net_json('dat')
     # d3 json used for visualization (already clustered)
@@ -228,12 +228,18 @@ def l1000cds2_upload():
   print('in l1000cds2_upload')
   print('recieving a post request')
 
-  # get data from file 
-  print('read the file ')
-  req_file = request.files['file']
+  # import pdb ; pdb.set_trace()
 
-  # read in the json from the file 
-  l1000cds2 = json.loads( req_file.read() ) 
+  # # get data from file 
+  # req_file = request.files['file']
+  # # read in the json from the file 
+  # l1000cds2 = json.loads( req_file.read() ) 
+
+  # get the json 
+  l1000cds2 = json.loads( request.form.get('signatures') )
+
+  # print(type(l1000cds2))
+  print(l1000cds2)
 
   # initialize network 
   net = Network()
@@ -265,7 +271,7 @@ def l1000cds2_upload():
   ###############################
   export_dict = {}
   # save name of network 
-  export_dict['name'] = 'tmp'
+  export_dict['name'] = 'l1000cds2'
   # initial network information, including data_mat array
   #!! need to convert arrays to lists in .dat 
   export_dict['dat'] = net.export_net_json('dat')

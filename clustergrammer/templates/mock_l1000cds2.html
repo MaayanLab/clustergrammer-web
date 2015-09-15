@@ -88,7 +88,7 @@ Row-C   0.2     0.1     2.5
             </form> -->
 
             <form  action="{{ url_for('l1000cds2_upload') }}" method=post enctype=multipart/form-data>
-              <input type=file name=file title='test post here'  >
+              <input name='signatures' title='test post here' value='{"a":"b"}' >
               <input class='btn btn-primary' id='file_upload_button'  type=submit value=Upload>
             </form>
 
