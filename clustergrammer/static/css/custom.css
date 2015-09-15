@@ -634,9 +634,9 @@ look like the input gene list text title*/
   margin: 0 auto;
   color:#333;
   text-align: justify;
-  /*margin-top:10px;*/
-  /*margin-bottom: 10px;*/
-  font-size: 16px;
+  margin-top:2px;
+  margin-bottom: 3px;
+  font-size: 15px;
   font-weight: 300;
   padding-left: 0px;
 }
@@ -741,7 +741,7 @@ look like the input gene list text title*/
 #viz_website_title{
   /*reduced width sidebar - font size 
   used to be 40*/
-  font-size: 30px;
+  font-size: 25px;
   margin-top: 10px;
   margin-bottom: 5px;
 }
@@ -756,8 +756,8 @@ look like the input gene list text title*/
 #toggle_order{
   /*reduced width sidebar 
   margin-left used to be 45*/
-  margin-left: 38px;
-  margin-top: 20px;
+  margin-left: 30px;
+  margin-top: 10px;
   margin-bottom:5px;
 }
 
@@ -803,15 +803,15 @@ look like the input gene list text title*/
 /*gene search box */
 #gene_search_box{
   width:120px;
-  /*float:left;*/
+  float:left;
   /*display: none;*/
 }
 
 /*gene search button*/
 #gene_search_button{
   /*width:50px;*/
-  /*float:left;*/
-  margin-top:4px;
+  float:left;
+  margin-left:4px;
   /*display: none;*/
 }
 

@@ -70,27 +70,19 @@ def viz(user_objid):
   global gnet_id
   global gnet
 
-  if gnet_id == user_objid and type(gnet) is not list:
+  # set up connection 
+  client = MongoClient('146.203.54.165')
+  # client = MongoClient()
+  db = client.clustergrammer
+  # make query for data with name 'from_excel.txt'
+  gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
 
-    # use preloaded network 
-    print('\n\nusing global network\n##################n\n')
-    d3_json = deepcopy(gnet['viz'])
+  # close connection 
+  client.close()
+  d3_json = gnet['viz']
+  gnet_id = deepcopy(user_objid)
 
-  else:
-
-    # set up connection 
-    client = MongoClient('146.203.54.165')
-    # client = MongoClient()
-    db = client.clustergrammer
-    # make query for data with name 'from_excel.txt'
-    gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
-
-    # close connection 
-    client.close()
-    d3_json = gnet['viz']
-    gnet_id = deepcopy(user_objid)
-
-    print('\n\nloading from mongodb\n##################n\n')
+  print('\n\nloading from mongodb\n##################n\n')
 
   return render_template('viz.html', viz_network=d3_json)
 
@@ -100,39 +92,27 @@ def viz_l1000cds2(user_objid):
   from bson.objectid import ObjectId
   from copy import deepcopy
 
-  # example mongodb ids 
-  # 55d945129ff08807f604278b - from_excel.txt
-  # 55d945529ff08807f604278c - med ccle
-  # 55f2458f9ff088ccfd32a805 - large ccle
-
   global gnet_id
   global gnet
 
-  if gnet_id == user_objid and type(gnet) is not list:
 
-    # use preloaded network 
-    print('\n\nusing global network\n##################n\n')
-    d3_json = deepcopy(gnet['viz'])
+  # set up connection 
+  client = MongoClient('146.203.54.165')
+  # client = MongoClient()
+  db = client.clustergrammer
+  # make query for data with name 'from_excel.txt'
 
-  else:
+  gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
 
-    # set up connection 
-    client = MongoClient('146.203.54.165')
-    # client = MongoClient()
-    db = client.clustergrammer
-    # make query for data with name 'from_excel.txt'
+  # close connection 
+  client.close()
+  print('\n\nuser_objid')
+  print(user_objid)
+  print('\n\n')
+  d3_json = gnet['viz']
+  gnet_id = deepcopy(user_objid)
 
-    gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
-
-    # close connection 
-    client.close()
-    print('\n\nuser_objid')
-    print(user_objid)
-    print('\n\n')
-    d3_json = gnet['viz']
-    gnet_id = deepcopy(user_objid)
-
-    print('\n\nloading from mongodb\n##################n\n')
+  print('\n\nloading from mongodb\n##################n\n')
 
   return render_template('l1000cds2.html', viz_network=d3_json)
 

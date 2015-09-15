@@ -62,9 +62,9 @@
       </div>
       
       <div id='slider_container'>
-        <p>set column group size</p>
+        <p class='viz_instruct_text'>set column group size</p>
         <div id="slider_col"></div>
-        <p>set row group size</p>
+        <p class='viz_instruct_text'>set row group size</p>
         <div id="slider_row"></div>
       </div>
 
@@ -73,7 +73,9 @@
     </div>
 
     <!-- exp div -->
-    <div id='svg_div' class='svg_div' ></div>
+    <div id='svg_div' class='svg_div' >
+      <h1 id='wait_message'>Please wait ...</h1>
+    </div>
   
   </div>
 
@@ -100,7 +102,7 @@
   <script src="static/lib/js/keen.min.js"></script>
   <script src="static/lib/js/underscore-min.js"></script>
   <script src="static/lib/js/underscore.strings.js"></script>
-  <script src='static/lib/js/blockUI.js'></script>
+  <!-- <script src='static/lib/js/blockUI.js'></script> -->
   <script src='static/lib/js/type_ahead.js'></script>
   <script src="static/lib/js/bootstrap.min.js"></script>
   <script src="static/lib/js/bootstrap-switch.min.js"></script>
@@ -110,16 +112,16 @@
 
   <script>
 
-    // set up wait message before request is made 
-    $.blockUI({ css: { 
-            border: 'none', 
-            padding: '15px', 
-            backgroundColor: '#000', 
-            '-webkit-border-radius': '10px', 
-            '-moz-border-radius': '10px', 
-            opacity: .8, 
-            color: '#fff' 
-        } });
+    // // set up wait message before request is made 
+    // $.blockUI({ css: { 
+    //         border: 'none', 
+    //         padding: '15px', 
+    //         backgroundColor: '#000', 
+    //         '-webkit-border-radius': '10px', 
+    //         '-moz-border-radius': '10px', 
+    //         opacity: .8, 
+    //         color: '#fff' 
+    //     } });
 
     network_data = {{ viz_network|tojson|safe }}
     console.log( network_data )
@@ -129,8 +131,8 @@
     var outer_margins = {
         'top':5,
         'bottom':33,
-        'left':225,
-        'right':2
+        'left':200,
+        'right':30
       };
 
     // define callback function for clicking on tile
@@ -168,6 +170,8 @@
       // 'resize':false
       // 'order':'rank'
     };
+
+    d3.select('#wait_message').remove();
 
     // make clustergram: pass network_data and the div name where the svg should be made
     var d3c = d3_clustergram(arguments_obj);
@@ -229,7 +233,7 @@
       d3c.reorder(order_id);
     });    
 
-  $.unblockUI();
+  // $.unblockUI();
   
   </script>
 

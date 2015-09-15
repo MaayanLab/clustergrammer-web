@@ -37,7 +37,9 @@
       <h1 id='viz_website_title'>L1000CDS2gram</h1>
 
       <div class='gene_exp_view'>
-        <div class='viz_instruct_text'> Input genes are shown as rows with red/blue indicating up/dn expression. Perturbagens are shown as columns with their effect on gene expression shown as red/blue tiles indicating promotion/inhibition of gene expression.</div>
+        <div class='viz_instruct_text'> The input gene signature is shown as rows with red or blue bars indicating up or down expression. </div>
+
+        <div class='viz_instruct_text'>Perturbagens are shown as columns with their effect on gene expression shown as red or blue tiles indicating promotion or inhibition of gene expression.</div>
 
       </div>
 
@@ -65,9 +67,9 @@
       </div>
       
       <div id='slider_container'>
-        <p>set column group size</p>
+        <p class='viz_instruct_text'>set column group size</p>
         <div id="slider_col"></div>
-        <p>set row group size</p>
+        <p class='viz_instruct_text'>set row group size</p>
         <div id="slider_row"></div>
       </div>
 
@@ -77,9 +79,7 @@
 
     <!-- exp div -->
     <div id='svg_div' class='svg_div' >
-      
-    <h1 id='wait_message'>Please wait ...</h1>
-
+      <h1 id='wait_message'>Please wait ...</h1>
     </div>
   
 
@@ -137,7 +137,7 @@
     var outer_margins = {
         'top':5,
         'bottom':33,
-        'left':225,
+        'left':200,
         'right':30
       };
 
