@@ -11,6 +11,7 @@
     <base href='/clustergrammer/'>
 
     <title>L1000CDS2gram</title>
+    <link rel="shortcut icon" href="static/css/sigine.ico" type="image/x-icon">
 
     <!-- Bootstrap Core CSS -->
     <link href="static/lib/css/bootstrap.css" rel="stylesheet">
@@ -19,28 +20,33 @@
     <link href="static/lib/css/simple-sidebar.css" rel="stylesheet">
 
     <link rel="stylesheet" href="static/lib/css/keen-dashboards.css">
+    <link rel="stylesheet" href="static/libraries/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/libraries/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
     <link rel="stylesheet" href="static/lib/css/dc.css">
     <link rel="stylesheet" href="static/css/specific.css" />
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
-    <link rel="stylesheet" href="static/css/custom.css">
+    <link rel="stylesheet" href="static/css/l1000cds2.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 </head>
 
 <body>
 
-
+  <div class="pure-menu pure-menu-horizontal custom-menu"><img src="static/css/sigine.png" alt="Sigine" class="rubic">    &#x9;<span ng-click="directToIndex()" class="rubic-title"> L1000CDS<sup>2</sup></span>
+      <div class="description">An              <span class="highlight lightning-fast">                 ultra-fast</span>            LINCS<span class="highlight">            L1000</span><span class="highlight">         C</span>haracteristic<span class="highlight">        D</span>irection<span class="highlight">            S</span>ignature<span class="highlight">          S</span>earch Engine</div><span class="search-count-text"><span class="search-count"></span>           searches performed!</span>
+  </div>
   <div id='viz_view'>
 
     <div id='clust_instruct_container' >
-      <h1 id='viz_website_title'>L1000CDS2gram</h1>
 
       <div class='gene_exp_view'>
 
-        <div class='viz_instruct_text'> The input gene signature is shown as rows with red or blue bars indicating up or down expression. </div>
 
-        <div class='viz_instruct_text'>Perturbagens are shown as columns with their effect on gene expression shown as red or blue tiles indicating promotion or inhibition of gene expression.</div>
+        <a class="btn reanalyze" role="button"><i class="fa fa-chevron-left"> </i> Result Table</a>
+        <div class='viz_instruct_text'> The genes in input signature are shown as rows with red or blue bars indicating up or down expression. </div>
+
+        <div class='viz_instruct_text'>The columns are the top 50 signatures with their gene expression patterns shown as red and blue tiles indicating promotion or inhibition of input genes.</div>
 
       </div>
 
@@ -75,7 +81,7 @@
       </div>
 
       <!-- <button id='to_homepage' type="submit" class='btn btn-primary buttons' onClick='to_homepage()' >Return to Homepage</button> -->
-      <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
+      
     </div>
 
     <!-- exp div -->
@@ -87,13 +93,11 @@
   </div>
 
 
-  <footer id='footer_div' class="footer navbar-fixed-bottom">
-    <div class="row" > 
-      <div class="col-xs-12 footer_section"> 
-        <p class="text-muted">clustergrammer is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </p>
+   <footer class="footer">
+      <div class="container">
+        <p class="text-muted">L1000CDS² is being developed by the <a target="_blank" href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a target="_blank" href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a> for the <a target="_blank" href="http://lincs-dcic.org/">BD2K-LINCS DCIC</a> and the <a target="_blank" href="http://commonfund.nih.gov/idg/overview">KMC-IDG</a>. The L1000CDS² tool underlying dataset is the <a target="_blank" href="http://www.lincscloud.org/">LINCS L1000</a> small molecule expression profiles generated at the Broad Institute by the <a target="_blank" href="http://lincscloud.org/about/cmap-team/">Connectivity Map Group</a>. This work is supported by NIH Grants <a target="_blank" href="http://bd2k.nih.gov/FY14/LINCS/LINCS.html">U54HL127624</a> and <a target="_blank" href="http://projectreporter.nih.gov/project_description.cfm?projectnumber=1U54CA189201-01">U54CA189201</a>.</p>
       </div>
-    </div>
-  </footer>
+    </footer>
 
   <!-- Vendor -->
   <!-- jQuery -->
@@ -136,8 +140,8 @@
 
     // define the outer margins of the visualization
     var outer_margins = {
-        'top':5,
-        'bottom':33,
+        'top':45,
+        'bottom':55,
         'left':200,
         'right':30
       };
@@ -160,8 +164,8 @@
     var arguments_obj = {
       'network_data': network_data,
       'svg_div_id': 'svg_div',
-      'row_label':'Gene Signature',
-      'col_label':'Perturbagens',
+      'row_label':'Input signature',
+      'col_label':'Top signatures',
       'outer_margins': outer_margins,
       'col_overflow':0.7,
       'resize':false,
@@ -233,7 +237,23 @@
   // $.unblockUI();
   
   </script>
+   <script>
+   var origin = "http://amp.pharm.mssm.edu";
+   // var origin = "http://localhost:8182";
+   var countUrl = origin+"/L1000CDS2/count";
+   var resultUrl = origin+"/L1000CDS2/#/result/";
+   var splits = window.location.href.split('/');
+   var id = splits[splits.length-1];
+   $('.reanalyze').click(function(){
+      window.location = resultUrl+id;
+   });
+   $.get(countUrl,function(data){
+      $('.search-count').text(data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+   });
 
+
+
+   </script>
 </body>
 
 </html>
