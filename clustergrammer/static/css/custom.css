@@ -883,3 +883,7 @@ look like the input gene list text title*/
   margin-top: 50px;
   opacity: 0.5;
 }
+
+.btn-default {
+  background-color: #D0D0D0;
+}

@@ -3045,8 +3045,7 @@ fieldset[disabled] .btn {
 
 .btn-default {
   color: #333;
-  background-color: #D0D0D0;
-  /*border-color: #D0D0D0;*/
+  border-color: #D0D0D0;
   border-radius: 0;
 }
 .btn-default:hover,

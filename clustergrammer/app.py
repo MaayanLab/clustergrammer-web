@@ -53,6 +53,10 @@ def send_static(path):
 def index():
   return render_template('index.html', flask_var='')
 
+@app.route("/clustergrammer/sidebar/")
+def sidebar():
+  return render_template('sidebar.html', flask_var='')
+
 @app.route("/clustergrammer/viz/<user_objid>")
 def viz(user_objid):
   import flask
