@@ -26,10 +26,10 @@ ENTRY_POINT = '/clustergrammer'
 ##########################################
 
 # # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
 # for docker development
-SERVER_ROOT = '/app/clustergrammer'
+# SERVER_ROOT = '/app/clustergrammer'
 
 ######################################
 

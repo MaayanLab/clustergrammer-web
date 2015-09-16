@@ -1,0 +1,20 @@
+{
+  "name": "clsgrm",
+  "description": "",
+  "version": "0.0.1",
+  "homepage": "",
+  "license": "",
+  "private": true,
+  "dependencies": {
+    "angular": "latest",
+    "jquery": "1.10.2",
+    "bootstrap": "3.1.1",
+    "underscore": "1.7.0",
+    "font-awesome": "latest",
+    "string": "2.2.0",
+    "d3": "latest"
+  },
+  "resolutions": {
+    "angular": "1.4.4"
+  }
+}
