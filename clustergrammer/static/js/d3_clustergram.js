@@ -1911,6 +1911,8 @@ function Viz(config) {
       svg_group.call(params.zoom);
     }
 
+    console.log(params.viz.svg_dim)
+
     // make the matrix 
     /////////////////////////
     matrix = Matrix(network_data, svg_group, params);
