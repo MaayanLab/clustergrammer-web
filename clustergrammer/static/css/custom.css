@@ -515,7 +515,8 @@ because the sidebar will be closed*/
 
 #website_title{
   margin-top: 20px;
-  /*display: none;*/
+  display: inline-block;
+  margin-left: 5px;
   font-size: 30px;
 }
 
@@ -741,9 +742,11 @@ look like the input gene list text title*/
 #viz_website_title{
   /*reduced width sidebar - font size 
   used to be 40*/
-  font-size: 25px;
+  font-size: 23px;
   margin-top: 10px;
   margin-bottom: 5px;
+  margin-left: 5px;
+  display: inline-block;
 }
 
 #class_buttons{
