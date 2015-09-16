@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <base href='/clustergrammer/'>`
+    <base href='/clustergrammer/'>
 
     <title>clustergrammer</title>
 
@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="static/css/custom.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="static/lib/css/prettify.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -67,8 +68,13 @@
             <!-- homepage -->
             <div id='homepage_view' class='row'>
 
-              <h1 id='website_title'> clustergrammer {{flask_var}}</h1>
+              <div>
+                <i class="fa fa-map-o fa-5x  "></i> 
+                <h1 id='website_title'> clustergrammer {{flask_var}}</h1>
+              </div>
+                
               <p class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and searchable clustergram. </p>
+
 
               <p class='initial_paragraph'>The uploaded matrix should have the following format: </p>
 
