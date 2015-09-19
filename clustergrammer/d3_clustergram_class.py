@@ -51,8 +51,8 @@ class Network(object):
     # get row/col labels and data from lines 
     for i in range(len(lines)):
 
-      # get inst_line
-      inst_line = lines[i].split('\t')
+      # get inst_line!! probably want to strip line
+      inst_line = lines[i].strip().split('\t')
       # strip each element 
       inst_line = [z.strip() for z in inst_line]
 
@@ -803,8 +803,8 @@ class Network(object):
 
     # initial ordering 
     ###################
-    clust_order['row']['ini'] = range(num_row)
-    clust_order['col']['ini'] = range(num_col)
+    clust_order['row']['ini'] = range(num_row, 0, -1)
+    clust_order['col']['ini'] = range(num_col, 0, -1)
 
     # cluster 
     ##############

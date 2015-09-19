@@ -55,8 +55,8 @@ def main(req_file, allowed_file):
     export_dict['viz'] = net.viz
 
     # set up connection 
-    client = MongoClient('146.203.54.165')
-    # client = MongoClient()
+    # client = MongoClient('146.203.54.165')
+    client = MongoClient()
     db = client.clustergrammer
 
     # save json as new collection 

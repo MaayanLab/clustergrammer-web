@@ -643,7 +643,7 @@ look like the input gene list text title*/
 }
 
 .initial_paragraph{
-  font-size: 20px;
+  font-size: 17px;
   width:590px;
   font-weight: 300;
   /*display: none;*/
@@ -736,6 +736,10 @@ look like the input gene list text title*/
 /*footer - shift it with the sidebar*/
 #footer_div{
   margin-left: 0px;
+}
+
+#footer_div_sidebar{
+  margin-left: 200px;
 }
 
 /*title for the visualization*/
@@ -886,4 +890,13 @@ look like the input gene list text title*/
 
 .btn-default {
   background-color: #D0D0D0;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

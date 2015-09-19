@@ -72,8 +72,8 @@ def viz(user_objid):
   # global gnet
 
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient()
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient()
   db = client.clustergrammer
   # make query for data with name 'from_excel.txt'
   gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
@@ -98,8 +98,8 @@ def viz_l1000cds2(user_objid):
   from copy import deepcopy
 
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient()
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient()
   db = client.clustergrammer
 
   gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
@@ -164,8 +164,8 @@ def proc_g2e():
     export_dict['viz'] = net.export_net_json('viz')
 
     # set up connection 
-    client = MongoClient('146.203.54.165')
-    # client = MongoClient()
+    # client = MongoClient('146.203.54.165')
+    client = MongoClient()
     db = client.clustergrammer
 
     # save json as new collection 
@@ -237,8 +237,8 @@ def l1000cds2_upload():
   export_dict['_id'] = ObjectId(l1000cds2['_id'])
  
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient()
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient()
   db = client.clustergrammer
 
   # save to database 

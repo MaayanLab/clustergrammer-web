@@ -31,14 +31,11 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul id='sidebar-nav' class="sidebar-nav initial_paragraph" >
+            <ul id='sidebar-nav' class="sidebar-nav initial_paragraph noselect" >
                 
-                <li class='active_selection'>Make Clustergram</li>
-                <li>Enrichrgram</li>
-                <li>Examples</li>
-                <li>CCLE</li>
-                <li>LINCS</li>
-                <li>Contact</li>
+                <li class='active_selection'>run clustergrammer</li>
+                <li>explore examples</li>
+                <li>gram apps</li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -99,6 +96,14 @@ Row-C   0.2     0.1     2.5
     </div>
     <!-- /#wrapper -->
 
+    <footer id='footer_div_sidebar' class="navbar-fixed-bottom">
+      <div class="row" > 
+        <div class="col-xs-12 "> 
+          <p class="text-muted">clustergrammer is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </p>
+        </div>
+      </div>
+    </footer>
+
     
     <!-- <script src="static/lib/js/jquery-1.11.2.min.js"></script>
     <script type="text/javascript" src="static/lib/js/prettify.js"> </script>
@@ -137,9 +142,19 @@ Row-C   0.2     0.1     2.5
     <!-- Menu Toggle Script -->
     <script>
 
+    // shift the footer right when sidebar is exposed 
+    d3.select('#footer_div_sidebar')
+      .style('margin-left', '200px');
+
     $('#sidebar-nav').click(function(evt){
 
       // console.log(evt.target)
+      console.log(evt.target)
+      d3.select('#sidebar-nav').selectAll('li').attr('class','')
+      d3.select(evt.target).classed('active_selection');
+      d3.select(evt.target).select('li').attr('class','active_selection')
+
+      d3.select(evt.target).attr('class','active_selection')
       console.log( $(evt.target).text() ) 
     })
 
