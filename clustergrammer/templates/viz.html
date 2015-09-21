@@ -33,7 +33,7 @@
 <body>
 
 
-  <div id='viz_view'>
+  <div>
 
     <div id='clust_instruct_container' >
       <i class="fa fa-map-o fa-2x  "></i> 
@@ -132,11 +132,18 @@
 
     // define the outer margins of the visualization
     var outer_margins = {
+        'top':5 ,
+        'bottom':33,
+        'left':225,
+        'right':2
+      };
+
+    var outer_margins_expand = {
         'top':5,
         'bottom':33,
-        'left':200,
-        'right':30
-      };
+        'left':5,
+        'right':2
+      };  
 
     // define callback function for clicking on tile
     function click_tile_callback(tile_info){
@@ -159,6 +166,7 @@
       'row_label':'Row-Data-Name',
       'col_label':'Column-Data-Name',
       'outer_margins': outer_margins,
+      'outer_margins_expand': outer_margins_expand,
       'force_square':1
       // 'opacity_scale':'log',
       // 'input_domain':7,

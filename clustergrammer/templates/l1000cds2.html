@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="static/libraries/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
     <link rel="stylesheet" href="static/lib/css/dc.css">
-    <link rel="stylesheet" href="static/css/specific.css" />
+    <!-- <link rel="stylesheet" href="static/css/specific.css" /> -->
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
     <link rel="stylesheet" href="static/css/l1000cds2.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -142,9 +142,16 @@
     var outer_margins = {
         'top':45,
         'bottom':58,
-        'left':200,
-        'right':30
+        'left':225,
+        'right':2
       };
+
+    var outer_margins_expand = {
+        'top':45,
+        'bottom':58,
+        'left':5,
+        'right':2
+      };  
 
     // define callback function for clicking on tile
     function click_tile_callback(tile_info){
@@ -167,6 +174,7 @@
       'row_label':'Input signature',
       'col_label':'Top signatures',
       'outer_margins': outer_margins,
+      'outer_margins_expand': outer_margins_expand,
       'col_overflow':0.7,
       // 'resize':false,
       'order':'clust'
