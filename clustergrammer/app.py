@@ -81,11 +81,12 @@ def viz(user_objid):
   # close connection 
   client.close()
   d3_json = gnet['viz']
+  viz_name = gnet['name']
   gnet_id = deepcopy(user_objid)
 
   print('\n\nloading from mongodb\n##################n\n')
 
-  return render_template('viz.html', viz_network=d3_json)
+  return render_template('viz.html', viz_network=d3_json, viz_name=viz_name)
 
 @app.route("/clustergrammer/mock_l1000cds2")
 def mock_l1000cds2():

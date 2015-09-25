@@ -51,7 +51,7 @@ class Network(object):
     # get row/col labels and data from lines 
     for i in range(len(lines)):
 
-      # get inst_line!! probably want to strip line
+      # get inst_line
       inst_line = lines[i].rstrip().split('\t')
       # strip each element 
       inst_line = [z.strip() for z in inst_line]
@@ -83,7 +83,7 @@ class Network(object):
         # convert to float
         inst_data_row = [float(tmp_dat) for tmp_dat in inst_data_row]
 
-        # save the row data as an rray 
+        # save the row data as an array 
         inst_data_row = np.asarray(inst_data_row)
 
         # initailize matrix 
@@ -744,7 +744,7 @@ class Network(object):
 
     print( 'final mat shape' + str(self.dat['mat'].shape ) + '\n')
 
-  def cluster_row_and_col(self, dist_type, cutoff=0, min_num_comp=0, dendro=True):
+  def cluster_row_and_col(self, dist_type, cutoff, min_num_comp, dendro=True):
     ''' 
     cluster net.dat and make visualization json, net.viz. 
     optionally leave out dendrogram colorbar groups with dendro argument 
@@ -768,17 +768,6 @@ class Network(object):
     row_dm = scipy.zeros([num_row,num_row])
     col_dm = scipy.zeros([num_col,num_col])
 
-    # # row dist mat 
-    # for i in range(num_row):
-    #   for j in range(num_row):
-    #     # calculate distance of two rows 
-    #     row_dm[i,j] = self.calc_thresh_col_dist( self.dat['mat'][i,:], self.dat['mat'][j,:], cutoff, min_num_comp )
-
-    # # col dist mat 
-    # for i in range(num_col):
-    #   for j in range(num_col):
-    #     col_dm[i,j] = self.calc_thresh_col_dist( self.dat['mat'][:,i], self.dat['mat'][:,j], cutoff, min_num_comp )
-
     # make copy of matrix 
     tmp_mat = deepcopy(self.dat['mat'])
 
@@ -786,17 +775,13 @@ class Network(object):
     row_dm = pdist( tmp_mat, metric='cosine' )
     col_dm = pdist( tmp_mat.transpose(), metric='cosine' )
 
-    # prevent negative values and max distance is 1 for cosine
+    # print(row_dm)
+
+    # prevent negative values 
     # row 
     row_dm[row_dm < 0] = float(0)
-    row_dm[row_dm > 1] = float(1) 
     # col
     col_dm[col_dm < 0] = float(0)
-    col_dm[col_dm > 1] = float(1) 
-
-    # replace nans with the maximum distance in the distance matries 
-    row_dm[ np.isnan(row_dm) ] = np.nanmax(row_dm)
-    col_dm[ np.isnan(col_dm) ] = np.nanmax(col_dm)
 
     # initialize clust order 
     clust_order = self.ini_clust_order()
