@@ -36,14 +36,18 @@ def main(req_file, allowed_file):
 
     # cluster 
     #############
+    print('clustering')
     net.cluster_row_and_col('cos')
 
     # convert data matrix to list 
-    net.dat['mat'] = net.dat['mat'].tolist()
+    # net.dat['mat'] = net.dat['mat'].tolist()
+
+    print('clear node_info')
     net.dat['node_info'] = []
 
     # generate export dictionary 
     ###############################
+    print('set up export_dict')
     export_dict = {}
     # save name of network 
     export_dict['name'] = inst_filename
@@ -53,13 +57,14 @@ def main(req_file, allowed_file):
     export_dict['viz'] = net.viz
 
     # set up connection 
+    print('set up mongo client')
     client = MongoClient('146.203.54.165')
     # client = MongoClient()
     db = client.clustergrammer
 
     # save json as new collection 
     ##################################
-    print('loading data to matrix')
+    print('loading data to mongo')
     tmp_id = db.networks.insert( export_dict ) 
 
     # make net_id a string

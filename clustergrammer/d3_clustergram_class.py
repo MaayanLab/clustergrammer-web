@@ -755,8 +755,7 @@ class Network(object):
     from scipy.spatial.distance import pdist
     from copy import deepcopy
 
-    # print('\nclustering the matrix using dist_type ' + dist_type + ' with a comparison requirement of at least ' + str(cutoff) + ' instances above abs-value of ' + str(min_num_comp) +' in order to compare')
-    # print('calculating distance matrix using ')
+    print('inside cluster_row_and_col')
 
     # make distance matrices 
     ##########################
