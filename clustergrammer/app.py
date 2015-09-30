@@ -25,11 +25,11 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
 
 ######################################
 
@@ -92,6 +92,11 @@ def viz(user_objid):
 def mock_l1000cds2():
   return render_template('mock_l1000cds2.html', flask_var='')
 
+@app.route('/clustergrammer/mock_g2e')
+def mock_g2e():
+  from g2e_json import g2e_json
+  return render_template('mock_g2e.html', flask_var=g2e_json)
+
 @app.route("/clustergrammer/l1000cds2/<user_objid>")
 def viz_l1000cds2(user_objid):
   import flask
@@ -127,11 +132,9 @@ def proc_g2e():
   # global gnet
 
   if request.method == 'POST':
-    g2e_json = json.loads( request.data )
 
-    print('\n\n')
-    print(g2e_json.keys())
-    print(type(g2e_json))
+    tmp_string = request.values['signatures']
+    g2e_json = json.loads(tmp_string)
 
     # ini network obj 
     net = Network()
@@ -144,25 +147,23 @@ def proc_g2e():
 
     # filter the matrix using cutoff and min_num_meet
     ###################################################
-    cutoff_meet = 0.5
-    min_num_meet = 10
+    cutoff_meet = 0.01
+    min_num_meet = 2
     net.filter_network_thresh( cutoff_meet, min_num_meet )
 
     # cluster 
     #############
-    cutoff_comp = 0.25
-    min_num_comp = 3  
-    net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)
+    net.cluster_row_and_col('cos')
 
     # generate export dictionary 
     ###############################
     export_dict = {}
     # save name of network 
-    export_dict['name'] = 'g2e'
+    export_dict['name'] = g2e_json['tag']
     # initial network information, including data_mat array
     export_dict['dat'] = net.export_net_json('dat')
     # d3 json used for visualization (already clustered)
-    export_dict['viz'] = net.export_net_json('viz')
+    export_dict['viz'] = net.viz
 
     # set up connection 
     client = MongoClient('146.203.54.165')

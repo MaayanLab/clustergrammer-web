@@ -36,9 +36,7 @@ def main(req_file, allowed_file):
 
     # cluster 
     #############
-    cutoff_comp = 0
-    min_num_comp = 2
-    net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)
+    net.cluster_row_and_col('cos')
 
     # convert data matrix to list 
     net.dat['mat'] = net.dat['mat'].tolist()

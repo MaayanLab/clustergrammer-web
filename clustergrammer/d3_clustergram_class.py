@@ -744,7 +744,7 @@ class Network(object):
 
     print( 'final mat shape' + str(self.dat['mat'].shape ) + '\n')
 
-  def cluster_row_and_col(self, dist_type, cutoff, min_num_comp, dendro=True):
+  def cluster_row_and_col(self, dist_type, cutoff=0, min_num_comp=1, dendro=True):
     ''' 
     cluster net.dat and make visualization json, net.viz. 
     optionally leave out dendrogram colorbar groups with dendro argument 
