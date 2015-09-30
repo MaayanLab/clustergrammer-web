@@ -12,6 +12,7 @@ from pymongo import MongoClient
 import json
 from bson import json_util
 from bson.json_util import dumps
+from flask.ext.cors import cross_origin
 
 # # change routing of logs when running docker 
 # logging.basicConfig(stream=sys.stderr) 
@@ -25,11 +26,11 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
 
 ######################################
 
@@ -123,6 +124,7 @@ def viz_l1000cds2(user_objid):
   return render_template('l1000cds2.html', viz_network=d3_json)
 
 @app.route('/clustergrammer/g2e/', methods=['POST'])
+@cross_origin()
 def proc_g2e():
   import requests 
   import json 

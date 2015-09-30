@@ -33,6 +33,7 @@ RUN pip install poster
 RUN apt-get -y install python-numpy python-scipy python-matplotlib 
 
 RUN pip install pymongo
+RUN pip install -Iv flask-cors==2.0.1
 
 # add code
 ADD . /app
