@@ -580,7 +580,8 @@ class Network(object):
       exp_dict = deepcopy(self.dat)
 
       # convert numpy array to list 
-      exp_dict['mat'] = exp_dict['mat'].tolist()
+      if type(exp_dict['mat']) is not list:
+        exp_dict['mat'] = exp_dict['mat'].tolist()
 
     elif net_type == 'viz':
       exp_dict = self.viz

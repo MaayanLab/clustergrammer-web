@@ -48,7 +48,7 @@ def main(req_file, allowed_file):
     # save name of network 
     export_dict['name'] = inst_filename
     # initial network information, including data_mat array
-    export_dict['dat'] = net.dat
+    export_dict['dat'] = net.export_net_json('dat')
     # d3 json used for visualization (already clustered)
     export_dict['viz'] = net.viz
 
