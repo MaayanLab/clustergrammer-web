@@ -497,7 +497,7 @@ class Network(object):
       gene_data = inst_sig['genes']
 
       # gather sig names 
-      all_sigs.append(inst_sig['name']) 
+      all_sigs.append(inst_sig['col_title']) 
 
       # gather genes 
       for inst_gene_data in gene_data:
@@ -523,7 +523,7 @@ class Network(object):
     for inst_sig in sigs:
 
       # get sig name 
-      inst_sig_name = inst_sig['name']
+      inst_sig_name = inst_sig['col_title']
 
       # get gene data
       gene_data = inst_sig['genes']

@@ -1,11 +1,11 @@
 def main():
 
-	# # generate fake data: 
-	# # num_sigs, num_genes, pct_meas
-	# gen_fake_g2e_json(30, 200, 1, 0.5 )	
+	# generate fake data: 
+	# num_sigs, num_genes, pct_meas
+	gen_fake_g2e_json(30, 200, 1, 0.5 )	
 
-	# load network from G2N example post json 
-	make_g2e_clust()
+	# # load network from G2N example post json 
+	# make_g2e_clust()
 
 
 def make_g2e_clust():
@@ -66,7 +66,8 @@ def gen_fake_g2e_json(num_sigs, tot_genes, sig_bias_inf, pct_meas=1):
 	random.seed(12122112312)
 	
 	g2e = {}
-	g2e['tag'] = 'cats'
+	# g2e['description'] = 'cats'
+	g2e['link'] = 'http://www.nytimes.com/'
 	g2e['gene_signatures'] = []
 
 	rand_genes = []
@@ -93,7 +94,8 @@ def gen_fake_g2e_json(num_sigs, tot_genes, sig_bias_inf, pct_meas=1):
 			inst_sig = {}
 
 			# set name of signature 
-			inst_sig['name'] = 'sig-' + str(i)
+			inst_sig['col_title'] = 'sig-' + str(i)
+			inst_sig['link'] = 'http://www.nytimes.com/'
 
 			# generate list of genes and values 
 			inst_sig['genes'] = []

@@ -1,6 +1,7 @@
 {
   "gene_signatures": [
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -415,9 +416,10 @@
           -0.9856640172133514
         ]
       ], 
-      "name": "sig-0"
+      "col_title": "sig-0"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -856,9 +858,10 @@
           -0.8501802805503431
         ]
       ], 
-      "name": "sig-1"
+      "col_title": "sig-1"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -1241,9 +1244,10 @@
           -0.6871287523184515
         ]
       ], 
-      "name": "sig-2"
+      "col_title": "sig-2"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -1610,9 +1614,10 @@
           -0.350143606727905
         ]
       ], 
-      "name": "sig-3"
+      "col_title": "sig-3"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "LG68", 
@@ -2007,9 +2012,10 @@
           0.23464871864542802
         ]
       ], 
-      "name": "sig-4"
+      "col_title": "sig-4"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -2384,9 +2390,10 @@
           -0.3405551135822561
         ]
       ], 
-      "name": "sig-5"
+      "col_title": "sig-5"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -2793,9 +2800,10 @@
           0.26619735672426015
         ]
       ], 
-      "name": "sig-6"
+      "col_title": "sig-6"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "JUGA", 
@@ -3226,9 +3234,10 @@
           -0.35471995345374085
         ]
       ], 
-      "name": "sig-7"
+      "col_title": "sig-7"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -3639,9 +3648,10 @@
           -0.9696077984223831
         ]
       ], 
-      "name": "sig-8"
+      "col_title": "sig-8"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "RZZD", 
@@ -4024,9 +4034,10 @@
           -0.696760327685964
         ]
       ], 
-      "name": "sig-9"
+      "col_title": "sig-9"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -4493,9 +4504,10 @@
           -0.06959445124908081
         ]
       ], 
-      "name": "sig-10"
+      "col_title": "sig-10"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "RZZD", 
@@ -4878,9 +4890,10 @@
           0.7335486097720914
         ]
       ], 
-      "name": "sig-11"
+      "col_title": "sig-11"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "RZZD", 
@@ -5279,9 +5292,10 @@
           0.7044916554966864
         ]
       ], 
-      "name": "sig-12"
+      "col_title": "sig-12"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -5692,9 +5706,10 @@
           0.0803507608520665
         ]
       ], 
-      "name": "sig-13"
+      "col_title": "sig-13"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -6049,9 +6064,10 @@
           -0.3927691466809803
         ]
       ], 
-      "name": "sig-14"
+      "col_title": "sig-14"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -6422,9 +6438,10 @@
           0.5651579703102867
         ]
       ], 
-      "name": "sig-15"
+      "col_title": "sig-15"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -6807,9 +6824,10 @@
           -0.7608063897726965
         ]
       ], 
-      "name": "sig-16"
+      "col_title": "sig-16"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "LG68", 
@@ -7236,9 +7254,10 @@
           -0.003576151252853599
         ]
       ], 
-      "name": "sig-17"
+      "col_title": "sig-17"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -7629,9 +7648,10 @@
           0.4814551309352113
         ]
       ], 
-      "name": "sig-18"
+      "col_title": "sig-18"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "JUGA", 
@@ -8050,9 +8070,10 @@
           0.5463133512092838
         ]
       ], 
-      "name": "sig-19"
+      "col_title": "sig-19"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -8451,9 +8472,10 @@
           0.18728509714020014
         ]
       ], 
-      "name": "sig-20"
+      "col_title": "sig-20"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -8920,9 +8942,10 @@
           -0.9544589487165506
         ]
       ], 
-      "name": "sig-21"
+      "col_title": "sig-21"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "RZZD", 
@@ -9321,9 +9344,10 @@
           -0.9874837253453462
         ]
       ], 
-      "name": "sig-22"
+      "col_title": "sig-22"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -9738,9 +9762,10 @@
           -0.018550207894946547
         ]
       ], 
-      "name": "sig-23"
+      "col_title": "sig-23"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -10123,9 +10148,10 @@
           -0.3945727965560134
         ]
       ], 
-      "name": "sig-24"
+      "col_title": "sig-24"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "FWR6", 
@@ -10516,9 +10542,10 @@
           -0.9843482558150874
         ]
       ], 
-      "name": "sig-25"
+      "col_title": "sig-25"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "LG68", 
@@ -10853,9 +10880,10 @@
           -0.19147390743097126
         ]
       ], 
-      "name": "sig-26"
+      "col_title": "sig-26"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "RZZD", 
@@ -11250,9 +11278,10 @@
           -0.8540861396636342
         ]
       ], 
-      "name": "sig-27"
+      "col_title": "sig-27"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "RZZD", 
@@ -11627,9 +11656,10 @@
           0.865627698363818
         ]
       ], 
-      "name": "sig-28"
+      "col_title": "sig-28"
     }, 
     {
+      "link": "http://www.nytimes.com/", 
       "genes": [
         [
           "AGRX", 
@@ -12100,8 +12130,8 @@
           0.30550833100733576
         ]
       ], 
-      "name": "sig-29"
+      "col_title": "sig-29"
     }
   ], 
-  "tag": "cats"
+  "link": "http://www.nytimes.com/"
 }

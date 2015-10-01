@@ -23,13 +23,13 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -210,7 +210,10 @@ def proc_g2e():
     ###############################
     export_dict = {}
     # save name of network 
-    export_dict['name'] = g2e_json['tag']
+    if 'description' in g2e_json:
+      export_dict['name'] = g2e_json['description']
+    else:
+      export_dict['name'] = 'G2Egram Results'
     # initial network information, including data_mat array
     export_dict['dat'] = net.export_net_json('dat')
     # d3 json used for visualization (already clustered)
@@ -235,13 +238,15 @@ def proc_g2e():
     gnet_id = net_id
 
     return flask.jsonify({
-      'link': 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+net_id
+      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/G2Egram_preview/'+net_id,
+      'link': 'http://amp.pharm.mssm.edu/clustergrammer/G2Egram/'+net_id
     })
 
   except:
 
     error_desc = 'Error in processing GEO2Enrichr signatures.'
     return flask.jsonify({
+      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
     })  
 
