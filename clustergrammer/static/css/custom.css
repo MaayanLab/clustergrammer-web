@@ -603,8 +603,8 @@ because the sidebar will be closed*/
   text-align: left;
   margin-top: 10px;
   /*padding-top:5px;*/
-  /*margin-bottom: 5px;*/
-  font-size: 17px;
+  margin-bottom: 5px;
+  font-size: 18px;
   font-weight: 300;
   /*clear float left*/
   clear:both;

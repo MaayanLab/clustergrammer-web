@@ -104,6 +104,32 @@ def G2Egram_preview(user_objid):
 
   return render_template('G2Egram_preview.html', viz_network=d3_json, viz_name=viz_name)
 
+@app.route("/clustergrammer/G2Egram/<user_objid>")
+def G2Egram(user_objid):
+  import flask
+  from bson.objectid import ObjectId
+  from copy import deepcopy
+
+  client = MongoClient('146.203.54.165')
+  # client = MongoClient('192.168.2.7')
+  db = client.clustergrammer
+
+  try: 
+    obj_id = ObjectId(user_objid)
+  except:
+    error_desc = 'Invalid visualization Id.'
+    return redirect('/clustergrammer/error/'+error_desc)
+
+  gnet = db.networks.find_one({'_id': obj_id })
+
+  client.close()
+  
+  d3_json = gnet['viz']
+  viz_name = gnet['name']
+  gnet_id = deepcopy(user_objid)
+
+  return render_template('G2Egram.html', viz_network=d3_json, viz_name=viz_name)
+
 @app.route("/clustergrammer/mock_l1000cds2")
 def mock_l1000cds2():
   return render_template('mock_l1000cds2.html', flask_var='')
