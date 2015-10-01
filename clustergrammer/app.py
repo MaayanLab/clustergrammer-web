@@ -62,8 +62,15 @@ def viz(user_objid):
   client = MongoClient('146.203.54.165')
   # client = MongoClient('192.168.2.7')
   db = client.clustergrammer
+
+  try: 
+    obj_id = ObjectId(user_objid)
+  except:
+    error_desc = 'Invalid visualization Id.'
+    return redirect('/clustergrammer/error/'+error_desc)
+
   # make query for data with name 'from_excel.txt'
-  gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
+  gnet = db.networks.find_one({'_id': obj_id })
 
   # close connection 
   client.close()
@@ -95,13 +102,16 @@ def viz_l1000cds2(user_objid):
   # client = MongoClient('192.168.2.7')
   db = client.clustergrammer
 
+  try: 
+    obj_id = ObjectId(user_objid)
+  except:
+    error_desc = 'Invalid L1000CDS2 visualization ID '
+    return redirect('/clustergrammer/error/'+error_desc)
+
   gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
 
   # close connection 
   client.close()
-  print('\n\nuser_objid')
-  print(user_objid)
-  print('\n\n')
   d3_json = gnet['viz']
   gnet_id = deepcopy(user_objid)
 
@@ -281,9 +291,9 @@ def upload_network():
         # cluster and add to database 
         net_id, net = load_tsv_file.main(req_file, allowed_file)
 
-        print('\n\n\n\nnet_id')
+        print('\n\nnet_id')
         print(net_id)
-        print('\n\n\n\n')
+        print('\n\n')
 
         # make network a dictionary 
         gnet = {}
@@ -293,21 +303,16 @@ def upload_network():
         return redirect('/clustergrammer/viz/'+net_id)
 
       else:
-        error_desc = 'Your file ' + inst_filename + ' is not a supported filetype.'
+        if len(inst_filename) > 0:
+          error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
+        else:
+          error_desc = 'Please choose file to upload.'
         return redirect('/clustergrammer/error/'+error_desc)
-        # return render_template('/clustergrammer/error/',error_desc='wrong file type')
-
-    else:
-
-      return redirect('/clustergrammer/error/')
-      # return 'error'
 
   except:
     print('error catch')
-    return redirect('/clustergrammer/error/')
-    # return 'error' 
-
-
+    error_desc = 'There was an error in processing your matrix. Please check your format.'
+    return redirect('/clustergrammer/error/'+error_desc)
 
 # CST 
 ##############
