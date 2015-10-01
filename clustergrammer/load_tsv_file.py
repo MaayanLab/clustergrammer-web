@@ -58,8 +58,8 @@ def main(req_file, allowed_file):
 
     # set up connection 
     print('set up mongo client')
-    # client = MongoClient('146.203.54.165')
-    client = MongoClient('192.168.2.7')
+    client = MongoClient('146.203.54.165')
+    # client = MongoClient('192.168.2.7')
     db = client.clustergrammer
 
     # save json as new collection 
