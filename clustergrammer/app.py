@@ -23,13 +23,13 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -86,11 +86,6 @@ def viz(user_objid):
 def mock_l1000cds2():
   return render_template('mock_l1000cds2.html', flask_var='')
 
-@app.route('/clustergrammer/mock_g2e')
-def mock_g2e():
-  from g2e_json import g2e_json
-  return render_template('mock_g2e.html', flask_var=g2e_json)
-
 @app.route("/clustergrammer/l1000cds2/<user_objid>")
 def viz_l1000cds2(user_objid):
   import flask
@@ -140,11 +135,9 @@ def proc_g2e():
   #            }
   #        });
 
-  if request.method == 'POST':
+  try:
 
     g2e_json = json.loads(request.data)
-
-    print(g2e_json.keys())
 
     # ini network obj 
     net = Network()
@@ -167,7 +160,6 @@ def proc_g2e():
 
     # generate export dictionary 
     ###############################
-    print('setting up export_dict')
     export_dict = {}
     # save name of network 
     export_dict['name'] = g2e_json['tag']
@@ -176,7 +168,6 @@ def proc_g2e():
     # d3 json used for visualization (already clustered)
     export_dict['viz'] = net.viz
 
-    print('setting up mongoclient on proc_g2e')
     # set up connection 
     client = MongoClient('146.203.54.165')
     # client = MongoClient('192.168.2.7')
@@ -184,7 +175,6 @@ def proc_g2e():
 
     # save json as new collection 
     ##################################
-    print('loading data to matrix')
     net_id = db.networks.insert( export_dict ) 
 
     # close client
@@ -196,17 +186,16 @@ def proc_g2e():
     net_id = str(net_id)
     gnet_id = net_id
 
-    # redirect to viz layout 
-    print('returning link to visualization')
     return flask.jsonify({
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+net_id
     })
 
-  else:
+  except:
 
-    client.close()
-
-    return error 
+    error_desc = 'Error in processing GEO2Enrichr signatures.'
+    return flask.jsonify({
+      'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
+    })  
 
 
 # l1000cds2 post 
