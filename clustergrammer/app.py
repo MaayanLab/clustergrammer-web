@@ -23,13 +23,13 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -58,7 +58,6 @@ def viz(user_objid):
   from bson.objectid import ObjectId
   from copy import deepcopy
 
-  # set up connection 
   client = MongoClient('146.203.54.165')
   # client = MongoClient('192.168.2.7')
   db = client.clustergrammer
@@ -69,18 +68,41 @@ def viz(user_objid):
     error_desc = 'Invalid visualization Id.'
     return redirect('/clustergrammer/error/'+error_desc)
 
-  # make query for data with name 'from_excel.txt'
   gnet = db.networks.find_one({'_id': obj_id })
 
-  # close connection 
   client.close()
+
   d3_json = gnet['viz']
   viz_name = gnet['name']
   gnet_id = deepcopy(user_objid)
 
-  print('\n\nloading from mongodb\n##################n\n')
-
   return render_template('viz.html', viz_network=d3_json, viz_name=viz_name)
+
+@app.route("/clustergrammer/G2Egram_preview/<user_objid>")
+def G2Egram_preview(user_objid):
+  import flask
+  from bson.objectid import ObjectId
+  from copy import deepcopy
+
+  client = MongoClient('146.203.54.165')
+  # client = MongoClient('192.168.2.7')
+  db = client.clustergrammer
+
+  try: 
+    obj_id = ObjectId(user_objid)
+  except:
+    error_desc = 'Invalid visualization Id.'
+    return redirect('/clustergrammer/error/'+error_desc)
+
+  gnet = db.networks.find_one({'_id': obj_id })
+
+  client.close()
+  
+  d3_json = gnet['viz']
+  viz_name = gnet['name']
+  gnet_id = deepcopy(user_objid)
+
+  return render_template('G2Egram_preview.html', viz_network=d3_json, viz_name=viz_name)
 
 @app.route("/clustergrammer/mock_l1000cds2")
 def mock_l1000cds2():

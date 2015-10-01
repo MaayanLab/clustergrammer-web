@@ -78,6 +78,7 @@ function Config(args) {
       left: 0,
       right: 0
     },
+    ini_expand:false,
     // Gray border around the visualization
     grey_border_width: 3,
     // the distance between labels and clustergram
@@ -876,6 +877,7 @@ function VizParams(config){
     // margin widths 
     params.viz.outer_margins = config.outer_margins;
     params.viz.outer_margins_expand = config.outer_margins_expand;
+    params.viz.expand = config.ini_expand;
     params.viz.uni_margin = config.uni_margin;
     params.viz.grey_border_width = config.grey_border_width;
     params.viz.show_dendrogram = config.show_dendrogram;
@@ -884,7 +886,11 @@ function VizParams(config){
     params.viz.inst_order = config.inst_order;
 
     // not initialized in expand state
-    params.viz.expand = false;
+    // params.viz.expand = false;
+    if (params.viz.expand === true){
+      d3.select('#clust_instruct_container')
+        .style('display','none');
+    }
     params.viz.expand_button = config.expand_button;
 
     // pass network_data to params
@@ -984,11 +990,18 @@ function VizParams(config){
     var ini_clust_height = params.viz.svg_dim.height - (params.labels.super_label_width +
       params.norm_label.width.col + params.class_room.col) - 5 * params.viz.grey_border_width;
 
+    // // the visualization dimensions can be smaller than the svg
+    // // if there are not many rows the clustergram width will be reduced, but not the svg width
+    // //!! needs to be improved
+    // params.viz.prevent_col_stretch = d3.scale.linear()
+    //   .domain([1, 20]).range([0.05,1]).clamp('true');
+
     // the visualization dimensions can be smaller than the svg
-    // if there are not many rows the clustergram width will be reduced, but not the svg width
-    //!! needs to be improved
+    // columns need to be shrunk for wide screens 
+    var min_col_shrink_scale = d3.scale.linear().domain([100,1500]).range([1,0.1]).clamp('true');
+    var min_col_shrink = min_col_shrink_scale(params.viz.svg_dim.width);
     params.viz.prevent_col_stretch = d3.scale.linear()
-      .domain([1, 20]).range([0.05,1]).clamp('true');
+      .domain([1, 20]).range([min_col_shrink,1]).clamp('true');
 
     params.viz.num_col_nodes = col_nodes.length;
     params.viz.num_row_nodes = row_nodes.length;
@@ -1236,9 +1249,9 @@ function VizParams(config){
 
 }
 
-function Labels(){
+function Labels(args){
 
-  // make row labels 
+  // make row labels
   function make_rows(params, row_nodes, reorder){
 
     var row_container = d3.select('#main_svg')
@@ -1255,7 +1268,7 @@ function Labels(){
       .attr('height', 30*params.viz.clust.dim.height + 'px')
       .attr('class', 'white_bars');
 
-    // container for row label groups 
+    // container for row label groups
     row_container
       .append('g')
       .attr('class','label_container')
@@ -1272,7 +1285,13 @@ function Labels(){
       .attr('transform', function(d, index) {
         return 'translate(0,' + params.matrix.y_scale(index) + ')';
       })
-      .on('dblclick', reorder.row_reorder )
+      .on('dblclick', function(d) {
+        if (!!args.row_callback && _.isFunction(args.row_callback)) {
+          var row_name = d.name.replace(/_/g, ' ').split('#')[0];
+          args.row_callback(row_name);
+        }
+        reorder.row_reorder.call(this);
+      })
       .on('mouseover', function() {
         d3.select(this)
           .select('text')
@@ -1352,14 +1371,14 @@ function Labels(){
     row_label_viz
       .append('rect')
       .attr('class','white_bars')
-      .attr('fill', params.viz.background_color) 
+      .attr('fill', params.viz.background_color)
       .attr('width', params.class_room.row + 'px')
       .attr('height', function() {
         var inst_height = params.viz.clust.dim.height;
         return inst_height;
       });
 
-    // groups to hold label_viz 
+    // groups to hold label_viz
     var row_triangle_ini_group = row_label_viz
       .selectAll('g')
       .data(row_nodes)
@@ -1395,8 +1414,8 @@ function Labels(){
 
 
       if (Utils.has( params.network_data.row_nodes[0], 'value')) {
-        
-        // set bar scale 
+
+        // set bar scale
         var enr_max = Math.abs(_.max( row_nodes, function(d) { return Math.abs(d.value) } ).value) ;
         params.labels.bar_scale_row = d3.scale
           .linear()
@@ -1423,12 +1442,12 @@ function Labels(){
           .attr('opacity', 0.4);
 
         }
-      
-      // return row_triangle_ini_group so that the dendrogram can be made 
-      return row_triangle_ini_group;
-  }   
 
-  // make col labels 
+      // return row_triangle_ini_group so that the dendrogram can be made
+      return row_triangle_ini_group;
+  }
+
+  // make col labels
   function make_cols(params, col_nodes, reorder){
 
     // make container to pre-position zoomable elements
@@ -1478,7 +1497,13 @@ function Labels(){
       .attr('class', 'col_label_click')
       // rotate column labels
       .attr('transform', 'translate(' + params.matrix.x_scale.rangeBand() / 2 + ',' + x_offset_click + ') rotate(45)')
-      .on('dblclick', reorder.col_reorder )
+      .on('dblclick', function(d) {
+        if (!!args.col_callback && _.isFunction(args.col_callback)) {
+          var col_name = d.name.replace(/_/g, ' ').split('#')[0];
+          args.col_callback(col_name);
+        }
+        reorder.col_reorder.call(this);
+      })
       .on('mouseover', function() {
       d3.select(this).select('text')
         .classed('active',true);
@@ -1610,7 +1635,7 @@ function Labels(){
       });
 
 
-    //!! CHD specific 
+    //!! CHD specific
     // get max value
     var enr_max = Math.abs(_.max( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
     var enr_min = Math.abs(_.min( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
@@ -1805,7 +1830,178 @@ function Spillover( params, container_all_col ){
         return 'translate(0,' + inst_offset + ')';
       });
 
-    // add border to svg in four separate lines - to not interfere with clicking anything
+   
+  }
+
+
+}
+
+/* Represents the entire visualization: labels, dendrogram (optional) and matrix.
+ */
+function Viz(config) {
+
+  // scope these variables to viz
+  var matrix,
+  row_dendrogram,
+  col_dendrogram,
+  zoom,
+  params,
+  reorder;
+
+  // make viz
+  make(config);
+
+  /* The main function; makes clustergram based on user arguments.
+   */
+  function make(config) {
+
+    // initialize clustergram variables
+    params = VizParams(config);
+
+    var network_data = params.network_data;
+
+    // set local variables from network_data
+    var col_nodes = network_data.col_nodes;
+    var row_nodes = network_data.row_nodes;
+
+    // Begin Making Visualization
+    /////////////////////////////////
+
+    // !! needs to be improved
+    // remove any previous visualizations
+    d3.select('#main_svg').remove();
+
+    // instantiate zoom object
+    zoom = Zoom(params);
+
+    // define the variable zoom, a d3 method
+    params.zoom = d3.behavior
+      .zoom()
+      .scaleExtent([1, params.viz.real_zoom * params.viz.zoom_switch])
+      .on('zoom', zoom.zoomed);
+
+    var svg_group = d3.select('#' + params.viz.svg_div_id)
+      .append('svg')
+      .attr('id', 'main_svg')
+      .attr('width',  params.viz.svg_dim.width)
+      .attr('height', params.viz.svg_dim.height);
+
+    if (params.viz.do_zoom) {
+      svg_group.call(params.zoom);
+    }
+
+    // make the matrix
+    /////////////////////////
+    matrix = Matrix(network_data, svg_group, params);
+
+    // // append background rect if necessary to control background color
+    // if (params.viz.background_color !== '#FFFFFF') {
+    //   svg_group
+    //   .append('rect')
+    //   .attr('id','background_rect')
+    //   .attr('width', params.viz.svg_dim.width)
+    //   .attr('height', params.viz.svg_dim.height)
+    //   .style('fill', params.viz.background_color);
+    // }
+
+
+    // define reordering object - scoped to viz
+    reorder = Reorder(params);
+
+    // define labels object
+    var labels = Labels(params);
+
+    // row labels
+    /////////////////////////
+    var row_triangle_ini_group = labels.make_rows( params, row_nodes, reorder );
+
+    // Column Labels
+    //////////////////////////////////
+    var container_all_col = labels.make_cols( params, col_nodes, reorder );
+
+
+    // add group labels if necessary
+    //////////////////////////////////
+    if (params.viz.show_dendrogram) {
+
+      // make row dendrogram
+      row_dendrogram = Dendrogram('row', params, row_triangle_ini_group);
+
+      // add class label under column label
+      var col_class = container_all_col
+      .append('g')
+      // .attr('transform','translate(0,'+params.norm_label.width.col+')')
+      .attr('transform', function() {
+        var inst_offset = params.norm_label.width.col + 2;
+        return 'translate(0,' + inst_offset + ')';
+      })
+      .append('g')
+      // shift down 1px
+      // .attr('transform','translate(0,2)')
+      .attr('id', 'col_class');
+
+      // append groups - each will hold a classification rect
+      var col_class_ini_group = col_class
+      .selectAll('g')
+      .data(col_nodes)
+      .enter()
+      .append('g')
+      .attr('class', 'col_class_group')
+      .attr('transform', function(d, index) {
+        return 'translate(' + params.matrix.x_scale(index) + ',0)';
+      });
+
+      // make col dendrogram
+      col_dendrogram = Dendrogram('col', params, col_class_ini_group);
+
+      // optional column callback on click
+      if (typeof params.click_group === 'function') {
+      col_class_ini_group
+        .on('click', function(d) {
+        var inst_level = params.group_level.col;
+        var inst_group = d.group[inst_level];
+        // find all column names that are in the same group at the same group_level
+        // get col_nodes
+        col_nodes = params.network_data.col_nodes;
+        var group_nodes = [];
+        _.each(col_nodes, function(node) {
+          // check that the node is in the group
+          if (node.group[inst_level] === inst_group) {
+          // make a list of genes that are in inst_group at this group_level
+          group_nodes.push(node.name);
+          }
+        });
+
+        // return the following information to the user
+        // row or col, distance cutoff level, nodes
+        var group_info = {};
+        group_info.type = 'col';
+        group_info.nodes = group_nodes;
+        group_info.info = {
+          'type': 'distance',
+          'cutoff': inst_level / 10
+        };
+
+        // pass information to group_click callback
+        params.click_group(group_info);
+
+        });
+      }
+
+    }
+
+
+    // Spillover Divs
+    var spillover = Spillover(params, container_all_col);
+
+    // Super Labels
+    if (params.labels.super_labels) {
+      var super_labels = SuperLabels();
+      super_labels.make(params);
+    }
+
+    // tmp add final svg border here 
+     // add border to svg in four separate lines - to not interfere with clicking anything
     ///////////////////////////////////////////////////////////////////////////////////////
     // left border
     d3.select('#main_svg')
@@ -1851,178 +2047,6 @@ function Spillover( params, container_all_col ){
         var inst_offset = params.viz.svg_dim.height - params.viz.grey_border_width;
         return 'translate(0,' + inst_offset + ')';
       });
-  }
-
-
-}
-
-/* Represents the entire visualization: labels, dendrogram (optional) and matrix.
- */
-function Viz(config) {
-
-  // scope these variables to viz 
-  var matrix,
-  row_dendrogram,
-  col_dendrogram,
-  zoom, 
-  params, 
-  reorder;
-
-  // make viz 
-  make(config);
-
-  /* The main function; makes clustergram based on user arguments.
-   */
-  function make(config) {
-
-    // initialize clustergram variables
-    params = VizParams(config);
-
-    var network_data = params.network_data;
-
-    // set local variables from network_data
-    var col_nodes = network_data.col_nodes;
-    var row_nodes = network_data.row_nodes;
-
-    // Begin Making Visualization
-    /////////////////////////////////
-
-    // !! needs to be improved 
-    // remove any previous visualizations
-    d3.select('#main_svg').remove();
-
-    // instantiate zoom object 
-    zoom = Zoom(params);
-
-    // define the variable zoom, a d3 method
-    params.zoom = d3.behavior
-      .zoom()
-      .scaleExtent([1, params.viz.real_zoom * params.viz.zoom_switch])
-      .on('zoom', zoom.zoomed);
-
-    var svg_group = d3.select('#' + params.viz.svg_div_id)
-      .append('svg')
-      .attr('id', 'main_svg')
-      .attr('width',  params.viz.svg_dim.width)
-      .attr('height', params.viz.svg_dim.height);
-
-    if (params.viz.do_zoom) {
-      svg_group.call(params.zoom);
-    }
-
-    // make the matrix 
-    /////////////////////////
-    matrix = Matrix(network_data, svg_group, params);
-
-    // // append background rect if necessary to control background color
-    // if (params.viz.background_color !== '#FFFFFF') {
-    //   svg_group
-    //   .append('rect')
-    //   .attr('id','background_rect')
-    //   .attr('width', params.viz.svg_dim.width)
-    //   .attr('height', params.viz.svg_dim.height)
-    //   .style('fill', params.viz.background_color);
-    // }
-
-
-    // define reordering object - scoped to viz
-    reorder = Reorder(params);
-
-    // define labels object 
-    var labels = Labels(params);
-
-    // row labels 
-    /////////////////////////
-    var row_triangle_ini_group = labels.make_rows( params, row_nodes, reorder ); 
-    
-    // Column Labels 
-    //////////////////////////////////
-    var container_all_col = labels.make_cols( params, col_nodes, reorder );
-    
-
-    // add group labels if necessary
-    //////////////////////////////////
-    if (params.viz.show_dendrogram) {
-
-      // make row dendrogram 
-      row_dendrogram = Dendrogram('row', params, row_triangle_ini_group);
-
-      // add class label under column label
-      var col_class = container_all_col
-      .append('g')
-      // .attr('transform','translate(0,'+params.norm_label.width.col+')')
-      .attr('transform', function() {
-        var inst_offset = params.norm_label.width.col + 2;
-        return 'translate(0,' + inst_offset + ')';
-      })
-      .append('g')
-      // shift down 1px
-      // .attr('transform','translate(0,2)')
-      .attr('id', 'col_class');
-
-      // append groups - each will hold a classification rect
-      var col_class_ini_group = col_class
-      .selectAll('g')
-      .data(col_nodes)
-      .enter()
-      .append('g')
-      .attr('class', 'col_class_group')
-      .attr('transform', function(d, index) {
-        return 'translate(' + params.matrix.x_scale(index) + ',0)';
-      });
-
-      // make col dendrogram 
-      col_dendrogram = Dendrogram('col', params, col_class_ini_group);
-
-      // optional column callback on click
-      if (typeof params.click_group === 'function') {
-      col_class_ini_group
-        .on('click', function(d) {
-        var inst_level = params.group_level.col;
-        var inst_group = d.group[inst_level];
-        // find all column names that are in the same group at the same group_level
-        // get col_nodes
-        col_nodes = params.network_data.col_nodes;
-        var group_nodes = [];
-        _.each(col_nodes, function(node) {
-          // check that the node is in the group
-          if (node.group[inst_level] === inst_group) {
-          // make a list of genes that are in inst_group at this group_level
-          group_nodes.push(node.name);
-          }
-        });
-
-        // return the following information to the user
-        // row or col, distance cutoff level, nodes
-        var group_info = {};
-        group_info.type = 'col';
-        group_info.nodes = group_nodes;
-        group_info.info = {
-          'type': 'distance',
-          'cutoff': inst_level / 10
-        };
-
-        // pass information to group_click callback
-        params.click_group(group_info);
-
-        });
-      }
-
-    }
-
-    // Super Labels 
-    if (params.labels.super_labels) {
-
-      // make super labels 
-      var super_labels = SuperLabels();
-      super_labels.make(params);      
-
-    }
-
-    // Spillover Divs 
-    var spillover = Spillover(params, container_all_col);
-
-    // initialize zoom and translate
 
     ///////////////////////////////////
     // initialize translate vector to compensate for label margins
@@ -2043,18 +2067,25 @@ function Viz(config) {
     if (params.viz.expand_button){
 
       var expand_opacity = 0.4;
-      // add expand button 
+      // add expand button
       d3.select('#main_svg').append('text')
+        .attr('id','expand_button')
         .attr('text-anchor', 'middle')
         .attr('dominant-baseline', 'central')
         .attr('font-family', 'FontAwesome')
         .attr('font-size', '30px')
-        .text(function(d) { 
-          // expand button 
-          return '\uf0b2'; 
+        .text(function(d) {
+          if (params.viz.expand === false){
+            // expand button
+            return '\uf0b2';
+          } else {
+            // menu button
+            return '\uf0c9';
+          }
         })
         .attr('y','25px')
         .attr('x','25px')
+        .style('cursor', 'pointer')
         .style('opacity',expand_opacity)
         .on('mouseover',function(){
           d3.select(this).style('opacity',0.75);
@@ -2064,6 +2095,7 @@ function Viz(config) {
         })
         .on('click',function(){
 
+          // expand view
           if (params.viz.expand === false){
 
             d3.select('#clust_instruct_container')
@@ -2071,24 +2103,25 @@ function Viz(config) {
             d3.select(this)
               .text(function(d){
                 // menu button
-                return '\uf0c9'; 
+                return '\uf0c9';
               });
             params.viz.expand = true;
 
+          // contract view 
           } else {
 
             d3.select('#clust_instruct_container')
               .style('display','block');
             d3.select(this)
               .text(function(d){
-                // expand button 
-                return '\uf0b2'; 
+                // expand button
+                return '\uf0b2';
               });
             params.viz.expand = false;
 
           }
 
-          // get updated size for visualization 
+          // get updated size for visualization
           params.viz.parent_div_size_pos(params);
 
           d3.select('#main_svg').style('opacity',0.5);
@@ -2100,16 +2133,16 @@ function Viz(config) {
         });
     }
 
-    // initialize double click zoom for matrix 
+    // initialize double click zoom for matrix
     zoom.ini_doubleclick();
   }
 
   function reset_visualization_size() {
 
-    // !! do not remake visualization on screen size, resize only 
+    // !! do not remake visualization on screen size, resize only
     // viz.remake();
 
-    // reset zoom 
+    // reset zoom
     // zoom.two_translate_zoom(0,0,1)
     var zoom_y = 1;
     var zoom_x = 1;
@@ -2168,7 +2201,7 @@ function Viz(config) {
       var outer_margins = params.viz.outer_margins;
     } else {
       var outer_margins = params.viz.outer_margins_expand;
-    }    
+    }
 
     // get the size of the window
     var screen_width  = window.innerWidth;
@@ -2200,10 +2233,11 @@ function Viz(config) {
       params.norm_label.width.col + params.class_room.col) - 5 * params.viz.grey_border_width;
 
     // the visualization dimensions can be smaller than the svg
-    // if there are not many rows the clustergram width will be reduced, but not the svg width
-    //!! needs to be improved
+    // columns need to be shrunk for wide screens 
+    var min_col_shrink_scale = d3.scale.linear().domain([100,1500]).range([1,0.1]).clamp('true');
+    var min_col_shrink = min_col_shrink_scale(params.viz.svg_dim.width);
     var prevent_col_stretch = d3.scale.linear()
-      .domain([1, 20]).range([0.05,1]).clamp('true');
+      .domain([1, 20]).range([min_col_shrink,1]).clamp('true');
 
 
     // clust_dim - clustergram dimensions (the clustergram is smaller than the svg)
@@ -2250,7 +2284,7 @@ function Viz(config) {
     // calculate the zoom factor - the more nodes the more zooming allowed
     params.viz.real_zoom = params.viz.real_zoom_scale_col(params.viz.num_col_nodes) * params.viz.real_zoom_scale_screen(params.viz.clust.dim.width);
 
-    // resize the svg 
+    // resize the svg
     ///////////////////////
     var svg_group = d3.select('#' + params.viz.svg_div_id)
       .select('svg')
@@ -2273,7 +2307,7 @@ function Viz(config) {
       .attr('width', params.viz.clust.dim.width)
       .attr('height', params.viz.clust.dim.height);
 
-    // resize tiles 
+    // resize tiles
     ///////////////////
     svg_group.selectAll('.tile')
       .attr('width', params.matrix.x_scale.rangeBand())
@@ -2293,7 +2327,7 @@ function Viz(config) {
 
     svg_group.selectAll('.highlighting_rect')
       .attr('width', params.matrix.x_scale.rangeBand() * 0.80)
-      .attr('height', params.matrix.y_scale.rangeBand() * 0.80);       
+      .attr('height', params.matrix.y_scale.rangeBand() * 0.80);
 
     svg_group.selectAll('.tile_split_up')
       .attr('d', function() {
@@ -2318,7 +2352,7 @@ function Viz(config) {
       })
 
 
-    // resize row labels 
+    // resize row labels
     ///////////////////////////
 
     svg_group.select('#row_container')
@@ -2416,8 +2450,8 @@ function Viz(config) {
 
 
       if (Utils.has( params.network_data.row_nodes[0], 'value')) {
-        
-        // set bar scale 
+
+        // set bar scale
         var enr_max = Math.abs(_.max( params.network_data.row_nodes, function(d) { return Math.abs(d.value) } ).value) ;
         params.labels.bar_scale_row = d3.scale
           .linear()
@@ -2437,10 +2471,10 @@ function Viz(config) {
           })
           .attr('height', params.matrix.y_scale.rangeBand() );
 
-      }    
+      }
 
-        // resize col labels 
-        /////////////////////// 
+        // resize col labels
+        ///////////////////////
         svg_group.select('#col_container')
           .attr('transform', 'translate(' + params.viz.clust.margin.left + ',' +
           params.norm_label.margin.top + ')');
@@ -2567,7 +2601,7 @@ function Viz(config) {
 
 
 
-        //!! CHD specific 
+        //!! CHD specific
         // get max value
         var enr_max = Math.abs(_.max( params.network_data.col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
         var enr_min = Math.abs(_.min( params.network_data.col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
@@ -2618,9 +2652,9 @@ function Viz(config) {
             return 'translate(' + params.matrix.x_scale(index) + ',0)';
           });
 
-        // reposition grid lines 
+        // reposition grid lines
         ////////////////////////////
-        svg_group.selectAll('.horz_lines') 
+        svg_group.selectAll('.horz_lines')
           .attr('transform', function(d, index) {
             return 'translate(0,' + params.matrix.y_scale(index) + ') rotate(0)';
           })
@@ -2640,7 +2674,7 @@ function Viz(config) {
           .attr('x2', -params.viz.clust.dim.height)
           .style('stroke-width', params.viz.border_width + 'px');
 
-    // resize superlabels 
+    // resize superlabels
     /////////////////////////////////////
     svg_group.select('#super_col_bkg')
       .attr('height', params.labels.super_label_width + 'px')
@@ -2676,9 +2710,9 @@ function Viz(config) {
     //   .attr('text-anchor', 'center')
     //   .attr('transform', 'rotate(-90)')
     //   .style('font-size', '14px')
-    //   .style('font-weight', 300);    
+    //   .style('font-weight', 300);
 
-    // resize spillover 
+    // resize spillover
     //////////////////////////
 
     // hide spillover from slanted column labels on right side
@@ -2715,7 +2749,7 @@ function Viz(config) {
 
     // add border to svg in four separate lines - to not interfere with clicking anything
     ///////////////////////////////////////////////////////////////////////////////////////
-    
+
     // left border
     svg_group.select('#left_border')
       .attr('width', params.viz.grey_border_width)
@@ -2747,7 +2781,7 @@ function Viz(config) {
       .attr('transform', function() {
         var inst_offset = params.viz.svg_dim.height - params.viz.grey_border_width;
         return 'translate(0,' + inst_offset + ')';
-      });    
+      });
 
 
 

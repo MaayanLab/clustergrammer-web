@@ -25,8 +25,13 @@
     <link rel="stylesheet" href="static/css/specific.css" />
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
     <link rel="stylesheet" href="static/css/custom.css">
+    <link rel="stylesheet" href="static/css/custom_g2egram_preview.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
+
+    <style>
+    #clust_instruct_container {display: none}
+    </style>
 
 </head>
 
@@ -37,7 +42,7 @@
 
     <div id='clust_instruct_container' >
       <i class="fa fa-map-o fa-2x  "></i> 
-      <h1 id='viz_website_title'  >clustergrammer</h1>
+      <h1 id='viz_website_title'  >G2Egram</h1>
 
       <div class='gene_exp_view'>
         <div class='viz_instruct_text'> Zoom into the clustergram using scroll, reorder using the buttons or by double-clicking row or column tiles, search for rows using the search box, and idenfity groups of rows or columns of varying size using the sliders.</div>
@@ -71,7 +76,7 @@
         <div id="slider_row"></div>
       </div>
 
-      <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
+      <!-- <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a> -->
     </div>
 
     <!-- exp div -->
@@ -82,13 +87,7 @@
   </div>
 
 
-  <footer id='footer_div' class="footer navbar-fixed-bottom">
-    <div class="row" > 
-      <div class="col-xs-12 footer_section"> 
-        <p class="text-muted">clustergrammer is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </p>
-      </div>
-    </div>
-  </footer>
+  
 
   <!-- Vendor -->
   <!-- jQuery -->
@@ -121,14 +120,14 @@
     // define the outer margins of the visualization
     var outer_margins = {
         'top':5 ,
-        'bottom':33,
+        'bottom':5,
         'left':225,
         'right':2
       };
 
     var outer_margins_expand = {
         'top':5,
-        'bottom':33,
+        'bottom':5,
         'left':5,
         'right':2
       };  
@@ -149,14 +148,17 @@
 
     viz_name = {{viz_name|tojson|safe}};
 
+
+
     // define arguments object
     var arguments_obj = {
       'network_data': network_data,
       'svg_div_id': 'svg_div',
-      'col_label':viz_name,
-      'row_label':' ',
       'outer_margins': outer_margins,
       'outer_margins_expand': outer_margins_expand,
+      'ini_expand':true,
+      'col_label':'G2E Sigantures',
+      'row_label':'Genes',
       // 'force_square':1
       // 'opacity_scale':'log',
       // 'input_domain':7,
