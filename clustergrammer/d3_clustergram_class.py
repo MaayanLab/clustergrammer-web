@@ -755,7 +755,7 @@ class Network(object):
     from scipy.spatial.distance import pdist
     from copy import deepcopy
 
-    print('inside cluster_row_and_col')
+    print('inside cluster_row_and_col ...')
 
     # make distance matrices 
     ##########################
@@ -771,12 +771,16 @@ class Network(object):
     # make copy of matrix 
     tmp_mat = deepcopy(self.dat['mat'])
 
+    print('about to calculate distance matrices')
+
     # calculate distance matrix 
     row_dm = pdist( tmp_mat, metric='cosine' )
     col_dm = pdist( tmp_mat.transpose(), metric='cosine' )
 
-    # print(row_dm)
+    print('finished calculating distance matrices')
 
+
+    print('\tremove negative values from distance matrix')
     # prevent negative values 
     # row 
     row_dm[row_dm < 0] = float(0)
@@ -791,13 +795,18 @@ class Network(object):
     clust_order['row']['ini'] = range(num_row, 0, -1)
     clust_order['col']['ini'] = range(num_col, 0, -1)
 
+    print('\tabout to cluster using distance matrices')
+
     # cluster 
     ##############
     # cluster rows 
     cluster_method = 'average'
+    print('cluster_rows .......')
     clust_order['row']['clust'], clust_order['row']['group'] = self.clust_and_group_nodes(row_dm, cluster_method)
+    print('cluster_rows')
     clust_order['col']['clust'], clust_order['col']['group'] = self.clust_and_group_nodes(col_dm, cluster_method)
 
+    print('\t save rank ordering')
     # rank 
     ############
     clust_order['row']['rank'] = self.sort_rank_nodes('row')
@@ -815,19 +824,33 @@ class Network(object):
     self.dat['node_info']['col']['rank']  = clust_order['col']['rank']
     self.dat['node_info']['col']['group'] = clust_order['col']['group']
 
+    print('\n\nmaking the visualization json')
 
     # make the viz json - can optionally leave out dendrogram
     self.viz_json(dendro)
 
+    print('finished making the visualization json\n\n')
+
   def clust_and_group_nodes( self, dm, cluster_method ):
+
+    print('inside clust_and_group_nodes')
+    print('about to import scipy')
+    import scipy
+    print('imported scipy')
+    print('about to import hier')
     import scipy.cluster.hierarchy as hier
+    print('after importing hierarchy')
 
     # calculate linkage 
+    print('calc linkage')
     Y = hier.linkage( dm, method=cluster_method )
+    print('calc dendro')
     Z = hier.dendrogram( Y, no_plot=True )
     # get ordering
+    print('get ordering from leaves')
     inst_clust_order = Z['leaves']
 
+    print('get all distances using group_cutoffs')
     all_dist = self.group_cutoffs()
 
     # generate distance cutoffs 
@@ -837,6 +860,7 @@ class Network(object):
       inst_groups[inst_key] = hier.fcluster(Y, inst_dist*dm.max(), 'distance') 
       inst_groups[inst_key] = inst_groups[inst_key].tolist()
 
+    print('return inst_clust_order and inst_groups')
     return inst_clust_order, inst_groups
 
   def sort_rank_node_values( self, rowcol ):
@@ -927,9 +951,11 @@ class Network(object):
   def viz_json(self, dendro=True):
     ''' make the dictionary for the clustergram.js visualization '''
 
+    print('in viz_json')
     # get dendrogram cutoff distances 
     all_dist = self.group_cutoffs()
 
+    print('\tviz_json: set up nodes')
     # make nodes for viz
     #####################
     # make rows and cols 
@@ -966,6 +992,7 @@ class Network(object):
         # append dictionary to list of nodes
         self.viz[inst_rc+'_nodes'].append(inst_dict)
 
+    print('\tviz_json: set up links')
     # links 
     ########
     for i in range(len( self.dat['nodes']['row'] )):
@@ -982,10 +1009,10 @@ class Network(object):
           if 'mat_up' in self.dat:
             inst_dict['value_dn'] = self.dat['mat_dn'][i,j]
 
-          # add information if necessary - use dictionary with tuple key
-          # each element of the matrix needs to have information 
-          if 'mat_info' in self.dat:
-            inst_dict['info'] = self.dat['mat_info'][(i,j)]
+          # # add information if necessary - use dictionary with tuple key
+          # # each element of the matrix needs to have information 
+          # if 'mat_info' in self.dat:
+          #   inst_dict['info'] = self.dat['mat_info'][(i,j)]
 
           # add highlight if necessary - use dictionary with tuple key 
           if 'mat_hl' in self.dat:

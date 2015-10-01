@@ -73,8 +73,8 @@ def viz(user_objid):
   # global gnet
 
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient()
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient('192.168.2.7')
   db = client.clustergrammer
   # make query for data with name 'from_excel.txt'
   gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
@@ -105,8 +105,8 @@ def viz_l1000cds2(user_objid):
   from copy import deepcopy
 
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient()
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient('192.168.2.7')
   db = client.clustergrammer
 
   gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
@@ -127,16 +127,28 @@ def viz_l1000cds2(user_objid):
 @cross_origin()
 def proc_g2e():
   import requests 
+  import flask
   import json 
   from d3_clustergram_class import Network
 
-  # global gnet_id
-  # global gnet
+  # import pdb; pdb.set_trace()
+
+  # ajax request looks like this 
+  # $.ajax({
+  #            url: 'g2e/',
+  #            method: 'POST',
+  #            contentType: 'application/json',
+  #            data: JSON.stringify(tmp),
+  #            success: function() {
+  #                debugger;
+  #            }
+  #        });
 
   if request.method == 'POST':
 
-    tmp_string = request.values['signatures']
-    g2e_json = json.loads(tmp_string)
+    g2e_json = json.loads(request.data)
+
+    print(g2e_json.keys())
 
     # ini network obj 
     net = Network()
@@ -159,6 +171,7 @@ def proc_g2e():
 
     # generate export dictionary 
     ###############################
+    print('setting up export_dict')
     export_dict = {}
     # save name of network 
     export_dict['name'] = g2e_json['tag']
@@ -167,9 +180,10 @@ def proc_g2e():
     # d3 json used for visualization (already clustered)
     export_dict['viz'] = net.viz
 
+    print('setting up mongoclient on proc_g2e')
     # set up connection 
-    client = MongoClient('146.203.54.165')
-    # client = MongoClient()
+    # client = MongoClient('146.203.54.165')
+    client = MongoClient('192.168.2.7')
     db = client.clustergrammer
 
     # save json as new collection 
@@ -187,8 +201,10 @@ def proc_g2e():
     gnet_id = net_id
 
     # redirect to viz layout 
-    print('redirecting to viz')
-    return redirect('/clustergrammer/viz/'+net_id)
+    print('returning link to visualization')
+    return flask.jsonify({
+      'link': 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+net_id
+    })
 
   else:
 
@@ -202,7 +218,7 @@ def proc_g2e():
 @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
 def l1000cds2_upload():
   import requests
-  import d3_clustergram
+  # import d3_clustergram
   import json 
   from d3_clustergram_class import Network 
   from pymongo import MongoClient
@@ -241,8 +257,8 @@ def l1000cds2_upload():
   export_dict['_id'] = ObjectId(l1000cds2['_id'])
  
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient()
+  # client = MongoClient('146.203.54.165')
+  client = MongoClient('192.168.2.7')
   db = client.clustergrammer
 
   # save to database 
@@ -262,7 +278,7 @@ def l1000cds2_upload():
 @app.route('/clustergrammer/jquery_upload/', methods=['POST'])
 def jquery_upload_function():
   import flask 
-  import d3_clustergram
+  # import d3_clustergram
   import load_tsv_file
 
   # # don't know if I need this 
@@ -276,6 +292,10 @@ def jquery_upload_function():
 
     # cluster and add to database 
     net_id, net = load_tsv_file.main(req_file, allowed_file)
+
+    print('\n\n\n\nnet_id')
+    print(net_id)
+    print('\n\n\n\n')
 
     # make network a dictionary 
     gnet = {}
