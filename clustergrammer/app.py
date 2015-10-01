@@ -23,13 +23,13 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -74,7 +74,6 @@ def viz(user_objid):
 
   d3_json = gnet['viz']
   viz_name = gnet['name']
-  gnet_id = deepcopy(user_objid)
 
   return render_template('viz.html', viz_network=d3_json, viz_name=viz_name)
 
@@ -100,7 +99,6 @@ def G2Egram_preview(user_objid):
   
   d3_json = gnet['viz']
   viz_name = gnet['name']
-  gnet_id = deepcopy(user_objid)
 
   return render_template('G2Egram_preview.html', viz_network=d3_json, viz_name=viz_name)
 
@@ -126,9 +124,9 @@ def G2Egram(user_objid):
   
   d3_json = gnet['viz']
   viz_name = gnet['name']
-  gnet_id = deepcopy(user_objid)
+  viz_link = gnet['link']
 
-  return render_template('G2Egram.html', viz_network=d3_json, viz_name=viz_name)
+  return render_template('G2Egram.html', viz_network=d3_json, viz_name=viz_name, viz_link=viz_link)
 
 @app.route("/clustergrammer/mock_l1000cds2")
 def mock_l1000cds2():
@@ -156,7 +154,6 @@ def viz_l1000cds2(user_objid):
   # close connection 
   client.close()
   d3_json = gnet['viz']
-  gnet_id = deepcopy(user_objid)
 
   print('\n\nloading from mongodb\n##################n\n')
 
@@ -219,6 +216,9 @@ def proc_g2e():
     # d3 json used for visualization (already clustered)
     export_dict['viz'] = net.viz
 
+    # save the link back to the original results
+    export_dict['link'] = g2e_json['link']
+
     # set up connection 
     client = MongoClient('146.203.54.165')
     # client = MongoClient('192.168.2.7')
@@ -235,7 +235,6 @@ def proc_g2e():
     gnet = {}
     gnet['viz'] = net.viz
     net_id = str(net_id)
-    gnet_id = net_id
 
     return flask.jsonify({
       'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/G2Egram_preview/'+net_id,
@@ -340,7 +339,6 @@ def upload_network():
         # make network a dictionary 
         gnet = {}
         gnet['viz'] = net.viz
-        gnet_id = net_id
 
         return redirect('/clustergrammer/viz/'+net_id)
 

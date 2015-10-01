@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <base href='/clustergrammer/'>
 
-    <title>clustergrammer</title>
+    <title>G2Egram</title>
 
     <link rel="shortcut icon" href="static/map-o_32_transparent.ico" type="image/x-icon">
     <!-- Bootstrap Core CSS -->
@@ -40,9 +40,11 @@
       <i class="fa fa-map-o fa-2x  "></i> 
       <h1 id='viz_website_title'>G2Egram</h1>
 
-      <!-- <h1 class='title_viz_instructs'> 
-        {{viz_name}}
-      </h1>  -->
+      <h1 id='g2e_desc' class='title_viz_instructs'> 
+      </h1> 
+
+      <div id='g2e_link'></div>
+      <!-- <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a> -->
 
       <div class='gene_exp_view'>
         <div class='viz_instruct_text'> Zoom into the clustergram using scroll, reorder using the buttons or by double-clicking row or column tiles, search for rows using the search box, and idenfity groups of rows or columns of varying size using the sliders.</div>
@@ -117,6 +119,31 @@
   <script src='static/js/load_local_network.js'></script>
 
   <script>
+
+    // add description title 
+    var viz_name = {{viz_name|tojson|safe}};
+    console.log(viz_name);
+
+    if (viz_name != ''){
+      d3.select('#g2e_desc')
+        .text(viz_name);
+    }
+
+    // add link back to g2e 
+    var viz_link = {{viz_link|tojson|safe}};
+
+    // d3.select('#g2e_link')
+    //   // .text(viz_link);
+    //   .attr("xlink:href", function (d) {
+    //       return "http://www.nytimes.com/";
+    //   })
+
+    // d3.select('#g2e_link')
+    //   .append('a')
+    //   .text('something')
+    //   .attr("xlink:href", "http://www.nytimes.com/");
+
+    $('#g2e_link').html('<a href="' + viz_link + '">Return to G2E</a>');
 
     network_data = {{ viz_network|tojson|safe }}
     console.log( network_data )
