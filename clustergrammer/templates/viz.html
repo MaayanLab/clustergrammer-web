@@ -71,7 +71,6 @@
         <div id="slider_row"></div>
       </div>
 
-      <!-- <button id='to_homepage' type="submit" class='btn btn-primary buttons' onClick='to_homepage()' >Return to Homepage</button> -->
       <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
     </div>
 
@@ -114,17 +113,6 @@
   <script src='static/js/load_local_network.js'></script>
 
   <script>
-
-    // // set up wait message before request is made 
-    // $.blockUI({ css: { 
-    //         border: 'none', 
-    //         padding: '15px', 
-    //         backgroundColor: '#000', 
-    //         '-webkit-border-radius': '10px', 
-    //         '-moz-border-radius': '10px', 
-    //         opacity: .8, 
-    //         color: '#fff' 
-    //     } });
 
     network_data = {{ viz_network|tojson|safe }}
     console.log( network_data )

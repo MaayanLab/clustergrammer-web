@@ -14,13 +14,10 @@
 
     <link rel="shortcut icon" href="static/map-o_32_transparent.ico"  type="image/x-icon">
 
-
     <!-- Bootstrap Core CSS -->
     <link href="static/lib/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <!-- <link href="static/lib/css/simple-sidebar.css" rel="stylesheet"> -->
-
     <link rel="stylesheet" href="static/lib/css/keen-dashboards.css">
     <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
     <link rel="stylesheet" href="static/lib/css/dc.css">
@@ -30,13 +27,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="static/lib/css/prettify.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 
@@ -76,7 +66,7 @@ Row-C   0.2     0.1     2.5
               <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
 
             <!-- used to have id id='searchForm' in order to run ajax -->
-            <form  action="{{ url_for('jquery_upload_function') }}" method=post enctype=multipart/form-data>
+            <form  action="{{ url_for('upload_network') }}" method=post enctype=multipart/form-data>
               <input type=file name=file title='Choose File'  >
               <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
             </form>
@@ -240,9 +230,6 @@ Row-C   0.2     0.1     2.5
         processData: false,
         success: function(network) {
 
-          // callback function 
-          //////////////////////
-
           // save clustergram is global variable
           global_network_data = network;
           console.log('success')
@@ -260,11 +247,8 @@ Row-C   0.2     0.1     2.5
           return false
         },
         error: function(network) {
-          // loader.stop();
-          // console.log(network);
-          console.log('request failed')
           $.unblockUI();
-          $('#modal_wrong_filetype').modal()
+          $('#modal_wrong_filetype').modal();
         }
       });
 
@@ -276,58 +260,6 @@ Row-C   0.2     0.1     2.5
 
   });
 
-  // request saved clustergram 
-  function load_saved_clust(){
-  
-    console.log('loading previously saved document')
-
-    // set up wait message before request is made 
-    $.blockUI({ css: { 
-            border: 'none', 
-            padding: '15px', 
-            backgroundColor: '#000', 
-            '-webkit-border-radius': '10px', 
-            '-moz-border-radius': '10px', 
-            opacity: .8, 
-            color: '#fff' 
-        } });
-
-    $.ajax({
-      url: "load_saved",
-      type: "get", //send it through get method
-      // data:{ajaxid:4,UserID: UserID , EmailAddress:encodeURIComponent(EmailAddress)},
-      data:{'id':'from_excel.txt'},
-      // data:{'id':'small_neurolincs_matrix.txt'},
-      success: function(network) {
-
-        console.log('successful get request')
-
-        // save clustergram is global variable
-        global_network_data = network;
-        console.log('success')
-
-        // // swap views 
-        // d3.selectAll('#homepage_view').style('display','none');
-        // d3.select('#svg_div_tfsub').style('display','none');
-        // d3.select('#gene_exp_view').style('display','block');
-        // d3.select('#svg_div_exp').style('display','block');
-
-        // // load new clustergram 
-        // load_new_clustergram(network);
-
-        $.unblockUI();
-
-
-      },
-      error: function(xhr) {
-        //Do Something to handle error
-      }
-    });
-
-
- 
-
-  };
 
 </script>
 

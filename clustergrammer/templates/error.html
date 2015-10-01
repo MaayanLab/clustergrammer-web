@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href='/clustergrammer/'>
+
+    <title>clustergrammer</title>
+
+    <link rel="shortcut icon" href="static/map-o_32_transparent.ico"  type="image/x-icon">
+
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/lib/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <!-- <link href="static/lib/css/simple-sidebar.css" rel="stylesheet"> -->
+
+    <link rel="stylesheet" href="static/lib/css/keen-dashboards.css">
+    <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
+    <link rel="stylesheet" href="static/lib/css/dc.css">
+    <link rel="stylesheet" href="static/css/specific.css" />
+    <link rel="stylesheet" href="static/css/jquery.accordion.css">
+    <link rel="stylesheet" href="static/css/custom.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="static/lib/css/prettify.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body onload="prettyPrint()">
+
+  <div id="wrapper" class='toggled'>
+
+    <div id="page-content-wrapper">
+
+      <!-- main container - required --> 
+      <div id='main_container'>
+
+        <!-- this row is - required fluid causes problems --> 
+        <div class="row" > 
+
+          <!-- hold_views - holds all views -->
+          <div id='hold_views' class="col-lg-12">
+
+            <!-- homepage -->
+            <div id='homepage_view' class='row'>
+
+              <i class="fa fa-map-o fa-2x  "></i> 
+              <h1 id='website_title'> Error</h1>
+                
+
+              <p class='initial_paragraph'> 
+              {{error_desc}}
+              </p>
+
+              <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
+ 
+            <!-- <a href="load_saved/">load saved result</a> -->
+
+            </div>
+            <!-- end homepage -->
+
+          </div> 
+          <!-- end single column -->
+
+        </div>
+        <!-- end row -->
+
+      </div>
+      <!-- end main container -->
+
+    </div>
+    <!-- end page content wrapper -->
+  <!-- /end wrapper -->
+
+  <footer id='footer_div' class="footer navbar-fixed-bottom">
+    <div class="row" > 
+      <div class="col-xs-12 footer_section"> 
+        <p class="text-muted">clustergrammer is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </p>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- Vendor -->
+  <!-- jQuery -->
+  <script src="static/lib/js/jquery-1.11.2.min.js"></script>
+
+  <!-- adding jquery links -->
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+  <script src='static/lib/js/jquery.accordion.js'></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="static/lib/js/bootstrap.min.js"></script>
+  <script src="static/lib/js/bootstrap-switch.min.js"></script>
+  <script src="static/lib/js/crossfilter.js"></script>
+  <script src="static/lib/js/d3.js"></script>
+  <script src="static/lib/js/dc.js"></script>
+  <script src="static/lib/js/queue.js"></script>
+  <script src="static/lib/js/keen.min.js"></script>
+  <script src="static/lib/js/underscore-min.js"></script>
+  <script src="static/lib/js/underscore.strings.js"></script>
+  <script src='static/lib/js/blockUI.js'></script>
+  <script src='static/lib/js/type_ahead.js'></script>
+  <!-- stylized file upload button -->
+  <!-- http://gregpike.net/demos/bootstrap-file-input/demo.html -->
+  <script type="text/javascript" src="static/lib/js/bootstrap.file-input.js"> </script>
+  <script type="text/javascript">
+    $('input[type=file]').bootstrapFileInput();
+    $('.file-inputs').bootstrapFileInput();
+  </script>
+  <script type="text/javascript" src="static/lib/js/prettify.js"> </script>
+
+  <!-- style code -->
+  <!-- Clustergram Scripts -->
+  <script src='static/js/d3_clustergram.js'></script>
+  <script src='static/js/load_local_network.js'></script>
+
+  <script>
+  
+   
+</script>
+
+
+</body>
+

@@ -17,66 +17,60 @@ def main(req_file, allowed_file):
   # get the filename 
   inst_filename = req_file.filename
   
-  # check that request is a post
-  if request.method == 'POST' and allowed_file(inst_filename):
+  # read file
+  lines = req_file.readlines()
 
-    # read file
-    lines = req_file.readlines()
+  net.load_lines_from_tsv_to_net(lines)
 
-    net.load_lines_from_tsv_to_net(lines)
+  # # swap nans for zero 
+  # net.swap_nan_for_zero()
 
-    # # swap nans for zero 
-    # net.swap_nan_for_zero()
+  # filter the matrix using cutoff and min_num_meet
+  ###################################################
+  cutoff_meet = 0.01
+  min_num_meet = 2
+  net.filter_network_thresh( cutoff_meet, min_num_meet )
 
-    # filter the matrix using cutoff and min_num_meet
-    ###################################################
-    cutoff_meet = 0.01
-    min_num_meet = 2
-    net.filter_network_thresh( cutoff_meet, min_num_meet )
+  # cluster 
+  #############
+  print('clustering')
+  net.cluster_row_and_col('cos')
 
-    # cluster 
-    #############
-    print('clustering')
-    net.cluster_row_and_col('cos')
+  # convert data matrix to list 
+  # net.dat['mat'] = net.dat['mat'].tolist()
 
-    # convert data matrix to list 
-    # net.dat['mat'] = net.dat['mat'].tolist()
+  print('clear node_info')
+  net.dat['node_info'] = []
 
-    print('clear node_info')
-    net.dat['node_info'] = []
+  # generate export dictionary 
+  ###############################
+  print('set up export_dict')
+  export_dict = {}
+  # save name of network 
+  export_dict['name'] = inst_filename
+  # initial network information, including data_mat array
+  export_dict['dat'] = net.export_net_json('dat')
+  # d3 json used for visualization (already clustered)
+  export_dict['viz'] = net.viz
 
-    # generate export dictionary 
-    ###############################
-    print('set up export_dict')
-    export_dict = {}
-    # save name of network 
-    export_dict['name'] = inst_filename
-    # initial network information, including data_mat array
-    export_dict['dat'] = net.export_net_json('dat')
-    # d3 json used for visualization (already clustered)
-    export_dict['viz'] = net.viz
+  # set up connection 
+  print('set up mongo client')
+  client = MongoClient('146.203.54.165')
+  # client = MongoClient('192.168.2.7')
+  db = client.clustergrammer
 
-    # set up connection 
-    print('set up mongo client')
-    client = MongoClient('146.203.54.165')
-    # client = MongoClient('192.168.2.7')
-    db = client.clustergrammer
+  # save json as new collection 
+  ##################################
+  print('loading data to mongo')
+  tmp_id = db.networks.insert( export_dict ) 
 
-    # save json as new collection 
-    ##################################
-    print('loading data to mongo')
-    tmp_id = db.networks.insert( export_dict ) 
+  # make net_id a string
+  tmp_id = str(tmp_id)
 
-    # make net_id a string
-    tmp_id = str(tmp_id)
+  # close client
+  client.close()
 
-    # close client
-    client.close()
+  # return id only 
+  return tmp_id, net
 
-    # return id only 
-    return tmp_id, net
-
-  else:
-    print('error in file upload - check filetype')
-
-    return 'error'
+  

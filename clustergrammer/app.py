@@ -14,9 +14,6 @@ from bson import json_util
 from bson.json_util import dumps
 from flask.ext.cors import cross_origin
 
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
-
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
 
@@ -26,20 +23,18 @@ ENTRY_POINT = '/clustergrammer'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
 # define allowed extension
 ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
-
-# # define global network 
-# gnet = []
-# gnet_id = []
 
 def allowed_file(filename):
   return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
@@ -49,28 +44,19 @@ def allowed_file(filename):
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
-
 @app.route("/clustergrammer/")
 def index():
   return render_template('index.html', flask_var='')
 
-@app.route("/clustergrammer/sidebar/")
-def sidebar():
-  return render_template('sidebar.html', flask_var='')
+@app.route("/clustergrammer/error/<error_desc>")
+def render_error_page(error_desc):
+  return render_template('error.html', error_desc=error_desc)
 
 @app.route("/clustergrammer/viz/<user_objid>")
 def viz(user_objid):
   import flask
   from bson.objectid import ObjectId
   from copy import deepcopy
-
-  # example mongodb ids 
-  # 55d945129ff08807f604278b - from_excel.txt
-  # 55d945529ff08807f604278c - med ccle
-  # 55f2458f9ff088ccfd32a805 - large ccle
-
-  # global gnet_id
-  # global gnet
 
   # set up connection 
   client = MongoClient('146.203.54.165')
@@ -217,8 +203,8 @@ def proc_g2e():
 ############################
 @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
 def l1000cds2_upload():
+
   import requests
-  # import d3_clustergram
   import json 
   from d3_clustergram_class import Network 
   from pymongo import MongoClient
@@ -273,38 +259,54 @@ def l1000cds2_upload():
   return redirect('/clustergrammer/l1000cds2/'+l1000cds2['_id'])
 
 
-# Jquery upload file route 
+# upload network 
 ############################
-@app.route('/clustergrammer/jquery_upload/', methods=['POST'])
-def jquery_upload_function():
+@app.route('/clustergrammer/upload_network/', methods=['POST'])
+def upload_network():
   import flask 
-  # import d3_clustergram
   import load_tsv_file
 
-  # # don't know if I need this 
-  # error = None 
+  try:
 
-  if request.method == 'POST':
-    req_file = flask.request.files['file']
+    if request.method == 'POST':
 
-    # global gnet
-    # global gnet_id
+      req_file = flask.request.files['file']
 
-    # cluster and add to database 
-    net_id, net = load_tsv_file.main(req_file, allowed_file)
+      inst_filename = req_file.filename 
 
-    print('\n\n\n\nnet_id')
-    print(net_id)
-    print('\n\n\n\n')
+      print('\ninst_filename '+inst_filename+'\n\n')
 
-    # make network a dictionary 
-    gnet = {}
-    gnet['viz'] = net.viz
-    gnet_id = net_id
+      if allowed_file(inst_filename):
 
-    # redirect to viz layout 
-    print('redirecting to viz')
-    return redirect('/clustergrammer/viz/'+net_id)
+        # cluster and add to database 
+        net_id, net = load_tsv_file.main(req_file, allowed_file)
+
+        print('\n\n\n\nnet_id')
+        print(net_id)
+        print('\n\n\n\n')
+
+        # make network a dictionary 
+        gnet = {}
+        gnet['viz'] = net.viz
+        gnet_id = net_id
+
+        return redirect('/clustergrammer/viz/'+net_id)
+
+      else:
+        error_desc = 'Your file ' + inst_filename + ' is not a supported filetype.'
+        return redirect('/clustergrammer/error/'+error_desc)
+        # return render_template('/clustergrammer/error/',error_desc='wrong file type')
+
+    else:
+
+      return redirect('/clustergrammer/error/')
+      # return 'error'
+
+  except:
+    print('error catch')
+    return redirect('/clustergrammer/error/')
+    # return 'error' 
+
 
 
 # CST 

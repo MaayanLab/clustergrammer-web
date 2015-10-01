@@ -129,9 +129,6 @@ class Network(object):
       # get the inst_line and make list 
       inst_line = lines[i].strip().split('\t')
 
-      if i%1000 == 0: 
-        print(i)
-
       # line 1: get dataset names 
       if i ==0:
 
@@ -239,9 +236,6 @@ class Network(object):
         else:
           self.dat['node_info']['row']['value'].append(-1)
 
-        # add class
-        # self.dat['node_info']['row']['cl'].append(0)
-
       # save the name as a class
       for i in range(len(self.dat['nodes']['col'])):  
         self.dat['node_info']['col']['cl'].append(self.dat['nodes']['col'][i])
@@ -301,21 +295,11 @@ class Network(object):
 
         inst_vect = inst_vect.reshape(-1,1)
 
-        print(inst_vect)
-
-        # np.hstack((a,b))
-
         # initialize or add to matrix 
         if type(self.dat['mat']) is list:
           self.dat['mat'] = inst_vect
         else:
-          print('\n\ntrying hstack')
-          print(self.dat['mat'].shape)
-          print(inst_vect.shape)
           self.dat['mat'] = np.hstack(( self.dat['mat'], inst_vect))
-
-        # print(self.dat['mat'])
-        # print(self.dat['mat'].shape)
 
 
 
@@ -631,8 +615,6 @@ class Network(object):
     import scipy
     import numpy as np
 
-    print('\nfiltering network using cutoff of ' + str(cutoff) + ' and min_num_meet of ' + str(min_num_meet))
-
     # transfer the nodes 
     nodes = {}
     nodes['row'] = []
@@ -642,8 +624,6 @@ class Network(object):
     node_info = {}
     node_info['row'] = []
     node_info['col'] = []
-
-    print( 'initial mat shape' + str(self.dat['mat'].shape ))
 
     # add rows with non-zero values 
     #################################
@@ -743,8 +723,6 @@ class Network(object):
     if 'mat_info' in self.dat:
       self.dat['mat_info'] = filt_mat_info
 
-    print( 'final mat shape' + str(self.dat['mat'].shape ) + '\n')
-
   def cluster_row_and_col(self, dist_type, cutoff=0, min_num_comp=1, dendro=True):
     ''' 
     cluster net.dat and make visualization json, net.viz. 
@@ -754,8 +732,6 @@ class Network(object):
     import numpy as np 
     from scipy.spatial.distance import pdist
     from copy import deepcopy
-
-    print('inside cluster_row_and_col ...')
 
     # make distance matrices 
     ##########################
@@ -771,16 +747,10 @@ class Network(object):
     # make copy of matrix 
     tmp_mat = deepcopy(self.dat['mat'])
 
-    print('about to calculate distance matrices')
-
     # calculate distance matrix 
     row_dm = pdist( tmp_mat, metric='cosine' )
     col_dm = pdist( tmp_mat.transpose(), metric='cosine' )
 
-    print('finished calculating distance matrices')
-
-
-    print('\tremove negative values from distance matrix')
     # prevent negative values 
     # row 
     row_dm[row_dm < 0] = float(0)
@@ -795,18 +765,13 @@ class Network(object):
     clust_order['row']['ini'] = range(num_row, 0, -1)
     clust_order['col']['ini'] = range(num_col, 0, -1)
 
-    print('\tabout to cluster using distance matrices')
-
     # cluster 
     ##############
     # cluster rows 
     cluster_method = 'average'
-    print('cluster_rows .......')
     clust_order['row']['clust'], clust_order['row']['group'] = self.clust_and_group_nodes(row_dm, cluster_method)
-    print('cluster_rows')
     clust_order['col']['clust'], clust_order['col']['group'] = self.clust_and_group_nodes(col_dm, cluster_method)
 
-    print('\t save rank ordering')
     # rank 
     ############
     clust_order['row']['rank'] = self.sort_rank_nodes('row')
@@ -824,33 +789,22 @@ class Network(object):
     self.dat['node_info']['col']['rank']  = clust_order['col']['rank']
     self.dat['node_info']['col']['group'] = clust_order['col']['group']
 
-    print('\n\nmaking the visualization json')
 
     # make the viz json - can optionally leave out dendrogram
     self.viz_json(dendro)
 
-    print('finished making the visualization json\n\n')
 
   def clust_and_group_nodes( self, dm, cluster_method ):
 
-    print('inside clust_and_group_nodes')
-    print('about to import scipy')
     import scipy
-    print('imported scipy')
-    print('about to import hier')
     import scipy.cluster.hierarchy as hier
-    print('after importing hierarchy')
 
     # calculate linkage 
-    print('calc linkage')
     Y = hier.linkage( dm, method=cluster_method )
-    print('calc dendro')
     Z = hier.dendrogram( Y, no_plot=True )
     # get ordering
-    print('get ordering from leaves')
     inst_clust_order = Z['leaves']
 
-    print('get all distances using group_cutoffs')
     all_dist = self.group_cutoffs()
 
     # generate distance cutoffs 
@@ -860,7 +814,6 @@ class Network(object):
       inst_groups[inst_key] = hier.fcluster(Y, inst_dist*dm.max(), 'distance') 
       inst_groups[inst_key] = inst_groups[inst_key].tolist()
 
-    print('return inst_clust_order and inst_groups')
     return inst_clust_order, inst_groups
 
   def sort_rank_node_values( self, rowcol ):
