@@ -19,6 +19,10 @@ app = Flask(__name__, static_url_path='')
 
 ENTRY_POINT = '/clustergrammer'
 
+# address for mongodbs 
+# mongo_address = '192.168.2.7'
+mongo_address = '146.203.54.165'
+
 # switch for local and docker development 
 # docker_vs_local
 ##########################################
@@ -58,8 +62,7 @@ def viz(user_objid):
   from bson.objectid import ObjectId
   from copy import deepcopy
 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient('192.168.2.7')
+  client = MongoClient(mongo_address)
   db = client.clustergrammer
 
   try: 
@@ -83,8 +86,7 @@ def G2Egram_preview(user_objid):
   from bson.objectid import ObjectId
   from copy import deepcopy
 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient('192.168.2.7')
+  client = MongoClient(mongo_address)
   db = client.clustergrammer
 
   try: 
@@ -108,8 +110,7 @@ def G2Egram(user_objid):
   from bson.objectid import ObjectId
   from copy import deepcopy
 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient('192.168.2.7')
+  client = MongoClient(mongo_address)
   db = client.clustergrammer
 
   try: 
@@ -139,8 +140,7 @@ def viz_l1000cds2(user_objid):
   from copy import deepcopy
 
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient('192.168.2.7')
+  client = MongoClient(mongo_address)
   db = client.clustergrammer
 
   try: 
@@ -220,8 +220,7 @@ def proc_g2e():
     export_dict['link'] = g2e_json['link']
 
     # set up connection 
-    client = MongoClient('146.203.54.165')
-    # client = MongoClient('192.168.2.7')
+    client = MongoClient(mongo_address)
     db = client.clustergrammer
 
     # save json as new collection 
@@ -294,8 +293,7 @@ def l1000cds2_upload():
   export_dict['_id'] = ObjectId(l1000cds2['_id'])
  
   # set up connection 
-  client = MongoClient('146.203.54.165')
-  # client = MongoClient('192.168.2.7')
+  client = MongoClient(mongo_address)
   db = client.clustergrammer
 
   # save to database 
@@ -330,7 +328,7 @@ def upload_network():
       if allowed_file(inst_filename):
 
         # cluster and add to database 
-        net_id, net = load_tsv_file.main(req_file, allowed_file)
+        net_id, net = load_tsv_file.main(req_file, allowed_file, mongo_address)
 
         print('\n\nnet_id')
         print(net_id)

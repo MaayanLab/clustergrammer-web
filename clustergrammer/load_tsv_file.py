@@ -1,5 +1,5 @@
 
-def main(req_file, allowed_file):
+def main(req_file, allowed_file, mongo_address):
 
   import numpy as np
   import flask
@@ -55,7 +55,7 @@ def main(req_file, allowed_file):
 
   # set up connection 
   print('set up mongo client')
-  client = MongoClient('146.203.54.165')
+  client = MongoClient(mongo_address)
   # client = MongoClient('192.168.2.7')
   db = client.clustergrammer
 
