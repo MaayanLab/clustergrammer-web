@@ -510,7 +510,7 @@ class Network(object):
     print( 'found ' + str(len(all_genes)) + ' genes' )
     print( 'found ' + str(len(all_sigs)) + ' siguatures\n'  )
 
-    # save genes adn sigs to nodes 
+    # save genes and sigs to nodes 
     self.dat['nodes']['row'] = all_genes
     self.dat['nodes']['col'] = all_sigs
 
