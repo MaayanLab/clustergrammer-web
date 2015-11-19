@@ -235,9 +235,15 @@ def proc_g2e():
     gnet['viz'] = net.viz
     net_id = str(net_id)
 
+    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
+
+    col_name = 'G2E Signatures'
+    row_name = 'genes'
+    qs = 'col_name='+col_name+'&'+'row_name='+row_name
+
     return flask.jsonify({
-      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+net_id+'?preview=true',
-      'link': 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+net_id
+      'preview_link': viz_url+net_id+'?preview=true&'+qs,
+      'link': viz_url+net_id+'?'+qs
     })
 
   except:
