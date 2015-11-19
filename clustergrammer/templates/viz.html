@@ -28,6 +28,10 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
+    <style>
+      #clust_instruct_container {display: none}
+    </style>
+
 </head>
 
 <body>
@@ -108,232 +112,156 @@
   <script src='static/lib/js/type_ahead.js'></script>
   <script src="static/lib/js/bootstrap.min.js"></script>
   <script src="static/lib/js/bootstrap-switch.min.js"></script>
+  <script src="static/lib/js/d3.tip.js"></script>
   <!-- Clustergram Scripts -->
-  <script src='static/js/d3_clustergram.js'></script>
+  <script src='static/js/clustergrammer.js'></script>
   <script src='static/js/load_local_network.js'></script>
 
   <script>
 
+    // initialize visualization size 
+    var is_preview = window.location.search.substring(1).split('=')[1];
+
+    if (is_preview==undefined){
+      is_preview = 'false';
+    }
+
+    var ini_expand;
+    if (is_preview === 'true'){
+      d3.select('#clust_instruct_container')
+        .style('display','none');
+      ini_expand = true; 
+    } else if (is_preview === 'false') {
+      d3.select('#clust_instruct_container')
+        .style('display','block');
+      ini_expand = false; 
+    }
+
+
     network_data = {{ viz_network|tojson|safe }}
-    console.log( network_data )
     // load_new_clustergram( network );
 
-            // define the outer margins of the visualization
-        var outer_margins = {
-            'top':5,
-            'bottom':33,
-            'left':195,
-            'right':2
-          };
+    // define the outer margins of the visualization
+    var outer_margins = {
+        'top':5 ,
+        'bottom':33,
+        'left':225,
+        'right':2
+      };
 
-        var outer_margins_expand = {
-            'top':5,
-            'bottom':33,
-            'left':5,
-            'right':2
-          };
+    var outer_margins_expand = {
+        'top':5,
+        'bottom':33,
+        'left':5,
+        'right':2
+      };  
 
-        // define callback function for clicking on tile
-        function click_tile_callback(tile_info){
-          console.log('tile callback');
-          console.log('clicking on ' + tile_info.row + ' row and ' + tile_info.col + ' col with value ' + String(tile_info.value))
-        }
+    // define callback function for clicking on tile
+    function click_tile_callback(tile_info){
+      console.log('my callback');
+      console.log('clicking on ' + tile_info.row + ' row and ' + tile_info.col + ' col with value ' + String(tile_info.value))
+    }
 
-        // define callback function for clicking on group
-        function click_group_callback(group_info){
-          console.log('running user defined click group callback');
-          console.log(group_info.type);
-          console.log(group_info.nodes);
-          console.log(group_info.info);
-        }
+    // define callback function for clicking on group
+    function click_group_callback(group_info){
+      console.log('running user defined click group callback');
+      console.log(group_info.type);
+      console.log(group_info.nodes);
+      console.log(group_info.info);
+    }
 
-        // row/col callback function
-        function click_label(label_info, label_type){
-          console.log( label_type+' label callback function '+ label_info)
-        }
+    viz_name = {{viz_name|tojson|safe}};
 
-        // define arguments object
-        var arguments_obj = {
-          'network_data': network_data,
-          'svg_div_id': 'svg_div',
-          'row_label':'Row-Data-Name',
-          'col_label':'Column-Data-Name',
-          'outer_margins': outer_margins,
-          'outer_margins_expand': outer_margins_expand,
-          // 'outline_colors':['black','yellow'],
-          // 'tile_click_hlight':true,
-          // 'show_tooltips':true,
-          // 'click_tile': click_tile_callback,
-          // 'click_label':click_label,
-          // 'highlight_color':'yellow',
-          'super_label_scale':1.25,
-          // 'transpose':true,
-          // 'ini_expand':true
-          // 'col_label_scale':0.8,
-          // 'row_label_scale':0.8
-          // 'force_square':1
-          // 'opacity_scale':'log',
-          // 'input_domain':2,
-          // 'do_zoom':false,
-          // 'tile_colors':['#ED9124','#1C86EE'],
-          // 'background_color':'orange',
-          // 'tile_title': true,
-          // 'click_group': click_group_callback
-          // 'resize':false
-          // 'order':'rank'
-        };
+    // define arguments object
+    var arguments_obj = {
+      'network_data': network_data,
+      'svg_div_id': 'svg_div',
+      'col_label':viz_name,
+      'row_label':' ',
+      'outer_margins': outer_margins,
+      'outer_margins_expand': outer_margins_expand,
+      'show_tooltips':true,
+      'ini_expand':ini_expand,  
+      // 'row_label_scale':0.75,
+      // 'col_label_scale':0.75,
+      // 'force_square':1
+      // 'opacity_scale':'log',
+      // 'input_domain':7,
+      // 'col_overflow':1
+      // 'transpose':true,
+      // 'do_zoom':false,
+      // 'tile_colors':['#ED9124','#1C86EE'],
+      // 'background_color':'orange',
+      // 'tile_title': true,
+      // 'click_tile': click_tile_callback,
+      // 'click_group': click_group_callback
+      // 'resize':false
+      // 'order':'rank'
+    };
 
-        d3.select('#wait_message').style('display','none');
+    d3.select('#wait_message').style('display','none');
 
-        // make clustergram: pass network_data and the div name where the svg should be made
-        // tmp make d3c a global variable so that it can be updated with new data 
-        var d3c = d3_clustergram(arguments_obj);
+    // make clustergram: pass network_data and the div name where the svg should be made
+    var d3c = d3_clustergram(arguments_obj);
 
-        ini_sliders();
-
-        // filter scale - only initialize once 
-        $( "#slider_filter" ).slider({
-          value:1,
-          min: 1,
-          max: 9,
-          step: 1,
-          stop: function( event, ui ) {
-            $( "#amount" ).val( "$" + ui.value );
-            var inst_filt = $( "#slider_filter" ).slider( "value" ); 
-
-            d3.select('#filter_value').text('filter row/column: value : '+inst_filt);
-            var inst_name = 'default_example_f'+inst_filt+'.json';
-
-            update_clust(inst_name);
-          }
-        });
-        $( "#amount" ).val( "$" + $( "#slider_filter" ).slider( "value" ) );
-
-        // reused functions 
-        function ini_sliders(){
-          // col groups
-          $( "#slider_col" ).slider({
-            value:0.5,
-            min: 0,
-            max: 1,
-            step: 0.1,
-            slide: function( event, ui ) {
-              $( "#amount" ).val( "$" + ui.value );
-              var inst_index = ui.value*10;
-              d3c.change_groups('col',inst_index)
-            }
-          });
-          $( "#amount" ).val( "$" + $( "#slider_col" ).slider( "value" ) );
-
-          // row groups
-          $( "#slider_row" ).slider({
-            value:0.5,
-            min: 0,
-            max: 1,
-            step: 0.1,
-            slide: function( event, ui ) {
-              $( "#amount" ).val( "$" + ui.value );
-              var inst_index = ui.value*10;
-              d3c.change_groups('row',inst_index)
-            }
-          });
-          $( "#amount" ).val( "$" + $( "#slider_row" ).slider( "value" ) );
-
-          // opacity scale
-          $( "#slider_opacity" ).slider({
-            value:0.2,
-            min: 0.0,
-            max: 1.0,
-            step: 0.1,
-            slide: function( event, ui ) {
-              $( "#amount" ).val( "$" + ui.value );
-              var inst_index = ui.value;
-              d3c.opacity_slider(inst_index)
-            }
-          });
-          $( "#amount" ).val( "$" + $( "#slider_opacity" ).slider( "value" ) );
-
-          $('#gene_search_box').autocomplete({
-            source: d3c.get_genes()
-          });
-
-          // submit genes button
-          $('#gene_search_box').keyup(function(e) {
-            if (e.keyCode === 13) {
-              var search_gene = $('#gene_search_box').val();
-              d3c.find_gene(search_gene);
-            }
-          });
-
-          $('#submit_gene_button').off().click(function() {
-            var gene = $('#gene_search_box').val();
-            d3c.find_gene(gene);
-          });
-
-          $('#toggle_order .btn').off().click(function(evt) {
-            var order_id = $(evt.target).find('input').attr('id').replace('_button', '');
-            d3c.reorder(order_id);
-          });
-        }
-
-        function update_clust(network_name) {
-
-          function enable_slider(){
-            $('#slider_filter').slider('enable');  
-          }
-
-          // disable the slider to prevent the user from making changes too
-          // quickly
-          $('#slider_filter').slider('disable');
-
-          // reenable after update is finished 
-          setTimeout(enable_slider, 3000);
-
-          d3.json('json/'+network_name, function(network_data){
-
-            // define the outer margins of the visualization
-            var outer_margins = {
-                'top':5,
-                'bottom':33,
-                'left':195,
-                'right':2
-              };
-
-            var outer_margins_expand = {
-                'top':5,
-                'bottom':33,
-                'left':5,
-                'right':2
-              };
-
-            var inst_order = d3.select('#toggle_order')
-              .select('.active')
-              .select('input')
-              .attr('id').split('_')[0];
-
-            // define arguments object
-            var arguments_obj = {
-              'network_data': network_data,
-              'svg_div_id': 'svg_div',
-              'row_label':'Row-Data-Name',
-              'col_label':'Column-Data-Name',
-              'outer_margins': outer_margins,
-              'outer_margins_expand': outer_margins_expand,
-              // 'outline_colors':['black','yellow'],
-              // 'show_tooltips':true,
-              // 'highlight_color':'red',
-              'super_label_scale':1.25,
-              'order':inst_order
-            };
+    $('#gene_search_box').autocomplete({
+      source: d3c.get_genes()
+    });
 
 
-            d3c.update_network(arguments_obj);
+    $( "#slider_col" ).slider({
+      value:0.5,
+      min: 0,
+      max: 1,
+      step: 0.1,
+      slide: function( event, ui ) {
 
-            ini_sliders();
+        // get inst_index from slider
+        $( "#amount" ).val( "$" + ui.value );
+        var inst_index = ui.value*10;
 
-          })
-        }
+        // change group sizes
+        d3c.change_groups('col',inst_index)
 
+      }
+    });
+
+    $( "#amount" ).val( "$" + $( "#slider_col" ).slider( "value" ) );
+
+    $( "#slider_row" ).slider({
+      value:0.5,
+      min: 0,
+      max: 1,
+      step: 0.1,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.value );
+        var inst_index = ui.value*10;
+
+        // change group sizes
+        d3c.change_groups('row',inst_index)
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider_row" ).slider( "value" ) );
+
+    // submit genes button
+    $('#gene_search_box').keyup(function(e) {
+      if (e.keyCode === 13) {
+        var search_gene = $('#gene_search_box').val();
+        d3c.find_gene(search_gene);
+      }
+    });
+
+    $('#submit_gene_button').click(function() {
+      var gene = $('#gene_search_box').val();
+      d3c.find_gene(gene);
+    });
+
+    $('#toggle_order .btn').click(function(evt) {
+      var order_id = $(evt.target).find('input').attr('id').replace('_button', '');
+      d3c.reorder(order_id);
+    });    
+
+  // $.unblockUI();
   
   </script>
 

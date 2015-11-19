@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <base href='/clustergrammer/'>
 
-    <title>L1000CDS2gram</title>
+    <title>L1000CDS2-Clustergrammer</title>
     <link rel="shortcut icon" href="static/css/sigine.ico" type="image/x-icon">
 
     <!-- Bootstrap Core CSS -->
@@ -62,11 +62,11 @@
       </div>
 
       <div id='toggle_order' class="btn-group" data-toggle="buttons" >
-        <label class="btn btn-primary active prot_class" >
-          <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
+        <label class="btn btn-primary prot_class active" >
+          <input type="radio" name="options" id="ini_button" autocomplete="off" > Rank  
         </label>
         <label class="btn btn-primary prot_class" >
-          <input type="radio" name="options" id="ini_button" autocomplete="off" > Rank  
+          <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
         </label>
         <!-- <label class="btn btn-primary prot_class" >
           <input type="radio" name="options" id="class_button" autocomplete="off" > Class
@@ -117,6 +117,7 @@
   <script src='static/lib/js/type_ahead.js'></script>
   <script src="static/lib/js/bootstrap.min.js"></script>
   <script src="static/lib/js/bootstrap-switch.min.js"></script>
+  <script src="static/lib/js/d3.tip.js"></script>
   <!-- Clustergram Scripts -->
   <script src='static/js/d3_clustergram.js'></script>
   <script src='static/js/load_local_network.js'></script>
@@ -177,7 +178,9 @@
       'outer_margins_expand': outer_margins_expand,
       'col_overflow':0.7,
       // 'resize':false,
-      'order':'clust'
+      'col_label_scale':1.3,
+      // 'show_tooltips':true,
+      'order':'ini'
     };
 
     d3.select('#wait_message').remove();

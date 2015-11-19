@@ -27,13 +27,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -125,7 +125,7 @@ def G2Egram(user_objid):
   
   d3_json = gnet['viz']
   viz_name = gnet['name']
-  viz_link = gnet['link']
+  viz_link = '' #gnet['link']
 
   return render_template('G2Egram.html', viz_network=d3_json, viz_name=viz_name, viz_link=viz_link)
 
@@ -236,8 +236,8 @@ def proc_g2e():
     net_id = str(net_id)
 
     return flask.jsonify({
-      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/G2Egram_preview/'+net_id,
-      'link': 'http://amp.pharm.mssm.edu/clustergrammer/G2Egram/'+net_id
+      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+net_id+'?preview=true',
+      'link': 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+net_id
     })
 
   except:
