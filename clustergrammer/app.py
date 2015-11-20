@@ -237,9 +237,9 @@ def proc_g2e():
 
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
 
-    col_name = 'G2E Signatures'
-    row_name = 'genes'
-    qs = 'col_name='+col_name+'&'+'row_name='+row_name
+    col_label = 'G2E Signatures'
+    row_label = 'genes'
+    qs = 'col_label='+col_label+'&'+'row_label='+row_label
 
     return flask.jsonify({
       'preview_link': viz_url+net_id+'?preview=true&'+qs,
