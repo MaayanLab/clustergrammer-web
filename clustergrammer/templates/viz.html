@@ -150,7 +150,7 @@
       row_label = '';
     }
 
-    if (query_string.col_label){
+    if (query_string.col_label){s
       col_label = query_string.col_label;
     } else {
       col_label = '';
@@ -168,14 +168,14 @@
         'top':5 ,
         'bottom':33,
         'left':225,
-        'right':2
+        'right':5
       };
 
     var outer_margins_expand = {
         'top':5,
-        'bottom':33,
+        'bottom':5,
         'left':5,
-        'right':2
+        'right':5
       };  
 
     // define callback function for clicking on tile
@@ -222,6 +222,10 @@
       // 'resize':false
       // 'order':'rank'
     };
+
+    if (ini_expand){
+      d3.select('.footer_section').style('display','none');
+    }
 
     d3.select('#wait_message').style('display','none');
 
