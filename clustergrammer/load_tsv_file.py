@@ -42,27 +42,36 @@ def main(req_file, allowed_file, mongo_address):
   print('clear node_info')
   net.dat['node_info'] = []
 
-  # generate export dictionary 
-  ###############################
-  print('set up export_dict')
-  export_dict = {}
-  # save name of network 
-  export_dict['name'] = inst_filename
-  # initial network information, including data_mat array
-  export_dict['dat'] = net.export_net_json('dat')
-  # d3 json used for visualization (already clustered)
-  export_dict['viz'] = net.viz
-
   # set up connection 
-  print('set up mongo client')
   client = MongoClient(mongo_address)
   # client = MongoClient('192.168.2.7')
   db = client.clustergrammer
 
+  # generate export dictionary 
+  ###############################
+  # initial network information, including data_mat array
+  export_viz = {}
+  export_dat = {}
+  
+  export_dat['name'] = inst_filename
+  export_dat['dat'] = net.export_net_json('dat')
+  export_dat['source'] = 'user_upload'
+
+  # save dat to separate document 
+  dat_id = db.network_data.insert(export_dat)
+
+  # save name of network 
+  export_viz['name'] = inst_filename
+  # save visualization json 
+  export_viz['viz'] = net.viz
+  # save link to dat 
+  export_viz['dat'] = dat_id
+  export_viz['source'] = 'user_upload'
+
   # save json as new collection 
   ##################################
   print('loading data to mongo')
-  tmp_id = db.networks.insert( export_dict ) 
+  tmp_id = db.networks.insert( export_viz ) 
 
   # make net_id a string
   tmp_id = str(tmp_id)

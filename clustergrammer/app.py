@@ -23,17 +23,18 @@ ENTRY_POINT = '/clustergrammer'
 # mongo_address = '192.168.2.7'
 mongo_address = '146.203.54.165'
 
+##########################################
 # switch for local and docker development 
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -80,8 +81,8 @@ def viz(user_objid):
 
   return render_template('viz.html', viz_network=d3_json, viz_name=viz_name)
 
-@app.route("/clustergrammer/G2Egram_preview/<user_objid>")
-def G2Egram_preview(user_objid):
+@app.route("/clustergrammer/enr_viz/<user_objid>")
+def enr_viz(user_objid):
   import flask
   from bson.objectid import ObjectId
   from copy import deepcopy
@@ -98,36 +99,52 @@ def G2Egram_preview(user_objid):
   gnet = db.networks.find_one({'_id': obj_id })
 
   client.close()
-  
+
   d3_json = gnet['viz']
   viz_name = gnet['name']
 
-  return render_template('G2Egram_preview.html', viz_network=d3_json, viz_name=viz_name)
+  return render_template('enr_viz.html', viz_network=d3_json, viz_name=viz_name)
 
-@app.route("/clustergrammer/G2Egram/<user_objid>")
-def G2Egram(user_objid):
-  import flask
-  from bson.objectid import ObjectId
-  from copy import deepcopy
-
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
+@app.route("/clustergrammer/load_Enrichr_gene_lists")
+def enrichment_vectors():
+  import requests 
+  import flask 
+  import json 
+  # from d3_clustergram_class import Network
+  import enrichr_functions as enr_fun
 
   try: 
-    obj_id = ObjectId(user_objid)
+
+    # gs_gmt = json.loads(request.data)
+
+    # mock data 
+    ################# 
+    user_list_ids = [
+      {"col_title":'some title 3',"user_list_id":617812},
+      {"col_title":'some title 4',"user_list_id":617813}
+    ]
+
+    gmt = 'KEA_2015'
+    g2e_post = { "user_list_ids": user_list_ids, "background_type": gmt }
+
+    # make clustergram 
+    threshold = 0.001
+    num_thresh = 1
+
+    print('talking to Enrichr')
+    net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
+
+    print(net.viz)
+
+    return render_template('index.html', flask_var='')
+    
+
   except:
-    error_desc = 'Invalid visualization Id.'
-    return redirect('/clustergrammer/error/'+error_desc)
-
-  gnet = db.networks.find_one({'_id': obj_id })
-
-  client.close()
-  
-  d3_json = gnet['viz']
-  viz_name = gnet['name']
-  viz_link = '' #gnet['link']
-
-  return render_template('G2Egram.html', viz_network=d3_json, viz_name=viz_name, viz_link=viz_link)
+    error_desc = 'Error in processing GEO2Enrichr signatures.'
+    return flask.jsonify({
+      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
+      'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
+    })      
 
 @app.route("/clustergrammer/mock_l1000cds2")
 def mock_l1000cds2():
@@ -215,6 +232,8 @@ def proc_g2e():
     export_dict['dat'] = net.export_net_json('dat')
     # d3 json used for visualization (already clustered)
     export_dict['viz'] = net.viz
+    # save source 
+    export_dict['source'] = 'g2e'
 
     # save the link back to the original results
     export_dict['link'] = g2e_json['link']
@@ -254,12 +273,10 @@ def proc_g2e():
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
     })  
 
-
 # l1000cds2 post 
 ############################
 @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
 def l1000cds2_upload():
-
   import requests
   import json 
   from d3_clustergram_class import Network 
@@ -313,7 +330,6 @@ def l1000cds2_upload():
 
   return redirect('/clustergrammer/l1000cds2/'+l1000cds2['_id'])
 
-
 # upload network 
 ############################
 @app.route('/clustergrammer/upload_network/', methods=['POST'])
@@ -357,39 +373,6 @@ def upload_network():
     print('error catch')
     error_desc = 'There was an error in processing your matrix. Please check your format.'
     return redirect('/clustergrammer/error/'+error_desc)
-
-# CST 
-##############
-@app.route('/clustergrammer/cstgram/', methods=['GET'])
-def cstgram_home():
-
-  return render_template('cstgram_home.html', flask_var='')
-
-@app.route('/clustergrammer/cstgram_data/', methods=['POST'])
-def cstgram_data():
-  import json
-
-  # $.post( "cstgram_data/", {name:'nick'}).done(function(data){console.log(data)});
-
-  # post request on front end 
-  ###############################
-  # $.ajax({
-  #           url: 'cstgram_data/',
-  #           type: 'post',
-  #           dataType: 'json',
-  #           success: function (data) {
-  #               console.log('here');
-  #           },
-  #           data: JSON.stringify(person)
-  #       });
-
-  if request.method == 'POST':
-    req_json = json.loads(request.get_data())
-
-    print(type(req_json))
-    print(req_json)
-
-    return 'some response from the server!!!'
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

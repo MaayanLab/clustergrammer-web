@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <base href='/clustergrammer/'>
 
-    <title>Clustergrammer</title>
+    <title>clustergrammer</title>
 
     <link rel="shortcut icon" href="static/map-o_32_transparent.ico" type="image/x-icon">
     <!-- Bootstrap Core CSS -->
@@ -25,9 +25,12 @@
     <link rel="stylesheet" href="static/css/specific.css" />
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
     <link rel="stylesheet" href="static/css/custom.css">
-    <link rel="stylesheet" href="static/css/custom_g2egram_preview.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
+
+    <style>
+      #clust_instruct_container {display: none}
+    </style>
 
 </head>
 
@@ -38,16 +41,10 @@
 
     <div id='clust_instruct_container' >
       <i class="fa fa-map-o fa-2x  "></i> 
-      <h1 id='viz_website_title'>Clustergrammer</h1>
-
-      <h1 id='g2e_desc' class='title_viz_instructs'> 
-      </h1> 
-
-      <div id='g2e_link'></div>
-      <!-- <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a> -->
+      <h1 id='viz_website_title'  >clustergrammer</h1>
 
       <div class='gene_exp_view'>
-        <div class='viz_instruct_text'> Zoom into the clustergram using scroll, reorder using the buttons or by double-clicking row or column tiles, search for rows using the search box, and idenfity groups of rows or columns of varying size using the sliders.</div>
+        <div class='viz_instruct_text'>The clustergram shows enriched terms, obtained from Enrichr, as rows and input gene lists as columns.</div>
 
       </div>
 
@@ -78,7 +75,7 @@
         <div id="slider_row"></div>
       </div>
 
-      <!-- <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a> -->
+      <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
     </div>
 
     <!-- exp div -->
@@ -87,6 +84,7 @@
     </div>
   
   </div>
+
 
   <footer id='footer_div' class="footer navbar-fixed-bottom">
     <div class="row" > 
@@ -114,54 +112,70 @@
   <script src='static/lib/js/type_ahead.js'></script>
   <script src="static/lib/js/bootstrap.min.js"></script>
   <script src="static/lib/js/bootstrap-switch.min.js"></script>
+  <script src="static/lib/js/d3.tip.js"></script>
   <!-- Clustergram Scripts -->
-  <script src='static/js/d3_clustergram.js'></script>
+  <script src='static/js/clustergrammer.js'></script>
   <script src='static/js/load_local_network.js'></script>
 
   <script>
 
-    // add description title 
-    var viz_name = {{viz_name|tojson|safe}};
-    console.log(viz_name);
+    function QueryStringToJSON() { 
+      var pairs = location.search.slice(1).split('&');
+      
+      var result = {};
+      pairs.forEach(function(pair) {
+          pair = pair.split('=');
+          result[pair[0]] = decodeURIComponent(pair[1] || '');
+      });
 
-    if (viz_name != ''){
-      d3.select('#g2e_desc')
-        .text(viz_name);
+      return JSON.parse(JSON.stringify(result));
     }
 
-    // add link back to g2e 
-    var viz_link = {{viz_link|tojson|safe}};
+    var query_string = QueryStringToJSON();
 
-    // d3.select('#g2e_link')
-    //   // .text(viz_link);
-    //   .attr("xlink:href", function (d) {
-    //       return "http://www.nytimes.com/";
-    //   })
+    var ini_expand;
+    if (query_string.preview === 'true' ){
+      d3.select('#clust_instruct_container')
+        .style('display','none');
+      ini_expand = true; 
+    } else {
+      d3.select('#clust_instruct_container')
+        .style('display','block');
+      ini_expand = false; 
+    }
 
-    // d3.select('#g2e_link')
-    //   .append('a')
-    //   .text('something')
-    //   .attr("xlink:href", "http://www.nytimes.com/");
+    if (query_string.row_label){
+      row_label = query_string.row_label;
+    } else {
+      row_label = '';
+    }
 
-    $('#g2e_link').html('<a href="' + viz_link + '">Return to G2E</a>');
+    if (query_string.col_label){s
+      col_label = query_string.col_label;
+    } else {
+      col_label = '';
+    }
+
+    var super_label_scale = 1.25;
+    if (query_string.row_label === undefined && query_string.col_label === undefined){
+      super_label_scale = 0;
+    }
 
     network_data = {{ viz_network|tojson|safe }}
-    console.log( network_data )
-    // load_new_clustergram( network );
 
     // define the outer margins of the visualization
     var outer_margins = {
         'top':5 ,
         'bottom':33,
         'left':225,
-        'right':2
+        'right':5
       };
 
     var outer_margins_expand = {
         'top':5,
-        'bottom':33,
+        'bottom':5,
         'left':5,
-        'right':2
+        'right':5
       };  
 
     // define callback function for clicking on tile
@@ -178,15 +192,22 @@
       console.log(group_info.info);
     }
 
+    viz_name = {{viz_name|tojson|safe}};
+
     // define arguments object
     var arguments_obj = {
       'network_data': network_data,
       'svg_div_id': 'svg_div',
+      // 'col_label':viz_name,
+      'col_label':col_label,
+      'row_label':row_label,
       'outer_margins': outer_margins,
       'outer_margins_expand': outer_margins_expand,
-      // 'ini_expand':true,
-      'col_label':'G2E Sigantures',
-      'row_label':'Genes',
+      'show_tooltips':true,
+      'ini_expand':ini_expand,  
+      'super_label_scale':super_label_scale,
+      // 'row_label_scale':0.75,
+      'col_label_scale':1.2,
       // 'force_square':1
       // 'opacity_scale':'log',
       // 'input_domain':7,
@@ -201,6 +222,10 @@
       // 'resize':false
       // 'order':'rank'
     };
+
+    if (ini_expand){
+      d3.select('.footer_section').style('display','none');
+    }
 
     d3.select('#wait_message').style('display','none');
 
