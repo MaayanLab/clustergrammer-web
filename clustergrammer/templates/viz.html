@@ -30,7 +30,7 @@
 
     <style>
       #clust_instruct_container {display: none}
-      .footer_section {display: none};
+      .footer_section {display: none}
     </style>
 
 </head>
@@ -146,20 +146,32 @@
     }
 
     if (query_string.row_label){
-      row_label = query_string.row_label;
+      var row_label = query_string.row_label;
     } else {
-      row_label = '';
+      var row_label = '';
     }
 
     if (query_string.col_label){
-      col_label = query_string.col_label;
+      var col_label = query_string.col_label;
     } else {
-      col_label = '';
+      var col_label = '';
     }
 
     var super_label_scale = 1.25;
     if (query_string.row_label === undefined && query_string.col_label === undefined){
       super_label_scale = 0;
+    }
+
+    if (query_string.opacity_scale){
+      var opacity_scale = query_string.opacity_scale;
+    } else {
+      var opacity_scale = 'linear';
+    }
+
+    if (query_string.order){
+      var ini_order = query_string.order;
+    } else {
+      var ini_order = 'clust'
     }
 
     network_data = {{ viz_network|tojson|safe }}
@@ -209,8 +221,9 @@
       'super_label_scale':super_label_scale,
       // 'row_label_scale':0.75,
       'col_label_scale':1.2,
+      'opacity_scale':opacity_scale,
+      'order':ini_order
       // 'force_square':1
-      // 'opacity_scale':'log',
       // 'input_domain':7,
       // 'col_overflow':1
       // 'transpose':true,
@@ -221,7 +234,6 @@
       // 'click_tile': click_tile_callback,
       // 'click_group': click_group_callback
       // 'resize':false
-      // 'order':'rank'
     };
 
     if (ini_expand){

@@ -105,78 +105,81 @@ def enr_viz(user_objid):
 
   return render_template('enr_viz.html', viz_network=d3_json, viz_name=viz_name)
 
-@app.route("/clustergrammer/load_Enrichr_gene_lists")
+@app.route("/clustergrammer/load_Enrichr_gene_lists", methods=['POST','GET'])
+@cross_origin()
 def enrichment_vectors():
   import requests 
   import flask 
   import json 
-  # from d3_clustergram_class import Network
   import enrichr_functions as enr_fun
   from pymongo import MongoClient
 
-  # try: 
+  if request.method == 'POST':
+    g2e_post = json.loads(request.data)
 
-  # gs_gmt = json.loads(request.data)
+  elif request.method == 'GET':
 
-  ####################################################### 
-  # mock data 
-  ####################################################### 
-  user_list_ids = [
-    {"col_title":'some title 3',"user_list_id":617812},
-    {"col_title":'some title 4',"user_list_id":617813}
-  ]
+    ####################################################### 
+    # mock data 
+    ####################################################### 
+    user_list_ids = [
+      {"col_title":'some title 3',"user_list_id":617812},
+      {"col_title":'some title 4',"user_list_id":617813}
+    ]
 
-  gmt = 'ChEA_2015'
-  g2e_post = { "user_list_ids": user_list_ids, "background_type": gmt }
-  
-  ####################################################### 
-  ####################################################### 
+    gmt = 'ChEA_2015'
+    g2e_post = { "user_list_ids": user_list_ids, "background_type": gmt }
+    ####################################################### 
+    ####################################################### 
 
-  # make clustergram 
-  threshold = 0.001
-  num_thresh = 1
+  try: 
 
-  net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
+    # make clustergram 
+    threshold = 0.001
+    num_thresh = 1
 
-  # save viz and dat to database 
-  ################################
-  export_viz = {}
-  export_dat = {}
+    net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
 
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
+    # save viz and dat to database 
+    ################################
+    export_viz = {}
+    export_dat = {}
 
-  export_dat['name'] = 'enrichment_vector'
-  export_dat['dat'] = net.export_net_json('dat')
-  export_dat['source'] = 'g2e_enr_vect'
+    client = MongoClient(mongo_address)
+    db = client.clustergrammer
 
-  # save dat to document 
-  dat_id = db.network_data.insert(export_dat)
+    export_dat['name'] = 'enrichment_vector'
+    export_dat['dat'] = net.export_net_json('dat')
+    export_dat['source'] = 'g2e_enr_vect'
 
-  export_viz['name'] = 'enrichment_vector'
-  export_viz['viz'] = net.viz
-  export_viz['dat'] = dat_id
-  export_viz['source'] = 'g2e_enr_vect'
+    # save dat to document 
+    dat_id = db.network_data.insert(export_dat)
 
-  # save viz to document 
-  viz_id = db.networks.insert( export_viz )
+    export_viz['name'] = 'enrichment_vector'
+    export_viz['viz'] = net.viz
+    export_viz['dat'] = dat_id
+    export_viz['source'] = 'g2e_enr_vect'
 
-  client.close()
+    # save viz to document 
+    viz_id = db.networks.insert( export_viz )
 
-  viz_id = str(viz_id)
+    client.close()
 
-  # redirect user 
-  return redirect('/clustergrammer/viz/'+viz_id)
+    viz_id = str(viz_id)
 
-  # return render_template('index.html', flask_var='')
-  
+    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
+    qs = '?preview=true&opacity_scale=log&order=rank'
 
-  # except:
-  #   error_desc = 'Error in processing GEO2Enrichr signatures.'
-  #   return flask.jsonify({
-  #     'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
-  #     'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-  #   })      
+    return flask.jsonify({
+      'link': viz_url+viz_id+qs
+      })
+
+  except:
+    error_desc = 'Error in processing Enrichr enrichment vectors.'
+    return flask.jsonify({
+      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
+      'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
+    })      
 
 @app.route("/clustergrammer/mock_l1000cds2")
 def mock_l1000cds2():
@@ -215,19 +218,6 @@ def proc_g2e():
   import flask
   import json 
   from d3_clustergram_class import Network
-
-  # import pdb; pdb.set_trace()
-
-  # ajax request looks like this 
-  # $.ajax({
-  #            url: 'g2e/',
-  #            method: 'POST',
-  #            contentType: 'application/json',
-  #            data: JSON.stringify(tmp),
-  #            success: function() {
-  #                debugger;
-  #            }
-  #        });
 
   try:
 
