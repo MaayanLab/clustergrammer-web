@@ -30,6 +30,7 @@
 
     <style>
       #clust_instruct_container {display: none}
+      .footer_section {display: none};
     </style>
 
 </head>
@@ -225,6 +226,8 @@
 
     if (ini_expand){
       d3.select('.footer_section').style('display','none');
+    } else {
+      d3.select('.footer_section').style('display','block');
     }
 
     d3.select('#wait_message').style('display','none');
