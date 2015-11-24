@@ -112,39 +112,71 @@ def enrichment_vectors():
   import json 
   # from d3_clustergram_class import Network
   import enrichr_functions as enr_fun
+  from pymongo import MongoClient
 
-  try: 
+  # try: 
 
-    # gs_gmt = json.loads(request.data)
+  # gs_gmt = json.loads(request.data)
 
-    # mock data 
-    ################# 
-    user_list_ids = [
-      {"col_title":'some title 3',"user_list_id":617812},
-      {"col_title":'some title 4',"user_list_id":617813}
-    ]
+  ####################################################### 
+  # mock data 
+  ####################################################### 
+  user_list_ids = [
+    {"col_title":'some title 3',"user_list_id":617812},
+    {"col_title":'some title 4',"user_list_id":617813}
+  ]
 
-    gmt = 'KEA_2015'
-    g2e_post = { "user_list_ids": user_list_ids, "background_type": gmt }
+  gmt = 'ChEA_2015'
+  g2e_post = { "user_list_ids": user_list_ids, "background_type": gmt }
+  
+  ####################################################### 
+  ####################################################### 
 
-    # make clustergram 
-    threshold = 0.001
-    num_thresh = 1
+  # make clustergram 
+  threshold = 0.001
+  num_thresh = 1
 
-    print('talking to Enrichr')
-    net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
+  net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
 
-    print(net.viz)
+  # save viz and dat to database 
+  ################################
+  export_viz = {}
+  export_dat = {}
 
-    return render_template('index.html', flask_var='')
-    
+  client = MongoClient(mongo_address)
+  db = client.clustergrammer
 
-  except:
-    error_desc = 'Error in processing GEO2Enrichr signatures.'
-    return flask.jsonify({
-      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
-      'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-    })      
+  export_dat['name'] = 'enrichment_vector'
+  export_dat['dat'] = net.export_net_json('dat')
+  export_dat['source'] = 'g2e_enr_vect'
+
+  # save dat to document 
+  dat_id = db.network_data.insert(export_dat)
+
+  export_viz['name'] = 'enrichment_vector'
+  export_viz['viz'] = net.viz
+  export_viz['dat'] = dat_id
+  export_viz['source'] = 'g2e_enr_vect'
+
+  # save viz to document 
+  viz_id = db.networks.insert( export_viz )
+
+  client.close()
+
+  viz_id = str(viz_id)
+
+  # redirect user 
+  return redirect('/clustergrammer/viz/'+viz_id)
+
+  # return render_template('index.html', flask_var='')
+  
+
+  # except:
+  #   error_desc = 'Error in processing GEO2Enrichr signatures.'
+  #   return flask.jsonify({
+  #     'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
+  #     'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
+  #   })      
 
 @app.route("/clustergrammer/mock_l1000cds2")
 def mock_l1000cds2():
