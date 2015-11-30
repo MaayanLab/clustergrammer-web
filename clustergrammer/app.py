@@ -28,13 +28,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -364,6 +364,9 @@ def upload_network():
     if request.method == 'POST':
 
       req_file = flask.request.files['file']
+
+      print('\n\nrequested file object')
+      print(req_file)
 
       inst_filename = req_file.filename 
 

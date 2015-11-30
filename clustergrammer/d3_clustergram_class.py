@@ -46,6 +46,18 @@ class Network(object):
 
     self.load_lines_from_tsv_to_net(lines)
 
+  def pandas_load_tsv_to_net(self, filename):
+    import pandas as pd 
+
+    tmp_df = pd.read_table(filename, index_col=0)
+
+    # save to self
+    tmp_dat = self.df_to_dat(tmp_df)
+
+    self.dat['nodes'] = tmp_dat['nodes']
+    self.dat['mat'] = tmp_dat['mat']
+
+
   def load_lines_from_tsv_to_net(self, lines):
     import numpy as np
     # get row/col labels and data from lines 
@@ -94,7 +106,7 @@ class Network(object):
         if i > 1: 
           self.dat['mat'] = np.vstack( ( self.dat['mat'], inst_data_row ) )
 
-  def load_hgram(self, filename):
+  def load_hgram(self, filename, max_num_links=50000):
     import numpy as np
 
     # example data format 
@@ -116,8 +128,8 @@ class Network(object):
     # line 3 has column labels and dataset numbers, but no information that I need
     # line 4 and after have gene symbols (first column) and values (4th and after columns)
 
-    # load gene classes for harmonogram 
-    gc = self.load_json_to_dict('gene_classes_harmonogram.json')
+    # # load gene classes for harmonogram 
+    # gc = self.load_json_to_dict('gene_classes_harmonogram.json')
 
     f = open(filename,'r')
     lines = f.readlines()
@@ -175,7 +187,11 @@ class Network(object):
         # grab data, convert to float, and make numpy array 
         inst_data_row = inst_line[3:]
         inst_data_row = [float(tmp_dat) for tmp_dat in inst_data_row]
+
         inst_data_row = np.asarray(inst_data_row)
+
+        # threshold data 
+        inst_data_row[abs(inst_data_row) < thresh_data] = 0
 
         # initialize matrix 
         if i == 3:
@@ -704,7 +720,7 @@ class Network(object):
           filt_mat_up[i,j] = self.dat['mat_up'][pick_row, pick_col]
           filt_mat_dn[i,j] = self.dat['mat_dn'][pick_row, pick_col]
         if 'mat_info' in self.dat:
-          filt_mat_info[(i,j)] = self.dat['mat_info'][(pick_row,pick_col)]
+          filt_mat_info[str((i,j))] = self.dat['mat_info'][str((pick_row,pick_col))]
 
     # save nodes array - list of node names 
     self.dat['nodes'] = nodes
@@ -723,7 +739,51 @@ class Network(object):
     if 'mat_info' in self.dat:
       self.dat['mat_info'] = filt_mat_info
 
-  def cluster_row_and_col(self, dist_type, cutoff=0, min_num_comp=1, dendro=True):
+    print( 'final mat shape' + str(self.dat['mat'].shape ) + '\n')
+
+  def keep_max_num_links(self, keep_num_links):
+
+    print('\trun keep_max_num_links')
+    max_mat_value = abs(self.dat['mat']).max()
+
+    # check the total number of links 
+    inst_thresh = 0
+    inst_pct_max = 0
+    inst_num_links = (abs(self.dat['mat'])>inst_thresh).sum()
+    print('initially there are '+str(inst_num_links)+' links ')
+
+    print('there are initially '+str(inst_num_links)+'\n')
+
+    thresh_fraction = 100
+
+    while (inst_num_links > keep_num_links):
+
+      # increase the threshold as a pct of max value in mat 
+      inst_pct_max = inst_pct_max + 1 
+
+      # increase threshold 
+      inst_thresh = max_mat_value*(float(inst_pct_max)/thresh_fraction)
+
+      # check the number of links above the curr threshold 
+      inst_num_links = (abs(self.dat['mat'])>inst_thresh).sum()
+
+      print('there are '+str(inst_num_links)+ ' links at threshold '+str(inst_pct_max)+'pct and value of ' +str(inst_thresh)+'\n')
+
+    # if there are no links then increas thresh back up 
+    if inst_num_links == 0:
+      inst_pct_max = inst_pct_max - 1 
+      inst_thresh = max_mat_value*(float(inst_pct_max)/thresh_fraction)
+
+    print('final number of links '+str(inst_num_links))
+
+    # replace values that are less than thresh with zero 
+    self.dat['mat'][ abs(self.dat['mat']) < inst_thresh] = 0
+
+    # return number of links 
+    return (abs(self.dat['mat'])>inst_thresh).sum()
+
+
+  def cluster_row_and_col(self, dist_type, cutoff=0, min_num_comp=1, dendro=True, run_clustering=True, run_rank=True):
     ''' 
     cluster net.dat and make visualization json, net.viz. 
     optionally leave out dendrogram colorbar groups with dendro argument 
@@ -732,6 +792,11 @@ class Network(object):
     import numpy as np 
     from scipy.spatial.distance import pdist
     from copy import deepcopy
+
+    # do not make dendrogram is you are not running clusttering 
+    if run_clustering == False:
+      dendro = False
+
 
     # make distance matrices 
     ##########################
@@ -760,43 +825,55 @@ class Network(object):
     # initialize clust order 
     clust_order = self.ini_clust_order()
 
-    # initial ordering 
+    # initial ordering
     ###################
-    clust_order['row']['ini'] = range(num_row, 0, -1)
-    clust_order['col']['ini'] = range(num_col, 0, -1)
+    clust_order['row']['ini'] = range(num_row, -1, -1)
+    clust_order['col']['ini'] = range(num_col, -1, -1)
 
     # cluster 
     ##############
-    # cluster rows 
-    cluster_method = 'average'
-    clust_order['row']['clust'], clust_order['row']['group'] = self.clust_and_group_nodes(row_dm, cluster_method)
-    clust_order['col']['clust'], clust_order['col']['group'] = self.clust_and_group_nodes(col_dm, cluster_method)
+    if run_clustering == True:
+      # cluster rows 
+      cluster_method = 'average'
+      clust_order['row']['clust'], clust_order['row']['group'] = self.clust_and_group_nodes(row_dm, cluster_method)
+      clust_order['col']['clust'], clust_order['col']['group'] = self.clust_and_group_nodes(col_dm, cluster_method)
 
-    # rank 
-    ############
-    clust_order['row']['rank'] = self.sort_rank_nodes('row')
-    clust_order['col']['rank'] = self.sort_rank_nodes('col')
+    if run_rank == True:
+      # rank 
+      ############
+      clust_order['row']['rank'] = self.sort_rank_nodes('row')
+      clust_order['col']['rank'] = self.sort_rank_nodes('col')
 
     # save clustering orders to node_info 
+    if run_clustering == True:
+      print('\n\ntransferring clustering orders\n\n')
+      self.dat['node_info']['row']['clust'] = clust_order['row']['clust']
+      self.dat['node_info']['col']['clust'] = clust_order['col']['clust']
+    else:
+      print('\n\nnot transferring clustering orders\n\n')
+      self.dat['node_info']['row']['clust'] = clust_order['row']['ini']
+      self.dat['node_info']['col']['clust'] = clust_order['col']['ini']
+
+    if run_rank == True:
+      self.dat['node_info']['row']['rank']  = clust_order['row']['rank']
+      self.dat['node_info']['col']['rank']  = clust_order['col']['rank']
+    else:
+      self.dat['node_info']['row']['rank']  = clust_order['row']['ini']
+      self.dat['node_info']['col']['rank']  = clust_order['col']['ini']
+
+    # transfer ordereings
     # row
     self.dat['node_info']['row']['ini']   = clust_order['row']['ini']
-    self.dat['node_info']['row']['clust'] = clust_order['row']['clust']
-    self.dat['node_info']['row']['rank']  = clust_order['row']['rank']
     self.dat['node_info']['row']['group'] = clust_order['row']['group']
     # col 
     self.dat['node_info']['col']['ini']   = clust_order['col']['ini']
-    self.dat['node_info']['col']['clust'] = clust_order['col']['clust']
-    self.dat['node_info']['col']['rank']  = clust_order['col']['rank']
     self.dat['node_info']['col']['group'] = clust_order['col']['group']
 
 
     # make the viz json - can optionally leave out dendrogram
     self.viz_json(dendro)
 
-
   def clust_and_group_nodes( self, dm, cluster_method ):
-
-    import scipy
     import scipy.cluster.hierarchy as hier
 
     # calculate linkage 
@@ -962,10 +1039,12 @@ class Network(object):
           if 'mat_up' in self.dat:
             inst_dict['value_dn'] = self.dat['mat_dn'][i,j]
 
-          # # add information if necessary - use dictionary with tuple key
-          # # each element of the matrix needs to have information 
-          # if 'mat_info' in self.dat:
-          #   inst_dict['info'] = self.dat['mat_info'][(i,j)]
+          # add information if necessary - use dictionary with tuple key
+          # each element of the matrix needs to have information 
+          if 'mat_info' in self.dat:
+
+            # use tuple string 
+            inst_dict['info'] = self.dat['mat_info'][str((i,j))]
 
           # add highlight if necessary - use dictionary with tuple key 
           if 'mat_hl' in self.dat:
@@ -973,6 +1052,39 @@ class Network(object):
 
           # append link 
           self.viz['links'].append( inst_dict )
+
+  def df_to_dat(self, df):
+    import numpy as np 
+    import pandas as pd 
+
+    self.dat['mat'] = df.values
+    self.dat['nodes']['row'] = df.index.tolist()
+    self.dat['nodes']['col'] = df.columns.tolist()
+
+  @staticmethod
+  def load_gmt(filename):
+
+    f = open(filename, 'r')
+    lines = f.readlines()
+    f.close()
+
+    gmt = {}
+
+    # loop through the lines of the gmt 
+    for i in range(len(lines)):
+
+      # get the inst line, strip off the new line character 
+      inst_line = lines[i].rstrip()
+
+      inst_term = inst_line.split('\t')[0]
+
+      # get the elements 
+      inst_elems = inst_line.split('\t')[2:]
+
+      # save the drug-kinase sets 
+      gmt[inst_term] = inst_elems
+
+    return gmt
 
   @staticmethod
   def load_json_to_dict(filename):
@@ -1065,3 +1177,5 @@ class Network(object):
 
     # return the found dictionary
     return found_dict
+
+  

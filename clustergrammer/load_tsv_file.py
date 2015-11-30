@@ -8,6 +8,8 @@ def main(req_file, allowed_file, mongo_address):
   from flask import request
   # import network class from Network.py
   from d3_clustergram_class import Network
+  import StringIO
+  import pandas as pd
 
   print('\n\n\nLoading File\n###########\n\n\n')
 
@@ -17,13 +19,19 @@ def main(req_file, allowed_file, mongo_address):
   # get the filename 
   inst_filename = req_file.filename
   
-  # read file
-  lines = req_file.readlines()
+  # # read file
+  # lines = req_file.readlines()
+  # net.load_lines_from_tsv_to_net(lines)
 
-  net.load_lines_from_tsv_to_net(lines)
+  buff = StringIO.StringIO(req_file.read())
 
-  # # swap nans for zero 
-  # net.swap_nan_for_zero()
+  df = pd.read_table(buff, index_col=0)
+
+  # load dataframe to network dat 
+  net.df_to_dat(df)
+
+  # swap nans for zero 
+  net.swap_nan_for_zero()
 
   # filter the matrix using cutoff and min_num_meet
   ###################################################
