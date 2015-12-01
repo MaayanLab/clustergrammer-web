@@ -985,7 +985,7 @@ class Network(object):
     # get dendrogram cutoff distances 
     all_dist = self.group_cutoffs()
 
-    print('\tviz_json: set up nodes')
+    print('viz_json: set up nodes')
     # make nodes for viz
     #####################
     # make rows and cols 
@@ -1022,7 +1022,7 @@ class Network(object):
         # append dictionary to list of nodes
         self.viz[inst_rc+'_nodes'].append(inst_dict)
 
-    print('\tviz_json: set up links')
+    print('viz_json: set up links')
     # links 
     ########
     for i in range(len( self.dat['nodes']['row'] )):

@@ -20,9 +20,6 @@ def main(req_file, allowed_file, mongo_address):
   # get the filename 
   inst_filename = req_file.filename
 
-  print('\n\ninst_filename')
-  print(inst_filename)
-  
   # # read data using pandas 
   # buff = StringIO.StringIO(req_file.read())
   # df = pd.read_table(buff, index_col=0)
@@ -32,11 +29,7 @@ def main(req_file, allowed_file, mongo_address):
   # read file
   lines = req_file.readlines()
 
-  print(lines)
-
   net_view.load_lines_from_tsv_to_net(lines)  
-
-  print('finished loading lines from tsv')
 
   # swap nans for zero 
   net_view.swap_nan_for_zero()
