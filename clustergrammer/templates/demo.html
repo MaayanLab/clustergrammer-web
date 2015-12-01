@@ -248,7 +248,7 @@
       'ini_expand':ini_expand,  
       'super_label_scale':super_label_scale,
       'row_label_scale':0.4,
-      'col_label_scale':0.7,
+      'col_label_scale':0.5,
       'opacity_scale':opacity_scale,
       'order':ini_order
       // 'force_square':1
@@ -277,10 +277,10 @@
 
     // special requirements for demo
     d3.select('#expand_button').remove();
-    // d3.select('#left_border').style('fill','#eee');
-    // d3.select('#right_border').style('fill','#eee');
-    // d3.select('#top_border').style('fill','#eee');
-    // d3.select('#bottom_border').style('fill','#eee');
+    d3.select('#left_border').style('fill','#eee').style('fill','#F8F8F8');
+    d3.select('#right_border').style('fill','#eee').style('fill','#F8F8F8');
+    d3.select('#top_border').style('fill','#eee').style('fill','#F8F8F8');
+    d3.select('#bottom_border').style('fill','#eee').style('fill','#F8F8F8');
 
     ini_sliders();
 

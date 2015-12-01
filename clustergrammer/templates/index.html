@@ -55,10 +55,7 @@
               <i class="fa fa-map-o fa-2x  "></i> 
               <h1 id='website_title'> clustergrammer {{flask_var}}</h1>
 
-              <p class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and searchable clustergram. </p>
-
-
-              <p class='initial_paragraph'>The uploaded matrix should have the following format: </p>
+              <p class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and searchable clustergram. The uploaded matrix should have the following format: </p>
 
             <pre id='example_tsv' class='prettyprint'> 
        Col-A   Col-B   Col-C
@@ -74,8 +71,11 @@ Row-C   0.2     0.1     2.5
               <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
             </form>
 
+              <p class='initial_paragraph' id='demo_paragraph'>A demo clustergram is shown below:</p>
+
             <iframe id='iframe_preview' src="/clustergrammer/demo/565e1570b1a04e1ea26fa369?preview=true" frameBorder="0"></iframe> 
 
+            <a id=demo_link href="/clustergrammer/viz/565e1570b1a04e1ea26fa369" target="_blank">Open demo in clustergrammer</a>
             <!-- <a href="load_saved/">load saved result</a> -->
 
             </div>

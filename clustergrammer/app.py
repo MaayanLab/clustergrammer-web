@@ -415,7 +415,7 @@ def upload_network():
         if len(inst_filename) > 0:
           error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
         else:
-          error_desc = 'Please choose file to upload.'
+          error_desc = 'Please choose a file to upload.'
         return redirect('/clustergrammer/error/'+error_desc)
 
   except:

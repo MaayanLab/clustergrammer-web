@@ -514,7 +514,7 @@ because the sidebar will be closed*/
 }
 
 #website_title{
-  margin-top: 20px;
+  margin-top: 12px;
   margin-bottom: 10px;
   display: inline-block;
   margin-left: 5px;
@@ -644,8 +644,8 @@ look like the input gene list text title*/
 }
 
 .initial_paragraph{
-  font-size: 17px;
-  width:590px;
+  font-size: 16px;
+  width:645px;
   font-weight: 300;
   /*display: none;*/
 }
@@ -929,9 +929,24 @@ look like the input gene list text title*/
 
 #iframe_preview{
   display: block;
-  height: 300px;
-  width: 525px;
-  margin-bottom: 5px;
+  height: 410px;
+  width: 645px;
+  /*margin-bottom: 5px;*/
   margin-left: -20px;
-  /*margin-top: -9px;*/
+  /*margin-top: -3  px;*/
+}
+
+#input_form{
+  margin-bottom: 0px;
+}
+
+#demo_paragraph{
+  margin-top: 30px;
+  margin-bottom: 0px;
+}
+
+#demo_link{
+  color: #009dff;
+  font-size: 12px;
+  margin-left: 450px;
 }
