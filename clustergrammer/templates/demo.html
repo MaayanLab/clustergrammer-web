@@ -143,6 +143,7 @@
   <!-- Clustergram Scripts -->
   <script src='static/js/clustergrammer.js'></script>
   <script src='static/js/load_local_network.js'></script>
+  <script src='static/js/play_demo.js'></script>
 
   <script>
 
@@ -286,35 +287,7 @@
 
     ini_sliders();
 
-    // add preview button for demo 
-    var play_button = d3.select('#main_svg')
-      .append('g')
-      .attr('id','play_button')
-      .attr('transform', function(){
-        var pos_x = d3.select('#main_svg').style('width').replace('px','')/2;
-        var pos_y = d3.select('#main_svg').style('height').replace('px','')/2;
-        return 'translate('+pos_x+','+pos_y+')';
-      })
-
-    play_button
-      .append('circle')
-      .style('r',45)
-      .style('fill','white')
-      .style('stroke','black')
-      .style('stroke-width','3px');
-
-    play_button
-      .append('path')
-      .attr('d',function(){
-
-        var tri_w = 40;
-        var tri_h = 22; 
-        var tri_offset = 15;
-
-        return 'M-'+tri_offset+',-'+tri_h+' l '+tri_w+','+tri_h+' l -'+tri_w+','+tri_h+' z ';
-      })
-      .style('fill','black')
-
+    ini_demo_play_button();
 
     if (typeof network_data.views != "undefined"){
 

@@ -932,7 +932,7 @@ look like the input gene list text title*/
   height: 410px;
   width: 645px;
   /*margin-bottom: 5px;*/
-  margin-left: -20px;
+  margin-left: -8px;
   /*margin-top: -3  px;*/
 }
 
@@ -948,5 +948,5 @@ look like the input gene list text title*/
 #demo_link{
   color: #009dff;
   font-size: 12px;
-  margin-left: 450px;
+  margin-left: 465px;
 }
