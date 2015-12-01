@@ -9,7 +9,7 @@ def main(req_file, allowed_file, mongo_address):
   # import network class from Network.py
   from d3_clustergram_class import Network
   import StringIO
-  import pandas as pd
+  # import pandas as pd
   from copy import deepcopy
 
   print('\n\n\nLoading File\n###########\n\n\n')
@@ -19,13 +19,24 @@ def main(req_file, allowed_file, mongo_address):
 
   # get the filename 
   inst_filename = req_file.filename
-  
-  # read data using pandas 
-  buff = StringIO.StringIO(req_file.read())
-  df = pd.read_table(buff, index_col=0)
 
-  # load dataframe to network dat 
-  net_view.df_to_dat(df)
+  print('\n\ninst_filename')
+  print(inst_filename)
+  
+  # # read data using pandas 
+  # buff = StringIO.StringIO(req_file.read())
+  # df = pd.read_table(buff, index_col=0)
+  # # load dataframe to network dat 
+  # net_view.df_to_dat(df)
+
+  # read file
+  lines = req_file.readlines()
+
+  print(lines)
+
+  net_view.load_lines_from_tsv_to_net(lines)  
+
+  print('finished loading lines from tsv')
 
   # swap nans for zero 
   net_view.swap_nan_for_zero()

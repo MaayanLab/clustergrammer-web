@@ -28,7 +28,6 @@ RUN pip install -Iv singledispatch==3.4.0.3
 RUN pip install -Iv six==1.9.0
 RUN pip install -Iv wsgiref==0.1.2
 RUN pip install poster
-RUN pip install pandas
 
 # use apt-get to install scipy
 RUN apt-get -y install python-numpy python-scipy python-matplotlib 
