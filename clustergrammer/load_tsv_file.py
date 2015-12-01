@@ -43,7 +43,13 @@ def main(req_file, allowed_file, mongo_address):
   # calc mult_views of clustergram 
   ######################################
 
-  all_filt = [1,2,3]
+  # filter between 0 and 90% of max value 
+  all_filt = range(10)
+  all_filt = [i/float(10) for i in all_filt]
+
+  mat = net_view.dat['mat']
+  max_mat = max(mat.min(), mat.max(), key=abs)
+
   inst_meet = 1
 
   for inst_filt in all_filt:
@@ -56,7 +62,9 @@ def main(req_file, allowed_file, mongo_address):
 
     net.dat = deepcopy(net_view.dat)
 
-    net.filter_network_thresh(inst_filt,inst_meet)
+    filt_value = inst_filt * max_mat
+
+    net.filter_network_thresh(filt_value,inst_meet)
 
     mat_shape = net.dat['mat'].shape
 
@@ -71,6 +79,7 @@ def main(req_file, allowed_file, mongo_address):
       inst_view = {}
       inst_view['filt'] = inst_filt
       inst_view['num_meet'] = inst_meet
+      inst_view['dist'] = 'cos'
       inst_view['nodes'] = {}
       inst_view['nodes']['row_nodes'] = net.viz['row_nodes']
       inst_view['nodes']['col_nodes'] = net.viz['col_nodes']

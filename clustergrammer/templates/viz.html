@@ -49,31 +49,57 @@
 
       </div>
 
-      <!-- input box for gene search -->
-      <div id='gene_search_container' class='row'>
-          <input id='gene_search_box' type="text" class="form-control" placeholder="Input Gene" aria-describedby="sizing-addon2">
 
-          <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
-            <label id='submit_gene_button' class="btn btn-primary active " onclick="d3_clustergram.find_row();">
-              <input type="radio" name="options" id="" autocomplete="off" checked > Search
-            </label>
-          </div>
-      </div>
 
-      <div id='toggle_order' class="btn-group" data-toggle="buttons" >
+      <!-- <div id='toggle_order' class="btn-group" data-toggle="buttons" >
         <label class="btn btn-primary active prot_class" >
           <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
         </label>
         <label class="btn btn-primary prot_class" >
           <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
         </label>
+      </div> -->
+
+      <!-- toggle clustergram order -->
+      <div class='viz_medium_text'>Row Order</div>
+      <div id='toggle_col_order' class="btn-group" data-toggle="buttons" >
+        <label class="btn btn-primary active order_name">
+          <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
+        </label>
+        <label class="btn btn-primary order_name">
+          <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
+        </label>
       </div>
+
       
+      <div class='viz_medium_text'>Column Order</div>
+      <div id='toggle_row_order' class="btn-group" data-toggle="buttons" >
+        <label class="btn btn-primary active order_name">
+          <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
+        </label>
+        <label class="btn btn-primary order_name">
+          <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
+        </label>
+      </div>      
+
+      <!-- input box for gene search -->
+      <div id='gene_search_container' class='row'>
+          <input id='gene_search_box' type="text" class="form-control" placeholder="Input Gene" aria-describedby="sizing-addon2">
+
+          <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
+            <label id='submit_gene_button' class="btn btn-primary active " >
+              <input type="radio" name="options" id="" autocomplete="off" checked > Search
+            </label>
+          </div>
+      </div>      
+
       <div id='slider_container'>
-        <p class='viz_instruct_text'>set column group size</p>
+        <p class='viz_instruct_text'>Column Group Size</p>
         <div id="slider_col"></div>
-        <p class='viz_instruct_text'>set row group size</p>
+        <p class='viz_instruct_text'>Row Group Size</p>
         <div id="slider_row"></div>
+        <p id='filter_value'>Filter: 0% </p>
+        <div id="slider_filter"></div>
       </div>
 
       <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
@@ -176,6 +202,8 @@
 
     network_data = {{ viz_network|tojson|safe }}
 
+    console.log(network_data)
+
     // define the outer margins of the visualization
     var outer_margins = {
         'top':5 ,
@@ -245,12 +273,58 @@
     d3.select('#wait_message').style('display','none');
 
     // make clustergram: pass network_data and the div name where the svg should be made
-    var d3c = d3_clustergram(arguments_obj);
+    var cgm = clustergrammer(arguments_obj);
 
     $('#gene_search_box').autocomplete({
-      source: d3c.get_genes()
+      source: cgm.get_genes()
     });
 
+
+    if (typeof network_data.views != "undefined"){
+
+      // filter scale - only initialize once 
+      $( "#slider_filter" ).slider({
+        value:0,
+        min: 0,
+        max: 0.9,
+        step: 0.1,
+        stop: function( event, ui ) {
+          $( "#amount" ).val( "$" + ui.value );
+          var inst_filt = $( "#slider_filter" ).slider( "value" ); 
+
+          d3.select('#main_svg')
+            .style('opacity',0.70);
+
+          d3.select('#filter_value').text('Filter: '+inst_filt*100+'%');
+          var inst_name = 'default_example_f'+inst_filt+'.json';
+
+          // get clustergram to update using views and crossfilter 
+          change_view = {'filter':inst_filt, 'num_meet':1}
+
+          // disable the slider to prevent the user from making changes too
+          // quickly
+          $('#slider_filter').slider('disable');
+
+          // update network 
+          cgm.update_network(change_view);
+
+          // ini_sliders();
+
+          function enable_slider(){
+            $('#slider_filter').slider('enable');  
+          }
+
+          // reenable after update is finished 
+          setTimeout(enable_slider, 2500);
+
+        }
+      });
+
+      $( "#amount" ).val( "$" + $( "#slider_filter" ).slider( "value" ) );
+
+    } else {
+      d3.select('#filter_value').style('display','none');
+    }
 
     $( "#slider_col" ).slider({
       value:0.5,
@@ -264,7 +338,7 @@
         var inst_index = ui.value*10;
 
         // change group sizes
-        d3c.change_groups('col',inst_index)
+        cgm.change_groups('col',inst_index)
 
       }
     });
@@ -281,7 +355,7 @@
         var inst_index = ui.value*10;
 
         // change group sizes
-        d3c.change_groups('row',inst_index)
+        cgm.change_groups('row',inst_index)
       }
     });
     $( "#amount" ).val( "$" + $( "#slider_row" ).slider( "value" ) );
@@ -290,21 +364,25 @@
     $('#gene_search_box').keyup(function(e) {
       if (e.keyCode === 13) {
         var search_gene = $('#gene_search_box').val();
-        d3c.find_gene(search_gene);
+        cgm.find_gene(search_gene);
       }
     });
 
     $('#submit_gene_button').click(function() {
       var gene = $('#gene_search_box').val();
-      d3c.find_gene(gene);
+      cgm.find_gene(gene);
     });
 
-    $('#toggle_order .btn').click(function(evt) {
+    $('#toggle_row_order .btn').off().click(function(evt) {
       var order_id = $(evt.target).find('input').attr('id').replace('_button', '');
-      d3c.reorder(order_id);
-    });    
+      cgm.reorder(order_id,'row');
+    });
 
-  // $.unblockUI();
+    $('#toggle_col_order .btn').off().click(function(evt) {
+      var order_id = $(evt.target).find('input').attr('id').replace('_button', '');
+      cgm.reorder(order_id,'col');
+    });
+
   
   </script>
 
