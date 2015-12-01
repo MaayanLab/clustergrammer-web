@@ -10,45 +10,91 @@ def main(req_file, allowed_file, mongo_address):
   from d3_clustergram_class import Network
   import StringIO
   import pandas as pd
+  from copy import deepcopy
 
   print('\n\n\nLoading File\n###########\n\n\n')
 
   # initiate class network 
-  net = Network()
+  net_view = Network()
 
   # get the filename 
   inst_filename = req_file.filename
   
-  # # read file
-  # lines = req_file.readlines()
-  # net.load_lines_from_tsv_to_net(lines)
-
+  # read data using pandas 
   buff = StringIO.StringIO(req_file.read())
-
   df = pd.read_table(buff, index_col=0)
 
   # load dataframe to network dat 
-  net.df_to_dat(df)
+  net_view.df_to_dat(df)
 
   # swap nans for zero 
-  net.swap_nan_for_zero()
+  net_view.swap_nan_for_zero()
 
-  # filter the matrix using cutoff and min_num_meet
-  ###################################################
-  cutoff_meet = 0.01
+  # pre-filter matrix 
+  ######################
+  cutoff_meet = 0.001
   min_num_meet = 2
-  net.filter_network_thresh( cutoff_meet, min_num_meet )
+  net_view.filter_network_thresh( cutoff_meet, min_num_meet )
+
+  net_view.viz['views'] = []
+
+  all_views = []
+
+  # calc mult_views of clustergram 
+  ######################################
+
+  all_filt = [1,2,3]
+  inst_meet = 1
+
+  for inst_filt in all_filt:
+
+    print('\ninst_filt\t'+str(inst_filt))
+
+    # load network from tsv file
+    ##############################
+    net = deepcopy(Network())
+
+    net.dat = deepcopy(net_view.dat)
+
+    net.filter_network_thresh(inst_filt,inst_meet)
+
+    mat_shape = net.dat['mat'].shape
+
+    try:
+      # cluster
+      #############
+      # only compare vectors with at least min_num_comp common data points
+      # with absolute values above cutoff_comp
+      net.cluster_row_and_col('cos')
+
+      # add view 
+      inst_view = {}
+      inst_view['filt'] = inst_filt
+      inst_view['num_meet'] = inst_meet
+      inst_view['nodes'] = {}
+      inst_view['nodes']['row_nodes'] = net.viz['row_nodes']
+      inst_view['nodes']['col_nodes'] = net.viz['col_nodes']
+
+      all_views.append(inst_view)
+
+    except:
+      print('\n\ndo not make clustergram\n\n')
+
+  # add views to viz
+  net_view.viz['views'] = all_views
+
+
 
   # cluster 
   #############
   print('clustering')
-  net.cluster_row_and_col('cos')
+  net_view.cluster_row_and_col('cos')
 
   # convert data matrix to list 
-  # net.dat['mat'] = net.dat['mat'].tolist()
+  # net_view.dat['mat'] = net_view.dat['mat'].tolist()
 
   print('clear node_info')
-  net.dat['node_info'] = []
+  net_view.dat['node_info'] = []
 
   # set up connection 
   client = MongoClient(mongo_address)
@@ -62,7 +108,7 @@ def main(req_file, allowed_file, mongo_address):
   export_dat = {}
   
   export_dat['name'] = inst_filename
-  export_dat['dat'] = net.export_net_json('dat')
+  export_dat['dat'] = net_view.export_net_json('dat')
   export_dat['source'] = 'user_upload'
 
   # save dat to separate document 
@@ -71,7 +117,7 @@ def main(req_file, allowed_file, mongo_address):
   # save name of network 
   export_viz['name'] = inst_filename
   # save visualization json 
-  export_viz['viz'] = net.viz
+  export_viz['viz'] = net_view.viz
   # save link to dat 
   export_viz['dat'] = dat_id
   export_viz['source'] = 'user_upload'
@@ -88,6 +134,6 @@ def main(req_file, allowed_file, mongo_address):
   client.close()
 
   # return id only 
-  return tmp_id, net
+  return tmp_id, net_view
 
   
