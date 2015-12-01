@@ -275,6 +275,8 @@
     // make clustergram: pass network_data and the div name where the svg should be made
     var cgm = clustergrammer(arguments_obj);
 
+    g_cgm = cgm;
+
     // special requirements for demo
     d3.select('#expand_button').remove();
     d3.select('#left_border').style('fill','#eee').style('fill','#F8F8F8');
@@ -283,6 +285,36 @@
     d3.select('#bottom_border').style('fill','#eee').style('fill','#F8F8F8');
 
     ini_sliders();
+
+    // add preview button for demo 
+    var play_button = d3.select('#main_svg')
+      .append('g')
+      .attr('id','play_button')
+      .attr('transform', function(){
+        var pos_x = d3.select('#main_svg').style('width').replace('px','')/2;
+        var pos_y = d3.select('#main_svg').style('height').replace('px','')/2;
+        return 'translate('+pos_x+','+pos_y+')';
+      })
+
+    play_button
+      .append('circle')
+      .style('r',45)
+      .style('fill','white')
+      .style('stroke','black')
+      .style('stroke-width','3px');
+
+    play_button
+      .append('path')
+      .attr('d',function(){
+
+        var tri_w = 40;
+        var tri_h = 22; 
+        var tri_offset = 15;
+
+        return 'M-'+tri_offset+',-'+tri_h+' l '+tri_w+','+tri_h+' l -'+tri_w+','+tri_h+' z ';
+      })
+      .style('fill','black')
+
 
     if (typeof network_data.views != "undefined"){
 
