@@ -515,6 +515,7 @@ because the sidebar will be closed*/
 
 #website_title{
   margin-top: 20px;
+  margin-bottom: 10px;
   display: inline-block;
   margin-left: 5px;
   font-size: 30px;
@@ -924,4 +925,13 @@ look like the input gene list text title*/
   padding-bottom:2px;
   font-size: 12px;
   margin-bottom: 3px;
+}
+
+#iframe_preview{
+  display: block;
+  height: 300px;
+  width: 525px;
+  margin-bottom: 5px;
+  margin-left: -20px;
+  /*margin-top: -9px;*/
 }

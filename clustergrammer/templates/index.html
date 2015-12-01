@@ -28,6 +28,10 @@
     <link rel="stylesheet" href="static/lib/css/prettify.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
+    <style>
+    #input_form {display: none}
+    </style>
+
 </head>
 
 <body onload="prettyPrint()">
@@ -50,7 +54,7 @@
 
               <i class="fa fa-map-o fa-2x  "></i> 
               <h1 id='website_title'> clustergrammer {{flask_var}}</h1>
-                
+
               <p class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and searchable clustergram. </p>
 
 
@@ -65,11 +69,12 @@ Row-C   0.2     0.1     2.5
 
               <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
 
-            <!-- used to have id id='searchForm' in order to run ajax -->
-            <form  action="{{ url_for('upload_network') }}" method=post enctype=multipart/form-data>
+            <form id='input_form'  action="{{ url_for('upload_network') }}" method=post enctype=multipart/form-data>
               <input type=file name=file title='Choose File'  >
               <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
             </form>
+
+            <iframe id='iframe_preview' src="/clustergrammer/demo/565e1570b1a04e1ea26fa369?preview=true" frameBorder="0"></iframe> 
 
             <!-- <a href="load_saved/">load saved result</a> -->
 
@@ -181,7 +186,8 @@ Row-C   0.2     0.1     2.5
 
   // display the upload button 
   // prevent the style from changing as scripts are loaded
-  d3.select('#searchForm').style('display','block')
+  d3.select('#searchForm').style('display','block');
+  d3.select('#input_form').style('display','block');
 
   // global parameters for visualization
   ccle_params = {};
@@ -189,77 +195,6 @@ Row-C   0.2     0.1     2.5
 
   // set global variable for svg type
   select_svg_div = 'svg_div_exp';
-
-  // submit file for clustering
-  $( "#searchForm" ).submit( function( event ) {
-
-    // // stop form from working normally 
-    // event.preventDefault();
-   
-   // only upload if there is a file 
-   if (d3.select('.file-input-name').empty()==false){
-
-      // get data from forms 
-      $form = $( this );
-
-      // get formdata
-      form_data = new FormData($form[0]);
-      console.log(form_data)
-
-      // get the url 
-      var url = $form.attr( "action" );
-
-      // set up wait message before request is made 
-      $.blockUI({ css: { 
-              border: 'none', 
-              padding: '15px', 
-              backgroundColor: '#000', 
-              '-webkit-border-radius': '10px', 
-              '-moz-border-radius': '10px', 
-              opacity: .8, 
-              color: '#fff' 
-          } });
-
-      $.ajax({
-        url: url,
-        type: 'POST',
-        data: form_data,
-        // Tell jQuery not to process data or worry about content-type.
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function(network) {
-
-          // save clustergram is global variable
-          global_network_data = network;
-          console.log('success')
-          // console.log(network)
-          $.unblockUI();
-
-          // swap views 
-          d3.selectAll('#homepage_view').style('display','none');
-          d3.select('#svg_div_tfsub').style('display','none');
-          d3.select('#gene_exp_view').style('display','block');
-          d3.select('#svg_div_exp').style('display','block');
-
-          load_new_clustergram(network);
-
-          return false
-        },
-        error: function(network) {
-          $.unblockUI();
-          $('#modal_wrong_filetype').modal();
-        }
-      });
-
-   }
-   else{
-    $('#modal_no_file').modal()
-    console.log(data)
-   }
-
-  });
-
 
 </script>
 
