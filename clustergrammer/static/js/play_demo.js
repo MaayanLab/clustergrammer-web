@@ -1,5 +1,23 @@
 function ini_demo_play_button(){
 
+  // playback instructions 
+  demo_text_box = d3.select('#main_svg')
+    .append('g')
+    .attr('id','demo_text_box')
+    .style('display','none');
+
+  demo_text_box
+    .append('rect') 
+    .attr('width',40)
+    .attr('height',40)
+    .attr('transform', function(){
+        var pos_x = d3.select('#main_svg').style('width').replace('px','')/2;
+        var pos_y = d3.select('#main_svg').style('height').replace('px','')/2;
+        return 'translate('+pos_x+','+pos_y+')';
+      })
+    .style('opacity',0.5);
+
+
   // add preview button for demo 
   var play_button = d3.select('#main_svg')
     .append('g')
@@ -57,12 +75,35 @@ function ini_demo_play_button(){
     })
     .on('click', click_play)
         
-    
 }
 
+var delay = {};
+delay.reorder_title = 600;
+delay.reorder = delay.reorder_title + 1000;
+delay.read_duration = 1000;
+
+
 function click_play(){
+
+  // remove play button 
   d3.select(this)
     .transition().duration(500)
     .style('opacity',0);
 
+  // 
+  setTimeout(function(){
+    d3.select('#demo_text_box')
+      .style('display','block')
+      .transition().delay(delay.read_duration)
+      .style('display','none');
+
+
+  }, delay.reorder_title );
+
+  setTimeout( function(){
+    cgm.reorder('rank','row');
+  }, delay.reorder );
+
+
 }
+

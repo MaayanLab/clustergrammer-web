@@ -42,12 +42,12 @@
 
     <div id='clust_instruct_container' >
       <i class="fa fa-map-o fa-2x  "></i> 
-      <h1 id='viz_website_title'  >demo</h1>
+      <h1 id='viz_website_title'  >clustergrammer</h1>
 
-      <div class='gene_exp_view'>
-        <div class='viz_instruct_text'> Zoom into the clustergram using scroll, reorder using the buttons or by double-clicking row or column tiles, search for rows using the search box, and idenfity groups of rows or columns of varying size using the sliders.</div>
+      <!-- <div class='gene_exp_view'> -->
+        <!-- <div class='viz_instruct_text'> Zoom into the clustergram using scroll, reorder using the buttons or by double-clicking row or column tiles, search for rows using the search box, and idenfity groups of rows or columns of varying size using the sliders.</div> -->
 
-      </div>
+      <!-- </div> -->
 
 
 
@@ -279,7 +279,7 @@
     g_cgm = cgm;
 
     // special requirements for demo
-    d3.select('#expand_button').remove();
+    d3.select('#expand_button').style('display','none');
     d3.select('#left_border').style('fill','#eee').style('fill','#F8F8F8');
     d3.select('#right_border').style('fill','#eee').style('fill','#F8F8F8');
     d3.select('#top_border').style('fill','#eee').style('fill','#F8F8F8');
