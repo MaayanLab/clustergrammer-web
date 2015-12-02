@@ -28,13 +28,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -135,8 +135,9 @@ def enrichment_vectors():
   import requests 
   import flask 
   import json 
-  import enrichr_functions as enr_fun
   from pymongo import MongoClient
+  import threading 
+  import run_enrich_background as enr_sub
 
   if request.method == 'POST':
     g2e_post = json.loads(request.data)
@@ -156,41 +157,44 @@ def enrichment_vectors():
     ####################################################### 
     ####################################################### 
 
+    print('\n\nGET: running mock enrichment through get request')
+
   try: 
 
-    # make clustergram 
-    threshold = 0.001
-    num_thresh = 1
-
-    net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
-
-    # save viz and dat to database 
+    # submit placeholder to mongo 
     ################################
-    export_viz = {}
-    export_dat = {}
 
+    # set up database connection 
     client = MongoClient(mongo_address)
     db = client.clustergrammer
 
-    export_dat['name'] = 'enrichment_vector'
-    export_dat['dat'] = net.export_net_json('dat')
-    export_dat['source'] = 'g2e_enr_vect'
-
-    # save dat to document 
-    dat_id = db.network_data.insert(export_dat)
-
+    # generate placeholder json - does not contain viz json 
+    export_viz = {}
     export_viz['name'] = 'enrichment_vector'
-    export_viz['viz'] = net.viz
-    export_viz['dat'] = dat_id
+    export_viz['viz'] = 'processing'
+    export_viz['dat'] = 'processing'
     export_viz['source'] = 'g2e_enr_vect'
 
-    # save viz to document 
+    # this is the id that will be used to view the visualization 
     viz_id = db.networks.insert( export_viz )
-
-    client.close()
-
     viz_id = str(viz_id)
 
+    # close database connection 
+    client.close()
+    
+    # run subprocess 
+    ####################
+    print('running subprocess and pass in viz_id ')
+    enr_sub.enr_and_make_viz(mongo_address, viz_id, g2e_post)
+
+    # check if subprocess is finished 
+    ###################################
+    print('check if subprocess is done')
+
+
+    print('return link ')
+    # return link - always the same link 
+    ######################################
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
     qs = '?preview=true&opacity_scale=log&order=rank'
 
@@ -200,6 +204,7 @@ def enrichment_vectors():
 
   except:
     error_desc = 'Error in processing Enrichr enrichment vectors.'
+
     return flask.jsonify({
       'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
