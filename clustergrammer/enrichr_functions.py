@@ -232,7 +232,8 @@ def make_enr_vect_clust(g2e_post, threshold, num_thresh):
       row_index = row_node_names.index(inst_term)
       col_index = col_node_names.index(inst_gs_name)
 
-      net.dat['mat'][row_index, col_index] = inst_cs
+      if inst_cs > 0:
+        net.dat['mat'][row_index, col_index] = inst_cs
 
   # filter and cluster network 
   net.filter_network_thresh(threshold,num_thresh)

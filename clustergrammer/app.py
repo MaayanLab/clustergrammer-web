@@ -28,13 +28,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -137,6 +137,7 @@ def enrichment_vectors():
   import json 
   from pymongo import MongoClient
   import threading 
+  import time 
   import run_enrich_background as enr_sub
 
   if request.method == 'POST':
@@ -182,25 +183,46 @@ def enrichment_vectors():
     # close database connection 
     client.close()
     
+    # initialize thread
+    ######################
+    print('initializing thread')
+    sub_function = enr_sub.enr_and_make_viz;
+    arg_list = [mongo_address, viz_id, g2e_post]
+    thread = threading.Thread(target=sub_function, args=arg_list)
+    thread.setDaemon(True)
+
     # run subprocess 
     ####################
     print('running subprocess and pass in viz_id ')
-    enr_sub.enr_and_make_viz(mongo_address, viz_id, g2e_post)
+    thread.start()
 
-    # check if subprocess is finished 
-    ###################################
-    print('check if subprocess is done')
-
-
-    print('return link ')
-    # return link - always the same link 
+    # define information return link - always the same link 
     ######################################
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
     qs = '?preview=true&opacity_scale=log&order=rank'
 
-    return flask.jsonify({
-      'link': viz_url+viz_id+qs
-      })
+    max_wait_time = 30
+
+    # check if subprocess is finished 
+    ###################################
+    print('check if subprocess is done')
+    for wait_time in range(max_wait_time):
+
+      # wait one second 
+      time.sleep(1)
+
+      print(wait_time)
+      print(thread.isAlive())
+
+      if thread.isAlive() == False:
+
+        print('\n\nthread is dead\n----------\n')
+        
+        return flask.jsonify({'link': viz_url+viz_id+qs})
+
+    # return link after max time has elapsed 
+    return flask.jsonify({'link': viz_url+viz_id+qs})
+
 
   except:
     error_desc = 'Error in processing Enrichr enrichment vectors.'
