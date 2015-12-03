@@ -3,7 +3,6 @@ def main(req_file, allowed_file, mongo_address):
 
   import numpy as np
   import flask
-  import make_exp_clustergram
   from pymongo import MongoClient
   from flask import request
   # import network class from Network.py

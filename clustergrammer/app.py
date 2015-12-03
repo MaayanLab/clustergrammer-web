@@ -44,8 +44,7 @@ ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
 def allowed_file(filename):
   return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-@app.route(ENTRY_POINT + '/<path:path>') ## original 
-# @crossdomain(origin='*')
+@app.route(ENTRY_POINT + '/<path:path>') 
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
@@ -104,30 +103,6 @@ def demo(user_objid):
   viz_name = gnet['name']
 
   return render_template('demo.html', viz_network=d3_json, viz_name=viz_name)  
-
-@app.route("/clustergrammer/enr_viz/<user_objid>")
-def enr_viz(user_objid):
-  import flask
-  from bson.objectid import ObjectId
-  from copy import deepcopy
-
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
-
-  try: 
-    obj_id = ObjectId(user_objid)
-  except:
-    error_desc = 'Invalid visualization Id.'
-    return redirect('/clustergrammer/error/'+error_desc)
-
-  gnet = db.networks.find_one({'_id': obj_id })
-
-  client.close()
-
-  d3_json = gnet['viz']
-  viz_name = gnet['name']
-
-  return render_template('enr_viz.html', viz_network=d3_json, viz_name=viz_name)
 
 @app.route("/clustergrammer/load_Enrichr_gene_lists", methods=['POST','GET'])
 @cross_origin()
@@ -233,10 +208,6 @@ def enrichment_vectors():
       'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
     })      
-
-@app.route("/clustergrammer/mock_l1000cds2")
-def mock_l1000cds2():
-  return render_template('mock_l1000cds2.html', flask_var='')
 
 @app.route("/clustergrammer/l1000cds2/<user_objid>")
 def viz_l1000cds2(user_objid):
