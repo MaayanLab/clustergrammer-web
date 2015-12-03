@@ -517,7 +517,7 @@ because the sidebar will be closed*/
   margin-top: 12px;
   margin-bottom: 10px;
   display: inline-block;
-  margin-left: 5px;
+  margin-left: 0px;
   font-size: 30px;
 }
 
@@ -750,7 +750,7 @@ look like the input gene list text title*/
   font-size: 23px;
   margin-top: 10px;
   margin-bottom: 5px;
-  margin-left: 5px;
+  margin-left: 2px;
   display: inline-block;
 }
 

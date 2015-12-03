@@ -28,13 +28,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -149,18 +149,20 @@ def enrichment_vectors():
     # mock data 
     ####################################################### 
     user_list_ids = [
-      {"col_title":'some title 3',"user_list_id":617812},
-      {"col_title":'some title 4',"user_list_id":617813}
+      {"col_title":'something else ',"user_list_id":100},
+      {"col_title":'Lung Spot Check 2',"user_list_id":641038}
     ]
 
     gmt = 'ChEA_2015'
     g2e_post = { "user_list_ids": user_list_ids, "background_type": gmt }
+
+
     ####################################################### 
     ####################################################### 
 
     print('\n\nGET: running mock enrichment through get request')
 
-  try: 
+  try:  
 
     # submit placeholder to mongo 
     ################################

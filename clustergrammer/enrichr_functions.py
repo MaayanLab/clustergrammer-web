@@ -79,16 +79,6 @@ def enrichr_get_request( gmt, userListId ):
     except:
       pass
 
-  # check that the response is 200 (Okay)
-  # print('\ncheck get request code')
-  # print(get_response)
-  # print(get_response.status_code)
-  # print(type(get_response))
-  # print('\n')
-
-  # if get_response.status_code == 200:
-  #   print('Response code of 200')
-
   # load as dictionary 
   resp_json = json.loads( get_response.text )
 
@@ -99,6 +89,9 @@ def enrichr_get_request( gmt, userListId ):
   response_list = resp_json[only_key]
 
   # print('\nresponse list length '+str(len(response_list))+'\n')
+
+  print('\n\nresponse_list')
+  print(response_list)
 
   # transfer the response_list to the enr_dict 
   enr = transfer_to_enr_dict( response_list )
@@ -163,6 +156,7 @@ def make_enr_vect_clust(g2e_post, threshold, num_thresh):
   '''
   from d3_clustergram_class import Network
   import scipy 
+  print('\n\n  in make_enr_vect_clust')
 
   # process g2e_post
   ####################
@@ -171,6 +165,7 @@ def make_enr_vect_clust(g2e_post, threshold, num_thresh):
   id_to_title = {}
 
   for inst_gs in g2e_post['user_list_ids']:
+    print('  col_title: '+str(inst_gs['col_title'])+' '+str(inst_gs['user_list_id']) )
     all_ids.append(inst_gs['user_list_id'])
     all_col_titles.append(inst_gs['col_title'])
 
@@ -179,10 +174,13 @@ def make_enr_vect_clust(g2e_post, threshold, num_thresh):
 
   inst_gmt = g2e_post['background_type']
 
+  print('\nbegin Enrichr get requests\n-------------------\n')
+
   # calc enrichment for all input gene lists 
   ############################################
   all_enr = []
   for inst_id in all_ids:
+    print('  calc enrichment: '+id_to_title[inst_id])
     # calc enrichment 
     enr = enrichr_get_request(inst_gmt, inst_id)
 
@@ -209,12 +207,20 @@ def make_enr_vect_clust(g2e_post, threshold, num_thresh):
   # initialize network 
   net = Network()
 
+  row_node_names = list(set(row_node_names))
+
   # save row and col nodes 
   net.dat['nodes']['row'] = row_node_names
   net.dat['nodes']['col'] = col_node_names
 
+  print('\n\n\nrows and cols\n-----------------')
+  print(len(row_node_names))
+  print(len(col_node_names))
+  print('\n\n')
+
   net.dat['mat'] = scipy.zeros([len(row_node_names),len(col_node_names)])
 
+  print('\n  gathering enrichment information\n----------------------\n')
   # fill in mat using all_enr 
   for inst_gs in all_enr:
 
@@ -236,7 +242,10 @@ def make_enr_vect_clust(g2e_post, threshold, num_thresh):
         net.dat['mat'][row_index, col_index] = inst_cs
 
   # filter and cluster network 
+  print('\n  filtering network')
   net.filter_network_thresh(threshold,num_thresh)
+  print('\n  clustering network')
   net.cluster_row_and_col('cos')
+  print('\n  finished clustering Enrichr vectors\n---------------------')
 
   return net 

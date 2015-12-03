@@ -37,12 +37,14 @@ html {
   overflow-x: hidden;
 }
 
-/*body {*/
-  /*position: relative;*/
+body {
   /*font-family: "Helvetica Neue", Helvetica, sans-serif;*/
-  /*margin: 1em auto 2em auto;*/
   /*width: px;*/
-/*}*/
+  position: relative;
+  width: 960px;
+  height:900px;
+  margin: 0px auto 10px auto;
+}
 
 h1 {
   font-size: 45px;
@@ -644,8 +646,8 @@ look like the input gene list text title*/
 }
 
 .initial_paragraph{
-  font-size: 16px;
-  width:645px;
+  font-size: 19px;
+  width:940px;
   font-weight: 300;
   /*display: none;*/
 }
@@ -844,8 +846,8 @@ look like the input gene list text title*/
   display: block;
   position:relative;
   /*shift away from side*/
-  margin-left: 10px;
-  margin-top: 5px;
+  padding-left: 20px;
+  padding-top: 5px;
 }
 
 #to_homepage{
@@ -929,10 +931,10 @@ look like the input gene list text title*/
 
 #iframe_preview{
   display: block;
-  height: 410px;
-  width: 645px;
+  height: 500px;
+  width: 920px;
   /*margin-bottom: 5px;*/
-  margin-left: -8px;
+  /*margin-left: -8px;*/
   /*margin-top: -3  px;*/
   border: 1px solid #DEDEDE;
 }
@@ -942,12 +944,17 @@ look like the input gene list text title*/
 }
 
 #demo_paragraph{
-  margin-top: 30px;
-  margin-bottom: 0px;
+  margin-top: 25px;
+  margin-bottom: 5px;
 }
 
 #demo_link{
   color: #009dff;
   font-size: 12px;
-  margin-left: 465px;
+  margin-left: 755px;
+}
+
+#upload_section{
+  margin-top: 10px;
+  margin-top: 20px;
 }

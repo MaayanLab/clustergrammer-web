@@ -90,15 +90,19 @@ function click_play(){
     .transition().duration(500)
     .style('opacity',0);
 
-  // 
+  // show text 
   setTimeout(function(){
-    d3.select('#demo_text_box')
-      .style('display','block')
-      .transition().delay(delay.read_duration)
-      .style('display','none');
 
+      if (cgm.params.zoom.scale() != 1){
+        cgm.reset_zoom();
+      }
 
-  }, delay.reorder_title );
+      d3.select('#demo_text_box')
+        .style('display','block')
+        .transition().delay(delay.read_duration)
+        .style('display','none');
+
+    }, delay.reorder_title );
 
   setTimeout( function(){
     cgm.reorder('rank','row');

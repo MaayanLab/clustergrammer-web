@@ -42,11 +42,10 @@ def main(req_file, allowed_file, mongo_address):
 
   net_view.viz['views'] = []
 
-  all_views = []
-
   # calc mult_views of clustergram 
   ######################################
 
+  all_views = []
   # filter between 0 and 90% of max value 
   all_filt = range(10)
   all_filt = [i/float(10) for i in all_filt]
