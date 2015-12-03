@@ -18,12 +18,9 @@
     <link href="static/lib/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="static/lib/css/keen-dashboards.css">
     <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
     <link rel="stylesheet" href="static/css/specific.css" />
-    <link rel="stylesheet" href="static/css/jquery.accordion.css">
     <link rel="stylesheet" href="static/css/custom_index.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="static/lib/css/prettify.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
@@ -45,13 +42,11 @@
         <!-- this row is - required fluid causes problems --> 
         <div class="row" > 
 
-            <!-- homepage -->
-            <div id='homepage_view' class='row'>
 
               <i class="fa fa-map-o fa-2x  "></i> 
               <h1 id='website_title'> clustergrammer {{flask_var}}</h1>
 
-              <p class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and shareable clustergram like the example below. Press play or interact with the example to view all the interactive features. </p>
+              <p id='first_instructions' class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and shareable clustergram like the example below. Press play or interact with the example to view all the interactive features. </p>
 
               <iframe id='iframe_preview' src="/clustergrammer/demo/565e1570b1a04e1ea26fa369?preview=true" frameBorder="0"></iframe> 
 
@@ -62,12 +57,12 @@
 
                 <p class='initial_paragraph'>Your uploaded matrix file should have the following format: </p>
 
-                <pre id='example_tsv' class='prettyprint'> 
+                  <pre id='example_tsv' class='prettyprint'> 
        Col-A   Col-B   Col-C
 Row-A   0.0    -0.1     1.0
 Row-B   3.0     0.0     8.0
 Row-C   0.2     0.1     2.5
-                </pre>
+                  </pre>
 
                 <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
                 <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization. </p>
@@ -80,12 +75,6 @@ Row-C   0.2     0.1     2.5
 
                 <!-- <p class='initial_paragraph'>Once you matrix is uploaded you will be redirected to your visualization,  </p> -->
               </div>                            
-
-
-            <!-- <a href="load_saved/">load saved result</a> -->
-
-            </div>
-            <!-- end homepage -->
 
         </div>
         <!-- end row -->
@@ -152,21 +141,14 @@ Row-C   0.2     0.1     2.5
   <script src="static/lib/js/jquery-1.11.2.min.js"></script>
 
   <!-- adding jquery links -->
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  
 
-  <script src='static/lib/js/jquery.accordion.js'></script>
+  <!-- <script src='static/lib/js/jquery.accordion.js'></script> -->
   <!-- Bootstrap Core JavaScript -->
   <script src="static/lib/js/bootstrap.min.js"></script>
   <script src="static/lib/js/bootstrap-switch.min.js"></script>
-  <script src="static/lib/js/crossfilter.js"></script>
   <script src="static/lib/js/d3.js"></script>
-  <script src="static/lib/js/dc.js"></script>
-  <script src="static/lib/js/queue.js"></script>
-  <script src="static/lib/js/keen.min.js"></script>
-  <script src="static/lib/js/underscore-min.js"></script>
-  <script src="static/lib/js/underscore.strings.js"></script>
-  <script src='static/lib/js/blockUI.js'></script>
-  <script src='static/lib/js/type_ahead.js'></script>
+  
   <!-- stylized file upload button -->
   <!-- http://gregpike.net/demos/bootstrap-file-input/demo.html -->
   <script type="text/javascript" src="static/lib/js/bootstrap.file-input.js"> </script>
@@ -184,20 +166,10 @@ Row-C   0.2     0.1     2.5
   <script>
   
  
-  // Jquery Upload file 
-  /////////////////////////
-
   // display the upload button 
   // prevent the style from changing as scripts are loaded
   d3.select('#searchForm').style('display','block');
   d3.select('#input_form').style('display','block');
-
-  // global parameters for visualization
-  ccle_params = {};
-  ccle_params['order'] = 'clust';
-
-  // set global variable for svg type
-  select_svg_div = 'svg_div_exp';
 
 </script>
 

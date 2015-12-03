@@ -33,7 +33,7 @@ body {
   /*font-family: "Helvetica Neue", Helvetica, sans-serif;*/
   /*width: px;*/
   position: relative;
-  width: 960px;
+  width: 1000px;
   height:900px;
   margin: 0px auto 10px auto;
 }
@@ -453,11 +453,8 @@ li{
 
 #main_container{
   position: relative;
-  /*need to figure out why I need this margin*/
   margin-left: 30px;
-  /*!! need to improve this*/
-  /*width:100%;*/
-  /*height:1000px;*/
+  height:1000px;
 }
 
 #clust_and_row_container{
@@ -871,8 +868,10 @@ look like the input gene list text title*/
 /*style example_tsv*/
 #example_tsv{
   width:275px;
-  padding-left: 20px;
+  padding-left: 23px;
+  margin-left: 30px;
 }
+
 
 #slider_container{
   margin-bottom: 10px;
@@ -923,7 +922,7 @@ look like the input gene list text title*/
 
 #iframe_preview{
   display: block;
-  height: 500px;
+  height: 520px;
   width: 920px;
   /*margin-bottom: 5px;*/
   /*margin-left: -8px;*/
@@ -948,9 +947,14 @@ look like the input gene list text title*/
 
 #upload_section{
   margin-top: 10px;
+  margin-left: 15px;
 }
 
 #footer_text{
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+#first_instructions{
+  margin-left: 0px;
 }
