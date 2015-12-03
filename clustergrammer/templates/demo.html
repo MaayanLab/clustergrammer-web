@@ -41,8 +41,8 @@
   <div>
 
     <div id='clust_instruct_container' >
-      <i class="fa fa-map-o fa-2x  "></i> 
-      <h1 id='viz_website_title'  >clustergrammer</h1>
+      <!-- <i class="fa fa-map-o fa-2x  "></i>  -->
+      <!-- <h1 id='viz_website_title'  >clustergrammer</h1> -->
 
       <!-- <div class='gene_exp_view'> -->
         <!-- <div class='viz_instruct_text'> Zoom into the clustergram using scroll, reorder using the buttons or by double-clicking row or column tiles, search for rows using the search box, and idenfity groups of rows or columns of varying size using the sliders.</div> -->
@@ -102,7 +102,6 @@
         <div id="slider_filter"></div>
       </div>
 
-      <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
     </div>
 
     <!-- exp div -->
@@ -111,15 +110,6 @@
     </div>
   
   </div>
-
-
-  <footer id='footer_div' class="footer navbar-fixed-bottom">
-    <div class="row" > 
-      <div class="col-xs-12 footer_section"> 
-        <p class="text-muted">clustergrammer is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </p>
-      </div>
-    </div>
-  </footer>
 
   <!-- Vendor -->
   <!-- jQuery -->
@@ -208,7 +198,7 @@
     // define the outer margins of the visualization
     var outer_margins = {
         'top':5 ,
-        'bottom':33,
+        'bottom':5,
         'left':225,
         'right':5
       };
@@ -279,7 +269,7 @@
     g_cgm = cgm;
 
     // special requirements for demo
-    d3.select('#expand_button').style('display','none');
+    // d3.select('#expand_button').style('display','none');
     d3.select('#left_border').style('fill','white');
     d3.select('#right_border').style('fill','white');
     d3.select('#top_border').style('fill','white');

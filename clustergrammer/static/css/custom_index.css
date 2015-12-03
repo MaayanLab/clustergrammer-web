@@ -940,7 +940,7 @@ look like the input gene list text title*/
 }
 
 #input_form{
-  margin-bottom: 0px;
+  margin-bottom: 10px;
 }
 
 #demo_paragraph{
@@ -951,10 +951,14 @@ look like the input gene list text title*/
 #demo_link{
   color: #009dff;
   font-size: 12px;
-  margin-left: 755px;
+  margin-left: 740px;
 }
 
 #upload_section{
   margin-top: 10px;
-  margin-top: 20px;
+}
+
+#footer_text{
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
