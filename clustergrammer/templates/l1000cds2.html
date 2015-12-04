@@ -28,14 +28,18 @@
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
     <link rel="stylesheet" href="static/css/l1000cds2.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel='stylesheet' href='static/css/l1000cds2-max-calendar.css'>
 
+    <script src="static/js/l1000cds2-max-calendar.js"></script>
 </head>
 
 <body>
 
   <div class="pure-menu pure-menu-horizontal custom-menu"><img src="static/css/sigine.png" alt="Sigine" class="rubic">    &#x9;<span ng-click="directToIndex()" class="rubic-title"> L1000CDS<sup>2</sup></span>
-      <div class="description">An              <span class="highlight lightning-fast">                 ultra-fast</span>            LINCS<span class="highlight">            L1000</span><span class="highlight">         C</span>haracteristic<span class="highlight">        D</span>irection<span class="highlight">            S</span>ignature<span class="highlight">          S</span>earch Engine</div><span class="search-count-text"><span class="search-count"></span>           searches performed!</span>
+      <div class="description">An              <span class="highlight lightning-fast">                 ultra-fast</span>            LINCS<span class="highlight">            L1000</span><span class="highlight">         C</span>haracteristic<span class="highlight">        D</span>irection<span class="highlight">            S</span>ignature<span class="highlight">          S</span>earch Engine</div><span class="search-count-text"><span class="search-count" id='trigger'></span>           searches performed!</span>
   </div>
+  <div id='blanket'></div>
+  <div class='popup beveled' id='calendar-popup' style='display:none'></div>
   <div id='viz_view'>
 
     <div id='clust_instruct_container' >
@@ -262,7 +266,12 @@
       $('.search-count').text(data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
    });
 
-
+   $('#blanket').click(function() {
+        disableAllPopup();
+    });
+    $('#trigger').click(function() {
+        showPopup();
+    });
 
    </script>
 </body>
