@@ -57,27 +57,6 @@ footer {
   margin-left: 0px;
 }
 
-
-
-
-
-
-
-
-
-
-
-#submit_gene_button{
-  padding-top:6px;
-  padding-bottom:6px;
-}
-
-/*initialize no view for upload button*/
-#searchForm{
-  display: none;
-  margin-top: 20px;
-}
-
 /*position file upload button*/
 #file_upload_button{
   margin-left: 5px;
@@ -90,52 +69,9 @@ footer {
   margin-left: 30px;
 }
 
-
-#slider_container{
-  margin-bottom: 10px;
-}
-
-#wait_message{
-  margin-left: 300px;
-  margin-top: 50px;
-  opacity: 0.5;
-}
-
+/*color choose file button*/
 .btn-default {
   background-color: #D0D0D0;
-}
-
-.noselect {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}
-
-
-.order_name{
-  padding-top:2px;
-  padding-bottom:2px;
-  font-size: 12px;
-  margin-bottom: 3px;
 }
 
 #iframe_preview{
