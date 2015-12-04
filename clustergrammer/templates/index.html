@@ -43,38 +43,42 @@
         <div class="row" > 
 
 
-              <i class="fa fa-map-o fa-2x  "></i> 
-              <h1 id='website_title'> clustergrammer {{flask_var}}</h1>
+          <i class="fa fa-map-o fa-2x  "></i> 
+          <h1 id='website_title'> clustergrammer {{flask_var}}</h1>
 
-              <p id='first_instructions' class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and shareable clustergram like the example below. Press play or interact with the example to view all the interactive features. </p>
+          <p id='first_instructions' class='initial_paragraph'>Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and shareable clustergram like the example below. Press play or explore the interactive example below to see all the interactive features. </p>
 
-              <iframe id='iframe_preview' src="/clustergrammer/demo/565e1570b1a04e1ea26fa369?preview=true" frameBorder="0"></iframe> 
+          <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/565e1570b1a04e1ea26fa369?preview=true" frameBorder="0"></iframe>  -->
 
-              <a id=demo_link href="/clustergrammer/viz/565e1570b1a04e1ea26fa369" target="_blank">Open example in clustergrammer</a>
+          <iframe id='iframe_preview' src="/clustergrammer/demo/566113c99ff0883e52734d81?preview=true" frameBorder="0"></iframe> 
 
-              <div id='upload_section'>
+          
+
+          <a id=demo_link class='blue_links' href="/clustergrammer/viz/565e1570b1a04e1ea26fa369" target="_blank">Open example in clustergrammer</a>
+
+          <div id='upload_section'>
 
 
-                <p class='initial_paragraph'>Your uploaded matrix file should have the following format: </p>
+            <p class='initial_paragraph'>Your uploaded matrix file should have the following format: </p>
 
-                  <pre id='example_tsv' class='prettyprint'> 
+              <pre id='example_tsv' class='prettyprint'> 
        Col-A   Col-B   Col-C
 Row-A   0.0    -0.1     1.0
 Row-B   3.0     0.0     8.0
 Row-C   0.2     0.1     2.5
-                  </pre>
+              </pre>
 
-                <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
-                <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization. </p>
+            <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
+            <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization. </p>
 
 
-                <form id='input_form'  action="{{ url_for('upload_network') }}" method=post enctype=multipart/form-data>
-                  <input type=file name=file title='Choose File'  >
-                  <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
-                </form>
+            <form id='input_form'  action="{{ url_for('upload_network') }}" method=post enctype=multipart/form-data>
+              <input type=file name=file title='Choose File'  >
+              <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
+            </form>
 
-                <!-- <p class='initial_paragraph'>Once you matrix is uploaded you will be redirected to your visualization,  </p> -->
-              </div>                            
+            <!-- <p class='initial_paragraph'>Once you matrix is uploaded you will be redirected to your visualization,  </p> -->
+          </div>                            
 
         </div>
         <!-- end row -->
@@ -91,7 +95,7 @@ Row-C   0.2     0.1     2.5
   <footer id='footer_div' class="footer navbar-fixed-bottom">
     <div class="row" > 
       <div class="col-xs-12 footer_section"> 
-        <div id='footer_text' class="text-muted">clustergrammer is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </div>
+        <div id='footer_text' class="text-muted">clustergrammer is being developed by the <a class='blue_links' href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a class='blue_links'  href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </div>
       </div>
     </div>
   </footer>
@@ -167,8 +171,6 @@ Row-C   0.2     0.1     2.5
   
  
   // display the upload button 
-  // prevent the style from changing as scripts are loaded
-  d3.select('#searchForm').style('display','block');
   d3.select('#input_form').style('display','block');
 
 </script>
