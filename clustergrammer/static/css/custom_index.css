@@ -33,7 +33,7 @@ footer {
 
 #main_container{
   position: relative;
-  margin-left: 30px;
+  margin-left: 55px;
   height:1000px;
 }
 
@@ -41,7 +41,7 @@ footer {
   margin-top: 12px;
   margin-bottom: 10px;
   display: inline-block;
-  margin-left: 5px;
+  /*margin-left: 5px;*/
   font-size: 30px;
 }
 
@@ -52,105 +52,20 @@ footer {
   /*display: none;*/
 }
 
-
-
 /*footer - shift it with the sidebar*/
 #footer_div{
   margin-left: 0px;
 }
 
-#footer_div_sidebar{
-  margin-left: 200px;
-}
 
 
 
 
 
-/*initialize the title of res key*/
-#res_color_key_title{
-  display: none;
-}
 
-/*div holding res color key */
-#res_color_key_div{
-  margin-top: 0px;
-  /*set height so that the elements below
-  will be placed correctly*/
-  height: 50px;
-}
 
-/*resource names in key*/
-.res_names_in_key{
-  padding-left: 0px;
-  padding-right: 0px;
-  font-size:12px;
-  margin-left: -10px;
-}
 
-/*container for prot class and sorting buttons*/
-#button_container{
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
 
-/*container for gene search box*/
-#gene_search_container{
-  margin-top: 7px;
-  margin-bottom: 5px;
-  /*needed for some reason*/
-  margin-left: 0px;
-  display: none:;
-}
-
-/*gene search box */
-#gene_search_box{
-  width:120px;
-  float:left;
-  /*display: none;*/
-}
-
-/*gene search button*/
-#gene_search_button{
-  /*width:50px;*/
-  float:left;
-  margin-left:4px;
-  /*display: none;*/
-}
-
-/*clear float left*/
-#clear{
-  clear:both;
-}
-
-/*fizing jquery autocomplete*/
-.ui-menu-item{
-  float:left;
-  clear: left;
-}
-
-/*initialize webpage in homepage view*/
-#gene_exp_view{
-  display: none;
-}
-
-#homepage_view{
-  display: block;
-  position:relative;
-  /*shift away from side*/
-  padding-left: 20px;
-  padding-top: 5px;
-}
-
-#to_homepage{
-  margin-top:10px;
-}
-
-/*reduce the padding on the buttons*/
-.btn{
-  /*padding-top:2px;*/
-  /*padding-bottom:2px;*/
-}
 
 #submit_gene_button{
   padding-top:6px;
@@ -260,4 +175,8 @@ footer {
 
 #first_instructions{
   margin-left: 0px;
+}
+
+#home_graham_cracker{
+  margin-top: -13px;
 }
