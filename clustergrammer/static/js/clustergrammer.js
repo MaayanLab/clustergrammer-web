@@ -4701,7 +4701,7 @@ function enter_exit_update(params, network_data, reorder, delays){
 }
 
 
-function filter_network_data(orig_network_data, new_nodes){
+function filter_network_data(orig_network_data, change_view){
   
   var views = orig_network_data.views;
 
@@ -4958,8 +4958,6 @@ function Viz(params) {
   }
 
 
-
-
   // highlight resource types - set up type/color association
   var gene_search = Search(params, params.network_data.row_nodes, 'name');
 
@@ -4993,8 +4991,8 @@ function Viz(params) {
 
   }
 
-  function reset_zoom(){
-    zoom_obj.two_translate_zoom(params, 0,0,1);
+  function reset_zoom(inst_scale){
+    zoom_obj.two_translate_zoom(params, 0,0,inst_scale);
   }
 
   return {
@@ -5739,7 +5737,12 @@ function Zoom(params){
 
       // will improve this !!
       var zoom_y = fin_zoom;
-      var zoom_x = 1;
+      var zoom_x;
+      if (fin_zoom <= params.viz.zoom_switch){
+        var zoom_x = 1;
+      } else {
+        var zoom_x = fin_zoom/params.viz.zoom_switch;
+      }
 
       // search duration - the duration of zooming and panning
       var search_duration = 700;
@@ -5762,7 +5765,7 @@ function Zoom(params){
         // first apply the margin transformation
         // then zoom, then apply the final transformation
         .attr('transform', 'translate(' + [0, 0 + center_y] + ')' +
-        ' scale(' + 1 + ',' + zoom_y + ')' + 'translate(' + [pan_dx,
+        ' scale(' + zoom_x + ',' + zoom_y + ')' + 'translate(' + [pan_dx,
           pan_dy
         ] + ')');
 
