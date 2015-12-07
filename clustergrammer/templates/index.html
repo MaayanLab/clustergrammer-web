@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
     <style>
-    #input_form {display: none}
+      #input_form {display: none}
     </style>
 
 </head>
@@ -43,8 +43,6 @@
         <!-- this row is - required fluid causes problems --> 
         <div class="row" > 
 
-
-          <!-- <i class="fa fa-map-o fa-2x  "></i>  -->
           <img src="static/icons/graham_cracker_70.png" id='home_graham_cracker' style="width:35px;height:35px;" >
           <h1 id='website_title'> clustergrammer {{flask_var}}</h1>
 
@@ -52,16 +50,12 @@
 
           <!-- non-local mongodb -->
           <iframe id='iframe_preview' src="/clustergrammer/demo/565e1570b1a04e1ea26fa369?preview=true" frameBorder="0"></iframe> 
-
           <!-- local mongodb -->
-          <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566113c99ff0883e52734d81?preview=true" frameBorder="0"></iframe>  -->
-
-          
+          <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566238239ff088558719f1fd?preview=true" frameBorder="0"></iframe>  -->
 
           <a id=demo_link class='blue_links' href="/clustergrammer/viz/565e1570b1a04e1ea26fa369" target="_blank">Open example in clustergrammer</a>
 
           <div id='upload_section'>
-
 
             <p class='initial_paragraph'>Your uploaded matrix file should have the following format: </p>
 
@@ -75,13 +69,11 @@ Row-C   0.2     0.1     2.5
             <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
             <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization. </p>
 
-
             <form id='input_form'  action="{{ url_for('upload_network') }}" method=post enctype=multipart/form-data>
               <input type=file name=file title='Choose File'  >
               <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
             </form>
 
-            <!-- <p class='initial_paragraph'>Once you matrix is uploaded you will be redirected to your visualization,  </p> -->
           </div>                            
 
         </div>
@@ -148,9 +140,6 @@ Row-C   0.2     0.1     2.5
   <!-- jQuery -->
   <script src="static/lib/js/jquery-1.11.2.min.js"></script>
 
-  <!-- adding jquery links -->
-  
-
   <!-- <script src='static/lib/js/jquery.accordion.js'></script> -->
   <!-- Bootstrap Core JavaScript -->
   <script src="static/lib/js/bootstrap.min.js"></script>
@@ -172,12 +161,11 @@ Row-C   0.2     0.1     2.5
   <script src='static/js/load_local_network.js'></script>
 
   <script>
-  
- 
-  // display the upload button 
-  d3.select('#input_form').style('display','block');
+   
+    // display the upload button 
+    d3.select('#input_form').style('display','block');
 
-</script>
+  </script>
 
 
 </body>

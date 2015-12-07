@@ -1,20 +1,25 @@
-function ini_demo_play_button(){
+function ini_play_button(){
 
   // playback instructions 
-  demo_text_box = d3.select('#main_svg')
-    .append('g')
+  demo_text_box = d3.select('#play_button')
     .attr('id','demo_text_box')
     .style('display','none');
 
+  // get dimensions of the main_svg
+  var dim = {};
+  dim.main_svg = {};
+  dim.main_svg.w = d3.select('#main_svg').style('width').replace('px','');
+  dim.main_svg.h = d3.select('#main_svg').style('height').replace('px','');
+
   demo_text_box
     .append('rect') 
-    .attr('width',40)
-    .attr('height',40)
-    .attr('transform', function(){
-        var pos_x = d3.select('#main_svg').style('width').replace('px','')/2;
-        var pos_y = d3.select('#main_svg').style('height').replace('px','')/2;
-        return 'translate('+pos_x+','+pos_y+')';
-      })
+    .attr('width',200)
+    .attr('height',100)
+    // .attr('transform', function(){
+    //     var pos_x = dim.main_svg.w/2;
+    //     var pos_y = dim.main_svg.h/2;
+    //     return 'translate('+pos_x+','+pos_y+')';
+    //   })
     .style('opacity',0.5);
 
 
@@ -25,8 +30,8 @@ function ini_demo_play_button(){
 
   play_button
     .attr('transform', function(){
-      var pos_x = d3.select('#main_svg').style('width').replace('px','')/2;
-      var pos_y = d3.select('#main_svg').style('height').replace('px','')/2;
+      var pos_x = dim.main_svg.w/2;
+      var pos_y = dim.main_svg.h/2;
       return 'translate('+pos_x+','+pos_y+')';
     });
     
