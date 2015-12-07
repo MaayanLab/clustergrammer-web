@@ -9,7 +9,7 @@ function play_demo(){
     // reset zoom
     setTimeout(play_reset_zoom, 2000);
 
-    setTimeout( reorder_col, 5000); 
+    setTimeout( reorder_col, 5000 ); 
 
     // // reorder 
     // var reorder_text = 'Reorder Rows and Columns by Rank';
@@ -35,15 +35,23 @@ function play_demo(){
     demo_text('Reorder by row or column', 'by double-clicking label', 1500)
 
     // select column to be reordered 
-    tmp = d3.selectAll('.col_label_text')
+    tmp = d3.selectAll('.row_label_text')
       .filter(function(d){
-        return d.name == 'H1666';
+        return d.name == 'CDK4';
       });
 
     tmp
       .attr('id','demo_col_click');
 
     $("#demo_col_click").d3DblClick();
+
+    var pos_col = parseFloat(d3.select('#demo_col_click')
+      .attr('transform')
+      .split('(')[1].split(')')[0]);
+
+    pos_col = pos_col + cgm.params.norm_label.width.row;
+
+    sim_click('double', 30, 330); 
   }
 
   // initialize 
@@ -194,7 +202,7 @@ function play_demo(){
     // simulate double click 
     var tmp_x = center.pos_x*0.6;
     var tmp_y = center.pos_y;
-    setTimeout( sim_click, 1000, 'single', tmp_x, tmp_y );
+    setTimeout( sim_click, 1000, 'double', tmp_x, tmp_y );
 
   }
 
@@ -238,20 +246,28 @@ function play_demo(){
       .append('circle')
       .attr('cx',pos_x)
       .attr('cy',pos_y)
-      .attr('r',30)
+      .attr('r',25)
       .style('stroke','black')
       .style('stroke-width','3px')
       .style('fill','green')
       .style('opacity',0.5);
 
-    click_circle 
-      .transition().duration(click_duration)
-      .style('opacity',0.0)
-      .transition().duration(50)
-      .style('opacity',0.5)
-      .transition().duration(click_duration)
-      .style('opacity',0.0)
-      .remove();
+    if (single_double === 'double'){
+      click_circle 
+        .transition().duration(click_duration)
+        .style('opacity',0.0)
+        .transition().duration(50)
+        .style('opacity',0.5)
+        .transition().duration(click_duration)
+        .style('opacity',0.0)
+        .remove();
+    } else {
+      click_circle 
+        .transition().duration(click_duration)
+        .style('opacity',0.0)
+        .transition().duration(50)
+        .remove();
+    }
   }
 
 
