@@ -1,5 +1,51 @@
 function ini_play_button(cgm){
 
+
+function play_demo(){
+
+    // zoom and pan 
+    play_zoom();
+
+    // reset zoom
+    setTimeout(play_reset_zoom, 2000);
+
+    setTimeout( reorder_col, 5000); 
+
+    // // reorder 
+    // var reorder_text = 'Reorder Rows and Columns by Rank';
+    // setTimeout( play_reorder, 4000, 'rank', reorder_text);
+
+    // // filter - reorder - filter 
+    // setTimeout( play_filter, 10000 );
+
+
+  }
+
+  // allows doubleclicking on d3 element
+  jQuery.fn.d3DblClick = function () {
+    this.each(function (i, e) {
+      var evt = document.createEvent("MouseEvents");
+      evt.initMouseEvent("dblclick", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      e.dispatchEvent(evt);
+    });
+  };
+
+  function reorder_col(){
+    
+    demo_text('Reorder by row or column', 'by double-clicking label', 1500)
+
+    // select column to be reordered 
+    tmp = d3.selectAll('.col_label_text')
+      .filter(function(d){
+        return d.name == 'H1666';
+      });
+
+    tmp
+      .attr('id','demo_col_click');
+
+    $("#demo_col_click").d3DblClick();
+  }
+
   // initialize 
   var delay = {};
   delay.reorder_title = 600;
@@ -81,27 +127,41 @@ function ini_play_button(cgm){
       })
       .on('click', click_play)
 
-
     // play text group 
     ///////////////////////////
     var demo_group = d3.select('#main_svg')
       .append('g')
       .attr('id','demo_group')
       .attr('transform', function(){
-          var pos_x = 0.50*center.pos_x -120;
-          var pos_y = 0.60*center.pos_y  ;
+          var pos_x = 100;
+          var pos_y = 120 ;
           return 'translate('+pos_x+','+pos_y+')';
         });
       
     demo_group
-      .append('rect');    
+      .append('rect')
+      .attr('id','rect_1');
+
+    demo_group
+      .append('rect')
+      .attr('id','rect_2');
 
     demo_group
       .append('text')
-      .attr('font-size','50px')
+      .attr('id','text_1')
+      .attr('font-size','45px')
       .attr('font-weight',1000)
       .attr('font-family','"Helvetica Neue", Helvetica, Arial, sans-serif');
 
+    demo_group
+      .append('text')
+      .attr('id','text_2')
+      .attr('font-size','50px')
+      .attr('font-weight',1000)
+      .attr('font-family','"Helvetica Neue", Helvetica, Arial, sans-serif')
+      .attr('transform', function(){
+        return 'translate(0,50)';
+      })
   }
 
   function toggle_play_button(appear){
@@ -118,32 +178,15 @@ function ini_play_button(cgm){
 
   }
 
-  function play_demo(){
-
-    // zoom and pan 
-    play_zoom();
-
-    // reset zoom
-    setTimeout(play_reset_zoom, 2000);
-
-    // reorder 
-    var reorder_text = 'Reorder Rows and Columns';
-    setTimeout( play_reorder, 4000, 'rank', reorder_text);
-
-    // filter - reorder - filter 
-    setTimeout( play_filter, 10000 );
-  }
-
-
-  function play_zoom(){
+    function play_zoom(){
     var inst_scale = cgm.params.viz.zoom_switch;
-    demo_text('Zoom and Pan', 1500);
+    demo_text('Zoom and Pan', 'by scrolling and dragging', 1500);
     setTimeout( cgm.reset_zoom, 500, 2*inst_scale );
   }
 
   function play_reset_zoom(){
 
-    demo_text('Reset zoom by double-clicking', 1500);
+    demo_text('Reset zoom by double-clicking', '', 1500);
 
     // reset zoom 
     setTimeout( cgm.reset_zoom, 1250, 1);
@@ -183,8 +226,8 @@ function ini_play_button(cgm){
     var change_view = {'filter':inst_filt, 'num_meet':1};
     setTimeout( update_view, 6000, change_view);
 
-    var reorder_text = 'Reorder';
-    setTimeout( play_reorder, 10000, 'clust', reorder_text);
+    var reorder_text = 'Reset ordering to Cluster';
+    setTimeout( play_reorder, 9000, 'clust', reorder_text);
 
   }
 
@@ -211,32 +254,6 @@ function ini_play_button(cgm){
       .remove();
   }
 
-  function demo_text(inst_text, read_duration){
-
-    d3.select('#demo_group')
-      .style('opacity',0)
-      .transition().duration(250)
-      .style('opacity',1)
-      .transition().duration(250).delay(read_duration)
-      .style('opacity',0);
-    
-    var text = d3.select('#demo_group')
-      .select('text')
-      .text(inst_text);
-
-    var bbox = text[0][0].getBBox();
-    var box_scale = 1.1;
-    var box_x = -bbox.width*0.05;
-    var box_y = -bbox.height*0.25;
-
-    d3.select('#demo_group').select('rect')
-      .style('fill','white')
-      .attr('width', box_scale*bbox.width)
-      .attr('height',box_scale*bbox.height)
-      .attr('x',box_x)
-      .attr('y',1.1*bbox.y)
-      .style('opacity',0.5);
-  }  
 
   function update_view(change_view){
 
@@ -247,8 +264,55 @@ function ini_play_button(cgm){
 
   function click_reorder(inst_order, inst_rc){
     var select_text = '#'+inst_order+'_'+inst_rc;
-    $(select_text).click()
+    $(select_text).click();
   }
+
+  function demo_text(text_1, text_2, read_duration){
+
+    d3.select('#demo_group')
+      .style('opacity',0)
+      .transition().duration(250)
+      .style('opacity',1)
+      // .transition().duration(250).delay(read_duration)
+      // .style('opacity',0);
+    
+    var box_scale = 1.1;
+
+    // text box 1 
+    //////////////////
+    var text_1 = d3.select('#demo_group')
+      .select('#text_1')
+      .text(text_1);
+
+    var bbox_1 = text_1[0][0].getBBox();
+
+    d3.select('#demo_group')
+      .select('#rect_1')
+      .style('fill','white')
+      .attr('width', bbox_1.width+20)
+      .attr('height',bbox_1.height)
+      .attr('x',-10)
+      .attr('y',bbox_1.y)
+      .style('opacity',0.5);
+
+    // text box 2 
+    //////////////////
+    var text_2 = d3.select('#demo_group')
+      .select('#text_2')
+      .text(text_2);
+
+    var bbox_2 = text_2[0][0].getBBox();
+
+    d3.select('#demo_group')
+      .select('#rect_2')
+      .style('fill','white')
+      .attr('width', bbox_2.width+20)
+      .attr('height',bbox_2.height)
+      .attr('x',-10)
+      .attr('y',11)
+      .style('opacity',0.5);
+
+  }  
 
   //   // add play button back 
   // .each('end', toggle_play_button, true );
