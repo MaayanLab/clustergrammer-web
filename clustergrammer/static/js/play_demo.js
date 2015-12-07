@@ -326,11 +326,11 @@ function play_demo(){
     var change_view = {'filter':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait, change_view);
 
-    var inst_filt = 0.5;
+    var inst_filt = 0.4;
     var change_view = {'filter':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait+3500, change_view);
 
-    var inst_filt = 0.7;
+    var inst_filt = 0.5;
     var change_view = {'filter':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait+7000, change_view);
 
@@ -378,7 +378,7 @@ function play_demo(){
     var text_2 = '';
 
     // delay text slightly
-    setTimeout( demo_text, 500, text_1, text_2, 2000 );
+    setTimeout( demo_text, 100, text_1, text_2, 2000 );
     // demo_text(text_1,text_2, 1000);
 
     $("#slider_filter").slider( "value", change_view.filter);
