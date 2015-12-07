@@ -7,13 +7,12 @@ function play_demo(){
     play_zoom();
 
     // reset zoom
-    setTimeout(play_reset_zoom, 2000);
+    setTimeout(play_reset_zoom, 2500);
 
-    setTimeout( reorder_col, 5000 ); 
+    setTimeout( reorder_col, 5500 ); 
 
-    // // reorder 
-    // var reorder_text = 'Reorder Rows and Columns by Rank';
-    // setTimeout( play_reorder, 4000, 'rank', reorder_text);
+    // reorder 
+    setTimeout( play_reorder, 9000, 'rank', 'Reorder all rows and columns ', 'by clicking reorder buttons');
 
     // // filter - reorder - filter 
     // setTimeout( play_filter, 10000 );
@@ -32,7 +31,7 @@ function play_demo(){
 
   function reorder_col(){
     
-    demo_text('Reorder by row or column', 'by double-clicking label', 1500)
+    demo_text('Reorder by row or column', 'by double-clicking labels', 2000)
 
     // select column to be reordered 
     tmp = d3.selectAll('.row_label_text')
@@ -43,14 +42,11 @@ function play_demo(){
     tmp
       .attr('id','demo_col_click');
 
+    setTimeout(delay_clicking_row, 1000);
+  }
+
+  function delay_clicking_row(){
     $("#demo_col_click").d3DblClick();
-
-    var pos_col = parseFloat(d3.select('#demo_col_click')
-      .attr('transform')
-      .split('(')[1].split(')')[0]);
-
-    pos_col = pos_col + cgm.params.norm_label.width.row;
-
     sim_click('double', 30, 330); 
   }
 
@@ -164,7 +160,7 @@ function play_demo(){
     demo_group
       .append('text')
       .attr('id','text_2')
-      .attr('font-size','50px')
+      .attr('font-size','45px')
       .attr('font-weight',1000)
       .attr('font-family','"Helvetica Neue", Helvetica, Arial, sans-serif')
       .attr('transform', function(){
@@ -188,13 +184,13 @@ function play_demo(){
 
     function play_zoom(){
     var inst_scale = cgm.params.viz.zoom_switch;
-    demo_text('Zoom and Pan', 'by scrolling and dragging', 1500);
+    demo_text('Zoom and Pan', 'by scrolling and dragging', 2000);
     setTimeout( cgm.reset_zoom, 500, 2*inst_scale );
   }
 
   function play_reset_zoom(){
 
-    demo_text('Reset zoom by double-clicking', '', 1500);
+    demo_text('Reset zoom by double-clicking', '', 2000);
 
     // reset zoom 
     setTimeout( cgm.reset_zoom, 1250, 1);
@@ -206,12 +202,12 @@ function play_demo(){
 
   }
 
-  function play_reorder(inst_order, reorder_text){
+  function play_reorder(inst_order, reorder_text_1, reorder_text_2){
 
     // cgm.reorder('rank','row');
     console.log('reordering '+inst_order)
 
-    demo_text(reorder_text, 5000);
+    demo_text(reorder_text_1, reorder_text_2, 5000);
 
     setTimeout( click_reorder , 500,  inst_order, 'row');
     setTimeout( click_reorder , 3000, inst_order, 'col');
@@ -289,8 +285,8 @@ function play_demo(){
       .style('opacity',0)
       .transition().duration(250)
       .style('opacity',1)
-      // .transition().duration(250).delay(read_duration)
-      // .style('opacity',0);
+      .transition().duration(250).delay(read_duration)
+      .style('opacity',0);
     
     var box_scale = 1.1;
 
