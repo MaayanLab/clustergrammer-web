@@ -25,10 +25,10 @@ function play_demo(){
     setTimeout( open_menu, inst_time );
     prev_duration = 4*sec_scale;
 
-    // reorder: start 15 duration 8
+    // reorder: start 15 duration 9
     inst_time = inst_time + prev_duration
     setTimeout( play_reorder, inst_time, 'rank', 'Reorder all rows and columns ', 'by clicking reorder buttons');
-    prev_duration = 8*sec_scale;
+    prev_duration = 9*sec_scale;
 
     // search: start 23 duration 7.5
     inst_time = inst_time + prev_duration
@@ -86,8 +86,8 @@ function play_demo(){
 
   function quick_cluster(){
     var inst_order = 'clust';
-    setTimeout( click_reorder , 0,  inst_order, 'row', 'no-highlight');
-    setTimeout( click_reorder , 250, inst_order, 'col', 'no-highlight');
+    setTimeout( click_reorder , 0,  inst_order, 'row');
+    setTimeout( click_reorder , 250, inst_order, 'col');
   }
 
   function play_search(){
@@ -347,8 +347,33 @@ function play_demo(){
 
     demo_text(reorder_text_1, reorder_text_2, 7000);
 
-    setTimeout( click_reorder , 2500,  inst_order, 'row', 'highlight');
-    setTimeout( click_reorder , 5100, inst_order, 'col', 'highlight');
+    setTimeout( function(){
+      d3.select('#toggle_col_order')
+          .transition()
+          .style('background','#007f00')
+          .style('box-shadow','0px 0px 10px 5px #007f00')
+          .transition().duration(1).delay(4000)
+          .style('background','#FFFFFF')
+          .style('box-shadow','0px 0px 0px 0px #FFFFFF');
+    }
+    , 1000);
+
+    setTimeout( click_reorder , 2000,  inst_order, 'row');
+
+    setTimeout( function(){
+      d3.select('#toggle_row_order')
+          .transition()
+          .style('background','#007f00')
+          .style('box-shadow','0px 0px 10px 5px #007f00')
+          .transition().duration(1).delay(4000)
+          .style('background','#FFFFFF')
+          .style('box-shadow','0px 0px 0px 0px #FFFFFF');
+    }
+    , 5000);
+
+    setTimeout( click_reorder , 6000, inst_order, 'col');
+
+    // duration 9000
 
   }
 
@@ -433,23 +458,7 @@ function play_demo(){
     cgm.update_network(change_view);
   }
 
-  function click_reorder(inst_order, inst_rc, highlight){
-
-    if (highlight === 'highlight'){
-      if (inst_rc === 'row'){
-        var opp_rc = 'col';
-      } else {
-        var opp_rc = 'row';
-      }
-      // the labels are reversed 
-      d3.select('#toggle_'+opp_rc+'_order')
-        .transition()
-        .style('background','#007f00')
-        .style('box-shadow','0px 0px 10px 5px #007f00')
-        .transition().duration(1).delay(2000)
-        .style('background','#FFFFFF')
-        .style('box-shadow','0px 0px 0px 0px #FFFFFF');
-    }
+  function click_reorder(inst_order, inst_rc){
 
     var select_text = '#'+inst_order+'_'+inst_rc;
     $(select_text).click();
