@@ -5,9 +5,14 @@ function play_demo(){
 
     var sec_scale = 1000;
 
-    // zoom and pan 
+    // intro text 
     var inst_time = 0;
-    play_zoom();
+    setTimeout( play_intro(), inst_time);
+    var prev_duration = 8*sec_scale;
+
+    // zoom and pan 
+    var inst_time = inst_time + prev_duration;
+    setTimeout( play_zoom, inst_time);
     var prev_duration = 4*sec_scale;
 
     // reset zoom: start 3, duration 4
@@ -27,7 +32,7 @@ function play_demo(){
 
     // reorder: start 15 duration 9
     inst_time = inst_time + prev_duration
-    setTimeout( play_reorder, inst_time, 'rank', 'Reorder all rows and columns ', 'by clicking reorder buttons');
+    setTimeout( play_reorder, inst_time, 'rank', 'Reorder all rows and columns \nby clicking reorder buttons');
     prev_duration = 9*sec_scale;
 
     // search: start 23 duration 7.5
@@ -38,22 +43,27 @@ function play_demo(){
     // filter: start 30.5 duration 21
     inst_time = inst_time + prev_duration
     setTimeout( play_filter, inst_time );
-    prev_duration = 21*sec_scale;
+    prev_duration = 13*sec_scale;
 
     // revert clust: start 48 duration 3
     inst_time = inst_time + prev_duration
     setTimeout( quick_cluster, inst_time );
     prev_duration = 3*sec_scale;
 
-    // play_groups start 51 duration 6
+    // play_groups start 51 duration 7
     inst_time = inst_time + prev_duration
     setTimeout( play_groups, inst_time );
-    prev_duration = 6*sec_scale;
+    prev_duration = 7*sec_scale;
 
     // reset visualization duration 4
     inst_time = inst_time + prev_duration
     setTimeout( play_reset, inst_time);
     prev_duration = 4*sec_scale;
+  }
+
+  function play_intro(){
+    setTimeout( demo_text, 0, 'Clustergrammer allows users to generate\ninteractive and sharable visualizations', 3500 )
+    setTimeout( demo_text, 4000, "This demo will overview\nClustergrammer's features", 3500 )
   }
 
   function play_reset(){
@@ -64,18 +74,24 @@ function play_demo(){
 
   function play_groups(){
 
-    demo_text('Identify row and column ', 'groups of varying sizes', 2000);
+    demo_text('Identify row and column \ngroups of varying sizes', 3000);
 
-    d3.select('#slider_col')
-        .transition()
-        .style('box-shadow','0px 0px 10px 5px #007f00')
-        .transition().duration(1).delay(5500)
-        .style('box-shadow','0px 0px 0px 0px #FFFFFF');
+    setTimeout(
+      function(){
+        d3.select('#slider_col')
+            .transition()
+            .style('box-shadow','0px 0px 10px 5px #007f00')
+            .transition().duration(1).delay(5500)
+            .style('box-shadow','0px 0px 0px 0px #FFFFFF');
 
-    setTimeout(change_groups, 1000, 0.4);
-    setTimeout(change_groups, 2000, 0.5);
-    setTimeout(change_groups, 3000, 0.6);
-    setTimeout(change_groups, 4000, 0.7);
+      }, 1000);
+
+    setTimeout(change_groups, 2000, 0.4);
+    setTimeout(change_groups, 3000, 0.5);
+    setTimeout(change_groups, 4000, 0.6);
+    setTimeout(change_groups, 5000, 0.7);
+
+    // duration 7000 
 
   }
 
@@ -92,7 +108,7 @@ function play_demo(){
 
   function play_search(){
 
-    demo_text('Search for rows using', 'the search box', 5500);
+    demo_text('Search for rows using\nthe search box', 4000);
 
     d3.select('#gene_search_container')
       .transition()
@@ -149,7 +165,7 @@ function play_demo(){
   };
 
   function open_menu(){
-    demo_text('View additional controls', 'by clicking menu button', 2500);
+    demo_text('View additional controls\nby clicking menu button', 2500);
 
     if (cgm.params.viz.expand===true){
       setTimeout(click_expand_button, 1000);
@@ -167,7 +183,7 @@ function play_demo(){
 
   function reorder_col(){
     
-    demo_text('Reorder matrix by row or column', 'by double-clicking labels', 5000)
+    demo_text('Reorder matrix by row or column\nby double-clicking labels', 5000)
 
     // select column to be reordered 
     tmp = d3.selectAll('.row_label_text')
@@ -321,7 +337,7 @@ function play_demo(){
 
   function play_zoom(){
     var inst_scale = cgm.params.viz.zoom_switch;
-    demo_text('Zoom and pan', 'by scrolling and dragging', 4000);
+    demo_text('Zoom and pan\nby scrolling and dragging', 4000);
     setTimeout( cgm.reset_zoom, 2000, 2*inst_scale );
 
     // duration 4000
@@ -329,7 +345,7 @@ function play_demo(){
 
   function play_reset_zoom(){
 
-    demo_text('Reset zoom by double-clicking', '', 3000);
+    demo_text('Reset zoom by double-clicking\n', 3000);
 
     // simulate double click slightly before zoom  
     var tmp_x = center.pos_x*0.6;
@@ -379,37 +395,28 @@ function play_demo(){
 
   function play_filter(){
 
-    var text_1 = 'Filter rows and columns at';
-    var text_2 = 'varying thresholds'
+    var text = 'Filter rows and columns at\nvarying thresholds';
 
     var ini_wait = 3500;
-    demo_text(text_1,text_2, ini_wait);
+    demo_text(text, ini_wait);
 
     d3.select('#slider_filter')
         .transition()
         .style('box-shadow','0px 0px 10px 5px #007f00')
-        .transition().duration(1).delay(20000)
+        .transition().duration(1).delay(12000)
         .style('box-shadow','0px 0px 0px 0px #FFFFFF');
 
     var inst_filt = 0.3;
     var change_view = {'filter':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait, change_view);
 
-    var inst_filt = 0.4;
-    var change_view = {'filter':inst_filt, 'num_meet':1};
-    setTimeout( update_view, ini_wait+3500, change_view);
-
-    var inst_filt = 0.5;
-    var change_view = {'filter':inst_filt, 'num_meet':1};
-    setTimeout( update_view, ini_wait+7000, change_view);
-
     var inst_filt = 0.6;
     var change_view = {'filter':inst_filt, 'num_meet':1};
-    setTimeout( update_view, ini_wait+10500, change_view);
+    setTimeout( update_view, ini_wait+3000, change_view);
 
     var inst_filt = 0.0;
     var change_view = {'filter':inst_filt, 'num_meet':1};
-    setTimeout( update_view, ini_wait+14000, change_view);
+    setTimeout( update_view, ini_wait+6000, change_view);
 
   }
 
@@ -447,11 +454,10 @@ function play_demo(){
 
   function update_view(change_view){
 
-    var text_1 = 'Filter threshold: '+ String(change_view.filter*100)+'%'
-    var text_2 = '';
+    var text = 'Filter threshold: '+ String(change_view.filter*100)+'%\n'
 
     // delay text slightly
-    setTimeout( demo_text, 250, text_1, text_2, 2000 );
+    setTimeout( demo_text, 250, text, 2000 );
 
     $("#slider_filter").slider( "value", change_view.filter);
     d3.select('#filter_value').text('Filter: '+change_view.filter*100+'%');
@@ -464,7 +470,9 @@ function play_demo(){
     $(select_text).click();
   }
 
-  function demo_text(text_1, text_2, read_duration){
+  function demo_text(text, read_duration){
+
+    var split_text = text.split('\n');
 
     d3.select('#demo_group')
       .style('opacity',0)
@@ -479,7 +487,7 @@ function play_demo(){
     //////////////////
     var text_1 = d3.select('#demo_group')
       .select('#text_1')
-      .text(text_1);
+      .text(split_text[0]);
 
     var bbox_1 = text_1[0][0].getBBox();
 
@@ -498,7 +506,7 @@ function play_demo(){
     //////////////////
     var text_2 = d3.select('#demo_group')
       .select('#text_2')
-      .text(text_2);
+      .text(split_text[1]);
 
     var bbox_2 = text_2[0][0].getBBox();
 
