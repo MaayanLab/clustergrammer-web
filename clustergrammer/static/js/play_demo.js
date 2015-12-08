@@ -7,8 +7,9 @@ function play_demo(){
 
     // intro text 
     var inst_time = 0;
+    var inst_text;
     setTimeout( play_intro(), inst_time);
-    var prev_duration = 8*sec_scale;
+    var prev_duration = 9*sec_scale;
 
     // zoom and pan 
     var inst_time = inst_time + prev_duration;
@@ -20,10 +21,10 @@ function play_demo(){
     setTimeout(play_reset_zoom, inst_time);
     prev_duration = 4*sec_scale;
 
-    // reorder col: start 6 duration 5
+    // reorder col: start 6 duration 6
     inst_time = inst_time + prev_duration
-    setTimeout( reorder_col, inst_time ); 
-    prev_duration = 5*sec_scale;
+    setTimeout( play_reorder_col, inst_time ); 
+    prev_duration = 7*sec_scale;
 
     // open menu: start 11 duration 4
     inst_time = inst_time + prev_duration
@@ -32,7 +33,8 @@ function play_demo(){
 
     // reorder: start 15 duration 9
     inst_time = inst_time + prev_duration
-    setTimeout( play_reorder, inst_time, 'rank', 'Reorder all rows and columns \nby clicking reorder buttons');
+    inst_text = 'Reorder all rows and columns \nby clicking reorder buttons';
+    setTimeout( play_reorder, inst_time, 'rank', inst_text);
     prev_duration = 9*sec_scale;
 
     // search: start 23 duration 7.5
@@ -62,8 +64,11 @@ function play_demo(){
   }
 
   function play_intro(){
-    setTimeout( demo_text, 0, 'Clustergrammer allows users to generate\ninteractive and sharable visualizations', 3500 )
-    setTimeout( demo_text, 4000, "This demo will overview\nClustergrammer's features", 3500 )
+    var text = 'Clustergrammer allows users to generate\ninteractive and sharable visualizations\nby uploading a matrix';
+    setTimeout( demo_text, 0, text, 5000 )
+    setTimeout( demo_text, 5000, "This demo will quickly overview\nClustergrammer's interactive features", 3500 )
+
+    // duration 11000
   }
 
   function play_reset(){
@@ -74,7 +79,7 @@ function play_demo(){
 
   function play_groups(){
 
-    demo_text('Identify row and column \ngroups of varying sizes', 3000);
+    demo_text('Identify row and column \ngroups of varying sizes\nusing the slider', 3000);
 
     setTimeout(
       function(){
@@ -165,7 +170,7 @@ function play_demo(){
   };
 
   function open_menu(){
-    demo_text('View additional controls\nby clicking menu button', 2500);
+    demo_text('View additional controls\nby the clicking menu button', 2500);
 
     if (cgm.params.viz.expand===true){
       setTimeout(click_expand_button, 1000);
@@ -181,9 +186,9 @@ function play_demo(){
     }, 500);
   }
 
-  function reorder_col(){
+  function play_reorder_col(){
     
-    demo_text('Reorder matrix by row or column\nby double-clicking labels', 5000)
+    demo_text('Reorder the matrix based on a single\nrow or column by double-clicking a \n label', 6000)
 
     // select column to be reordered 
     tmp = d3.selectAll('.row_label_text')
@@ -194,7 +199,8 @@ function play_demo(){
     tmp
       .attr('id','demo_col_click');
 
-    setTimeout(delay_clicking_row, 1500);
+    setTimeout(delay_clicking_row, 3500);
+    // duration 7000
   }
 
   function delay_clicking_row(){
@@ -302,6 +308,10 @@ function play_demo(){
       .append('rect')
       .attr('id','rect_2');
 
+    demo_group
+      .append('rect')
+      .attr('id','rect_3');
+
     var demo_text_size = 40;
     demo_group
       .append('text')
@@ -318,7 +328,17 @@ function play_demo(){
       .attr('font-family','"Helvetica Neue", Helvetica, Arial, sans-serif')
       .attr('transform', function(){
         return 'translate(0,50)';
-      })
+      });
+
+    demo_group
+      .append('text')
+      .attr('id','text_3')
+      .attr('font-size',demo_text_size+'px')
+      .attr('font-weight',1000)
+      .attr('font-family','"Helvetica Neue", Helvetica, Arial, sans-serif')
+      .attr('transform', function(){
+        return 'translate(0,100)';
+      });      
   }
 
   function toggle_play_button(appear){
@@ -338,7 +358,7 @@ function play_demo(){
   function play_zoom(){
     var inst_scale = cgm.params.viz.zoom_switch;
     demo_text('Zoom and pan\nby scrolling and dragging', 4000);
-    setTimeout( cgm.reset_zoom, 2000, 2*inst_scale );
+    setTimeout( cgm.reset_zoom, 1500, 2*inst_scale );
 
     // duration 4000
   }
@@ -350,18 +370,19 @@ function play_demo(){
     // simulate double click slightly before zoom  
     var tmp_x = center.pos_x*0.6;
     var tmp_y = center.pos_y;
-    setTimeout( sim_click, 2000, 'double', tmp_x, tmp_y );
+    var click_time = 2000;
+    setTimeout( sim_click, click_time, 'double', tmp_x, tmp_y );
 
     // reset zoom 
-    setTimeout( cgm.reset_zoom, 2250, 1);
+    setTimeout( cgm.reset_zoom, click_time+250, 1);
     
     // duration 4000 
 
   }
 
-  function play_reorder(inst_order, reorder_text_1, reorder_text_2){
+  function play_reorder(inst_order, reorder_text){
 
-    demo_text(reorder_text_1, reorder_text_2, 7000);
+    demo_text(reorder_text, 7000);
 
     setTimeout( function(){
       d3.select('#toggle_col_order')
@@ -457,7 +478,7 @@ function play_demo(){
     var text = 'Filter threshold: '+ String(change_view.filter*100)+'%\n'
 
     // delay text slightly
-    setTimeout( demo_text, 250, text, 2000 );
+    setTimeout( demo_text, 300, text, 1900 );
 
     $("#slider_filter").slider( "value", change_view.filter);
     d3.select('#filter_value').text('Filter: '+change_view.filter*100+'%');
@@ -474,6 +495,10 @@ function play_demo(){
 
     var split_text = text.split('\n');
 
+    if (split_text.length < 3){
+      split_text.push('');
+    }
+
     d3.select('#demo_group')
       .style('opacity',0)
       .transition().duration(250)
@@ -483,41 +508,63 @@ function play_demo(){
     
     var box_scale = 1.1;
 
-    // text box 1 
-    //////////////////
-    var text_1 = d3.select('#demo_group')
-      .select('#text_1')
-      .text(split_text[0]);
+    for (i=0; i<split_text.length; i++){
 
-    var bbox_1 = text_1[0][0].getBBox();
+      var inst_text_num = i+1;
 
-    var box_opacity = 0.85;
+      // make text box 
+      //////////////////
+      var inst_text_obj = d3.select('#demo_group')
+        .select('#text_'+inst_text_num)
+        .text(split_text[i]);
+      var bbox = inst_text_obj[0][0].getBBox();
 
-    d3.select('#demo_group')
-      .select('#rect_1')
-      .style('fill','white')
-      .attr('width', bbox_1.width+20)
-      .attr('height',bbox_1.height)
-      .attr('x',-10)
-      .attr('y',bbox_1.y)
-      .style('opacity',box_opacity);
+      var box_opacity = 0.85;
 
-    // text box 2 
-    //////////////////
-    var text_2 = d3.select('#demo_group')
-      .select('#text_2')
-      .text(split_text[1]);
+      d3.select('#demo_group')
+        .select('#rect_'+inst_text_num)
+        .style('fill','white')
+        .attr('width', bbox.width+20)
+        .attr('height',bbox.height)
+        .attr('x',-10)
+        .attr('y',bbox.y+i*50)
+        .style('opacity',box_opacity);
+    }
+       
 
-    var bbox_2 = text_2[0][0].getBBox();
+    // // text box 1 
+    // //////////////////
+    // var text_1 = d3.select('#demo_group')
+    //   .select('#text_1')
+    //   .text(split_text[0]);
+    // var bbox_1 = text_1[0][0].getBBox();
 
-    d3.select('#demo_group')
-      .select('#rect_2')
-      .style('fill','white')
-      .attr('width', bbox_2.width+20)
-      .attr('height',bbox_2.height)
-      .attr('x',-10)
-      .attr('y',11)
-      .style('opacity',box_opacity);
+    // var box_opacity = 0.85;
+
+    // d3.select('#demo_group')
+    //   .select('#rect_1')
+    //   .style('fill','white')
+    //   .attr('width', bbox_1.width+20)
+    //   .attr('height',bbox_1.height)
+    //   .attr('x',-10)
+    //   .attr('y',bbox_1.y)
+    //   .style('opacity',box_opacity);
+
+    // // text box 2 
+    // //////////////////
+    // var text_2 = d3.select('#demo_group')
+    //   .select('#text_2')
+    //   .text(split_text[1]);
+    // var bbox_2 = text_2[0][0].getBBox();
+
+    // d3.select('#demo_group')
+    //   .select('#rect_2')
+    //   .style('fill','white')
+    //   .attr('width', bbox_2.width+20)
+    //   .attr('height',bbox_2.height)
+    //   .attr('x',-10)
+    //   .attr('y',11)
+    //   .style('opacity',box_opacity);
 
   }  
 
