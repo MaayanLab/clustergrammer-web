@@ -11,7 +11,6 @@ function play_demo(){
     // reset zoom: start 3, duration 3
     setTimeout(play_reset_zoom, 3*sec_scale);
 
-
     // open menu: start 11 duration 4
     setTimeout( open_menu, 11*sec_scale );
 
@@ -60,8 +59,8 @@ function play_demo(){
 
   function quick_cluster(){
     var inst_order = 'clust';
-    setTimeout( click_reorder , 0,  inst_order, 'row');
-    setTimeout( click_reorder , 250, inst_order, 'col');
+    setTimeout( click_reorder , 0,  inst_order, 'row', 'no-highlight');
+    setTimeout( click_reorder , 250, inst_order, 'col', 'no-highlight');
   }
 
   function play_search(){
@@ -149,7 +148,7 @@ function play_demo(){
 
   function delay_clicking_row(){
     $("#demo_col_click").d3DblClick();
-    sim_click('double', 30, 330); 
+    sim_click('double', 30, 340); 
   }
 
   // initialize 
@@ -307,13 +306,10 @@ function play_demo(){
 
   function play_reorder(inst_order, reorder_text_1, reorder_text_2){
 
-    // cgm.reorder('rank','row');
-    console.log('reordering '+inst_order)
-
     demo_text(reorder_text_1, reorder_text_2, 7000);
 
-    setTimeout( click_reorder , 2500,  inst_order, 'row');
-    setTimeout( click_reorder , 5100, inst_order, 'col');
+    setTimeout( click_reorder , 2500,  inst_order, 'row', 'highlight');
+    setTimeout( click_reorder , 5100, inst_order, 'col', 'highlight');
 
   }
 
@@ -357,7 +353,7 @@ function play_demo(){
       .attr('r',25)
       .style('stroke','black')
       .style('stroke-width','3px')
-      .style('fill','green')
+      .style('fill','#007f00')
       .style('opacity',0.5);
 
     if (single_double === 'double'){
@@ -392,7 +388,24 @@ function play_demo(){
     cgm.update_network(change_view);
   }
 
-  function click_reorder(inst_order, inst_rc){
+  function click_reorder(inst_order, inst_rc, highlight){
+
+    if (highlight === 'highlight'){
+      if (inst_rc === 'row'){
+        var opp_rc = 'col';
+      } else {
+        var opp_rc = 'row';
+      }
+      // the labels are reversed 
+      d3.select('#toggle_'+opp_rc+'_order')
+        .transition()
+        .style('background','#007f00')
+        .style('box-shadow','0px 0px 5px 5px #007f00')
+        .transition().duration(1).delay(2000)
+        .style('background','#FFFFFF')
+        .style('box-shadow','0px 0px 0px 0px #FFFFFF');
+    }
+
     var select_text = '#'+inst_order+'_'+inst_rc;
     $(select_text).click();
   }

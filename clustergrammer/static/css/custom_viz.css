@@ -919,3 +919,11 @@ look like the input gene list text title*/
   font-size: 12px;
   margin-left: 465px;
 }
+
+#toggle_row_order{
+  height: 23px;
+}
+
+#toggle_col_order{
+  height: 23px;
+}
