@@ -1,71 +1,83 @@
 function ini_play_button(cgm){
 
+var inst_play = false;
 
 function play_demo(){
+  console.log(inst_play)
 
-    var sec_scale = 1000;
+  if (inst_play === false){
 
-    // intro text 
-    var inst_time = 0;
-    var inst_text;
-    setTimeout( play_intro(), inst_time);
-    var prev_duration = 9*sec_scale;
+    console.log('here')
 
-    // zoom and pan: duration 4
-    var inst_time = inst_time + prev_duration;
-    setTimeout( play_zoom, inst_time);
-    var prev_duration = 4*sec_scale;
+      inst_play = true;
+      var sec_scale = 1000;
 
-    // reset zoom: duration 4
-    inst_time = inst_time + prev_duration;
-    setTimeout(play_reset_zoom, inst_time);
-    prev_duration = 4*sec_scale;
+      // intro text 
+      var inst_text;
+      var inst_time = 0;
+      var prev_duration = 0;
 
-    // reorder col: duration 6
-    inst_time = inst_time + prev_duration;
-    setTimeout( play_reorder_col, inst_time ); 
-    prev_duration = 7*sec_scale;
+      setTimeout( play_intro(), inst_time);
+      prev_duration = 9*sec_scale;
 
-    // open menu: duration 6
-    inst_time = inst_time + prev_duration;
-    setTimeout( play_menu, inst_time );
-    prev_duration = 6*sec_scale;
+      // zoom and pan: duration 4
+      var inst_time = inst_time + prev_duration;
+      setTimeout( play_zoom, inst_time);
+      var prev_duration = 4*sec_scale;
 
-    // reorder: duration 9
-    inst_time = inst_time + prev_duration;
-    inst_text = 'Reorder all rows and columns \nby clicking the reorder \nbuttons';
-    setTimeout( play_reorder, inst_time, 'rank', inst_text);
-    prev_duration = 9*sec_scale;
+      // reset zoom: duration 4
+      inst_time = inst_time + prev_duration;
+      setTimeout(play_reset_zoom, inst_time);
+      prev_duration = 4*sec_scale;
 
-    // search: duration 7.5
-    inst_time = inst_time + prev_duration;
-    setTimeout( play_search, inst_time );
-    prev_duration = 7.5*sec_scale;
+      // reorder col: duration 6
+      inst_time = inst_time + prev_duration;
+      setTimeout( play_reorder_col, inst_time ); 
+      prev_duration = 7*sec_scale;
 
-    // filter: duration 14
-    inst_time = inst_time + prev_duration;
-    setTimeout( play_filter, inst_time );
-    prev_duration = 14*sec_scale;
+      // open menu: duration 5
+      inst_time = inst_time + prev_duration;
+      setTimeout( play_menu, inst_time );
+      prev_duration = 5*sec_scale;
 
-    // revert clust: duration 3
-    inst_time = inst_time + prev_duration;
-    setTimeout( quick_cluster, inst_time );
-    prev_duration = 3*sec_scale;
+      // reorder: duration 9
+      inst_time = inst_time + prev_duration;
+      inst_text = 'Reorder all rows and columns \nby clicking the reorder \nbuttons';
+      setTimeout( play_reorder, inst_time, 'rank', inst_text);
+      prev_duration = 9*sec_scale;
 
-    // play_groups duration 7
-    inst_time = inst_time + prev_duration;
-    setTimeout( play_groups, inst_time );
-    prev_duration = 7*sec_scale;
+      // search: duration 7.5
+      inst_time = inst_time + prev_duration;
+      setTimeout( play_search, inst_time );
+      prev_duration = 7.5*sec_scale;
 
-    // rexepand duration 3
-    inst_time = inst_time + prev_duration;
-    setTimeout( play_expand, inst_time)
-    prev_duration = 3*sec_scale;
+      // filter: duration 14
+      inst_time = inst_time + prev_duration;
+      setTimeout( play_filter, inst_time );
+      prev_duration = 14*sec_scale;
 
-    // reset visualization duration 4
-    inst_time = inst_time + prev_duration;
-    setTimeout( replay_demo, inst_time);
-    prev_duration = 4*sec_scale;
+      // revert clust: duration 3
+      inst_time = inst_time + prev_duration;
+      setTimeout( quick_cluster, inst_time );
+      prev_duration = 3*sec_scale;
+
+      // play_groups duration 7
+      inst_time = inst_time + prev_duration;
+      setTimeout( play_groups, inst_time );
+      prev_duration = 7*sec_scale;
+
+      // rexepand duration 3
+      inst_time = inst_time + prev_duration;
+      setTimeout( play_expand, inst_time)
+      prev_duration = 2*sec_scale;
+
+      // replay_demo duration 4
+      inst_time = inst_time + prev_duration;
+      setTimeout( replay_demo, inst_time);
+      prev_duration = 4*sec_scale;
+
+  }
+
   }
 
   function play_intro(){
@@ -83,7 +95,11 @@ function play_demo(){
   }
 
   function replay_demo(){
-    setTimeout(toggle_play_button, 0, true);
+    setTimeout(demo_text, 0, "Clustergrammer is built with gene-\nexpression data in mind and interfaces\nwith several Ma'ayan lab web-tools\n", 5000);
+    setTimeout(demo_text, 5000, "The example data being visualized is\ngene-expression data obtained from the\nCancer Cell Line Encyclopedia", 5000);
+    setTimeout(demo_text, 10000, "For more information please view\nthe help documents", 5000);
+    setTimeout(toggle_play_button, 16000, true);
+    inst_play = false;
   }
 
   function play_groups(){
@@ -179,7 +195,7 @@ function play_demo(){
   };
 
   function play_menu(){
-    demo_text('View additional controls\nby the clicking menu button', 4000);
+    demo_text('View additional controls\nby clicking the menu button', 4000);
 
     if (cgm.params.viz.expand===true){
       setTimeout(click_expand_button, 3000);
@@ -366,7 +382,7 @@ function play_demo(){
 
   function play_zoom(){
     var inst_scale = cgm.params.viz.zoom_switch;
-    demo_text('Zoom and pan\nby scrolling and dragging', 4000);
+    demo_text('Zoom and pan by\nscrolling and dragging', 4000);
     setTimeout( cgm.reset_zoom, 1500, 2*inst_scale );
 
     // duration 4000
@@ -425,7 +441,7 @@ function play_demo(){
 
   function play_filter(){
 
-    var text = 'Filter the matrix using\nvarying thresholds';
+    var text = 'Filter the matrix at varying \nthresholds using the slider';
 
     var ini_wait = 4500;
     demo_text(text, ini_wait);
