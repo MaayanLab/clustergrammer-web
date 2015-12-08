@@ -11,8 +11,6 @@ function play_demo(){
     // reset zoom: start 3, duration 3
     setTimeout(play_reset_zoom, 3*sec_scale);
 
-    // reorder col: start 6 duration 5
-    setTimeout( reorder_col, 6*sec_scale ); 
 
     // open menu: start 11 duration 4
     setTimeout( open_menu, 11*sec_scale );
@@ -23,17 +21,20 @@ function play_demo(){
     // search: start 23 duration 7.5
     setTimeout( play_search, 23.0*sec_scale );
 
+    // reorder col: start 6 duration 5
+    setTimeout( reorder_col, 6*sec_scale ); 
+
     // filter: start 30.5 duration 9.5
     setTimeout( play_filter, 30.5*sec_scale );
 
     // revert clust: start 48 duration 3
-    setTimeout( quick_cluster, 48*sec_scale );
+    setTimeout( quick_cluster, 51*sec_scale );
 
     // play_groups start 51 duration 2
-    setTimeout( play_groups, 52*sec_scale );
+    setTimeout( play_groups, 55*sec_scale );
 
     // reset visualization 
-    setTimeout( reset_play, 58*sec_scale);
+    setTimeout( reset_play, 61*sec_scale);
   }
 
   function reset_play(){
@@ -43,7 +44,7 @@ function play_demo(){
 
   function play_groups(){
 
-    demo_text('Identify row and column groups', 'of varying sizes', 2000);
+    demo_text('Identify row and column ', 'groups of varying sizes', 2000);
     setTimeout(change_groups, 1000, 0.4);
     setTimeout(change_groups, 2000, 0.5);
     setTimeout(change_groups, 3000, 0.6);
@@ -116,7 +117,9 @@ function play_demo(){
   function open_menu(){
     demo_text('View additional controls', 'by clicking menu button', 2500);
 
-    setTimeout(click_expand_button, 1000);
+    if (cgm.params.viz.expand===true){
+      setTimeout(click_expand_button, 1000);
+    }
   }
 
   function click_expand_button(){
@@ -135,7 +138,7 @@ function play_demo(){
     // select column to be reordered 
     tmp = d3.selectAll('.row_label_text')
       .filter(function(d){
-        return d.name == 'CDK4';
+        return d.name == 'EGFR';
       });
 
     tmp
@@ -334,9 +337,13 @@ function play_demo(){
     var change_view = {'filter':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait+7000, change_view);
 
-    var inst_filt = 0.0;
+    var inst_filt = 0.6;
     var change_view = {'filter':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait+10500, change_view);
+
+    var inst_filt = 0.0;
+    var change_view = {'filter':inst_filt, 'num_meet':1};
+    setTimeout( update_view, ini_wait+14000, change_view);
 
   }
 
@@ -378,8 +385,7 @@ function play_demo(){
     var text_2 = '';
 
     // delay text slightly
-    setTimeout( demo_text, 100, text_1, text_2, 2000 );
-    // demo_text(text_1,text_2, 1000);
+    setTimeout( demo_text, 250, text_1, text_2, 2000 );
 
     $("#slider_filter").slider( "value", change_view.filter);
     d3.select('#filter_value').text('Filter: '+change_view.filter*100+'%');
