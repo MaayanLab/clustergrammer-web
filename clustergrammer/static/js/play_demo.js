@@ -556,41 +556,6 @@ function play_demo(){
         .style('opacity',box_opacity);
     }
        
-
-    // // text box 1 
-    // //////////////////
-    // var text_1 = d3.select('#demo_group')
-    //   .select('#text_1')
-    //   .text(split_text[0]);
-    // var bbox_1 = text_1[0][0].getBBox();
-
-    // var box_opacity = 0.85;
-
-    // d3.select('#demo_group')
-    //   .select('#rect_1')
-    //   .style('fill','white')
-    //   .attr('width', bbox_1.width+20)
-    //   .attr('height',bbox_1.height)
-    //   .attr('x',-10)
-    //   .attr('y',bbox_1.y)
-    //   .style('opacity',box_opacity);
-
-    // // text box 2 
-    // //////////////////
-    // var text_2 = d3.select('#demo_group')
-    //   .select('#text_2')
-    //   .text(split_text[1]);
-    // var bbox_2 = text_2[0][0].getBBox();
-
-    // d3.select('#demo_group')
-    //   .select('#rect_2')
-    //   .style('fill','white')
-    //   .attr('width', bbox_2.width+20)
-    //   .attr('height',bbox_2.height)
-    //   .attr('x',-10)
-    //   .attr('y',11)
-    //   .style('opacity',box_opacity);
-
   }  
 
         
