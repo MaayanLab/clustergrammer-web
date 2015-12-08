@@ -6,39 +6,60 @@ function play_demo(){
     var sec_scale = 1000;
 
     // zoom and pan 
+    var inst_time = 0;
     play_zoom();
+    var prev_duration = 3*sec_scale;
 
     // reset zoom: start 3, duration 3
-    setTimeout(play_reset_zoom, 3*sec_scale);
-
-    // open menu: start 11 duration 4
-    setTimeout( open_menu, 11*sec_scale );
-
-    // reorder: start 15 duration 8
-    setTimeout( play_reorder, 15.0*sec_scale, 'rank', 'Reorder all rows and columns ', 'by clicking reorder buttons');
-
-    // search: start 23 duration 7.5
-    setTimeout( play_search, 23.0*sec_scale );
+    inst_time = inst_time + prev_duration
+    setTimeout(play_reset_zoom, inst_time);
+    prev_duration = 3*sec_scale;
 
     // reorder col: start 6 duration 5
-    setTimeout( reorder_col, 6*sec_scale ); 
+    inst_time = inst_time + prev_duration
+    setTimeout( reorder_col, inst_time ); 
+    prev_duration = 5*sec_scale;
 
-    // filter: start 30.5 duration 9.5
-    setTimeout( play_filter, 30.5*sec_scale );
+    // open menu: start 11 duration 4
+    inst_time = inst_time + prev_duration
+    setTimeout( open_menu, 11*sec_scale );
+    prev_duration = 4*sec_scale;
+
+    // reorder: start 15 duration 8
+    inst_time = inst_time + prev_duration
+    setTimeout( play_reorder, inst_time, 'rank', 'Reorder all rows and columns ', 'by clicking reorder buttons');
+    prev_duration = 8*sec_scale;
+
+    // search: start 23 duration 7.5
+    inst_time = inst_time + prev_duration
+    setTimeout( play_search, inst_time );
+    prev_duration = 7.5*sec_scale;
+
+    // filter: start 30.5 duration 21
+    inst_time = inst_time + prev_duration
+    setTimeout( play_filter, inst_time );
+    prev_duration = 21*sec_scale;
 
     // revert clust: start 48 duration 3
-    setTimeout( quick_cluster, 51*sec_scale );
+    inst_time = inst_time + prev_duration
+    setTimeout( quick_cluster, inst_time );
+    prev_duration = 3*sec_scale;
 
-    // play_groups start 51 duration 2
-    setTimeout( play_groups, 55*sec_scale );
+    // play_groups start 51 duration 6
+    inst_time = inst_time + prev_duration
+    setTimeout( play_groups, inst_time );
+    prev_duration = 6*sec_scale;
 
-    // reset visualization 
-    setTimeout( reset_play, 61*sec_scale);
+    // reset visualization duration 4
+    inst_time = inst_time + prev_duration
+    setTimeout( play_reset, inst_time);
+    prev_duration = 4*sec_scale;
   }
 
-  function reset_play(){
+  function play_reset(){
     click_expand_button();
     setTimeout(toggle_play_button, 1000, true);
+    setTimeout(change_groups, 0, 0.5);
   }
 
   function play_groups(){
@@ -55,7 +76,6 @@ function play_demo(){
     setTimeout(change_groups, 2000, 0.5);
     setTimeout(change_groups, 3000, 0.6);
     setTimeout(change_groups, 4000, 0.7);
-    setTimeout(change_groups, 5000, 0.5);
 
   }
 
@@ -301,7 +321,7 @@ function play_demo(){
 
   function play_zoom(){
     var inst_scale = cgm.params.viz.zoom_switch;
-    demo_text('Zoom and Pan', 'by scrolling and dragging', 2500);
+    demo_text('Zoom and Pan', 'by scrolling and dragging', 3000);
     setTimeout( cgm.reset_zoom, 1250, 2*inst_scale );
   }
 
