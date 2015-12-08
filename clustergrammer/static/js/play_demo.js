@@ -8,12 +8,12 @@ function play_demo(){
     // zoom and pan 
     var inst_time = 0;
     play_zoom();
-    var prev_duration = 3*sec_scale;
+    var prev_duration = 4*sec_scale;
 
-    // reset zoom: start 3, duration 3
+    // reset zoom: start 3, duration 4
     inst_time = inst_time + prev_duration
     setTimeout(play_reset_zoom, inst_time);
-    prev_duration = 3*sec_scale;
+    prev_duration = 4*sec_scale;
 
     // reorder col: start 6 duration 5
     inst_time = inst_time + prev_duration
@@ -22,7 +22,7 @@ function play_demo(){
 
     // open menu: start 11 duration 4
     inst_time = inst_time + prev_duration
-    setTimeout( open_menu, 11*sec_scale );
+    setTimeout( open_menu, inst_time );
     prev_duration = 4*sec_scale;
 
     // reorder: start 15 duration 8
@@ -59,7 +59,7 @@ function play_demo(){
   function play_reset(){
     click_expand_button();
     setTimeout(toggle_play_button, 1000, true);
-    setTimeout(change_groups, 0, 0.5);
+    setTimeout(change_groups, 5000, 0.5);
   }
 
   function play_groups(){
@@ -321,21 +321,25 @@ function play_demo(){
 
   function play_zoom(){
     var inst_scale = cgm.params.viz.zoom_switch;
-    demo_text('Zoom and Pan', 'by scrolling and dragging', 3000);
-    setTimeout( cgm.reset_zoom, 1250, 2*inst_scale );
+    demo_text('Zoom and pan', 'by scrolling and dragging', 4000);
+    setTimeout( cgm.reset_zoom, 2000, 2*inst_scale );
+
+    // duration 4000
   }
 
   function play_reset_zoom(){
 
-    demo_text('Reset zoom by double-clicking', '', 2000);
+    demo_text('Reset zoom by double-clicking', '', 3000);
 
-    // reset zoom 
-    setTimeout( cgm.reset_zoom, 1250, 1);
-    
-    // simulate double click 
+    // simulate double click slightly before zoom  
     var tmp_x = center.pos_x*0.6;
     var tmp_y = center.pos_y;
-    setTimeout( sim_click, 1000, 'double', tmp_x, tmp_y );
+    setTimeout( sim_click, 2000, 'double', tmp_x, tmp_y );
+
+    // reset zoom 
+    setTimeout( cgm.reset_zoom, 2250, 1);
+    
+    // duration 4000 
 
   }
 
