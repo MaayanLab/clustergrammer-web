@@ -11,55 +11,60 @@ function play_demo(){
     setTimeout( play_intro(), inst_time);
     var prev_duration = 9*sec_scale;
 
-    // zoom and pan 
+    // zoom and pan: duration 4
     var inst_time = inst_time + prev_duration;
     setTimeout( play_zoom, inst_time);
     var prev_duration = 4*sec_scale;
 
-    // reset zoom: start 3, duration 4
-    inst_time = inst_time + prev_duration
+    // reset zoom: duration 4
+    inst_time = inst_time + prev_duration;
     setTimeout(play_reset_zoom, inst_time);
     prev_duration = 4*sec_scale;
 
-    // reorder col: start 6 duration 6
-    inst_time = inst_time + prev_duration
+    // reorder col: duration 6
+    inst_time = inst_time + prev_duration;
     setTimeout( play_reorder_col, inst_time ); 
     prev_duration = 7*sec_scale;
 
-    // open menu: start 11 duration 4
-    inst_time = inst_time + prev_duration
-    setTimeout( open_menu, inst_time );
-    prev_duration = 4*sec_scale;
+    // open menu: duration 6
+    inst_time = inst_time + prev_duration;
+    setTimeout( play_menu, inst_time );
+    prev_duration = 6*sec_scale;
 
-    // reorder: start 15 duration 9
-    inst_time = inst_time + prev_duration
-    inst_text = 'Reorder all rows and columns \nby clicking reorder buttons';
+    // reorder: duration 9
+    inst_time = inst_time + prev_duration;
+    inst_text = 'Reorder all rows and columns \nby clicking the reorder \nbuttons';
     setTimeout( play_reorder, inst_time, 'rank', inst_text);
     prev_duration = 9*sec_scale;
 
-    // search: start 23 duration 7.5
-    inst_time = inst_time + prev_duration
+    // search: duration 7.5
+    inst_time = inst_time + prev_duration;
     setTimeout( play_search, inst_time );
     prev_duration = 7.5*sec_scale;
 
-    // filter: start 30.5 duration 21
-    inst_time = inst_time + prev_duration
+    // filter: duration 14
+    inst_time = inst_time + prev_duration;
     setTimeout( play_filter, inst_time );
-    prev_duration = 13*sec_scale;
+    prev_duration = 14*sec_scale;
 
-    // revert clust: start 48 duration 3
-    inst_time = inst_time + prev_duration
+    // revert clust: duration 3
+    inst_time = inst_time + prev_duration;
     setTimeout( quick_cluster, inst_time );
     prev_duration = 3*sec_scale;
 
-    // play_groups start 51 duration 7
-    inst_time = inst_time + prev_duration
+    // play_groups duration 7
+    inst_time = inst_time + prev_duration;
     setTimeout( play_groups, inst_time );
     prev_duration = 7*sec_scale;
 
+    // rexepand duration 3
+    inst_time = inst_time + prev_duration;
+    setTimeout( play_expand, inst_time)
+    prev_duration = 3*sec_scale;
+
     // reset visualization duration 4
-    inst_time = inst_time + prev_duration
-    setTimeout( play_reset, inst_time);
+    inst_time = inst_time + prev_duration;
+    setTimeout( replay_demo, inst_time);
     prev_duration = 4*sec_scale;
   }
 
@@ -71,10 +76,14 @@ function play_demo(){
     // duration 11000
   }
 
-  function play_reset(){
+  function play_expand(){
     click_expand_button();
-    setTimeout(toggle_play_button, 1000, true);
-    setTimeout(change_groups, 5000, 0.5);
+    setTimeout(change_groups, 250, 0.5);
+    // duration 3000
+  }
+
+  function replay_demo(){
+    setTimeout(toggle_play_button, 0, true);
   }
 
   function play_groups(){
@@ -169,11 +178,11 @@ function play_demo(){
     });
   };
 
-  function open_menu(){
-    demo_text('View additional controls\nby the clicking menu button', 2500);
+  function play_menu(){
+    demo_text('View additional controls\nby the clicking menu button', 4000);
 
     if (cgm.params.viz.expand===true){
-      setTimeout(click_expand_button, 1000);
+      setTimeout(click_expand_button, 3000);
     }
   }
 
@@ -416,9 +425,9 @@ function play_demo(){
 
   function play_filter(){
 
-    var text = 'Filter rows and columns at\nvarying thresholds';
+    var text = 'Filter the matrix using\nvarying thresholds';
 
-    var ini_wait = 3500;
+    var ini_wait = 4500;
     demo_text(text, ini_wait);
 
     d3.select('#slider_filter')
