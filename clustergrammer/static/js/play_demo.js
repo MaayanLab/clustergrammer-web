@@ -44,6 +44,13 @@ function play_demo(){
   function play_groups(){
 
     demo_text('Identify row and column ', 'groups of varying sizes', 2000);
+
+    d3.select('#slider_col')
+        .transition()
+        .style('box-shadow','0px 0px 10px 5px #007f00')
+        .transition().duration(1).delay(5500)
+        .style('box-shadow','0px 0px 0px 0px #FFFFFF');
+
     setTimeout(change_groups, 1000, 0.4);
     setTimeout(change_groups, 2000, 0.5);
     setTimeout(change_groups, 3000, 0.6);
@@ -66,6 +73,14 @@ function play_demo(){
   function play_search(){
 
     demo_text('Search for rows using', 'the search box', 5500);
+
+    d3.select('#gene_search_container')
+      .transition()
+        .style('background','#007f00')
+        .style('box-shadow','0px 0px 10px 5px #007f00')
+        .transition().duration(1).delay(6000)
+        .style('background','#FFFFFF')
+        .style('box-shadow','0px 0px 0px 0px #FFFFFF');
 
     var search_string = 'EGFR';
 
@@ -321,6 +336,12 @@ function play_demo(){
     var ini_wait = 3500;
     demo_text(text_1,text_2, ini_wait);
 
+    d3.select('#slider_filter')
+        .transition()
+        .style('box-shadow','0px 0px 10px 5px #007f00')
+        .transition().duration(1).delay(20000)
+        .style('box-shadow','0px 0px 0px 0px #FFFFFF');
+
     var inst_filt = 0.3;
     var change_view = {'filter':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait, change_view);
@@ -400,7 +421,7 @@ function play_demo(){
       d3.select('#toggle_'+opp_rc+'_order')
         .transition()
         .style('background','#007f00')
-        .style('box-shadow','0px 0px 5px 5px #007f00')
+        .style('box-shadow','0px 0px 10px 5px #007f00')
         .transition().duration(1).delay(2000)
         .style('background','#FFFFFF')
         .style('box-shadow','0px 0px 0px 0px #FFFFFF');
