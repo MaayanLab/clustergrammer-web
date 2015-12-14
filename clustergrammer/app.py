@@ -59,16 +59,14 @@ def render_error_page(error_desc):
   return render_template('error.html', error_desc=error_desc)
 
 @app.route("/clustergrammer/viz/<user_objid>")
-def viz(user_objid):
+@app.route("/clustergrammer/viz/<user_objid>/<slug>")
+def viz(user_objid, slug=None):
   import flask
   from bson.objectid import ObjectId
   from copy import deepcopy
 
   client = MongoClient(mongo_address)
   db = client.clustergrammer
-
-  # strip trailing description 
-  user_objid = user_objid.split(':')[0]
 
   try: 
     obj_id = ObjectId(user_objid)
@@ -204,7 +202,6 @@ def enrichment_vectors():
 
     # return link after max time has elapsed 
     return flask.jsonify({'link': viz_url+viz_id+qs})
-
 
   except:
     error_desc = 'Error in processing Enrichr enrichment vectors.'
@@ -412,7 +409,7 @@ def upload_network():
         print(net_id)
         print('\n\n')
 
-        return redirect('/clustergrammer/viz/'+net_id+':'+inst_filename)
+        return redirect('/clustergrammer/viz/'+net_id+'/'+inst_filename)
 
       else:
         if len(inst_filename) > 0:

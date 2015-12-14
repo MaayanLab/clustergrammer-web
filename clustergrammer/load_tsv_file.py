@@ -9,7 +9,11 @@ def main(req_file, allowed_file, mongo_address):
   from clustergrammer import Network
   import StringIO
   # import pandas as pd
-  from copy import deepcopy
+  import time
+
+  # # mock wait time 
+  # time.sleep(10)
+
 
   print('\n\n\nLoading File\n###########\n\n\n')
 
