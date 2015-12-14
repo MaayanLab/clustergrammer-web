@@ -67,6 +67,9 @@ def viz(user_objid):
   client = MongoClient(mongo_address)
   db = client.clustergrammer
 
+  # strip trailing description 
+  user_objid = user_objid.split(':')[0]
+
   try: 
     obj_id = ObjectId(user_objid)
   except:
@@ -401,17 +404,15 @@ def upload_network():
       if allowed_file(inst_filename):
 
         # cluster and add to database 
-        net_id, net = load_tsv_file.main(req_file, allowed_file, mongo_address)
+        net_id, inst_filename = load_tsv_file.main(req_file, allowed_file, mongo_address)
 
-        print('\n\nnet_id')
+        print('\nfilename')
+        print(inst_filename)
+        print('net_id')
         print(net_id)
         print('\n\n')
 
-        # # make global network 
-        # gnet = {}
-        # gnet['viz'] = net.viz
-
-        return redirect('/clustergrammer/viz/'+net_id)
+        return redirect('/clustergrammer/viz/'+net_id+':'+inst_filename)
 
       else:
         if len(inst_filename) > 0:

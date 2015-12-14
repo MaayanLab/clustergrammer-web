@@ -82,6 +82,6 @@ def main(req_file, allowed_file, mongo_address):
   client.close()
 
   # return id only 
-  return tmp_id, net
+  return tmp_id, inst_filename
 
   
