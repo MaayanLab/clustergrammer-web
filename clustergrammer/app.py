@@ -21,9 +21,9 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 # local
-# mongo_address = '192.168.2.7'
+mongo_address = '192.168.2.4'
 # lab 
-mongo_address = '146.203.54.165'
+# mongo_address = '146.203.54.165'
 
 ##########################################
 # switch for local and docker development 
@@ -243,7 +243,7 @@ def proc_g2e():
   import requests 
   import flask
   import json 
-  from d3_clustergram_class import Network
+  from clustergrammer import Network
 
   try:
 
@@ -327,7 +327,7 @@ def proc_g2e():
 def l1000cds2_upload():
   import requests
   import json 
-  from d3_clustergram_class import Network 
+  from clustergrammer import Network 
   from pymongo import MongoClient
   from bson.objectid import ObjectId
 
@@ -407,9 +407,9 @@ def upload_network():
         print(net_id)
         print('\n\n')
 
-        # make network a dictionary 
-        gnet = {}
-        gnet['viz'] = net.viz
+        # # make global network 
+        # gnet = {}
+        # gnet['viz'] = net.viz
 
         return redirect('/clustergrammer/viz/'+net_id)
 

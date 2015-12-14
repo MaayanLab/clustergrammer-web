@@ -7,8 +7,6 @@ function play_demo(){
 
   if (inst_play === false){
 
-    console.log('here')
-
       inst_play = true;
       var sec_scale = 1000;
 
@@ -441,7 +439,7 @@ function play_demo(){
 
   function play_filter(){
 
-    var text = 'Filter the matrix at varying \nthresholds using the slider';
+    var text = 'Filter the matrix rows at varying \nthresholds using the slider';
 
     var ini_wait = 4500;
     demo_text(text, ini_wait);
@@ -452,16 +450,16 @@ function play_demo(){
         .transition().duration(1).delay(12000)
         .style('box-shadow','0px 0px 0px 0px #FFFFFF');
 
-    var inst_filt = 0.3;
-    var change_view = {'filter':inst_filt, 'num_meet':1};
+    var inst_filt = 0.4;
+    var change_view = {'filter_row':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait, change_view);
 
     var inst_filt = 0.6;
-    var change_view = {'filter':inst_filt, 'num_meet':1};
+    var change_view = {'filter_row':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait+3000, change_view);
 
     var inst_filt = 0.0;
-    var change_view = {'filter':inst_filt, 'num_meet':1};
+    var change_view = {'filter_row':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait+6000, change_view);
 
   }
@@ -500,13 +498,13 @@ function play_demo(){
 
   function update_view(change_view){
 
-    var text = 'Filter threshold: '+ String(change_view.filter*100)+'%\n'
+    var text = 'Filter threshold: '+ String(change_view.filter_row*100)+'%\n'
 
     // delay text slightly
     setTimeout( demo_text, 300, text, 1900 );
 
-    $("#slider_filter").slider( "value", change_view.filter);
-    d3.select('#filter_value').text('Filter: '+change_view.filter*100+'%');
+    $("#slider_filter").slider( "value", change_view.filter_row*10);
+    d3.select('#filter_value').text('Filter Row: '+change_view.filter_row*100+'%');
     cgm.update_network(change_view);
   }
 
