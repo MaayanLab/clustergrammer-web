@@ -37,6 +37,13 @@ def enrichr_get_request( gmt, userListId ):
   # get parameters 
   params = {'backgroundType':gmt,'userListId':userListId}
 
+  print('\n\n')
+  print('get_url '+get_url)
+  print('gmt')
+  print(gmt)
+  print('userListId '+userListId)
+  print('\n')
+
   # try get request until status code is 200 
   inst_status_code = 400
 
@@ -44,10 +51,17 @@ def enrichr_get_request( gmt, userListId ):
   while inst_status_code == 400:
     try:
       # make the get request to get the enrichr results 
-      get_response = requests.get( get_url, params=params )
+      print('make-get-req-Enrichr')
 
-      # get status_code
-      inst_status_code = get_response.status_code
+      try:
+        get_response = requests.get( get_url, params=params )
+
+        # get status_code
+        inst_status_code = get_response.status_code
+        print('inst_status_code: '+str(inst_status_code))
+
+      except:
+        print('get request failed\n------------------------\n\n')
 
     except:
       pass
@@ -208,6 +222,7 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   all_col_titles = []
   id_to_title = {}
 
+  print('collecting signature info ')
   for inst_gs in sig_enr_info['signature_ids']:
     for inst_updn in ['up','dn']:
 
@@ -228,6 +243,7 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   all_enr = []
   for inst_id in all_ids:
     # calc enrichment 
+    print('enrichr_get_request')
     enr = enrichr_get_request(inst_gmt, inst_id)
 
     # save enrichment obj: name and enr data 

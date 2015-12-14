@@ -14,6 +14,7 @@ def enr_and_make_viz(mongo_address, viz_id, g2e_post):
   try:
 
     print(g2e_post)
+    print('about to start make_enr_vect_clust')
 
     # make clustergram 
     threshold = 0.001

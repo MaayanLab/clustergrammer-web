@@ -30,13 +30,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -185,8 +185,7 @@ def enrichment_vectors():
       # wait one second 
       time.sleep(1)
 
-      print(wait_time)
-      print(thread.isAlive())
+      print('wait_time'+str(wait_time)+' '+str(thread.isAlive()))
 
       if thread.isAlive() == False:
 
