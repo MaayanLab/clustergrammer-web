@@ -126,14 +126,6 @@ def enrichment_vectors():
     ####################################################### 
     # mock data 
     ####################################################### 
-    # user_list_ids = [
-    #   {"col_title":'something else ',"user_list_id":100},
-    #   {"col_title":'Lung Spot Check 2',"user_list_id":641038}
-    # ]
-
-    # gmt = 'ChEA_2015'
-    # g2e_post = { "user_list_ids": user_list_ids, "background_type": gmt }
-
     g2e_post = {"background_type":"KEA_2015","signature_ids":[{"enr_id_up":"939274","col_title":"Sig-1","enr_id_dn":"939273"},{"enr_id_up":"939276","col_title":"Sig-2","enr_id_dn":"939275"},{"enr_id_up":"939278","col_title":"Sig-3","enr_id_dn":"939277"},{"enr_id_up":"939280","col_title":"Sig-4","enr_id_dn":"939279"},{"enr_id_up":"939282","col_title":"Sig-5","enr_id_dn":"939281"},{"enr_id_up":"939284","col_title":"Sig-6","enr_id_dn":"939283"},{"enr_id_up":"939286","col_title":"Sig-7","enr_id_dn":"939285"},{"enr_id_up":"939288","col_title":"Sig-8","enr_id_dn":"939287"},{"enr_id_up":"939290","col_title":"Sig-9","enr_id_dn":"939289"},{"enr_id_up":"939292","col_title":"Sig-10","enr_id_dn":"939291"}]}
 
 
@@ -181,7 +173,7 @@ def enrichment_vectors():
     # define information return link - always the same link 
     ######################################
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-    qs = '?preview=true&opacity_scale=log&order=rank'
+    qs = '?preview=true&order=rank&viz_type=enr_vect'
 
 
     # check if subprocess is finished 

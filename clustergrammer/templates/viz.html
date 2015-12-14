@@ -228,30 +228,47 @@
     var arguments_obj = {
       'network_data': network_data,
       'svg_div_id': 'svg_div',
-      // 'col_label':viz_name,
       'col_label':col_label,
       'row_label':row_label,
       'outer_margins': outer_margins,
       'outer_margins_expand': outer_margins_expand,
-      'show_tooltips':true,
+      'show_label_tooltips':true,
       'ini_expand':ini_expand,  
       'super_label_scale':super_label_scale,
-      // 'row_label_scale':0.75,
       'col_label_scale':1.2,
       'opacity_scale':opacity_scale,
       'order':ini_order
-      // 'force_square':1
-      // 'input_domain':7,
-      // 'col_overflow':1
-      // 'transpose':true,
-      // 'do_zoom':false,
-      // 'tile_colors':['#ED9124','#1C86EE'],
-      // 'background_color':'orange',
-      // 'tile_title': true,
-      // 'click_tile': click_tile_callback,
-      // 'click_group': click_group_callback
-      // 'resize':false
     };
+
+    if (query_string.viz_type === 'enr_vect'){
+      // show up/dn genes from enrichment 
+      function make_tile_tooltip(d){
+        // up and down 
+        if ( d.info.up.length > 0 && d.info.dn.length > 0 ){
+          var inst_up = 'Up Genes: '+ d.info.up.join('\t');
+          var inst_dn = 'Down Genes: '+ d.info.dn.join('\t');
+          var inst_string = "<p>"+inst_up+"</p>"+inst_dn;
+          // improve
+          var inst_score = Math.abs(d.value.toFixed(2));
+        } else if ( d.info.up.length > 0 ){
+          var inst_up = 'Up Genes: '+ d.info.up.join('\t');
+          var inst_string = inst_up;
+          var inst_score = d.value.toFixed(2);
+        } else if ( d.info.dn.length > 0 ){
+          var inst_dn = 'Down Genes: '+ d.info.dn.join('\t');
+          var inst_string = inst_dn;
+          var inst_score = -d.value.toFixed(2);
+        }
+        var inst_info = '<p>'+d.col_name+' is enriched for '+d.row_name+' with Combined Score: '+ inst_score +'</p>'
+        return inst_info + inst_string; 
+      }
+
+      arguments_obj.make_tile_tooltip = make_tile_tooltip;
+      arguments_obj.show_tile_tooltips = true;
+
+    }
+
+    console.log(arguments_obj)
 
     if (ini_expand){
       d3.select('.footer_section').style('display','none');
