@@ -166,7 +166,7 @@ def enrichment_vectors():
     # initialize thread
     ######################
     print('initializing thread')
-    sub_function = enr_sub.enr_and_make_viz;
+    sub_function = enr_sub.enr_and_make_viz
     arg_list = [mongo_address, viz_id, g2e_post]
     thread = threading.Thread(target=sub_function, args=arg_list)
     thread.setDaemon(True)
@@ -181,10 +181,10 @@ def enrichment_vectors():
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
     qs = '?preview=true&opacity_scale=log&order=rank'
 
-    max_wait_time = 30
 
     # check if subprocess is finished 
     ###################################
+    max_wait_time = 30
     print('check if subprocess is done')
     for wait_time in range(max_wait_time):
 
@@ -384,6 +384,8 @@ def l1000cds2_upload():
 def upload_network():
   import flask 
   import load_tsv_file
+  import threading
+  import time
 
   try:
 
@@ -400,16 +402,65 @@ def upload_network():
 
       if allowed_file(inst_filename):
 
-        # cluster and add to database 
-        net_id, inst_filename = load_tsv_file.main(req_file, allowed_file, mongo_address)
+        print('allowed file')
 
-        print('\nfilename')
-        print(inst_filename)
-        print('net_id')
-        print(net_id)
-        print('\n\n')
+        # # cluster and add to database 
+        # net_id, inst_filename = load_tsv_file.main(req_file, allowed_file, mongo_address)
 
-        return redirect('/clustergrammer/viz/'+net_id+'/'+inst_filename)
+        # submit placeholder to mongo 
+        ###############################
+        # set up database connection 
+        client = MongoClient(mongo_address)
+        db = client.clustergrammer
+
+        # generate placeholder json - does not contain viz json 
+        export_viz = {}
+        export_viz['name'] = inst_filename
+        export_viz['viz'] = 'processing'
+        export_viz['dat'] = 'processing'
+        export_viz['source'] = 'user_upload'
+
+        # get the id that will be used to view the visualization 
+        viz_id = db.networks.insert( export_viz )
+        viz_id = str(viz_id)
+
+        client.close()
+
+        file_lines = req_file.readlines()
+
+        # initialize thread 
+        #######################
+        print('initializing thread')
+        sub_function = load_tsv_file.main
+        arg_list = [file_lines, inst_filename, mongo_address, viz_id]
+        thread = threading.Thread(target=sub_function, args=arg_list)
+        thread.setDaemon(True)
+
+        # run subprocess
+        ##################
+        print('running subprocess')
+        thread.start()
+
+        ####################
+        # check subprocess 
+        ####################
+        max_wait_time = 15
+        for wait_time in range(max_wait_time):
+
+          # wait one second
+          time.sleep(1)
+
+          print(wait_time)
+          print(thread.isAlive())
+
+          if thread.isAlive() == False:
+
+            print('\n\nthread is dead ... job finished\n-------------------\n')
+
+            return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
+
+        # redirect after maximum time has elapsed 
+        return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
 
       else:
         if len(inst_filename) > 0:

@@ -144,6 +144,7 @@ Row-C   0.2     0.1     2.5
   <!-- Bootstrap Core JavaScript -->
   <script src="static/lib/js/bootstrap.min.js"></script>
   <script src="static/lib/js/bootstrap-switch.min.js"></script>
+  <script src="static/lib/js/blockUI.js"></script>
   <script src="static/lib/js/d3.js"></script>
   
   <!-- stylized file upload button -->
@@ -164,6 +165,24 @@ Row-C   0.2     0.1     2.5
    
     // display the upload button 
     d3.select('#input_form').style('display','block');
+
+    d3.select('#file_upload_button').on('click',function(){
+
+      // make wait sign 
+      $.blockUI({ css: { 
+          border: 'none', 
+          padding: '15px', 
+          backgroundColor: '#000', 
+          '-webkit-border-radius': '10px', 
+          '-moz-border-radius': '10px', 
+          opacity: .8, 
+          color: '#fff' 
+      } });
+
+      d3.select('.blockMsg').select('h1').text('Please wait...');
+
+
+    })
 
   </script>
 

@@ -259,10 +259,16 @@
       d3.select('.footer_section').style('display','block');
     }
 
-    d3.select('#wait_message').style('display','none');
 
-    // make clustergram: pass network_data and the div name where the svg should be made
-    var cgm = clustergrammer(arguments_obj);
+    if (network_data === 'processing'){
+      d3.select('#wait_message').text('Processing... please wait a moment and refresh page.');
+    } else if (network_data === 'error') {
+      d3.select('#wait_message').text('There was an error processing your matrix. Please re-check your data and try again.');
+    } else {
+      // make clustergram: pass network_data and the div name where the svg should be made
+      d3.select('#wait_message').style('display','none');
+      var cgm = clustergrammer(arguments_obj);
+    }
 
     
 

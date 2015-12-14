@@ -25,20 +25,19 @@ def enr_and_make_viz(mongo_address, viz_id, g2e_post):
     export_dat['source'] = 'g2e_enr_vect'
     dat_id = db.network_data.insert( export_dat )
 
-    # set up export viz and dat from clustergram result 
-    export_viz = net.viz 
-    export_dat = dat_id
+    update_viz = net.viz 
+    update_dat = dat_id
 
   # if there is an error update json with error 
   except:
 
-    export_viz = 'error'
-    export_dat = 'error'
+    update_viz = 'error'
+    update_dat = 'error'
 
 
   # export viz to database 
-  found_viz['viz'] = export_viz
-  found_viz['dat'] = export_dat
+  found_viz['viz'] = update_viz
+  found_viz['dat'] = update_dat
 
   # update the viz data 
   db.networks.update_one( {"_id":viz_id}, {"$set": found_viz} )
