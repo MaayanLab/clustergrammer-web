@@ -20,10 +20,10 @@ app = Flask(__name__, static_url_path='')
 ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
-# local
-mongo_address = '192.168.2.4'
+# # local
+# mongo_address = '192.168.2.4'
 # lab 
-# mongo_address = '146.203.54.165'
+mongo_address = '146.203.54.165'
 
 ##########################################
 # switch for local and docker development 
