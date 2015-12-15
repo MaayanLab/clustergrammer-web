@@ -450,16 +450,16 @@ function play_demo(){
         .transition().duration(1).delay(12000)
         .style('box-shadow','0px 0px 0px 0px #FFFFFF');
 
-    var inst_filt = 0.4;
-    var change_view = {'filter_row':inst_filt, 'num_meet':1};
+    var inst_filt = 0.7;
+    var change_view = {'filter_row_sum':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait, change_view);
 
-    var inst_filt = 0.6;
-    var change_view = {'filter_row':inst_filt, 'num_meet':1};
+    var inst_filt = 0.8;
+    var change_view = {'filter_row_sum':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait+3000, change_view);
 
     var inst_filt = 0.0;
-    var change_view = {'filter_row':inst_filt, 'num_meet':1};
+    var change_view = {'filter_row_sum':inst_filt, 'num_meet':1};
     setTimeout( update_view, ini_wait+6000, change_view);
 
   }
@@ -498,13 +498,13 @@ function play_demo(){
 
   function update_view(change_view){
 
-    var text = 'Filter threshold: '+ String(change_view.filter_row*100)+'%\n'
+    var text = 'Filter threshold: '+ String(change_view.filter_row_sum*100)+'%\n'
 
     // delay text slightly
     setTimeout( demo_text, 300, text, 1900 );
 
-    $("#slider_filter").slider( "value", change_view.filter_row*10);
-    d3.select('#filter_value').text('Filter Row: '+change_view.filter_row*100+'%');
+    $("#slider_filter").slider( "value", change_view.filter_row_sum*10);
+    d3.select('#filter_value').text('Filter Row: '+change_view.filter_row_sum*100+'%');
     cgm.update_network(change_view);
   }
 

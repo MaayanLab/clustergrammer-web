@@ -891,6 +891,7 @@ look like the input gene list text title*/
   background: rgba(0, 0, 0, 0.8);
   color: #fff;
   border-radius: 2px;
+  max-width: 500px;
 }
 
 /* Style northward tooltips differently */

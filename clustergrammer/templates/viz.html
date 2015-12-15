@@ -201,14 +201,15 @@
 
     network_data = {{ viz_network|tojson|safe }}
 
-    // fix views 'filt' property name issue 
+    // fix depricated view names 
     _.each(network_data.views, function(d){
-      // rename 'filt' to 'filter_row_value'
       if (_.has(d,'filt')){
+        // rename 'filt' to 'filter_row_value'
         d.filter_row_value = d.filt;
+      d3.select('#filter_title').remove();
       }
-      // rename 'filter_row' to 'filter_row_value'
       if (_.has(d,'filter_row')){
+        // rename 'filter_row' to 'filter_row_value'
         d.filter_row_value = d.filter_row;
       }      
     })

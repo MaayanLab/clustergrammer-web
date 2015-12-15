@@ -688,10 +688,10 @@ class Network(object):
 
       elif filter_type == 'num':
 
-        # count the number of non-zero values 
-        found_tuple = np.where(row_vect >= 0)
+        num_nonzero = np.count_nonzero(row_vect)
         cutoff = row_filt_int * max_num
-        if len(found_tuple[0])>= cutoff:
+
+        if num_nonzero>= cutoff:
           # add name 
           nodes['row'].append(inst_nodes_row)
           # add info if necessary 
