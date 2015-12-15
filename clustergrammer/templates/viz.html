@@ -88,22 +88,16 @@
         <p class='viz_instruct_text'>Row Group Size</p>
         <div id="slider_row"></div>
 
+        <div class='viz_large_text' id='filter_title'>Filter Rows:</div>
 
-        <div class='viz_medium_text filter_row_sum' id='filter_row_sum'>Filter Sum: 0% </div>
+        <div class='viz_instruct_text filter_row_sum' id='filter_row_sum'>Filter Sum: 0% </div>
         <div id="slider_filter_row_sum" class='slider_filter filter_row_sum'></div>
 
-        <div class='viz_medium_text filter_row_value' id='filter_row_value'>Filter Value: 0% </div>
+        <div class='viz_instruct_text filter_row_value' id='filter_row_value'>Filter Value: 0% </div>
         <div id="slider_filter_row_value" class='slider_filter filter_row_value'></div>
 
-        <div class='viz_medium_text filter_row_num' id='filter_row_num'>Filter Number Non-zero: 0% </div>
+        <div class='viz_instruct_text filter_row_num' id='filter_row_num'>Filter Number Non-zero: 0% </div>
         <div id="slider_filter_row_num" class='slider_filter filter_row_num'></div>        
-
-        <!-- <div class='viz_medium_text filter_row' id='filter_row'>Filter Sum: 0% </div> -->
-        <!-- <div id="slider_filter_row" class='slider_filter filter_row'></div> -->
-
-        <!-- <p id='filter_value'>Filter Row: 0% </p>
-        <div id="slider_filter"></div> -->
-
 
       </div>
 
@@ -209,9 +203,14 @@
 
     // fix views 'filt' property name issue 
     _.each(network_data.views, function(d){
+      // rename 'filt' to 'filter_row_value'
       if (_.has(d,'filt')){
         d.filter_row_value = d.filt;
       }
+      // rename 'filter_row' to 'filter_row_value'
+      if (_.has(d,'filter_row')){
+        d.filter_row_value = d.filter_row;
+      }      
     })
 
     // define the outer margins of the visualization
@@ -341,10 +340,10 @@
       }
 
     } else {
+      d3.select('#filter_title').remove();
       d3.selectAll('.filter_row_value').remove();
       d3.selectAll('.filter_row_num').remove();
       d3.selectAll('.filter_row_sum').remove();
-      // d3.selectAll('.filter_row').remove();
     }
 
     function set_up_filters(filter_type){
