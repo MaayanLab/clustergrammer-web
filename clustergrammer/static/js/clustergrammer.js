@@ -4401,10 +4401,6 @@ function resize_after_update(params, row_nodes, col_nodes, links, duration, dela
 
 function update_network(change_view){
 
-  console.log(change_view)
-
-  console.log('changing view '+String(change_view.filter));
-
   // create a new args object 
   //////////////////////////////////////////
 
@@ -5297,25 +5293,48 @@ function filter_network_data(orig_network_data, change_view){
  
   var views = orig_network_data.views;
 
-  // failsafe if there is only row+col filtering from front-end
-  var inst_view = _.find(views, function(d){
+  console.log(change_view)
 
-    if (_.has(change_view,'filter_row')){
+  // get view 
+  ///////////////////////////////////////////////////////////////
+  if (_.has(change_view,'filter_row')){
+    // failsafe if there is only row+col filtering from front-end
 
-      console.log('change view has filter_row')
+    var inst_view = _.find(views, function(d){
 
       // failsafe from json 
       if (_.has(d, 'filter_row')){
+        // filter_row_value is the same as filter_row 
         return d.filter_row == change_view.filter_row;
       } else {
         return d.filt == change_view.filter_row;
       }
 
-    } else {
-      return d.filt==change_view.filter;
-    }
+    });  
 
-  });
+  } else if (_.has(change_view, 'filter_row_value')) {
+
+    // filter row value 
+    var inst_view = _.find(views, function(d){
+
+      // failsafe from json 
+      return d.filter_row_value == change_view.filter_row_value;
+
+    });  
+
+  } else if (_.has(change_view,'filter_row_sum')) {
+
+    var inst_view = _.find(views, function(d){
+      return d.filter_row_sum == change_view.filter_row_sum;
+    });
+
+  } else if (_.has(change_view,'filter_row_num')) {
+
+    var inst_view = _.find(views, function(d){
+      return d.filter_row_num == change_view.filter_row_num;
+    });
+
+  }
 
   var new_nodes = inst_view.nodes;
 

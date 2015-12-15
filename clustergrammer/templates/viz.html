@@ -87,8 +87,24 @@
         <div id="slider_col"></div>
         <p class='viz_instruct_text'>Row Group Size</p>
         <div id="slider_row"></div>
-        <p id='filter_value'>Filter Row: 0% </p>
-        <div id="slider_filter"></div>
+
+
+        <div class='viz_medium_text filter_row_sum' id='filter_row_sum'>Filter Sum: 0% </div>
+        <div id="slider_filter_row_sum" class='slider_filter filter_row_sum'></div>
+
+        <div class='viz_medium_text filter_row_value' id='filter_row_value'>Filter Value: 0% </div>
+        <div id="slider_filter_row_value" class='slider_filter filter_row_value'></div>
+
+        <div class='viz_medium_text filter_row_num' id='filter_row_num'>Filter Number Non-zero: 0% </div>
+        <div id="slider_filter_row_num" class='slider_filter filter_row_num'></div>        
+
+        <!-- <div class='viz_medium_text filter_row' id='filter_row'>Filter Sum: 0% </div> -->
+        <!-- <div id="slider_filter_row" class='slider_filter filter_row'></div> -->
+
+        <!-- <p id='filter_value'>Filter Row: 0% </p>
+        <div id="slider_filter"></div> -->
+
+
       </div>
 
       <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
@@ -191,7 +207,12 @@
 
     network_data = {{ viz_network|tojson|safe }}
 
-    console.log(network_data)
+    // fix views 'filt' property name issue 
+    _.each(network_data.views, function(d){
+      if (_.has(d,'filt')){
+        d.filter_row_value = d.filt;
+      }
+    })
 
     // define the outer margins of the visualization
     var outer_margins = {
@@ -268,8 +289,6 @@
 
     }
 
-    console.log(arguments_obj)
-
     if (ini_expand){
       d3.select('.footer_section').style('display','none');
     } else {
@@ -291,50 +310,120 @@
 
     ini_sliders();
 
+    // filter_row = _.filter(network_data.views, function(d){return _.has(d,'filter_row')});
+    filter_row_value = _.filter(network_data.views, function(d){return _.has(d,'filter_row_value')});
+    filter_row_num = _.filter(network_data.views, function(d){return _.has(d,'filter_row_num')});
+    filter_row_sum = _.filter(network_data.views, function(d){return _.has(d,'filter_row_sum')});
+
+
+
     if (_.has(network_data, 'views')){
-      // filter scale - only initialize once 
-      var inst_max = network_data.views.length - 1;
-      $( "#slider_filter" ).slider({
+
+      // filter based on single value 
+      if (filter_row_value.length>0){
+        set_up_filters('filter_row_value');
+      } else {
+        d3.selectAll('.filter_row_value').remove();
+      }
+
+      // filter row based on number of non-zero values 
+      if (filter_row_num.length>0){
+        set_up_filters('filter_row_num');
+      } else {
+        d3.selectAll('.filter_row_num').remove();
+      }
+
+      // filter row based on sum of row
+      if (filter_row_sum.length>0){
+        set_up_filters('filter_row_sum');
+      } else {
+        d3.selectAll('.filter_row_sum').remove();
+      }
+
+    } else {
+      d3.selectAll('.filter_row_value').remove();
+      d3.selectAll('.filter_row_num').remove();
+      d3.selectAll('.filter_row_sum').remove();
+      // d3.selectAll('.filter_row').remove();
+    }
+
+    function set_up_filters(filter_type){
+
+      console.log('filter_type: '+filter_type)
+
+      // filter 
+      ////////////////////
+      var views = network_data.views;
+      var all_views = _.filter(views, function(d){return _.has(d,filter_type);});
+      var inst_max = all_views.length - 1;
+      $( '#slider_'+filter_type ).slider({
         value:0,
         min: 0,
         max: inst_max,
         step: 1,
         stop: function( event, ui ) {
+
           $( "#amount" ).val( "$" + ui.value );
-          var inst_filt = $( "#slider_filter" ).slider( "value" ); 
+          var inst_filt = $( '#slider_'+filter_type ).slider( "value" ); 
+
+          if (filter_type==='filter_row_value' || filter_type == 'filter_row'){
+
+            change_view = {'filter_row_value':inst_filt/10};
+            filter_name = 'Value';
+
+            $('#slider_filter_row_sum').slider( "value", 0);
+            $('#slider_filter_row_num').slider( "value", 0);
+
+            d3.select('#filter_row_sum').text('Filter Sum: 0%');          
+            d3.select('#filter_row_num').text('Filter Number Non-zero: 0%');          
+
+          } else if (filter_type === 'filter_row_num'){
+
+            change_view = {'filter_row_num':inst_filt/10};
+            filter_name = 'Number Non-zero';
+
+            $('#slider_filter_row_value').slider( "value", 0);
+            $('#slider_filter_row_sum').slider( "value", 0);
+
+            d3.select('#filter_row_sum').text('Filter Sum: 0%');          
+            d3.select('#filter_row_value').text('Filter Value: 0%');          
+
+          } else if (filter_type === 'filter_row_sum'){
+
+            change_view = {'filter_row_sum':inst_filt/10};
+            filter_name = 'Sum';
+
+            $('#slider_filter_row_value').slider( "value", 0);
+            $('#slider_filter_row_num').slider( "value", 0);
+
+            d3.select('#filter_row_value').text('Filter Value: 0%');          
+            d3.select('#filter_row_num').text('Filter Number Non-zero: 0%'); 
+
+          }
 
           d3.select('#main_svg')
             .style('opacity',0.70);
 
-          d3.select('#filter_value').text('Filter Row: '+10*inst_filt+'%');
+          d3.select('#'+filter_type).text('Filter '+filter_name+': '+10*inst_filt+'%');          
 
-          // get clustergram to update using views and crossfilter 
-          change_view = {'filter_row':inst_filt/10, 'num_meet':1}
+          $('.slider_filter').slider('disable');
+          d3.selectAll('.btn').attr('disabled',true);
 
-          // disable the slider to prevent the user from making changes too
-          // quickly
-          $('#slider_filter').slider('disable');
-
-          // update network 
           cgm.update_network(change_view);
 
           ini_sliders();
 
           function enable_slider(){
-            $('#slider_filter').slider('enable');  
+            $('.slider_filter').slider('enable');  
+            d3.selectAll('.btn').attr('disabled',null);
           }
-
-          // reenable after update is finished 
           setTimeout(enable_slider, 2500);
 
         }
       });
+      $( "#amount" ).val( "$" + $( '#slider_'+filter_type ).slider( "value" ) );
 
-      $( "#amount" ).val( "$" + $( "#slider_filter" ).slider( "value" ) );
-
-    } else {
-      d3.select('#filter_value').style('display','none');
-    }
+    }     
 
     function ini_sliders(){
 

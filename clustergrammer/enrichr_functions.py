@@ -323,7 +323,7 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   net.filter_network_thresh(threshold,num_thresh)
   print('\n  clustering network')
   # net.cluster_row_and_col('cos')
-  net.make_mult_views(dist_type='cos',filter_row=True)
+  net.make_mult_views(dist_type='cos',filter_row=['value'])
   print('\n  finished clustering Enrichr vectors\n---------------------')
 
   return net 

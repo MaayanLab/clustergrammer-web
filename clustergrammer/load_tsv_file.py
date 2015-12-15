@@ -33,7 +33,7 @@ def main(file_lines, inst_filename, mongo_address, viz_id):
     min_num_meet = 1
     net.filter_network_thresh( cutoff_meet, min_num_meet )
 
-    net.make_mult_views(dist_type='cos',filter_row=True)
+    net.make_mult_views(dist_type='cos',filter_row=['value'])
 
     ###############################
     # save to database 

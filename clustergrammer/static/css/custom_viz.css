@@ -932,3 +932,7 @@ look like the input gene list text title*/
 #home_graham_cracker{
   margin-top:-10px;
 }
+
+.filter_text{
+  display: none;
+}
