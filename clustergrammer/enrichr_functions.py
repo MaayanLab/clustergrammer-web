@@ -27,7 +27,6 @@ def enrichr_post_request( input_genes, meta=''):
 # make the get request to enrichr using the requests library 
 # this is done after submitting post request with the input gene list 
 def enrichr_get_request( gmt, userListId ):
-  # get metadata 
   import requests
   import json
 
@@ -41,7 +40,7 @@ def enrichr_get_request( gmt, userListId ):
   print('get_url '+get_url)
   print('gmt')
   print(gmt)
-  print('userListId '+userListId)
+  print('userListId '+str(userListId))
   print('\n')
 
   # try get request until status code is 200 
@@ -126,6 +125,90 @@ def transfer_to_enr_dict(response_list):
     enr.append(inst_dict)
 
   return enr 
+
+def enrichr_clust_from_response(get_response):
+  from clustergrammer import Network
+  import scipy
+  import json 
+
+  # load as dictionary 
+  resp_json = json.loads( get_response.text )
+
+  # get the key 
+  only_key = resp_json.keys()[0]
+
+  # get response_list 
+  response_list = resp_json[only_key]
+
+  print(response_list)
+
+  ini_enr = transfer_to_enr_dict( response_list )
+
+  enr = []
+  for inst_enr in ini_enr:
+    if inst_enr['combined_score'] > 0:
+      enr.append(inst_enr)
+
+  threshold = 0.001 
+  num_thresh = 1
+  dendro=False
+  
+  # only keep the top 20 terms 
+  if len(enr)>15:
+    enr = enr[0:15]
+
+  # genes 
+  row_node_names = []
+  # enriched terms 
+  col_node_names = []
+
+  # gather information from the list of enriched terms 
+  for inst_enr in enr:
+
+    # name 
+    col_node_names.append(inst_enr['name'])
+    
+    # int_genes 
+    row_node_names.extend(inst_enr['int_genes'])
+    # combined score 
+
+  row_node_names = sorted(list(set(row_node_names)))
+
+  # fill in matrix 
+  net = Network()
+
+  # save row and col nodes 
+  net.dat['nodes']['row'] = row_node_names
+  net.dat['nodes']['col'] = col_node_names
+
+  net.dat['mat'] = scipy.zeros([len(row_node_names),len(col_node_names)])
+
+  for inst_enr in enr:
+
+    inst_term = inst_enr['name']
+    col_index = col_node_names.index(inst_term)
+
+    net.dat['node_info']['col']['value'].append(inst_enr['combined_score'])
+
+    for inst_gene in inst_enr['int_genes']:
+      row_index = row_node_names.index(inst_gene)
+
+      # save association 
+      net.dat['mat'][row_index, col_index] = 1
+
+  net.filter_network_thresh(threshold, num_thresh)
+
+  # make multiple view 
+  # net.cluster_row_and_col(dist_type='cos',run_clustering=True,dendro=False)
+  net.make_mult_views(dist_type='cos',filter_row=['sum'],dendro=False)
+
+  # keep the original column order in rank 
+  for inst_col in net.viz['col_nodes']:
+    inst_col['rank'] = inst_col['ini']
+
+  return net  
+
+
 
 def make_enr_clust(sig_id, inst_gmt):
   '''
