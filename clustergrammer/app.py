@@ -32,13 +32,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -234,7 +234,6 @@ def enrichr_clustergram():
 
   if request.method == 'POST':
     enr_json = json.loads(request.data)
-    pass
 
   elif request.method == 'GET':
 
@@ -399,7 +398,7 @@ def viz_l1000cds2(user_objid):
 
   return render_template('l1000cds2.html', viz_network=d3_json)
 
-@app.route('/clustergrammer/g2e/', methods=['POST'])
+@app.route('/clustergrammer/g2e/', methods=['POST','GET'])
 @cross_origin()
 def proc_g2e():
   import requests 
@@ -407,12 +406,17 @@ def proc_g2e():
   import json 
   from clustergrammer import Network
 
-  try:
+  # ini network obj 
+  net = Network()
 
+  if request.method == 'POST':
     g2e_json = json.loads(request.data)
 
-    # ini network obj 
-    net = Network()
+  elif request.method == 'GET':
+    g2e_json = net.load_json_to_dict('clustergrammer/mock_g2e.json')
+
+
+  try:
 
     # load g2e data into network 
     net.load_g2e_to_net(g2e_json)
@@ -423,7 +427,7 @@ def proc_g2e():
     # filter the matrix using cutoff and min_num_meet
     ###################################################
     cutoff_meet = 0.01
-    min_num_meet = 2
+    min_num_meet = 1
     net.filter_network_thresh( cutoff_meet, min_num_meet )
 
     # cluster 
@@ -445,8 +449,8 @@ def proc_g2e():
     # save source 
     export_dict['source'] = 'g2e'
 
-    # save the link back to the original results
-    export_dict['link'] = g2e_json['link']
+    # # save the link back to the original results
+    # export_dict['link'] = g2e_json['link']
 
     # set up connection 
     client = MongoClient(mongo_address)
