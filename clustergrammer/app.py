@@ -204,7 +204,163 @@ def enrichment_vectors():
     return flask.jsonify({
       'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-    })      
+    }) 
+
+@app.route("/clustergrammer/Enrichr_clustergram", methods=['POST','GET'])
+@cross_origin()
+def enrichr_clustergram():
+  import requests 
+  import flask 
+  import json 
+  from pymongo import MongoClient
+  import threading 
+  import time 
+  import run_enrich_background as enr_sub
+  import enrichr_functions as enr_fun
+
+  if request.method == 'POST':
+    g2e_post = json.loads(request.data)
+
+  elif request.method == 'GET':
+
+    ####################################################### 
+    # mock data 
+    ####################################################### 
+    import requests
+
+
+    gmt = 'KEA_2015'
+    userListId = 939279
+
+    # define the get url 
+    get_url = 'http://amp.pharm.mssm.edu/Enrichr/enrich'
+
+    # get parameters 
+    params = {'backgroundType':gmt,'userListId':userListId}
+
+    # try get request until status code is 200 
+    inst_status_code = 400
+
+    # wait until okay status code is returned 
+    num_try = 0
+    while inst_status_code == 400 and num_try < 100:
+      num_try = num_try +1 
+      try:
+        # make the get request to get the enrichr results 
+        print('make-get-req-Enrichr')
+
+        try:
+          get_response = requests.get( get_url, params=params )
+
+          # get status_code
+          inst_status_code = get_response.status_code
+          print('inst_status_code: '+str(inst_status_code))
+
+        except:
+          print('get request failed\n------------------------\n\n')
+
+      except:
+        pass
+
+    # load as dictionary 
+    resp_json = json.loads( get_response.text )
+
+    # get the key 
+    only_key = resp_json.keys()[0]
+
+    # get response_list 
+    response_list = resp_json[only_key]
+
+    enr_json = {}
+    enr_json['userListId'] = userListId
+    enr_json['gmt'] = gmt
+    enr_json['enr_list'] = response_list
+
+    print(enr_json)
+
+    ####################################################### 
+    ####################################################### 
+
+    print('\n\nGET: running mock enrichment through get request')
+
+  try:  
+
+    print('making clust')
+    return 'something'
+
+    # # submit placeholder to mongo 
+    # ################################
+
+    # # set up database connection 
+    # client = MongoClient(mongo_address)
+    # db = client.clustergrammer
+
+    # # generate placeholder json - does not contain viz json 
+    # export_viz = {}
+    # export_viz['name'] = 'enrichment_vector'
+    # export_viz['viz'] = 'processing'
+    # export_viz['dat'] = 'processing'
+    # export_viz['source'] = 'g2e_enr_vect'
+
+    # # this is the id that will be used to view the visualization 
+    # viz_id = db.networks.insert( export_viz )
+    # viz_id = str(viz_id)
+
+    # # close database connection 
+    # client.close()
+    
+    # # initialize thread
+    # ######################
+    # print('initializing thread')
+    # sub_function = enr_sub.enr_and_make_viz
+    # arg_list = [mongo_address, viz_id, g2e_post]
+    # thread = threading.Thread(target=sub_function, args=arg_list)
+    # thread.setDaemon(True)
+
+    # # run subprocess 
+    # ####################
+    # print('running subprocess and pass in viz_id ')
+    # thread.start()
+
+    # # define information return link - always the same link 
+    # ######################################
+    # viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
+    # qs = '?preview=true&order=rank&viz_type=enr_vect'
+
+
+    # # check if subprocess is finished 
+    # ###################################
+    # max_wait_time = 30
+    # print('check if subprocess is done')
+    # for wait_time in range(max_wait_time):
+
+    #   # wait one second 
+    #   time.sleep(1)
+
+    #   print('wait_time'+str(wait_time)+' '+str(thread.isAlive()))
+
+    #   if thread.isAlive() == False:
+
+    #     print('\n\nthread is dead\n----------\n')
+        
+    #     return flask.jsonify({'link': viz_url+viz_id+qs})
+
+    # # return link after max time has elapsed 
+    # return flask.jsonify({'link': viz_url+viz_id+qs})
+
+  except:
+    print('here')
+    # error_desc = 'Error in processing Enrichr enrichment vectors.'
+
+    # return flask.jsonify({
+    #   'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
+    #   'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
+    # })   
+
+
+
+
+
 
 @app.route("/clustergrammer/l1000cds2/<user_objid>")
 def viz_l1000cds2(user_objid):

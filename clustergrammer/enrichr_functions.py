@@ -126,21 +126,10 @@ def transfer_to_enr_dict(response_list):
 
   return enr 
 
-def enrichr_clust_from_response(get_response):
+def enrichr_clust_from_response(response_list):
   from clustergrammer import Network
   import scipy
   import json 
-
-  # load as dictionary 
-  resp_json = json.loads( get_response.text )
-
-  # get the key 
-  only_key = resp_json.keys()[0]
-
-  # get response_list 
-  response_list = resp_json[only_key]
-
-  print(response_list)
 
   ini_enr = transfer_to_enr_dict( response_list )
 
@@ -152,7 +141,7 @@ def enrichr_clust_from_response(get_response):
   threshold = 0.001 
   num_thresh = 1
   dendro=False
-  
+
   # only keep the top 20 terms 
   if len(enr)>15:
     enr = enr[0:15]
