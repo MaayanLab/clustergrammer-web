@@ -32,13 +32,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -219,7 +219,7 @@ def enrichr_clustergram():
   import enrichr_functions as enr_fun
 
   if request.method == 'POST':
-    # g2e_post = json.loads(request.data)
+    enr_json = json.loads(request.data)
     pass
 
   elif request.method == 'GET':
@@ -229,7 +229,7 @@ def enrichr_clustergram():
     ####################################################### 
     import requests
 
-    gmt = 'ChEA_2015'
+    gmt = 'KEA_2015'
     userListId = 939279
 
     # define the get url 
@@ -276,7 +276,6 @@ def enrichr_clustergram():
     enr_json['gmt'] = gmt
     enr_json['enr_list'] = response_list
 
-    print(enr_json)
 
     ####################################################### 
     ####################################################### 
@@ -312,7 +311,7 @@ def enrichr_clustergram():
     ######################
     print('initializing thread')
     sub_function = enr_sub.Enrichr_cluster
-    arg_list = [mongo_address, viz_id, response_list]
+    arg_list = [mongo_address, viz_id, enr_json['enr_list']]
     thread = threading.Thread(target=sub_function, args=arg_list)
     thread.setDaemon(True)
 
