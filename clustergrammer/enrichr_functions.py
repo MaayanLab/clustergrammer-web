@@ -30,18 +30,14 @@ def enrichr_get_request( gmt, userListId ):
   import requests
   import json
 
+  # convert userListId to string 
+  userListId = str(userListId)
+
   # define the get url 
   get_url = 'http://amp.pharm.mssm.edu/Enrichr/enrich'
 
   # get parameters 
   params = {'backgroundType':gmt,'userListId':userListId}
-
-  print('\n\n')
-  print('get_url '+get_url)
-  print('gmt')
-  print(gmt)
-  print('userListId '+str(userListId))
-  print('\n')
 
   # try get request until status code is 200 
   inst_status_code = 400
@@ -140,7 +136,7 @@ def enrichr_clust_from_response(response_list):
     if inst_enr['combined_score'] > 0:
       enr.append(inst_enr)
 
-  threshold = 0.001 
+  threshold = 0 # 0.001 
   num_thresh = 1
   dendro=False
 
@@ -291,17 +287,12 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   from clustergrammer import Network
   import scipy 
   
-  print('\n\nGMT')
-  print(sig_enr_info['background_type'])
-  print('\n')
-
   # process sig_enr_info
   ####################
   all_ids = []
   all_col_titles = []
   id_to_title = {}
 
-  print('collecting signature info ')
   for inst_gs in sig_enr_info['signature_ids']:
     for inst_updn in ['up','dn']:
 
@@ -310,7 +301,7 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
       all_col_titles.append(inst_gs['col_title'])
 
       # keep association between id and col title 
-      id_to_title[ inst_gs['enr_id_'+inst_updn] ] = inst_gs['col_title']+'_'+inst_updn
+      id_to_title[ inst_gs['enr_id_'+inst_updn] ] = inst_gs['col_title']+'$'+inst_updn
 
   # get unique columns 
   all_col_titles = list(set(all_col_titles))
@@ -322,7 +313,6 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   all_enr = []
   for inst_id in all_ids:
     # calc enrichment 
-    print('enrichr_get_request')
     enr = enrichr_get_request(inst_gmt, inst_id)
 
     # save enrichment obj: name and enr data 
@@ -359,7 +349,10 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   net.dat['mat_up'] = scipy.zeros([len(row_node_names),len(col_node_names)])
   net.dat['mat_dn'] = scipy.zeros([len(row_node_names),len(col_node_names)])
 
-  print('\ngathering enrichment information\n----------------------\n')
+  print('\ngathering enrichment information\n------------------------------\n')
+  print(row_node_names)
+  print(col_node_names)
+  print('\n\n\n\n\n\n\n\n\n\n')
   net.dat['mat_info'] = {}
   for i in range(len(row_node_names)):
     for j in range(len(col_node_names)):
@@ -370,8 +363,8 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   # fill in mat using all_enr, includes up/dn 
   for inst_gs in all_enr:
 
-    inst_gs_name = inst_gs['name'].split('_')[0]
-    inst_updn = inst_gs['name'].split('_')[1]
+    inst_gs_name = inst_gs['name'].split('$')[0]
+    inst_updn = inst_gs['name'].split('$')[1]
 
     # loop through the enriched terms for the gs 
     for inst_enr in inst_gs['enr']:
@@ -386,7 +379,6 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
       row_index = row_node_names.index(inst_term)
       col_index = col_node_names.index(inst_gs_name)
 
-
       if inst_cs > 0:
         if inst_updn == 'up':
           net.dat['mat'][row_index, col_index] = net.dat['mat'][row_index, col_index] + inst_cs
@@ -396,6 +388,8 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
           net.dat['mat'][row_index, col_index] = net.dat['mat'][row_index, col_index] - inst_cs
           net.dat['mat_dn'][row_index, col_index] = -inst_cs
           net.dat['mat_info'][str((row_index,col_index))][inst_updn] = inst_genes
+
+      print(inst_cs)
 
   # filter and cluster network 
   print('\n  filtering network')
