@@ -131,6 +131,8 @@ def enrichr_clust_from_response(response_list):
   import scipy
   import json 
 
+  print('\n\n\n\n\nenrichr_clust_from_response\n\n\n\n\n')
+
   ini_enr = transfer_to_enr_dict( response_list )
 
   enr = []

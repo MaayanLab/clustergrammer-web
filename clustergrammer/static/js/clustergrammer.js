@@ -334,8 +334,8 @@ function Dendrogram(type, params) {
         .attr('class', 'd3-tip')
         .direction('e')
         .offset([0, 0])
-        .html(function(group_nodes){
-          return group_nodes.join('\t');
+        .html(function(group_nodes_list){
+          return group_nodes_list.join('\t');
         });
 
       d3.select('#row_viz_zoom_container')
@@ -364,38 +364,25 @@ function Dendrogram(type, params) {
             return inst_offset + 'px';
           })
 
-        dendro_rect
-          .on('mouseover', function(d){
-            var inst_level = params.group_level.row;
-            var inst_nodes = params.network_data.row_nodes;
-            var inst_group = d.group[inst_level];
-            var group_nodes = [];
-
-            _.each(inst_nodes, function(node){
-              if (node.group[inst_level] === inst_group){
-                group_nodes.push(node.name);
-              }
-            });
-
-            var group_info = {};
-            group_info.type = 'row';
-            group_info.nodes = group_nodes;
-            group_info.cutoff = inst_level/10;
-
-            if (params.labels.show_label_tooltips){
-              tip.show(group_nodes);
-            }
-          })
-          .on('mouseout', function(d){
-            if (params.labels.show_label_tooltips){
+        if (params.labels.show_label_tooltips){
+          dendro_rect
+            .on('mouseover', function(d){
+              var group_nodes_list = get_inst_group('row',d);
+              tip.show(group_nodes_list);
+            })
+            .on('mouseout', function(d){
               tip.hide();
-            }
-          });
+            });
+        }
 
-        // dendro_rect
-        //   .on('click', function(d){
-        //     params.click_group(group_info);
-        //   });
+        // show group in modal 
+        if (typeof params.click_group === 'function'){
+          dendro_rect
+            .on('click', function(d){
+              var group_nodes_list = get_inst_group('row',d);
+              params.click_group('row', group_nodes_list);
+            });
+        }       
 
       })
 
@@ -424,13 +411,12 @@ function Dendrogram(type, params) {
         .attr('class', 'd3-tip')
         .direction('s')
         .offset([0, 0])
-        .html(function(group_nodes){
-          return group_nodes.join('\t');
+        .html(function(group_nodes_list){
+          return group_nodes_list.join('\t');
         });
 
       d3.select('#row_viz_zoom_container')
         .call(tip);
-
     }    
 
     d3.selectAll('.col_viz_group')
@@ -450,35 +436,48 @@ function Dendrogram(type, params) {
             return get_group_color(d.group[inst_level]);
           });
 
-        dendro_rect
-          .on('mouseover', function(d){
-            var inst_level = params.group_level.col;
-            var inst_nodes = params.network_data.col_nodes;
-            var inst_group = d.group[inst_level];
-            var group_nodes = [];
-
-            _.each(inst_nodes, function(node){
-              if (node.group[inst_level] === inst_group){
-                group_nodes.push(node.name);
-              }
-            });
-
-            var group_info = {};
-            group_info.type = 'col';
-            group_info.nodes = group_nodes;
-            group_info.cutoff = inst_level/10;
-
-            if (params.labels.show_label_tooltips){
-              tip.show(group_nodes);
-            }
-          })
-          .on('mouseout', function(d){
-            if (params.labels.show_label_tooltips){
+        if (params.labels.show_label_tooltips){
+          dendro_rect
+            .on('mouseover', function(d){
+              var group_nodes_list = get_inst_group('col',d);
+              tip.show(group_nodes_list );
+            })
+            .on('mouseout', function(d){
               tip.hide();
-            }
-          });        
+            }); 
+
+          if (typeof params.click_group==='function'){
+            dendro_rect
+              .on('click',function(d){
+                var group_nodes_list = get_inst_group('col',d);
+                params.click_group('col',group_nodes_list);
+              });
+          }
+        }
 
     })
+  }
+
+  function get_inst_group(inst_rc,d){
+
+    if (inst_rc === 'col'){
+      var inst_level = params.group_level.col;
+      var inst_nodes = params.network_data.col_nodes;
+    } else if (inst_rc==='row') {
+      var inst_level = params.group_level.row;
+      var inst_nodes = params.network_data.row_nodes;
+    }
+
+    var inst_group = d.group[inst_level];
+    var group_nodes_list = [];
+
+    _.each(inst_nodes, function(node){
+      if (node.group[inst_level] === inst_group){
+        group_nodes_list.push(node.name);
+      }
+    });
+
+    return group_nodes_list;
   }
 
   // add callback functions 
@@ -1574,6 +1573,24 @@ function VizParams(config){
       params.viz.force_square = 1;
     }
 
+    // set up bar_scale_row and bar_scale_col if there are values for rows/cols
+    // get max value
+
+    // the enrichment bar should be 3/4ths of the height of the column labels
+    var enr_max = Math.abs(_.max( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
+    params.labels.bar_scale_col = d3.scale
+      .linear()
+      .domain([0, enr_max])
+      .range([0, 0.75*params.norm_label.width.col]);    
+
+    // set bar scale
+    var enr_max = Math.abs(_.max( row_nodes, function(d) { return Math.abs(d.value) } ).value) ;
+    params.labels.bar_scale_row = d3.scale
+      .linear()
+      .domain([0, enr_max])
+      .range([0, params.norm_label.width.row ]);
+
+
     // Define Orderings
     ////////////////////////////
 
@@ -2207,13 +2224,6 @@ function Labels(params){
 
       if (Utils.has( params.network_data.row_nodes[0], 'value')) {
 
-        // set bar scale
-        var enr_max = Math.abs(_.max( row_nodes, function(d) { return Math.abs(d.value) } ).value) ;
-        params.labels.bar_scale_row = d3.scale
-          .linear()
-          .domain([0, enr_max])
-          .range([0, params.norm_label.width.row ]);
-
         row_labels
           .append('rect')
           .attr('class', 'row_bars')
@@ -2390,15 +2400,7 @@ function Labels(params){
           .classed('active',false);
       });
 
-    // get max value
-    var enr_max = Math.abs(_.max( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
-    var enr_min = Math.abs(_.min( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
 
-    // the enrichment bar should be 3/4ths of the height of the column labels
-    params.labels.bar_scale_col = d3.scale
-      .linear()
-      .domain([enr_min*0.75, enr_max])
-      .range([0, params.norm_label.width.col]);
 
     // append column value bars
     if (Utils.has( params.network_data.col_nodes[0], 'value')) {
@@ -3506,14 +3508,15 @@ function draw_grid_lines(row_nodes, col_nodes) {
           var bbox = d3.select(this)
             .select('text')[0][0]
             .getBBox();
-          d3.select(this)
-            .select('rect')
-            .attr('x', bbox.x * 1.25)
-            .attr('y', 0)
-            .attr('width', bbox.width * 1.25)
-            .attr('height', params.matrix.rect_width * 0.6)
-            .style('fill', 'yellow')
-            .style('opacity', 0);
+
+          // d3.select(this)
+          //   .select('rect')
+          //   .attr('x', bbox.x * 1.25)
+          //   .attr('y', 0)
+          //   .attr('width', bbox.width * 1.25)
+          //   .attr('height', params.matrix.rect_width * 0.6)
+          //   .style('fill', 'yellow')
+          //   .style('opacity', 0);
         });
 
       // resize column triangle 
@@ -4241,14 +4244,14 @@ function resize_after_update(params, row_nodes, col_nodes, links, duration, dela
         var bbox = d3.select(this)
           .select('text')[0][0]
           .getBBox();
-        d3.select(this)
-          .select('rect')
-          .attr('x', bbox.x * 1.25)
-          .attr('y', 0)
-          .attr('width', bbox.width * 1.25)
-          .attr('height', params.matrix.x_scale.rangeBand() * 0.6)
-          .style('fill', 'yellow')
-          .style('opacity', 0);
+        // d3.select(this)
+        //   .select('rect')
+        //   .attr('x', bbox.x * 1.25)
+        //   .attr('y', 0)
+        //   .attr('width', bbox.width * 1.25)
+        //   .attr('height', params.matrix.x_scale.rangeBand() * 0.6)
+        //   .style('fill', 'yellow')
+        //   .style('opacity', 0);
       });
 
 
@@ -4552,8 +4555,10 @@ function update_network(change_view){
   this.find_gene = gene_search.find_entities;
 
   // redefine change_group function 
-  var row_dendrogram = Dendrogram('row', params);
-  var col_dendrogram = Dendrogram('col', params);
+  if (params.viz.show_dendrogram){
+    var row_dendrogram = Dendrogram('row', params);
+    var col_dendrogram = Dendrogram('col', params);
+  }
 
   function new_change_groups(inst_rc, inst_index) {
       if (inst_rc === 'row') {

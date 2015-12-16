@@ -289,6 +289,11 @@
 
     }
 
+    if (query_string.viz_type === 'Enrichr_clustergram'){
+      arguments_obj.col_label_scale = 1;
+      arguments_obj.row_label_scale = 0.75;
+    }
+
     if (ini_expand){
       d3.select('.footer_section').style('display','none');
     } else {
@@ -307,6 +312,9 @@
     }
 
     
+    if (query_string.viz_type === 'Enrichr_clustergram'){
+      d3.select('#expand_button').style('display','none');
+    }
 
     ini_sliders();
 

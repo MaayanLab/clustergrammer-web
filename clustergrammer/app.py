@@ -219,7 +219,8 @@ def enrichr_clustergram():
   import enrichr_functions as enr_fun
 
   if request.method == 'POST':
-    g2e_post = json.loads(request.data)
+    # g2e_post = json.loads(request.data)
+    pass
 
   elif request.method == 'GET':
 
@@ -228,8 +229,7 @@ def enrichr_clustergram():
     ####################################################### 
     import requests
 
-
-    gmt = 'KEA_2015'
+    gmt = 'ChEA_2015'
     userListId = 939279
 
     # define the get url 
@@ -286,76 +286,74 @@ def enrichr_clustergram():
   try:  
 
     print('making clust')
-    return 'something'
 
-    # # submit placeholder to mongo 
-    # ################################
+    # submit placeholder to mongo 
+    ################################
 
-    # # set up database connection 
-    # client = MongoClient(mongo_address)
-    # db = client.clustergrammer
+    # set up database connection 
+    client = MongoClient(mongo_address)
+    db = client.clustergrammer
 
-    # # generate placeholder json - does not contain viz json 
-    # export_viz = {}
-    # export_viz['name'] = 'enrichment_vector'
-    # export_viz['viz'] = 'processing'
-    # export_viz['dat'] = 'processing'
-    # export_viz['source'] = 'g2e_enr_vect'
+    # generate placeholder json - does not contain viz json 
+    export_viz = {}
+    export_viz['name'] = str(enr_json['userListId']) + '_' + enr_json['gmt']
+    export_viz['viz'] = 'processing'
+    export_viz['dat'] = 'processing'
+    export_viz['source'] = 'Enrichr_clustergram'
 
-    # # this is the id that will be used to view the visualization 
-    # viz_id = db.networks.insert( export_viz )
-    # viz_id = str(viz_id)
+    # this is the id that will be used to view the visualization 
+    viz_id = db.networks.insert( export_viz )
+    viz_id = str(viz_id)
 
-    # # close database connection 
-    # client.close()
+    # close database connection 
+    client.close()
     
-    # # initialize thread
-    # ######################
-    # print('initializing thread')
-    # sub_function = enr_sub.enr_and_make_viz
-    # arg_list = [mongo_address, viz_id, g2e_post]
-    # thread = threading.Thread(target=sub_function, args=arg_list)
-    # thread.setDaemon(True)
+    # initialize thread
+    ######################
+    print('initializing thread')
+    sub_function = enr_sub.Enrichr_cluster
+    arg_list = [mongo_address, viz_id, response_list]
+    thread = threading.Thread(target=sub_function, args=arg_list)
+    thread.setDaemon(True)
 
-    # # run subprocess 
-    # ####################
-    # print('running subprocess and pass in viz_id ')
-    # thread.start()
+    # run subprocess 
+    ####################
+    print('running subprocess and pass in viz_id ')
+    thread.start()
 
-    # # define information return link - always the same link 
-    # ######################################
-    # viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-    # qs = '?preview=true&order=rank&viz_type=enr_vect'
+    # define information return link - always the same link 
+    ######################################
+    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
+    qs = '?preview=true&order=rank&viz_type=Enrichr_clustergram'
 
 
-    # # check if subprocess is finished 
-    # ###################################
-    # max_wait_time = 30
-    # print('check if subprocess is done')
-    # for wait_time in range(max_wait_time):
+    # check if subprocess is finished 
+    ###################################
+    max_wait_time = 30
+    print('check if subprocess is done')
+    for wait_time in range(max_wait_time):
 
-    #   # wait one second 
-    #   time.sleep(1)
+      # wait one second 
+      time.sleep(1)
 
-    #   print('wait_time'+str(wait_time)+' '+str(thread.isAlive()))
+      print('wait_time'+str(wait_time)+' '+str(thread.isAlive()))
 
-    #   if thread.isAlive() == False:
+      if thread.isAlive() == False:
 
-    #     print('\n\nthread is dead\n----------\n')
+        print('\n\nthread is dead\n----------\n')
         
-    #     return flask.jsonify({'link': viz_url+viz_id+qs})
+        return flask.jsonify({'link': viz_url+viz_id+qs})
 
-    # # return link after max time has elapsed 
-    # return flask.jsonify({'link': viz_url+viz_id+qs})
+    # return link after max time has elapsed 
+    return flask.jsonify({'link': viz_url+viz_id+qs})
 
   except:
     print('here')
-    # error_desc = 'Error in processing Enrichr enrichment vectors.'
+    error_desc = 'Error in processing Enrichr clustergram.'
 
-    # return flask.jsonify({
-    #   'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
-    #   'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-    # })   
+    return flask.jsonify({
+      'link': 'error'
+    })   
 
 
 
