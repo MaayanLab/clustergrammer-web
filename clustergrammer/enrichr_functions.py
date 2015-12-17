@@ -350,8 +350,8 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   net.dat['mat_dn'] = scipy.zeros([len(row_node_names),len(col_node_names)])
 
   print('\ngathering enrichment information\n------------------------------\n')
-  print(row_node_names)
-  print(col_node_names)
+  # print(row_node_names)
+  # print(col_node_names)
   print('\n\n\n\n\n\n\n\n\n\n')
   net.dat['mat_info'] = {}
   for i in range(len(row_node_names)):
