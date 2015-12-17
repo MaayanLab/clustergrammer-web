@@ -305,9 +305,7 @@
       'order':ini_order
     };
 
-    if (_.has(network_data.row_nodes[0],'group')){
-      arguments_obj.click_group = click_group_callback;
-    }
+
 
     if (query_string.viz_type === 'enr_vect'){
       // show up/dn genes from enrichment 
@@ -352,8 +350,16 @@
     if (network_data === 'processing'){
       d3.select('#wait_message').text('Processing... please wait a moment and refresh page.');
     } else if (network_data === 'error') {
-      d3.select('#wait_message').text('There was an error processing your matrix. Please re-check your data and try again.');
+      console.log('here')
+      d3.select('#wait_message')
+        .text('There was an error processing your matrix. Please re-check your data and try again.')
+        .style('margin-left','30px');
     } else {
+
+      if (_.has(network_data.row_nodes[0],'group')){
+        arguments_obj.click_group = click_group_callback;
+      }
+
       // make clustergram: pass network_data and the div name where the svg should be made
       d3.select('#wait_message').style('display','none');
       var cgm = clustergrammer(arguments_obj);

@@ -47,7 +47,7 @@ def enr_and_make_viz(mongo_address, viz_id, g2e_post):
   # close database connection 
   client.close()
 
-def Enrichr_cluster(mongo_address, viz_id, response_list):
+def Enrichr_cluster(mongo_address, viz_id, enr_list):
   import enrichr_functions as enr_fun
   from bson.objectid import ObjectId
   from pymongo import MongoClient
@@ -66,7 +66,7 @@ def Enrichr_cluster(mongo_address, viz_id, response_list):
     threshold = 0.001
     num_thresh = 1
     # get results from Enrichr and make clustergram netowrk object 
-    net = enr_fun.enrichr_clust_from_response(response_list)
+    net = enr_fun.enrichr_clust_from_response(enr_list)
 
     # export dat to database 
     #!! export dat not working 
