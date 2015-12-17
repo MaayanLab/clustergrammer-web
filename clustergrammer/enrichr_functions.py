@@ -43,7 +43,10 @@ def enrichr_get_request( gmt, userListId ):
   inst_status_code = 400
 
   # wait until okay status code is returned 
-  while inst_status_code == 400:
+  num_try = 0
+  print('\n\n\n\n\nuserListId: '+str(userListId))
+  while inst_status_code == 400 and num_try < 100:
+    num_try = num_try +1 
     try:
       # make the get request to get the enrichr results 
       print('make-get-req-Enrichr')
@@ -71,13 +74,22 @@ def enrichr_get_request( gmt, userListId ):
   response_list = resp_json[only_key]
 
   # transfer the response_list to the enr_dict 
-  enr = transfer_to_enr_dict( response_list )
+  max_num_term = 50
+  print('\n-------------------------\n')
+  print('\n-------------------------\n')
+  print('transferring results to enrichment dictionary ')
+  print('\n-------------------------\n')
+  print('\n-------------------------\n')
+  enr = transfer_to_enr_dict( response_list, max_num_term )
 
   # return enrichment json and userListId
+  print('\n-------------------------\n')
+  print('returning enrichment results ')
+  print('\n-------------------------\n')
   return enr 
 
 # transfer the response_list to a list of dictionaries 
-def transfer_to_enr_dict(response_list):
+def transfer_to_enr_dict(response_list, max_num_term=50):
 
   # # reduce the number of enriched terms if necessary
   # if len(response_list) < num_terms:
@@ -91,12 +103,16 @@ def transfer_to_enr_dict(response_list):
   # 5: Genes
   # 6: pval_bh
 
+  num_enr_term = len(response_list)
+  if num_enr_term > max_num_term:
+    num_enr_term = max_num_term
+
   # transfer response_list to enr structure 
   # and only keep the top terms 
   #
   # initialize enr
   enr = []
-  for i in range(len(response_list)):
+  for i in range(num_enr_term):
 
     # get list element 
     inst_enr = response_list[i]
@@ -303,7 +319,7 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
       # keep association between id and col title 
       id_to_title[ inst_gs['enr_id_'+inst_updn] ] = inst_gs['col_title']+'$'+inst_updn
 
-  # get unique columns 
+  # get unique columns
   all_col_titles = list(set(all_col_titles))
 
   inst_gmt = sig_enr_info['background_type']
@@ -324,6 +340,9 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
 
   # collect information into network data structure 
   ##################################################
+  print('\n-------------------------\n')
+  print('collecting enrichment information into network')
+  print('\n-------------------------\n')
   # rows: all enriched terms 
   row_node_names = []
   # cols: all gene lists 
@@ -349,10 +368,18 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   net.dat['mat_up'] = scipy.zeros([len(row_node_names),len(col_node_names)])
   net.dat['mat_dn'] = scipy.zeros([len(row_node_names),len(col_node_names)])
 
-  print('\ngathering enrichment information\n------------------------------\n')
-  # print(row_node_names)
-  # print(col_node_names)
-  print('\n\n\n\n\n\n\n\n\n\n')
+
+  print('\n-------------------------\n')
+  print('\n-------------------------\n')
+  print('size of matrix to be clustered')
+  print(net.dat['mat'].shape)
+  print('\n-------------------------\n')
+  print('\n-------------------------\n')
+
+  print('\n-------------------------\n')
+  print('gathering enrichment info into mat')
+  print('\n-------------------------\n')
+
   net.dat['mat_info'] = {}
   for i in range(len(row_node_names)):
     for j in range(len(col_node_names)):
@@ -389,7 +416,12 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
           net.dat['mat_dn'][row_index, col_index] = -inst_cs
           net.dat['mat_info'][str((row_index,col_index))][inst_updn] = inst_genes
 
-      print(inst_cs)
+
+  print('\n-------------------------\n')
+  print('\n-------------------------\n')
+  print('clustering multiple views')
+  print('\n-------------------------\n')
+  print('\n-------------------------\n')
 
   # filter and cluster network 
   print('\n  filtering network')
