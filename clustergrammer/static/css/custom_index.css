@@ -178,12 +178,12 @@ h2 {
 
 #homepage_examples{
   /*divider*/
+  margin-top: 55px;
   padding-top: 40px;
   border-top: 1px solid #DEDEDE;
   width:920px;a
   height: 300px;
   margin-left: 0px;
-  margin-top: 60px;
 }
 
 #example_title{
