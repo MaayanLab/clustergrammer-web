@@ -129,30 +129,30 @@ def enrichment_vectors():
     # mock data 
     ####################################################### 
     g2e_post = {
-  "background_type": "ChEA_2015",
-  "signature_ids": [
-    {
-      "enr_id_up": "949840",
-      "col_title": "Age effect on lipopolysaccharide-induced neuroinflammation and sickness behavior",
-      "enr_id_dn": "949841"
-    },
-    {
-      "enr_id_up": "949842",
-      "col_title": "Age effect on lipopolysaccharide-induced neuroinflammation and sickness behavior 2",
-      "enr_id_dn": "949843"
-    },
-    {
-      "enr_id_up": "949844",
-      "col_title": "Age effect on extraocular muscles",
-      "enr_id_dn": "949845"
-    },
-    {
-      "enr_id_up": "949846",
-      "col_title": "Age effect on extraocular muscles 2",
-      "enr_id_dn": "949847"
+      "background_type": "ChEA_2015",
+      "signature_ids": [
+        {
+          "enr_id_up": "949840",
+          "col_title": "Age effect on lipopolysaccharide-induced neuroinflammation and sickness behavior",
+          "enr_id_dn": "949841"
+        },
+        {
+          "enr_id_up": "949842",
+          "col_title": "Age effect on lipopolysaccharide-induced neuroinflammation and sickness behavior 2",
+          "enr_id_dn": "949843"
+        },
+        {
+          "enr_id_up": "949844",
+          "col_title": "Age effect on extraocular muscles",
+          "enr_id_dn": "949845"
+        },
+        {
+          "enr_id_up": "949846",
+          "col_title": "Age effect on extraocular muscles 2",
+          "enr_id_dn": "949847"
+        }
+      ]
     }
-  ]
-}
 
 
     ####################################################### 
