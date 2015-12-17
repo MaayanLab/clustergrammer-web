@@ -120,6 +120,28 @@
     </div>
   </footer>
 
+
+  <!-- Modal -->
+  <div id="dendro_info" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div> -->
+      </div>
+
+    </div>
+  </div>
+
   <!-- Vendor -->
   <!-- jQuery -->
   <script src="static/lib/js/jquery-1.11.2.min.js"></script>
@@ -236,11 +258,34 @@
     }
 
     // define callback function for clicking on group
-    function click_group_callback(group_info){
+    function click_group_callback(inst_rc, group_nodes_list){
       console.log('running user defined click group callback');
-      console.log(group_info.type);
-      console.log(group_info.nodes);
-      console.log(group_info.info);
+
+      $('#dendro_info').modal('toggle');
+      d3.select('#dendro_info').select('.modal-body').select('p')
+        .text(group_nodes_list.join('\t'));
+
+      if (inst_rc==='row'){
+        var type_title = 'Row';
+      } else if (inst_rc==='col'){
+        var type_title = 'Column';
+      }
+
+        
+      d3.select('#dendro_info').select('.modal-title')
+        .text(function(){
+          return 'Selected '+type_title + ' Group';
+        });
+
+
+      options = {
+        description:'some-description',
+        list: group_nodes_list.join('\n')
+      }
+
+      // // send genes to Enrichr 
+      // send_genes_to_enrichr(options);
+
     }
 
     viz_name = {{viz_name|tojson|safe}};
@@ -260,6 +305,10 @@
       'opacity_scale':opacity_scale,
       'order':ini_order
     };
+
+    if (_.has(network_data.row_nodes[0],'group')){
+      arguments_obj.click_group = click_group_callback;
+    }
 
     if (query_string.viz_type === 'enr_vect'){
       // show up/dn genes from enrichment 
