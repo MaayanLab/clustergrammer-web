@@ -81,7 +81,7 @@ function play_demo(){
   function play_intro(){
     var text = 'Clustergrammer allows users to generate\ninteractive and sharable visualizations\nby uploading a matrix';
     setTimeout( demo_text, 0, text, 5000 )
-    setTimeout( demo_text, 5000, "This demo will quickly overview\nClustergrammer's interactive features", 3500 )
+    setTimeout( demo_text, 5000, "This demo will quickly overview some\nof Clustergrammer's interactive features", 3500 )
 
     // duration 11000
   }
