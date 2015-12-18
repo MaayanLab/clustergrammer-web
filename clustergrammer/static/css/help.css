@@ -1,5 +1,6 @@
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    overflow-x:hidden;
 }
 p,
 a,
@@ -32,8 +33,7 @@ strong {
 /* Sidebar */
 #sidebar {
     background: #fff;
-  border-right: 1px solid #ccc;
-  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    border-right: 1px solid #DEDEDE;
     height: 100%;
     left: 0;
     padding: 30px 20px 20px 20px;
@@ -97,10 +97,10 @@ strong {
     text-decoration: none;
 }
 #content #subtitle {
-    font-size: 14px;
+  font-size: 14px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
-  margin: 0 0 40px 0;
+  margin: 0 0 30px 0;
 }
 #content #subtitle a {
     font-size: 14px;
@@ -217,7 +217,7 @@ border-width: thin;
 
 #sideBarSub a.subtitle{
 font-weight: bold;
-  font-style: italic;
+  /*font-style: italic;*/
   color: #555;
   margin-left: 0.6em;
 }
@@ -229,7 +229,7 @@ font-weight: bold;
 }
 
 #content h3.subheader{
-   font-style: italic;
+   /*font-style: italic;*/
   color: #333;
   padding-top: 15px;
 }
