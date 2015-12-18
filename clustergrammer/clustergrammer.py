@@ -271,23 +271,32 @@ class Network(object):
 
         inst_result = all_results[inst_result_index]
 
-        # if up/dn then it should be negative since the drug is dn 
+        # for non-mimic if up/dn then it should be negative since the drug is dn 
+        # for mimic if up/up then it should be positive since the drug is up
         for inst_dn in inst_result['overlap'][up_type]:
 
           # get gene index 
           inst_gene_index = self.dat['nodes']['row'].index(inst_dn)
 
           # save -1 to gene row and drug column 
-          self.dat['mat'][ inst_gene_index, inst_result_index ] = -1 
+          if up_type == 'up/dn':
+            self.dat['mat'][ inst_gene_index, inst_result_index ] = -1 
+          else:
+            self.dat['mat'][ inst_gene_index, inst_result_index ] = 1 
          
-        # if dn/up then it should be positive since the drug is up 
+        # for non-mimic if dn/up then it should be positive since the drug is up 
+        # for mimic if dn/dn then it should be negative since the drug is dn 
         for inst_up in inst_result['overlap'][dn_type]:
 
           # get gene index
           inst_gene_index = self.dat['nodes']['row'].index(inst_up)
 
           # save 1 to gene row and drug column 
-          self.dat['mat'][ inst_gene_index, inst_result_index ] = 1
+          if dn_type == 'dn/up':
+            self.dat['mat'][ inst_gene_index, inst_result_index ] = 1
+          else:
+            self.dat['mat'][ inst_gene_index, inst_result_index ] = -1
+
 
     # process a characteristic direction vector result
     else:
