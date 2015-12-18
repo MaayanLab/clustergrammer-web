@@ -32,13 +32,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -56,9 +56,9 @@ def send_static(path):
 def index():
   return render_template('index.html', flask_var='')
 
-@app.route("/clustergrammer/help")
-def help():
-  return render_template('help.html')  
+# @app.route("/clustergrammer/help")
+# def help():
+#   return render_template('help.html')  
 
 
 @app.route("/clustergrammer/error/<error_desc>")
