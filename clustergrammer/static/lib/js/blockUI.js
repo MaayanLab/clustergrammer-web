@@ -132,7 +132,7 @@
 				color:		'#000',
 				border:		'3px solid #aaa',
 				backgroundColor:'#fff',
-				cursor:		'wait'
+				// cursor:		'wait'
 			},
 
 			// minimal style set used when themes are used
@@ -146,7 +146,7 @@
 			overlayCSS:  {
 				backgroundColor:	'#000',
 				opacity:			0.6,
-				cursor:				'wait'
+				// cursor:				'wait'
 			},
 
 			// style to replace wait cursor before unblocking to correct issue
@@ -162,7 +162,7 @@
 				border:		'none',
 				padding:	'5px',
 				opacity:	0.6,
-				cursor:		'default',
+				// cursor:		'default',
 				color:		'#fff',
 				backgroundColor: '#000',
 				'-webkit-border-radius':'10px',

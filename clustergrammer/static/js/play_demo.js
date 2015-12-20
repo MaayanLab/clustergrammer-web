@@ -1,11 +1,33 @@
 function ini_play_button(cgm){
 
+
+
+// d3.select('.blockMsg').select('h1').text('Please wait...');
+
 var inst_play = false;
 
 function play_demo(){
   console.log(inst_play)
 
   if (inst_play === false){
+
+    // prevent user interaction while playing 
+    $.blockUI({ css: { 
+        border: 'none', 
+        padding: '15px', 
+        backgroundColor: '#000', 
+        '-webkit-border-radius': '10px', 
+        '-moz-border-radius': '10px', 
+        opacity: 0, 
+        color: '#fff',
+        cursor:'default'
+    } });
+
+    // $(document.body).css({ 'cursor': 'default' })
+
+    // document.body.style.cursor = 'default';
+
+    d3.selectAll('.blockUI').style('opacity',0);
 
       inst_play = true;
       var sec_scale = 1000;
@@ -95,9 +117,10 @@ function play_demo(){
   function replay_demo(){
     setTimeout(demo_text, 0, "Clustergrammer is built with gene-\nexpression data in mind and interfaces\nwith several Ma'ayan lab web-tools\n", 5000);
     setTimeout(demo_text, 5000, "The example data being visualized is\ngene-expression data obtained from the\nCancer Cell Line Encyclopedia", 5000);
-    setTimeout(demo_text, 10000, "For more information please view\nthe help documents", 5000);
+    setTimeout(demo_text, 10000, "For more information please view\nthe help documentation", 5000);
     setTimeout(toggle_play_button, 16000, true);
     inst_play = false;
+    $.unblockUI();
   }
 
   function play_groups(){
