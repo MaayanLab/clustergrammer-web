@@ -7,7 +7,6 @@ function ini_play_button(cgm){
 var inst_play = false;
 
 function play_demo(){
-  console.log(inst_play)
 
   if (inst_play === false){
 
@@ -37,13 +36,29 @@ function play_demo(){
       var inst_time = 0;
       var prev_duration = 0;
 
-      setTimeout( play_intro(), inst_time);
+      if ($('#slider_filter').slider("option", "value") > 0){
+        inst_time = inst_time + prev_duration;
+        reset_filter();
+
+        setTimeout(ini_maximize, 4000);
+        prev_duration = 5*sec_scale;
+      }
+
+      if (cgm.params.viz.expand === false){
+        inst_time = inst_time + prev_duration;
+        setTimeout(ini_maximize, inst_time);
+        prev_duration = 2*sec_scale
+      }
+
+      console.log('start intro: '+String(inst_time))
+      inst_time = inst_time + prev_duration;
+      setTimeout( play_intro, inst_time);
       prev_duration = 9*sec_scale;
 
       // zoom and pan: duration 4
-      var inst_time = inst_time + prev_duration;
+      inst_time = inst_time + prev_duration;
       setTimeout( play_zoom, inst_time);
-      var prev_duration = 4*sec_scale;
+      prev_duration = 4*sec_scale;
 
       // reset zoom: duration 4
       inst_time = inst_time + prev_duration;
@@ -98,6 +113,16 @@ function play_demo(){
 
   }
 
+  }
+
+  function reset_filter(){
+    var inst_filt = 0.0;
+    var change_view = {'filter_row_sum':inst_filt, 'num_meet':1};
+    setTimeout( update_view, 0, change_view);
+  }
+
+  function ini_maximize(){
+    click_expand_button();
   }
 
   function play_intro(){
