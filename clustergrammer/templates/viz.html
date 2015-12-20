@@ -204,7 +204,7 @@
     }
 
     var super_label_scale = 1.25;
-    if (query_string.row_label === undefined && query_string.col_label === undefined){
+    if (query_string.no_labels){
       super_label_scale = 0;
     }
 
@@ -336,8 +336,10 @@
     }
 
     if (query_string.viz_type === 'Enrichr_clustergram'){
-      arguments_obj.col_label_scale = 1;
+      arguments_obj.col_label_scale = 1.25;
       arguments_obj.row_label_scale = 0.75;
+      arguments_obj.row_label = 'Input Genes';
+      arguments_obj.col_label = 'Enriched Terms';
     }
 
     if (ini_expand){
@@ -366,9 +368,9 @@
     }
 
     
-    if (query_string.viz_type === 'Enrichr_clustergram'){
-      d3.select('#expand_button').style('display','none');
-    }
+    // if (query_string.viz_type === 'Enrichr_clustergram'){
+    //   d3.select('#expand_button').style('display','none');
+    // }
 
     ini_sliders();
 

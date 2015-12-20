@@ -40,8 +40,12 @@ function play_demo(){
         inst_time = inst_time + prev_duration;
         reset_filter();
 
+        // if (cgm.params.viz.expand === false){
+        console.log('expanding')
         setTimeout(ini_maximize, 4000);
-        prev_duration = 5*sec_scale;
+        prev_duration = 3*sec_scale;
+        cgm.params.viz.expand = true;
+        // }
       }
 
       if (cgm.params.viz.expand === false){
