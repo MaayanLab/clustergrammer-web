@@ -89,12 +89,12 @@ Row-C   0.2     0.1     2.5
       <li>Zooming and Panning</li>
       <li>Reordering</li>
       <li>Search</li>
-      <li>Interactive Row/Column Dendrogram-like Colorbar</li>
+      <li>Dendrogram-like Colorbar</li>
       <li>Filtering</li>
     </ul>  
 
     <p>
-    and these can be quickly overviewed or interactively browsed using the demo below. Press play or explore to see the interactive features:
+    and these can be quickly overviewed or interactively browsed using the demo below - see Fig. 2. Press play or explore to see the interactive features:
     </p>
 
 
@@ -121,6 +121,18 @@ Row-C   0.2     0.1     2.5
 
     <img class='help_figure' id='row_search_with_autocomplete' src="static/img/row_search_with_autocomplete.png" alt="Reorder_buttons"> 
     <p class="caption">Fig. 4 Row search with autocomplete - part of sidebar controls.</p>
+
+    <p>Dendrogram-like Colorbar</p>
+
+    <p>Groups of similar rows/columns can be identified using the dendrogram-like colorbar. Groups are calculated for several similarity threshold distances and the group size can be controlled using the sidebar group sliders, see Fig. 5. Moving the slider to the left reduces the group sizes and moving to the right increases the group sizes. Hovering over a colorbar will how you the rows or columns that are in the group and clicking on a colorbar will bring up the group in a pop-up modal, which allows a user to copy the list.  </p>
+
+    <img class='help_figure colorbar_slider' id='med_col_slider' src="static/img/med_col_slider.png" alt="slider"> 
+    <img class='help_figure colorbar_help' id='med_col_group' src="static/img/med_col_group.png" alt="slider"> 
+
+    <img class='help_figure colorbar_slider' id='large_col_slider' src="static/img/large_col_slider.png" alt="slider"> 
+    <img class='help_figure colorbar_help' id='large_col_group' src="static/img/large_col_group.png" alt="slider"> 
+
+    <p class="caption">Fig. 5 Dendrogram-like colorbar slider controls. Sliding to the right increases the size of the row/column groups.</p>
 
     <p>Filtering</p>
 

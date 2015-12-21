@@ -169,12 +169,12 @@ img{
 .col{
     display: inline-block;
     width:31%;
-    margin-left:75px;
+    margin-left:10px;
     padding-top:27px;
 }
 
 .col img{
-    width:160px;
+    /*width:160px;*/
 }
 
 .col-left p{
@@ -324,5 +324,26 @@ span.highlight2{
 
 #row_search_with_autocomplete{
   width:200px;
+  margin-bottom: 10px;
+}
+
+.colorbar_help{
+  width:500px;
+  margin-left: 0px;
+}
+
+.colorbar_slider{
+  width: 250px;
+}
+
+#med_col_group{
+  margin-top: -5px;
+}
+
+#large_col_slider{
+  margin-top: 20px;
+}
+#large_col_group{
+  margin-top: -5px;
   margin-bottom: 10px;
 }
