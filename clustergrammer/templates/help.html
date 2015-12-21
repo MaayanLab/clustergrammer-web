@@ -9,11 +9,13 @@
   <base href='/clustergrammer/'>
   <link rel="shortcut icon" href="static/icons/graham_cracker.ico"  type="image/x-icon">
 
-</head><body>i
+</head><body onload="prettyPrint()">
 
 <meta content="width=device-width, initial-scale=1" name="viewport">
 
+<link href="static/lib/css/bootstrap.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="static/css/help.css">
+<link rel="stylesheet" href="static/lib/css/prettify.css">
 
 <div id="sidebar">
     <ul>
@@ -22,9 +24,9 @@
 
       <li><a href="/clustergrammer/help#tutorial">Tutorial</a></li>
       <ul id="sideBarSub">
-        <li><a href="/clustergrammer/help#input" > Input </a></li>
+        <li><a href="/clustergrammer/help#upload_matrix" > Upload Matrix </a></li>
         <li><a href="/clustergrammer/help#visualization" > Visualization </a></li>
-        <li><a href="/clustergrammer/help#examples" > Examples </a></li>
+        <li><a href="/clustergrammer/help#clustergrammer_examples" > Examples </a></li>
       </ul>
 
       <li><a href="/clustergrammer/help#api">API</a></li>
@@ -40,22 +42,42 @@
 <div id="content">
 
   <img class='example_image' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
-  <h4 id="subtitle">A web-based matrix visualization tool that allows users to easily create zoomable, reorderable, and shareable clustergrams by uploading a tab-separated file.</h4>
+  <h4 id="subtitle">A web-based visualization tool that enables users and web-based applications to easily visualize a matrix of data as an interactive and shareable clustergram-heatmap.</h4>
 
   <section id="summary">
     <h3 class="first">Summary</h3>
-    <p>Clustergrammer is a web-based matrix visualization tool that allows users to easily create zoomable, reorderable, and shareable clustergrams by uploading a tab-separated file. Clustergrammer is built using </p>
+    <p>Clustergrammer is a web-based visualization tool that allows users and web-based appliactions to easily visualize a matrix of data as an interactive and shareable clustergram-heatmap. Clustergrammer simplifies the task of hierarchical clustering - which is commonly used in biology to study high-throughput data - and has no software requirements other than a modern browser (e.g. Chrome). Clustergrammer allows users to intuitively interact with their visualization - by zooming, reordering and filtering - and easily share their interactive visualizations on the web with collaborators. Clustergrammer is built using the JavaScript visualization library Data Driven Documents (D3.js) and is capable of visualizing large datasets (on the order of 100,000 data points), which cannot be effectively visualized using static images. Clustergrammer is being used to provide dynamic visualizations for the Ma'ayan Lab web-tools: Enrichr, Gen3va, and Harmonizome. Developers can also use the Clustergrammer API to produce dynamic visualizations to embed in their own projects or view the open-source code on Github. </p>
   </section>
 
   <section id="tutorial">
     <h3>Tutorial</h3>
-    <h3 id="input" class="subheader">Input</h3>
-    <h5 id="search">Search</h5>
-    <p>The entry point into L1000CDS² is to paste up/down gene lists into the up/down gene text boxes (Fig. 1) or paste a signature (Fig. 2) into the up gene text box. A signature is a list of genes and their differential expression values separated by a comma. The search button will only become enabled when both up/down genes text boxes are filled by gene lists, or when the up gene textbox is filled with a signature. Clicking the Search button, and the information for the top 50 signatures will be displayed in a table in a new page.</p>
+
+    <h4 id="upload_matrix" class="subheader">Upload Matrix</h4>
+    <p>Making an interactive and shareable clustergram using Clustergrammer only requires uploading a matrix of data. A user's uploaded matrix file should have the following format: </p>
+
+    <pre id='example_tsv' class='prettyprint'> 
+       Col-A   Col-B   Col-C
+Row-A   0.0    -0.1     1.0
+Row-B   3.0     0.0     8.0
+Row-C   0.2     0.1     2.5
+    </pre>
+
+    <p>and have a .txt or .tsv file extension. Once uploaded the user will be redirected to a visualization page where they can interact with their matrix visualization. The visualization page URL can also be used to return to the visualization at a later time or to share it with others. </p>
+
+    <h4 id='data_processing' class='subheader'> Data Processing </h4>
+
+    <p>Clustergrammer </p>
+    <p>Clustergrammer processes a user's uploaded data on the server side using SciPy. Once uploaded a users matrix of data is clustered (using cosine distance and average linkage), and the rows and columns are ranked based on their sum. This process is repeated 10 times using different thresholds for row-data filtering: rows are filtered out if the absolute value of their sum falls below a given threshold. This threshold is set in increments of 0.1 between 0 and 1 times the maximum absolute value sum of the rows. Clustergrammer also calculates row and column group information at different distance thresholds in order to produce an interactive dendrogram-like colorbar.</p>
+
+    <h4 id="visualization" class='subheader'>Visualization</h4>
+    
+    <h4 id="clustergrammer_examples" class='subheader'>Clustergrammer Examples</h4>
+    <p>Users can .</p>
 
     <img id="geneSetFig" src="./L1000CDS²_files/geneSet.png">
     
   </section>
 </div>
 
+<script type="text/javascript" src="static/lib/js/prettify.js"> </script>
 </body><div></div><div></div></html>

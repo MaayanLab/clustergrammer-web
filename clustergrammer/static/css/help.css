@@ -39,7 +39,7 @@ strong {
     padding: 30px 20px 20px 30px;
     position: fixed;
     top: 0;
-    width: 140px;
+    width: 180px;
 }
 #sidebar a {
     color: #000;
@@ -72,7 +72,7 @@ strong {
     text-decoration: none;
 }
 #content h3 {
-    padding: 30px 0 0 0;
+    padding: 10px 0 0 0;
 }
 #content h3.first {
     padding: 0;
@@ -231,7 +231,7 @@ font-weight: bold;
 #content h3.subheader{
    /*font-style: italic;*/
   color: #333;
-  padding-top: 15px;
+  padding-top: 10px;
 }
 
 span.highlight2{
@@ -288,4 +288,17 @@ span.highlight2{
 
 #clustergrammer_logo{
   width:250px;
+  margin-top: 20px;
 }
+
+
+/*style example_tsv*/
+#example_tsv{
+  width:275px;
+  padding-left: 23px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 10px;
+
+}
+
