@@ -328,13 +328,38 @@ span.highlight2{
 }
 
 .colorbar_help{
-  width:500px;
+  width:400px;
   margin-left: 0px;
 }
 
+/*slider help*/
 .colorbar_slider{
+  width: 225px;
+}
+
+#med_col_group{
+  margin-top: -5px;
+}
+
+#large_col_slider{
+  margin-top: 20px;
+}
+#large_col_group{
+  margin-top: -5px;
+  margin-bottom: 10px;
+}
+
+
+
+/*filter help*/
+.filter_slider{
   width: 250px;
 }
+
+.filter_clust{
+  width: 350px;
+}
+
 
 #med_col_group{
   margin-top: -5px;
