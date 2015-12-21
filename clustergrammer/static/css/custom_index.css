@@ -142,6 +142,7 @@ h2 {
 
 #input_form{
   margin-bottom: 10px;
+  float:left;
 }
 
 #demo_paragraph{
@@ -165,7 +166,7 @@ h2 {
   padding-bottom: 5px;
 }
 
-first_instructions{
+.first_instructions{
   margin-left: 0px;
 }
 
@@ -229,4 +230,10 @@ first_instructions{
 .example_col{
   padding-left: 7px;
   padding-right: 7px;
+}
+
+#help_link{
+  font-size: 30px;
+  margin-top: -11px;
+  margin-left: 10px;
 }

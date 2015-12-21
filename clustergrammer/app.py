@@ -53,6 +53,8 @@ def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
 @app.route("/clustergrammer/")
+@app.route("/Clustergrammer/")
+@app.route("/CLUSTERGRAMMER/")
 def index():
   return render_template('index.html', flask_var='')
 
