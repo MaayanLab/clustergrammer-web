@@ -137,9 +137,6 @@ h2 {
   display: block;
   height: 520px;
   width: 920px;
-  /*margin-bottom: 5px;*/
-  /*margin-left: -8px;*/
-  /*margin-top: -3  px;*/
   border: 1px solid #DEDEDE;
 }
 
@@ -155,7 +152,7 @@ h2 {
 #demo_link{
   color: #009dff;
   font-size: 12px;
-  margin-left: 740px;
+  margin-left: 788px;
 }
 
 #upload_section{

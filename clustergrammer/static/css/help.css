@@ -302,3 +302,14 @@ span.highlight2{
 
 }
 
+.help_list{
+  margin-top: 10px;
+}
+
+#iframe_preview{
+  width:775px;
+  height: 500px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #DEDEDE;
+}

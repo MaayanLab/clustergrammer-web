@@ -1,4 +1,4 @@
-function ini_play_button(cgm){
+function ini_play_button(cgm, demo_text_size){
 
 
 
@@ -387,7 +387,6 @@ function play_demo(){
       .append('rect')
       .attr('id','rect_3');
 
-    var demo_text_size = 40;
     demo_group
       .append('text')
       .attr('id','text_1')

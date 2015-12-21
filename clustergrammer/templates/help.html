@@ -46,14 +46,14 @@
 
   <section id="summary">
     <h3 class="first">Summary</h3>
-    <p>Clustergrammer is a web-based visualization tool that allows users and web-based appliactions to easily visualize a matrix of data as an interactive and shareable clustergram-heatmap. Clustergrammer simplifies the task of hierarchical clustering - which is commonly used in biology to study high-throughput data - and has no software requirements other than a modern browser (e.g. Chrome). Clustergrammer allows users to intuitively interact with their visualization - by zooming, reordering and filtering - and easily share their interactive visualizations on the web with collaborators. Clustergrammer is built using the JavaScript visualization library Data Driven Documents (D3.js) and is capable of visualizing large datasets (on the order of 100,000 data points), which cannot be effectively visualized using static images. Clustergrammer is being used to provide dynamic visualizations for the Ma'ayan Lab web-tools: Enrichr, Gen3va, and Harmonizome. Developers can also use the Clustergrammer API to produce dynamic visualizations to embed in their own projects or view the open-source code on Github. </p>
+    <p>Clustergrammer is a web-based visualization tool that allows users and web-based applications to easily visualize a matrix of data as an interactive and shareable clustergram-heatmap. Clustergrammer simplifies the task of hierarchical clustering - which is commonly used in biology to study high-throughput data - and has no software requirements other than a modern browser (e.g. Chrome). Clustergrammer allows users to intuitively interact with their visualization - by zooming, reordering and filtering - and easily share their interactive visualizations on the web with collaborators. Clustergrammer is built using the JavaScript visualization library Data Driven Documents (D3.js) and is capable of visualizing large datasets (on the order of 100,000 data points), which cannot be effectively visualized using static images. Clustergrammer provides dynamic visualizations for the Ma'ayan Lab web-tools: Enrichr, Gen3va, L1000CDS2, and Harmonizome. Developers can also use the Clustergrammer API to produce dynamic visualizations for their own projects or view the open-source code on Github. </p>
   </section>
 
   <section id="tutorial">
     <h3>Tutorial</h3>
 
     <h4 id="upload_matrix" class="subheader">Upload Matrix</h4>
-    <p>Making an interactive and shareable clustergram using Clustergrammer only requires uploading a matrix of data. A user's uploaded matrix file should have the following format: </p>
+    <p>Making an interactive and shareable clustergram visualization using Clustergrammer simply requires uploading a matrix of data. A user's uploaded matrix file should have the following format: </p>
 
     <pre id='example_tsv' class='prettyprint'> 
        Col-A   Col-B   Col-C
@@ -64,13 +64,41 @@ Row-C   0.2     0.1     2.5
 
     <p>and have a .txt or .tsv file extension. Once uploaded the user will be redirected to a visualization page where they can interact with their matrix visualization. The visualization page URL can also be used to return to the visualization at a later time or to share it with others. </p>
 
+    <p>
+    Note that the user's data does not need to be clustered before uploading. Also, if a user is uploading an asymmetrical matrix, e.g. a matrix with more columns than rows, it is recommended that the user transpose the matrix if necessary in order to have more rows than columns. This will provide the best results in terms of zooming and filterings. 
+    </p>
+
     <h4 id='data_processing' class='subheader'> Data Processing </h4>
 
-    <p>Clustergrammer </p>
-    <p>Clustergrammer processes a user's uploaded data on the server side using SciPy. Once uploaded a users matrix of data is clustered (using cosine distance and average linkage), and the rows and columns are ranked based on their sum. This process is repeated 10 times using different thresholds for row-data filtering: rows are filtered out if the absolute value of their sum falls below a given threshold. This threshold is set in increments of 0.1 between 0 and 1 times the maximum absolute value sum of the rows. Clustergrammer also calculates row and column group information at different distance thresholds in order to produce an interactive dendrogram-like colorbar.</p>
+    <p>Clustergrammer aims to extend the capabilities of the clustergram visualization by providing users with a multitude of interchangable views of their data - e.g. views with different orderings and filters. Clustergrammer creates these 'views' of a users data in the following manner. First, Clustergrammer calculates a 'Cluster' ordering of rows and columns by performing hierarchical clustering of the rows and columns of a user's data (clustering is done using cosine distance and average linkage using the Python package SciPy). Groups of similar rows and columns are calculated at different distance thresholds to produce an interactive dendrogram-like colorbar. Second, Clustergrammer calculates a 'Rank' ordering of rows and columns by ranking the rows and columns based on the sum of their values. 
+    </p>
+
+    <p>Third, the previous ordering calculations are repeated on successively filtered versions of the matrix. Clustergrammer start by finding the row with the greatest absolute value sum and this row-maximum-value is used to filter out rows from the matrix. Clustergrammer filters out rows that have an absolute value sum of less than some percentage of the row-maximum-value - where the percentage threshold varies from 0% to 90% in 10% increments. Finally, a user can dynamically create new views of their data by reordering the matrix based on the values in any row or column by double-clicking a row or column label. Collectively, these different orderings and filterings give the user a large set of interchangable views of their data. </p>
 
     <h4 id="visualization" class='subheader'>Visualization</h4>
     
+    <p>
+    The Clustergrammer visualization has many interactive features including: 
+    </p>
+
+    <ul class='help_list'>
+      <li>Zooming and Panning</li>
+      <li>Reordering</li>
+      <li>Row Search</li>
+      <li>Interactive Row/Column Dendrogram-like Colorbar</li>
+      <li>Row Filtering</li>
+    </ul>  
+
+    <p>
+    and these can be quickly overviewed or interactively browsed using the demo below. Press play or explore to see the interactive features:
+    </p>
+
+
+    <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true&demo_text_size=30" frameBorder="0"></iframe> 
+
+    <p>Users can zoom and pan the visualization using by using the scrool wheel and dragging. Users can reorder all rows or all columns based on 'Cluster' or 'Rank' using the buttons on the sidebar. The Cluster ordering or rows and columns is calculated using hierarchical clustering (clustering is done using cosine distance and average linkage using the Python package SciPy). Users can also reorder the matrix based on any row or column by double-clicking the row or column label. </p>
+
+
     <h4 id="clustergrammer_examples" class='subheader'>Clustergrammer Examples</h4>
     <p>Users can .</p>
 

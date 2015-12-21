@@ -274,7 +274,13 @@
 
     ini_sliders();
 
-    ini_play_button(cgm);
+    var demo_text_size = 40;
+    console.log(query_string)
+    if (query_string.demo_text_size==='30'){
+      demo_text_size = 30;
+    }
+    // send clustergram object and font size for demo text
+    ini_play_button(cgm,demo_text_size);
 
     if (_.has(network_data, 'views')){
       // filter scale - only initialize once 
