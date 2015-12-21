@@ -317,3 +317,12 @@ span.highlight2{
   margin-bottom: 10px;
   border: 1px solid #DEDEDE;
 }
+
+#reorder_buttons{
+  width:150px;
+}
+
+#row_search_with_autocomplete{
+  width:200px;
+  margin-bottom: 10px;
+}

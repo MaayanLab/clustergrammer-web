@@ -58,7 +58,7 @@
 
 
     <img class='help_figure' id='upload_homepage' src="static/img/upload_homepage.png" alt="Upload"> 
-    <p class="caption">Fig. 1 Screenshot of the input text boxes filled with up/down gene lists.</p>
+    <p class="caption">Fig. 1 Screenshot of homepage upload section.</p>
     <!-- <pre id='example_tsv' class='prettyprint'> 
        Col-A   Col-B   Col-C
 Row-A   0.0    -0.1     1.0
@@ -88,9 +88,9 @@ Row-C   0.2     0.1     2.5
     <ul class='help_list'>
       <li>Zooming and Panning</li>
       <li>Reordering</li>
-      <li>Row Search</li>
+      <li>Search</li>
       <li>Interactive Row/Column Dendrogram-like Colorbar</li>
-      <li>Row Filtering</li>
+      <li>Filtering</li>
     </ul>  
 
     <p>
@@ -104,13 +104,29 @@ Row-C   0.2     0.1     2.5
     <!-- local -->
     <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true&demo_text_size=30" frameBorder="0"></iframe> 
 
-    <p>Users can zoom and pan the visualization using by using the scrool wheel and dragging. Users can reorder all rows or all columns based on 'Cluster' or 'Rank' using the buttons on the sidebar. The Cluster ordering or rows and columns is calculated using hierarchical clustering (clustering is done using cosine distance and average linkage using the Python package SciPy). Users can also reorder the matrix based on any row or column by double-clicking the row or column label. </p>
+    <p class="caption">Fig. 2 Interactive demo example.</p>
 
+    <p>Zooming and Panning</p>
+
+    <p>Users can zoom and pan the visualization using by using the scrool wheel and dragging. Users can also reset zoom and pan at any time by double clicking the clustergram. The matrix size can also be increased/decreased by toggling the expand/menu button on the upper left corner of the clustergram to show or hide the side controls. Finally, resizing the website window will ressize the visualization. For best results it is usually receommended to expand your browser window as much as possible.</p>
+
+    <p>Reorder</p>
+    <p>Users can reorder all rows or all columns based on 'Cluster' or 'Rank' using the buttons on the sidebar, see Fig. 3. The Cluster ordering or rows and columns is calculated using hierarchical clustering (clustering is done using cosine distance and average linkage using the Python package SciPy). Users can also reorder the matrix based on any row or column by double-clicking any row or column label. </p>
+
+    <img class='help_figure' id='reorder_buttons' src="static/img/reorder_buttons.png" alt="Reorder_buttons"> 
+    <p class="caption">Fig. 3 Row and column reorder buttons - part of sidebar controls.</p>
+
+    <p>Search</p>
+    <p>Clustergrammer allows users to search for rows using the sidebar search box, see Fig. 4. The row search has autocomplete that matches your partial search to the row names. Pressing search also zooms into and centers the selected row in the visualization.</p>
+
+    <img class='help_figure' id='row_search_with_autocomplete' src="static/img/row_search_with_autocomplete.png" alt="Reorder_buttons"> 
+    <p class="caption">Fig. 4 Row search with autocomplete - part of sidebar controls.</p>
+
+    <p>Filtering</p>
 
     <h4 id="clustergrammer_examples" class='subheader'>Clustergrammer Examples</h4>
     <p>Users can .</p>
 
-    <img id="geneSetFig" src="./L1000CDS²_files/geneSet.png">
     
   </section>
 </div>
