@@ -228,11 +228,11 @@ font-weight: bold;
     text-decoration: none;
 }
 
-#content h3.subheader{
+/*#content h3.subheader{*/
    /*font-style: italic;*/
-  color: #333;
-  padding-top: 10px;
-}
+  /*color: #333;*/
+  /*padding-top: 10px;*/
+/*}*/
 
 span.highlight2{
     font-weight: bold;
@@ -313,7 +313,7 @@ span.highlight2{
 #iframe_preview{
   width:775px;
   height: 500px;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
   border: 1px solid #DEDEDE;
 }
@@ -368,7 +368,16 @@ span.highlight2{
 #large_col_slider{
   margin-top: 20px;
 }
+
 #large_col_group{
   margin-top: -5px;
   margin-bottom: 10px;
+}
+
+.subheader{
+  margin-top:30px;
+}
+
+.section_title{
+  margin-top: 20px;
 }

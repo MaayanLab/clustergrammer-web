@@ -25,14 +25,16 @@
       <li><a href="/clustergrammer/help#tutorial">Tutorial</a></li>
       <ul id="sideBarSub">
         <li><a href="/clustergrammer/help#upload_matrix" > Upload Matrix </a></li>
+        <li><a href="/clustergrammer/help#data_processing" > Data Processing </a></li>
         <li><a href="/clustergrammer/help#visualization" > Visualization </a></li>
-        <li><a href="/clustergrammer/help#clustergrammer_examples" > Examples </a></li>
+
+        <!-- <li><a href="/clustergrammer/help#clustergrammer_examples" > Examples </a></li> -->
       </ul>
 
-      <li><a href="/clustergrammer/help#api">API</a></li>
-      <ul id="sideBarSub">
-        <li><a href="/clustergrammer/help#submit_matrix"> Submit Matrix </a></li>
-      </ul>
+      <!-- <li><a href="/clustergrammer/help#api">API</a></li> -->
+      <!-- <ul id="sideBarSub"> -->
+        <!-- <li><a href="/clustergrammer/help#submit_matrix"> Submit Matrix </a></li> -->
+      <!-- </ul> -->
 
       <li><a href="/clustergrammer/help#contact">Contact</a></li>
 
@@ -59,12 +61,6 @@
 
     <img class='help_figure' id='upload_homepage' src="static/img/upload_homepage.png" alt="Upload"> 
     <p class="caption">Fig. 1 Screenshot of homepage upload section.</p>
-    <!-- <pre id='example_tsv' class='prettyprint'> 
-       Col-A   Col-B   Col-C
-Row-A   0.0    -0.1     1.0
-Row-B   3.0     0.0     8.0
-Row-C   0.2     0.1     2.5
-    </pre> -->
 
     <p>and have a .txt or .tsv file extension. Once uploaded the user will be redirected to a visualization page where they can interact with their matrix visualization. The visualization page URL can also be used to return to the visualization at a later time or to share it with others. </p>
 
@@ -99,30 +95,30 @@ Row-C   0.2     0.1     2.5
 
 
     <!-- production -->
-    <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6bbfb1a04e7f4087fcad?preview=truepreview=true&demo_text_size=30" frameBorder="0"></iframe>  -->
+    <iframe id='iframe_preview' src="/clustergrammer/demo/566f6bbfb1a04e7f4087fcad?preview=true&demo_text_size=30" frameBorder="0"></iframe> 
 
     <!-- local -->
-    <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true&demo_text_size=30" frameBorder="0"></iframe> 
+    <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true&demo_text_size=30" frameBorder="0"></iframe>  -->
 
     <p class="caption">Fig. 2 Interactive demo example.</p>
 
-    <p>Zooming and Panning</p>
+    <h5 class='section_title'>Zooming and Panning</h5>
 
     <p>Users can zoom and pan the visualization using by using the scrool wheel and dragging. Users can also reset zoom and pan at any time by double clicking the clustergram. The matrix size can also be increased/decreased by toggling the expand/menu button on the upper left corner of the clustergram to show or hide the side controls. Finally, resizing the website window will ressize the visualization. For best results it is usually receommended to expand your browser window as much as possible.</p>
 
-    <p>Reorder</p>
+    <h5 class='section_title'>Reorder</h5>
     <p>Users can reorder all rows or all columns based on 'Cluster' or 'Rank' using the buttons on the sidebar, see Fig. 3. The Cluster ordering or rows and columns is calculated using hierarchical clustering (clustering is done using cosine distance and average linkage using the Python package SciPy). Users can also reorder the matrix based on any row or column by double-clicking any row or column label. </p>
 
     <img class='help_figure' id='reorder_buttons' src="static/img/reorder_buttons.png" alt="Reorder_buttons"> 
     <p class="caption">Fig. 3 Row and column reorder buttons - part of sidebar controls.</p>
 
-    <p>Search</p>
+    <h5 class='section_title'>Search</h5>
     <p>Clustergrammer allows users to search for rows using the sidebar search box, see Fig. 4. The row search has autocomplete that matches your partial search to the row names. Pressing search also zooms into and centers the selected row in the visualization.</p>
 
     <img class='help_figure' id='row_search_with_autocomplete' src="static/img/row_search_with_autocomplete.png" alt="Reorder_buttons"> 
     <p class="caption">Fig. 4 Row search with autocomplete - part of sidebar controls.</p>
 
-    <p>Dendrogram-like Colorbar</p>
+    <h5 class='section_title'>Dendrogram-like Colorbar</h5>
 
     <p>Groups of similar rows/columns can be identified using the dendrogram-like colorbar. Groups are calculated for several similarity threshold distances and the group size can be controlled using the sidebar group sliders, see Fig. 5. Moving the slider to the left reduces the group sizes and moving to the right increases the group sizes. Hovering over a colorbar will how you the rows or columns that are in the group and clicking on a colorbar will bring up the group in a pop-up modal, which allows a user to copy the list.  </p>
 
@@ -134,8 +130,8 @@ Row-C   0.2     0.1     2.5
 
     <p class="caption">Fig. 5 Dendrogram-like colorbar slider controls. Sliding to the right increases the size of the row/column groups.</p>
 
-    <p>Filtering</p>
-    <p></p>
+    <h5 class='section_title'>Filtering</h5>
+    <p>Clustergrammer allows users to filter out rows in the data that have relatively low values. This can be useful when working with sparse data or for investigating how clustering changes when only a subset of the data is considered. </p>
 
     <img class='help_figure filter_slider' id='med_col_slider' src="static/img/no_filter_slider.png" alt="slider"> 
     <img class='help_figure filter_clust' id='med_col_group' src="static/img/no_filter.png" alt="slider"> 
@@ -145,11 +141,19 @@ Row-C   0.2     0.1     2.5
 
     <p class="caption">Fig. 6 Filter rows by adjusting the filter slider.</p>
 
-    <h4 id="clustergrammer_examples" class='subheader'>Clustergrammer Examples</h4>
-    <p>Users can .</p>
+    <!-- <h4 id="clustergrammer_examples" class='subheader'>Clustergrammer Examples</h4> -->
+    <!-- <p>Users can .</p> -->
 
     
   </section>
+
+  <section id="tutorial">
+    <h3>Contact</h3>
+    <p>Please contact Avi Ma’ayan and Nicolas Fernandez for comments, suggestions, and support: </p>
+
+    <a href="mailto:avi.maayan@mssm.edu">avi.maayan@mssm.edu</a> <a href="mailto:nicolas.fernandez@mssm.edu">nicolas.fernandez@mssm.edu</a>
+  </section>
+
 </div>
 
 <script type="text/javascript" src="static/lib/js/prettify.js"> </script>
