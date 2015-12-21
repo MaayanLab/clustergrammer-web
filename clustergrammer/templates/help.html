@@ -41,7 +41,7 @@
 
 <div id="content">
 
-  <img class='example_image' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
+  <img class='help_figure' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
   <h4 id="subtitle">A web-based visualization tool that enables users and web-based applications to easily visualize a matrix of data as an interactive and shareable clustergram-heatmap.</h4>
 
   <section id="summary">
@@ -53,14 +53,18 @@
     <h3>Tutorial</h3>
 
     <h4 id="upload_matrix" class="subheader">Upload Matrix</h4>
-    <p>Making an interactive and shareable clustergram visualization using Clustergrammer simply requires uploading a matrix of data. A user's uploaded matrix file should have the following format: </p>
+    <p>Making an interactive and shareable clustergram visualization using Clustergrammer simply requires uploading a matrix of data at the homepage. A user's uploaded matrix file should have the format shown in Fig. 1.  </p>
 
-    <pre id='example_tsv' class='prettyprint'> 
+
+
+    <img class='help_figure' id='upload_homepage' src="static/img/upload_homepage.png" alt="Upload"> 
+    <p class="caption">Fig. 1 Screenshot of the input text boxes filled with up/down gene lists.</p>
+    <!-- <pre id='example_tsv' class='prettyprint'> 
        Col-A   Col-B   Col-C
 Row-A   0.0    -0.1     1.0
 Row-B   3.0     0.0     8.0
 Row-C   0.2     0.1     2.5
-    </pre>
+    </pre> -->
 
     <p>and have a .txt or .tsv file extension. Once uploaded the user will be redirected to a visualization page where they can interact with their matrix visualization. The visualization page URL can also be used to return to the visualization at a later time or to share it with others. </p>
 
@@ -94,6 +98,10 @@ Row-C   0.2     0.1     2.5
     </p>
 
 
+    <!-- production -->
+    <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6bbfb1a04e7f4087fcad?preview=truepreview=true&demo_text_size=30" frameBorder="0"></iframe>  -->
+
+    <!-- local -->
     <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true&demo_text_size=30" frameBorder="0"></iframe> 
 
     <p>Users can zoom and pan the visualization using by using the scrool wheel and dragging. Users can reorder all rows or all columns based on 'Cluster' or 'Rank' using the buttons on the sidebar. The Cluster ordering or rows and columns is calculated using hierarchical clustering (clustering is done using cosine distance and average linkage using the Python package SciPy). Users can also reorder the matrix based on any row or column by double-clicking the row or column label. </p>

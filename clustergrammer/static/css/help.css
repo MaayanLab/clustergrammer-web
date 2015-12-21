@@ -148,7 +148,7 @@ strong {
 }
 .caption {
     font-style: italic;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 #sideBarSub a{
@@ -304,6 +304,10 @@ span.highlight2{
 
 .help_list{
   margin-top: 10px;
+}
+
+.help_figure{
+  margin-top:10px;
 }
 
 #iframe_preview{
