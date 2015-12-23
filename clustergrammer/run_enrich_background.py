@@ -28,22 +28,23 @@ def make_enr_vect_clust(mongo_address, viz_id, g2e_post):
     net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
 
     # export dat 
-    # try:
+    try:
 
-    # convert data to list 
-    net.dat['mat'] = net.dat['mat'].tolist()
-    net.dat['mat_up'] = net.dat['mat_up'].tolist()
-    net.dat['mat_dn'] = net.dat['mat_dn'].tolist()
+      # convert data to list 
+      net.dat['mat'] = net.dat['mat'].tolist()
+      net.dat['mat_up'] = net.dat['mat_up'].tolist()
+      net.dat['mat_dn'] = net.dat['mat_dn'].tolist()
 
-    export_dat['dat'] = net.export_net_json('dat')
-    export_dat['source'] = 'g2e_enr_vect'
-    dat_id = db.network_data.insert( export_dat )
-    print('network data successfully uploaded')
-    # except:
-    #   export_dat['dat'] = 'data-too-large'
-    #   export_dat['source'] = 'g2e_enr_vect'
-    #   dat_id = db.network_data.insert( export_dat )
-    #   print('network data too large to be uploaded')
+      export_dat['dat'] = net.export_net_json('dat')
+      export_dat['source'] = 'g2e_enr_vect'
+      dat_id = db.network_data.insert( export_dat )
+      print('network data successfully uploaded')
+    
+    except:
+      export_dat['dat'] = 'data-too-large'
+      export_dat['source'] = 'g2e_enr_vect'
+      dat_id = db.network_data.insert( export_dat )
+      print('network data too large to be uploaded')
 
     update_viz = net.viz 
     update_dat = dat_id

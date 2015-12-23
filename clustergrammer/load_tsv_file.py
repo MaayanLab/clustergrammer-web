@@ -31,12 +31,6 @@ def main( buff, inst_filename, mongo_address, viz_id):
     # swap nans for zero 
     net.swap_nan_for_zero()
 
-    # pre-filter matrix 
-    ######################
-    cutoff_meet = 0.001
-    min_num_meet = 1
-    net.filter_network_thresh( cutoff_meet, min_num_meet )
-
     # fast mult views takes care of pre-filtering
     net.fast_mult_views()
 
