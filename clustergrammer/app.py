@@ -386,8 +386,38 @@ def enrichr_clustergram():
     })   
 
 
+@app.route('/clustergrammer/status_check/<user_objid>')
+def status_check(user_objid):
+  import flask
+  from bson.objectid import ObjectId
 
+  # initialize status 
+  inst_status = 'error'
 
+  # get object id 
+  try:
+    obj_id = ObjectId(user_objid)
+  except:
+    inst_status = 'invalid id'
+    return inst_status
+
+  # set up db connection 
+  client = MongoClient(mongo_address)
+  db = client.clustergrammer
+
+  # find object 
+  net = db.networks.find_one({'_id': obj_id })
+  client.close()
+
+  # check if processing or error 
+  if net['viz'] == 'processing':
+    inst_status = 'processing'
+  elif net['viz'] == 'error':
+    inst_status = 'error'
+  elif type(net['viz'] is dict):
+    inst_status = 'finished'
+    
+  return inst_status
 
 
 @app.route("/clustergrammer/l1000cds2/<user_objid>")
