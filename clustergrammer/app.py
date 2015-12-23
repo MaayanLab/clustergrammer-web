@@ -172,12 +172,6 @@ def enrichment_vectors():
 
     # submit placeholder to mongo 
     ################################
-
-    # set up database connection 
-    client = MongoClient(mongo_address)
-    db = client.clustergrammer
-
-    # generate placeholder json - does not contain viz json 
     export_viz = {}
     if 'viz_title' in g2e_post:
       export_viz['name'] = g2e_post['viz_title']
@@ -187,11 +181,14 @@ def enrichment_vectors():
     export_viz['dat'] = 'processing'
     export_viz['source'] = 'g2e_enr_vect'
 
+    # set up database connection 
+    client = MongoClient(mongo_address)
+    db = client.clustergrammer
+
     # this is the id that will be used to view the visualization 
     viz_id = db.networks.insert( export_viz )
     viz_id = str(viz_id)
 
-    # close database connection 
     client.close()
     
     # initialize thread
@@ -209,7 +206,6 @@ def enrichment_vectors():
     thread.start()
 
     # define information return link - always the same link 
-    ######################################
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
     inst_name = '/'+export_viz['name']
 
@@ -453,72 +449,110 @@ def proc_g2e():
   import flask
   import json 
   from clustergrammer import Network
+  import threading 
+  import time 
+  import run_g2e_background
 
-  # ini network obj 
-  net = Network()
+  print('\n\n\nG2E endpoint\n\n\n')
 
-  g2e_json = json.loads(request.data)
-
+  # load data from json 
   try:
-
-    # load g2e data into network 
-    net.load_g2e_to_net(g2e_json)
-
-    # swap nans for zeros
-    net.swap_nan_for_zero()
-
-    # cluster g2e using pandas
-    net.fast_mult_views()
-
-    # generate export dictionary 
-    ###############################
-    export_viz = {}
-    # save name of network 
-    if 'description' in g2e_json:
-      export_viz['name'] = g2e_json['description']
-    else:
-      export_viz['name'] = 'G2Egram Results'
-    # initial network information, including data_mat array
-    export_viz['dat'] = net.export_net_json('dat')
-    # d3 json used for visualization (already clustered)
-    export_viz['viz'] = net.viz
-    # save source 
-    export_viz['source'] = 'g2e'
-
-    # set up connection 
-    client = MongoClient(mongo_address)
-    db = client.clustergrammer
-
-    # save json as new collection 
-    ##################################
-    net_id = db.networks.insert( export_viz ) 
-
-    # close client
-    client.close()
-
-    # make network a dictionary 
-    gnet = {}
-    gnet['viz'] = net.viz
-    net_id = str(net_id)
-
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-
-    col_label = 'G2E Signatures'
-    row_label = 'genes'
-    qs = 'col_label='+col_label+'&'+'row_label='+row_label
-
-    return flask.jsonify({
-      'preview_link': viz_url+net_id+'?preview=true&'+qs,
-      'link': viz_url+net_id+'?'+qs
-    })
-
+    g2e_post = json.loads(request.data)
+    inst_status = 'processing'
   except:
+    inst_status = 'error'
 
-    error_desc = 'Error in processing GEO2Enrichr signatures.'
+  # submit placeholder to mongo 
+  ###############################
+  export_viz = {}
+  if 'description' in g2e_post:
+    export_viz['name'] = g2e_post['description']
+  else:
+    export_viz['name'] = 'G2E'
+  export_viz['viz'] = inst_status
+  export_viz['dat'] = inst_status
+  export_viz['source'] = 'g2e'
+
+  # set up connection 
+  client = MongoClient(mongo_address)
+  db = client.clustergrammer
+
+  # get the id tht will be used to update the placeholder 
+  viz_id = db.networks.insert( export_viz ) 
+  viz_id = str(viz_id)
+
+  client.close()
+
+  # start processing if the g2e_post json was loaded correctly
+  if inst_status == 'processing':
+
+    # initialize thread
+    ########################
+    sub_function = run_g2e_background.main
+    arg_list = [ mongo_address, viz_id, g2e_post ]
+    thread = threading.Thread(target=sub_function, args=arg_list)
+    thread.setDaemon(True)
+
+    # run subprocess 
+    ###################
+    print('initializing thread to process g2e')
+    thread.start()
+
+    # define information return link - always return the same linke
+    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
+    inst_name = '/'+export_viz['name']
+
+    # check if subprocess is finished 
+    ###################################
+    max_wait_time = 30
+    for wait_time in range(max_wait_time):
+
+      # wait one second 
+      time.sleep(1)
+
+      print('\twaiting '+str(wait_time)+' is alive '+str(thread.isAlive()))
+
+      if thread.isAlive() == False:
+
+        print('thread is finished')
+        
+        return flask.jsonify({'link': viz_url+viz_id+inst_name})
+
+    # return link after max time has elapsed 
+    return flask.jsonify({'link': viz_url+viz_id+inst_name})
+
+  else:   
+
+    error_desc = 'Error in processing Enrichr enrichment vectors.'
+
     return flask.jsonify({
-      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-    })  
+    }) 
+
+  # make network a dictionary 
+  # gnet = {}
+  # gnet['viz'] = net.viz
+
+  # viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
+
+  # col_label = 'G2E Signatures'
+  # row_label = 'genes'
+  # qs = 'col_label='+col_label+'&'+'row_label='+row_label
+
+  # return flask.jsonify({
+  #   'preview_link': viz_url+net_id+'?preview=true&'+qs,
+  #   'link': viz_url+net_id+'?'+qs
+  # })
+
+  # except:
+
+  #   error_desc = 'Error in processing GEO2Enrichr signatures.'
+  #   return flask.jsonify({
+  #     'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
+  #     'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
+  #   })  
+
+
 
 # l1000cds2 post 
 ############################
@@ -613,7 +647,7 @@ def upload_network():
       export_viz['dat'] = 'processing'
       export_viz['source'] = 'user_upload'
 
-      # get the id that will be used to view the visualization 
+      # get the id that will be used to update the placeholder 
       viz_id = db.networks.insert( export_viz )
       viz_id = str(viz_id)
 
@@ -621,7 +655,7 @@ def upload_network():
 
       # initialize thread 
       #######################
-      print('initializing thread')
+      print('initializing thread - uploading network')
       sub_function = load_tsv_file.main
       arg_list = [ buff, inst_filename, mongo_address, viz_id]
       thread = threading.Thread(target=sub_function, args=arg_list)
