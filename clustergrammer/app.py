@@ -21,24 +21,24 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# # local
-# mongo_address = '10.125.168.181'
+# local
+mongo_address = '10.125.168.181'
 
-# lab 
-mongo_address = '146.203.54.165'
+# # lab 
+# mongo_address = '146.203.54.165'
 
 ##########################################
 # switch for local and docker development 
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -419,7 +419,7 @@ def status_check(user_objid):
     
   return inst_status
 
-  
+
 @app.route("/clustergrammer/l1000cds2/<user_objid>")
 def viz_l1000cds2(user_objid):
   import flask
@@ -446,7 +446,7 @@ def viz_l1000cds2(user_objid):
 
   return render_template('l1000cds2.html', viz_network=d3_json)
 
-@app.route('/clustergrammer/g2e/', methods=['POST','GET'])
+@app.route('/clustergrammer/g2e/', methods=['POST'])
 @cross_origin()
 def proc_g2e():
   import requests 
@@ -457,12 +457,7 @@ def proc_g2e():
   # ini network obj 
   net = Network()
 
-  if request.method == 'POST':
-    g2e_json = json.loads(request.data)
-
-  elif request.method == 'GET':
-    g2e_json = net.load_json_to_dict('clustergrammer/mock_g2e.json')
-
+  g2e_json = json.loads(request.data)
 
   try:
 
@@ -477,21 +472,18 @@ def proc_g2e():
 
     # generate export dictionary 
     ###############################
-    export_dict = {}
+    export_viz = {}
     # save name of network 
     if 'description' in g2e_json:
-      export_dict['name'] = g2e_json['description']
+      export_viz['name'] = g2e_json['description']
     else:
-      export_dict['name'] = 'G2Egram Results'
+      export_viz['name'] = 'G2Egram Results'
     # initial network information, including data_mat array
-    export_dict['dat'] = net.export_net_json('dat')
+    export_viz['dat'] = net.export_net_json('dat')
     # d3 json used for visualization (already clustered)
-    export_dict['viz'] = net.viz
+    export_viz['viz'] = net.viz
     # save source 
-    export_dict['source'] = 'g2e'
-
-    # # save the link back to the original results
-    # export_dict['link'] = g2e_json['link']
+    export_viz['source'] = 'g2e'
 
     # set up connection 
     client = MongoClient(mongo_address)
@@ -499,7 +491,7 @@ def proc_g2e():
 
     # save json as new collection 
     ##################################
-    net_id = db.networks.insert( export_dict ) 
+    net_id = db.networks.insert( export_viz ) 
 
     # close client
     client.close()
@@ -607,11 +599,6 @@ def upload_network():
     print('\ninst_filename '+inst_filename+'\n\n')
 
     if allowed_file(inst_filename):
-
-      print('allowed file')
-
-      # # cluster and add to database 
-      # net_id, inst_filename = load_tsv_file.main(req_file, allowed_file, mongo_address)
 
       # submit placeholder to mongo 
       ###############################
