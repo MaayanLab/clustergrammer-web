@@ -136,7 +136,8 @@ def enrichment_vectors():
     # mock data 
     ####################################################### 
     g2e_post = {
-      "background_type": "ChEA_2015",
+      "viz_title":"Aging-Study",
+      "background_type": "KEA_2015",
       "signature_ids": [
         {
           "enr_id_up": "949840",
@@ -178,7 +179,10 @@ def enrichment_vectors():
 
     # generate placeholder json - does not contain viz json 
     export_viz = {}
-    export_viz['name'] = 'enrichment_vector'
+    if 'viz_title' in g2e_post:
+      export_viz['name'] = g2e_post['viz_title']
+    else:
+      export_viz['name'] = 'enrichment_vector'
     export_viz['viz'] = 'processing'
     export_viz['dat'] = 'processing'
     export_viz['source'] = 'g2e_enr_vect'
@@ -192,37 +196,34 @@ def enrichment_vectors():
     
     # initialize thread
     ######################
-    print('initializing thread')
-    sub_function = enr_sub.enr_and_make_viz
+    sub_function = enr_sub.make_enr_vect_clust
     arg_list = [mongo_address, viz_id, g2e_post]
     thread = threading.Thread(target=sub_function, args=arg_list)
     thread.setDaemon(True)
 
     # run subprocess 
     ####################
-    print('running subprocess and pass in viz_id ')
+    print('starting enr_vect_clust subprocess: ' + export_viz['name'])
     thread.start()
 
     # define information return link - always the same link 
     ######################################
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-    qs = '?preview=true&order=rank&viz_type=enr_vect'
-
+    qs = '/enrichr_vectors'
 
     # check if subprocess is finished 
     ###################################
     max_wait_time = 30
-    print('check if subprocess is done')
     for wait_time in range(max_wait_time):
 
       # wait one second 
       time.sleep(1)
 
-      print('wait_time'+str(wait_time)+' '+str(thread.isAlive()))
+      print('\twaiting '+str(wait_time)+' is alive '+str(thread.isAlive()))
 
       if thread.isAlive() == False:
 
-        print('\n\nthread is dead\n----------\n')
+        print('thread is finished')
         
         return flask.jsonify({'link': viz_url+viz_id+qs})
 
@@ -309,7 +310,7 @@ def enrichr_clustergram():
     ####################################################### 
     ####################################################### 
 
-    print('\n\nGET: running mock enrichment through get request')
+    print('\n\nrunning mock enrichment through get request\n\n')
 
   try:  
 
@@ -616,7 +617,6 @@ def upload_network():
 
       # run subprocess
       ##################
-      print('running subprocess')
       thread.start()
 
       ####################

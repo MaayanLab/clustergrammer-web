@@ -1343,13 +1343,29 @@ class Network(object):
     from clustergrammer import Network
     from copy import deepcopy
 
+    print('fast_mult_views')
+    print(self.dat['mat'].shape)
+
     # get dataframe dictionary of network and remove rows/cols with all zero values 
     df = self.dat_to_df()
-    df = self.df_filter_row(df, 0)
-    df = self.df_filter_col(df, 0)
+    # each row or column must have at least one non-zero value 
+    threshold = 0.001
+    df = self.df_filter_row(df, threshold)
+    df = self.df_filter_col(df, threshold)
+
+    print('after filtering')
+    print(df['mat'].shape)
+    print(df['mat_up'].shape)
+    print(df['mat_dn'].shape)
+    print('\n\n\n')
+
+    # import pdb; pdb.set_trace()
 
     # calculate initial view with no row filtering
     #################################################
+    # swap back in filtered df to dat 
+    self.df_to_dat(df)
+
     # cluster initial view 
     self.cluster_row_and_col('cos',run_clustering=run_clustering, dendro=dendro)
 
@@ -1535,7 +1551,10 @@ class Network(object):
       df_copy = deepcopy(df['mat'])
 
     # filter rows 
+    print('filtering rows in df_filter_row')
+    print(df_copy.shape)
     df_copy = df_copy[df_copy.sum(axis=1) > threshold]
+    print(df_copy.shape)
 
     # filter columns to remove columns with all zero values 
     # transpose 
@@ -1569,6 +1588,9 @@ class Network(object):
         # grab up and down data 
         df['mat_up'] = net.grab_df_subset(df['mat_up'], inst_rows, inst_cols)
         df['mat_dn'] = net.grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
+
+    print('size of returned df["mat"]')
+    print(df['mat'].shape)
 
     return df   
 

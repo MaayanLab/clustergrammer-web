@@ -1,4 +1,4 @@
-def enr_and_make_viz(mongo_address, viz_id, g2e_post):
+def make_enr_vect_clust(mongo_address, viz_id, g2e_post):
   import enrichr_functions as enr_fun
   from bson.objectid import ObjectId
   from pymongo import MongoClient
@@ -10,32 +10,40 @@ def enr_and_make_viz(mongo_address, viz_id, g2e_post):
   # get placeholder viz data 
   found_viz = db.networks.find_one({'_id': viz_id })
 
-  # try to get enr and make clustergram 
-  try:
+  # initialize export_dat
+  export_dat = {}
 
-    # make clustergram 
-    threshold = 0.001
-    num_thresh = 1
-    # get results from Enrichr and make clustergram netowrk object 
-    net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
-
-    # export dat to database 
-    export_dat = {}
+  if 'viz_title' in g2e_post:
+    export_dat['name'] = g2e_post['viz_title']
+  else:
     export_dat['name'] = 'enrichment_vector'
-    #!! export dat not working 
-    #!! need to fix this 
-    export_dat['dat'] = '' # net.export_net_json('dat')
-    export_dat['source'] = 'g2e_enr_vect'
-    dat_id = db.network_data.insert( export_dat )
 
-    update_viz = net.viz 
-    update_dat = dat_id
+  # # try to get enr and make clustergram 
+  # try:
 
-  # if there is an error update json with error 
-  except:
+  # make clustergram 
+  threshold = 0.001
+  num_thresh = 1
+  # get results from Enrichr and make clustergram netowrk object 
+  net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
 
-    update_viz = 'error'
-    update_dat = 'error'
+  #!! export dat not working 
+  #!! need to fix this 
+  export_dat['dat'] = '' # net.export_net_json('dat')
+  export_dat['source'] = 'g2e_enr_vect'
+  dat_id = db.network_data.insert( export_dat )
+
+  update_viz = net.viz 
+  update_dat = dat_id
+
+  # # if there is an error update json with error 
+  # except:
+
+  #   print('\n--------------------------------')
+  #   print('error in make_enr_vect_clust: '+export_dat['name'])
+  #   print('----------------------------------\n')
+  #   update_viz = 'error'
+  #   update_dat = 'error'
 
 
   # export viz to database 

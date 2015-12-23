@@ -37,8 +37,7 @@ def main( buff, inst_filename, mongo_address, viz_id):
     min_num_meet = 1
     net.filter_network_thresh( cutoff_meet, min_num_meet )
 
-    # 'sum','value','num'
-    # net.make_mult_views(dist_type='cos',filter_row=['sum'])
+    # fast mult views takes care of pre-filtering
     net.fast_mult_views()
 
     ###############################
@@ -56,6 +55,9 @@ def main( buff, inst_filename, mongo_address, viz_id):
     update_dat = dat_id
 
   except:
+    print('\n-----------------------')
+    print('error in clustering')
+    print('-----------------------\n')
     update_viz = 'error'
     update_dat = 'error'
 
