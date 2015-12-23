@@ -209,7 +209,8 @@ def enrichment_vectors():
     # define information return link - always the same link 
     ######################################
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-    qs = '/enrichr_vectors'
+    inst_name = '/'+export_viz['name']
+
 
     # check if subprocess is finished 
     ###################################
@@ -225,16 +226,15 @@ def enrichment_vectors():
 
         print('thread is finished')
         
-        return flask.jsonify({'link': viz_url+viz_id+qs})
+        return flask.jsonify({'link': viz_url+viz_id+inst_name})
 
     # return link after max time has elapsed 
-    return flask.jsonify({'link': viz_url+viz_id+qs})
+    return flask.jsonify({'link': viz_url+viz_id+inst_name})
 
   except:
     error_desc = 'Error in processing Enrichr enrichment vectors.'
 
     return flask.jsonify({
-      'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
     }) 
 

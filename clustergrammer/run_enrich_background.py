@@ -18,38 +18,48 @@ def make_enr_vect_clust(mongo_address, viz_id, g2e_post):
   else:
     export_dat['name'] = 'enrichment_vector'
 
-  # try to get enr and make clustergram 
-  try:
+  print('\n\n\n')
+  print(g2e_post.keys())
+  print(export_dat['name'])
 
-    # make clustergram 
-    threshold = 0.001
-    num_thresh = 1
-    # get results from Enrichr and make clustergram netowrk object 
-    net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
+  # # try to get enr and make clustergram 
+  # try:
 
-    # export dat 
-    try:
-      export_dat['dat'] = net.export_net_json('dat')
-      export_dat['source'] = 'g2e_enr_vect'
-      dat_id = db.network_data.insert( export_dat )
-      print('network data successfully uploaded')
-    except:
-      export_dat['dat'] = 'data-too-large'
-      export_dat['source'] = 'g2e_enr_vect'
-      dat_id = db.network_data.insert( export_dat )
-      print('network data too large to be uploaded')
+  # make clustergram 
+  threshold = 0.001
+  num_thresh = 1
+  # get results from Enrichr and make clustergram netowrk object 
+  net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
 
-    update_viz = net.viz 
-    update_dat = dat_id
+  # export dat 
+  # try:
 
-  # if there is an error update json with error 
-  except:
+  # convert data to list 
+  net.dat['mat'] = net.dat['mat'].tolist()
+  net.dat['mat_up'] = net.dat['mat_up'].tolist()
+  net.dat['mat_dn'] = net.dat['mat_dn'].tolist()
 
-    print('\n--------------------------------')
-    print('error in make_enr_vect_clust: '+export_dat['name'])
-    print('----------------------------------\n')
-    update_viz = 'error'
-    update_dat = 'error'
+  export_dat['dat'] = net.export_net_json('dat')
+  export_dat['source'] = 'g2e_enr_vect'
+  dat_id = db.network_data.insert( export_dat )
+  print('network data successfully uploaded')
+  # except:
+  #   export_dat['dat'] = 'data-too-large'
+  #   export_dat['source'] = 'g2e_enr_vect'
+  #   dat_id = db.network_data.insert( export_dat )
+  #   print('network data too large to be uploaded')
+
+  update_viz = net.viz 
+  update_dat = dat_id
+
+  # # if there is an error update json with error 
+  # except:
+
+  #   print('\n--------------------------------')
+  #   print('error in make_enr_vect_clust: '+export_dat['name'])
+  #   print('----------------------------------\n')
+  #   update_viz = 'error'
+  #   update_dat = 'error'
 
 
   # export viz to database 
