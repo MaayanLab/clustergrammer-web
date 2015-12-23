@@ -21,24 +21,24 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# # local
-# mongo_address = '10.125.166.127'
+# local
+mongo_address = '192.168.2.8'
 
-# lab 
-mongo_address = '146.203.54.165'
+# # lab 
+# mongo_address = '146.203.54.165'
 
 ##########################################
 # switch for local and docker development 
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -354,7 +354,6 @@ def enrichr_clustergram():
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
     qs = '?preview=true&order=rank&viz_type=Enrichr_clustergram'
 
-
     # check if subprocess is finished 
     ###################################
     max_wait_time = 30
@@ -568,93 +567,90 @@ def upload_network():
   import load_tsv_file
   import threading
   import time
+  import StringIO
 
-  try:
+  # try:
 
-    if request.method == 'POST':
+  if request.method == 'POST':
 
-      req_file = flask.request.files['file']
+    req_file = flask.request.files['file']
+    buff = StringIO.StringIO(req_file.read())
 
-      print('\n\nrequested file object')
-      print(req_file)
+    inst_filename = req_file.filename 
 
-      inst_filename = req_file.filename 
+    print('\ninst_filename '+inst_filename+'\n\n')
 
-      print('\ninst_filename '+inst_filename+'\n\n')
+    if allowed_file(inst_filename):
 
-      if allowed_file(inst_filename):
+      print('allowed file')
 
-        print('allowed file')
+      # # cluster and add to database 
+      # net_id, inst_filename = load_tsv_file.main(req_file, allowed_file, mongo_address)
 
-        # # cluster and add to database 
-        # net_id, inst_filename = load_tsv_file.main(req_file, allowed_file, mongo_address)
+      # submit placeholder to mongo 
+      ###############################
+      # set up database connection 
+      client = MongoClient(mongo_address)
+      db = client.clustergrammer
 
-        # submit placeholder to mongo 
-        ###############################
-        # set up database connection 
-        client = MongoClient(mongo_address)
-        db = client.clustergrammer
+      # generate placeholder json - does not contain viz json 
+      export_viz = {}
+      export_viz['name'] = inst_filename
+      export_viz['viz'] = 'processing'
+      export_viz['dat'] = 'processing'
+      export_viz['source'] = 'user_upload'
 
-        # generate placeholder json - does not contain viz json 
-        export_viz = {}
-        export_viz['name'] = inst_filename
-        export_viz['viz'] = 'processing'
-        export_viz['dat'] = 'processing'
-        export_viz['source'] = 'user_upload'
+      # get the id that will be used to view the visualization 
+      viz_id = db.networks.insert( export_viz )
+      viz_id = str(viz_id)
 
-        # get the id that will be used to view the visualization 
-        viz_id = db.networks.insert( export_viz )
-        viz_id = str(viz_id)
+      client.close()
 
-        client.close()
+      # initialize thread 
+      #######################
+      print('initializing thread')
+      sub_function = load_tsv_file.main
+      arg_list = [ buff, inst_filename, mongo_address, viz_id]
+      thread = threading.Thread(target=sub_function, args=arg_list)
+      thread.setDaemon(True)
 
-        file_lines = req_file.readlines()
+      # run subprocess
+      ##################
+      print('running subprocess')
+      thread.start()
 
-        # initialize thread 
-        #######################
-        print('initializing thread')
-        sub_function = load_tsv_file.main
-        arg_list = [file_lines, inst_filename, mongo_address, viz_id]
-        thread = threading.Thread(target=sub_function, args=arg_list)
-        thread.setDaemon(True)
+      ####################
+      # check subprocess 
+      ####################
+      max_wait_time = 15
+      for wait_time in range(max_wait_time):
 
-        # run subprocess
-        ##################
-        print('running subprocess')
-        thread.start()
+        # wait one second
+        time.sleep(1)
 
-        ####################
-        # check subprocess 
-        ####################
-        max_wait_time = 15
-        for wait_time in range(max_wait_time):
+        print(wait_time)
+        print(thread.isAlive())
 
-          # wait one second
-          time.sleep(1)
+        if thread.isAlive() == False:
 
-          print(wait_time)
-          print(thread.isAlive())
+          print('\n\nthread is dead ... job finished\n-------------------\n')
 
-          if thread.isAlive() == False:
+          return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
 
-            print('\n\nthread is dead ... job finished\n-------------------\n')
+      # redirect after maximum time has elapsed 
+      return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
 
-            return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
-
-        # redirect after maximum time has elapsed 
-        return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
-
+    else:
+      if len(inst_filename) > 0:
+        error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
       else:
-        if len(inst_filename) > 0:
-          error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
-        else:
-          error_desc = 'Please choose a file to upload.'
-        return redirect('/clustergrammer/error/'+error_desc)
+        error_desc = 'Please choose a file to upload.'
+      return redirect('/clustergrammer/error/'+error_desc)
 
-  except:
-    print('error catch')
-    error_desc = 'There was an error in processing your matrix. Please check your format.'
-    return redirect('/clustergrammer/error/'+error_desc)
+  # except:
+  #   print('error catch')
+  #   error_desc = 'There was an error in processing your matrix. Please check your format.'
+  #   return redirect('/clustergrammer/error/'+error_desc)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

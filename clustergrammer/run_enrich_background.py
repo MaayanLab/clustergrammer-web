@@ -20,9 +20,10 @@ def enr_and_make_viz(mongo_address, viz_id, g2e_post):
     net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
 
     # export dat to database 
-    #!! export dat not working 
     export_dat = {}
     export_dat['name'] = 'enrichment_vector'
+    #!! export dat not working 
+    #!! need to fix this 
     export_dat['dat'] = '' # net.export_net_json('dat')
     export_dat['source'] = 'g2e_enr_vect'
     dat_id = db.network_data.insert( export_dat )

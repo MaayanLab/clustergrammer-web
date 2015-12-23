@@ -49,13 +49,13 @@ class Network(object):
   def pandas_load_tsv_to_net(self, filename):
     import pandas as pd 
 
-    tmp_df = pd.read_table(filename, index_col=0)
+    tmp_df = {}
+    tmp_df['mat'] = pd.read_table(filename, index_col=0)
+
+    # import pdb; pdb.set_trace()
 
     # save to self
-    tmp_dat = self.df_to_dat(tmp_df)
-
-    self.dat['nodes'] = tmp_dat['nodes']
-    self.dat['mat'] = tmp_dat['mat']
+    self.df_to_dat(tmp_df)
 
 
   def load_lines_from_tsv_to_net(self, lines):
@@ -1310,9 +1310,116 @@ class Network(object):
     import numpy as np 
     import pandas as pd 
 
-    self.dat['mat'] = df.values
-    self.dat['nodes']['row'] = df.index.tolist()
-    self.dat['nodes']['col'] = df.columns.tolist()
+    self.dat['mat'] = df['mat'].values
+    self.dat['nodes']['row'] = df['mat'].index.tolist()
+    self.dat['nodes']['col'] = df['mat'].columns.tolist()
+
+    if 'mat_up' in df:
+      self.dat['mat_up'] = df['mat_up'].values
+      self.dat['mat_dn'] = df['mat_dn'].values
+
+  def dat_to_df(self):
+    import numpy as np
+    import pandas as pd
+
+    df = {}
+  
+    # always return 'mat' dataframe     
+    df['mat'] = pd.DataFrame(data = self.dat['mat'], columns=self.dat['nodes']['col'], index=self.dat['nodes']['row'])
+
+    if 'mat_up' in self.dat:
+
+      df['mat_up'] = pd.DataFrame(data = self.dat['mat_up'], columns=self.dat['nodes']['col'], index=self.dat['nodes']['row'])
+      df['mat_dn'] = pd.DataFrame(data = self.dat['mat_dn'], columns=self.dat['nodes']['col'], index=self.dat['nodes']['row'])
+
+    return df 
+
+  def fast_mult_views(self, dist_type='cos', run_clustering=True, dendro=True):
+    import numpy as np
+    import pandas as pd
+    ''' 
+    This will use Pandas to calculte multiple views of a clustergram
+    For now, it will disregard link information 
+    '''
+
+    from clustergrammer import Network
+    from copy import deepcopy
+
+    # get dataframe dictionary of network and remove rows/cols with all zero values 
+    df = self.dat_to_df()
+    df = self.df_filter_row(df, 0)
+    df = self.df_filter_col(df, 0)
+
+    # calculate initial view with no row filtering
+    #################################################
+    # cluster initial view 
+    self.cluster_row_and_col('cos',run_clustering=run_clustering, dendro=dendro)
+
+    # set up views 
+    all_views = []
+
+    inst_view = {}
+    inst_view['filter_row_sum'] = 0
+    inst_view['dist'] = 'cos'
+    inst_view['nodes'] = {}
+    inst_view['nodes']['row_nodes'] = self.viz['row_nodes']
+    inst_view['nodes']['col_nodes'] = self.viz['col_nodes']
+
+    all_views.append(inst_view)
+
+    # filter betwen 0% and 90% of some threshoold 
+    all_filt = range(10)
+    all_filt = [i/float(10) for i in all_filt]
+
+    # row filtering values 
+    mat = self.dat['mat']
+    mat_abs = abs(mat)
+    sum_row = np.sum(mat_abs, axis=1)
+    max_sum = max(sum_row)
+
+    for inst_filt in all_filt:
+      
+      # skip zero filtering 
+      if inst_filt > 0:
+
+        cutoff = inst_filt * max_sum
+
+        # filter row 
+        df = self.df_filter_row(df, cutoff)
+
+        print('filtering at cutoff ' + str(inst_filt))
+        print('matrix size')
+        print(df['mat'].shape)
+        print('\n')
+
+        # ini net 
+        net = deepcopy(Network())
+
+        # transfer to dat 
+        net.df_to_dat(df)
+
+        # try to cluster 
+        try: 
+
+          # cluster
+          net.cluster_row_and_col('cos')
+
+          # add view 
+          inst_view = {}
+          inst_view['filter_row_sum'] = inst_filt
+          inst_view['dist'] = 'cos'
+          inst_view['nodes'] = {}
+          inst_view['nodes']['row_nodes'] = net.viz['row_nodes']
+          inst_view['nodes']['col_nodes'] = net.viz['col_nodes']
+
+          all_views.append(inst_view)          
+
+        except:
+          print('did not cluster filtered view')
+
+    # add views to viz
+    self.viz['views'] = all_views
+
 
   def make_mult_views(self, dist_type='cos',filter_row=['value'], filter_col=False, run_clustering=True, dendro=True):
     ''' 
@@ -1354,7 +1461,7 @@ class Network(object):
           # filter columns since some columns might be all zero 
           net.filter_col_thresh(0.001,1)
 
-          # try to filter - will not work if there is one row
+          # try to cluster - will not work if there is one row
           try:
 
             # cluster 
@@ -1390,7 +1497,7 @@ class Network(object):
         # filter cols 
         net.filter_col_thresh(filt_value, inst_meet)
 
-        # try to filter - will not work if there is one col
+        # try to cluster - will not work if there is one col
         try:
 
           # cluster 
@@ -1413,6 +1520,111 @@ class Network(object):
     # add views to viz
     self.viz['views'] = all_views
 
+  @staticmethod
+  def df_filter_row(df, threshold, take_abs=True):
+    ''' filter rows in matrix at some threshold
+    and remove columns that have all zero values '''
+
+    import pandas as pd 
+    from copy import deepcopy 
+    from clustergrammer import Network
+    net = Network()
+
+    # take absolute value if necessary 
+    if take_abs == True:
+      df_copy = deepcopy(df['mat'].abs())
+    else:
+      df_copy = deepcopy(df['mat'])
+
+    # filter rows 
+    df_copy = df_copy[df_copy.sum(axis=1) > threshold]
+
+    # filter columns to remove columns with all zero values 
+    # transpose 
+    df_copy = df_copy.transpose()
+    df_copy = df_copy[df_copy.sum(axis=1) > 0]
+    # transpose back 
+    df_copy = df_copy.transpose()
+
+    # get df ready for export 
+    if take_abs == True:
+
+      # grab remaining rows and cols 
+      inst_rows = df_copy.index.tolist()
+      inst_cols = df_copy.columns.tolist()
+
+      df['mat'] = net.grab_df_subset(df['mat'], inst_rows, inst_cols)
+
+      if 'mat_up' in df:
+        # grab up and down data 
+        df['mat_up'] = net.grab_df_subset(df['mat_up'], inst_rows, inst_cols)
+        df['mat_dn'] = net.grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
+
+    else:
+      # just transfer the copied data for mat 
+      df['mat'] = df_copy
+
+      if 'mat_up' in df:
+        # grab remaining rows and cols 
+        inst_rows = df_copy.index.tolist()
+        inst_cols = df_copy.columns.tolist()
+        # grab up and down data 
+        df['mat_up'] = net.grab_df_subset(df['mat_up'], inst_rows, inst_cols)
+        df['mat_dn'] = net.grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
+
+    return df   
+
+  @staticmethod
+  def df_filter_col(df, threshold, take_abs=True):
+    ''' filter columns in matrix at some threshold
+    and remove rows that have all zero values '''
+
+    import pandas 
+    from copy import deepcopy 
+    from clustergrammer import Network
+    net = Network()
+
+    # take absolute value if necessary 
+    if take_abs == True:
+      df_copy = deepcopy(df['mat'].abs())
+    else:
+      df_copy = deepcopy(df['mat'])
+
+    # filter columns to remove columns with all zero values 
+    # transpose 
+    df_copy = df_copy.transpose()
+    df_copy = df_copy[df_copy.sum(axis=1) > threshold]
+    # transpose back 
+    df_copy = df_copy.transpose()
+
+    # filter rows 
+    df_copy = df_copy[df_copy.sum(axis=1) > 0]
+
+    # get df ready for export 
+    if take_abs == True:
+
+      inst_rows = df_copy.index.tolist()
+      inst_cols = df_copy.columns.tolist()
+
+      df['mat'] = net.grab_df_subset(df['mat'], inst_rows, inst_cols)
+
+    else:
+      # just transfer the copied data 
+      df['mat'] = df_copy
+
+    return df   
+
+  @staticmethod
+  def grab_df_subset(df, inst_rows, inst_cols):
+
+    # filter columns 
+    df = df[inst_cols]
+    # filter rows 
+    df = df.transpose()
+    df = df[inst_rows]
+    df = df.transpose()
+
+    return df
 
   @staticmethod
   def load_gmt(filename):
