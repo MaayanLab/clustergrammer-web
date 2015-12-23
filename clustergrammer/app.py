@@ -180,6 +180,7 @@ def enrichment_vectors():
     export_viz['viz'] = 'processing'
     export_viz['dat'] = 'processing'
     export_viz['source'] = 'g2e_enr_vect'
+    export_viz['post'] = g2e_post
 
     # set up database connection 
     client = MongoClient(mongo_address)
@@ -472,6 +473,7 @@ def proc_g2e():
   export_viz['viz'] = inst_status
   export_viz['dat'] = inst_status
   export_viz['source'] = 'g2e'
+  export_viz['post'] = g2e_post
 
   # set up connection 
   client = MongoClient(mongo_address)
