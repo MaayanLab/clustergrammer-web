@@ -380,12 +380,13 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   print('gathering enrichment info into mat')
   print('\n-------------------------\n')
 
-  net.dat['mat_info'] = {}
-  for i in range(len(row_node_names)):
-    for j in range(len(col_node_names)):
-      net.dat['mat_info'][str((i,j))] = {}
-      for inst_updn in ['up','dn']:
-        net.dat['mat_info'][str((i,j))][inst_updn] = []
+  # # initialize mat_info - save intersecting gene info 
+  # net.dat['mat_info'] = {}
+  # for i in range(len(row_node_names)):
+  #   for j in range(len(col_node_names)):
+  #     net.dat['mat_info'][str((i,j))] = {}
+  #     for inst_updn in ['up','dn']:
+  #       net.dat['mat_info'][str((i,j))][inst_updn] = []
 
   # fill in mat using all_enr, includes up/dn 
   for inst_gs in all_enr:
@@ -410,11 +411,11 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
         if inst_updn == 'up':
           net.dat['mat'][row_index, col_index] = net.dat['mat'][row_index, col_index] + inst_cs
           net.dat['mat_up'][row_index, col_index] = inst_cs
-          net.dat['mat_info'][str((row_index,col_index))][inst_updn] = inst_genes
+          # net.dat['mat_info'][str((row_index,col_index))][inst_updn] = inst_genes
         elif inst_updn == 'dn':
           net.dat['mat'][row_index, col_index] = net.dat['mat'][row_index, col_index] - inst_cs
           net.dat['mat_dn'][row_index, col_index] = -inst_cs
-          net.dat['mat_info'][str((row_index,col_index))][inst_updn] = inst_genes
+          # net.dat['mat_info'][str((row_index,col_index))][inst_updn] = inst_genes
 
 
   print('\n-------------------------\n')

@@ -52,8 +52,6 @@ class Network(object):
     tmp_df = {}
     tmp_df['mat'] = pd.read_table(filename, index_col=0)
 
-    # import pdb; pdb.set_trace()
-
     # save to self
     self.df_to_dat(tmp_df)
 
