@@ -203,7 +203,9 @@ def enrichment_vectors():
 
     # run subprocess 
     ####################
-    print('starting enr_vect_clust subprocess: ' + export_viz['name'])
+    print('\n\n----------------------------------------------------')
+    print(export_viz['name'] + ': Starting enr_vect_clust subprocess: ' )
+    print('----------------------------------------------------\n')
     thread.start()
 
     # define information return link - always the same link 

@@ -291,6 +291,12 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   '''
   from clustergrammer import Network
   import scipy 
+  import time 
+
+  if 'viz_title' in sig_enr_info:
+    inst_title = sig_enr_info['viz_title']
+  else:
+    inst_title = 'enrichment_vector'
   
   # process sig_enr_info
   ####################
@@ -313,8 +319,11 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
 
   inst_gmt = sig_enr_info['background_type']
 
-  # calc enrichment for all input gene lists 
+  # Enrichment  
   ############################################
+  # track time to get enrichment information 
+  start_time = time.time()
+    
   all_enr = []
   for inst_id in all_ids:
     # calc enrichment - only keep top 50 terms 
@@ -327,8 +336,16 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
 
     all_enr.append(enr_obj)
 
+  elapsed_time = time.time() - start_time
+  print('\n\n----------------------------------------------------')
+  print(inst_title + ': Time Enrichr Get Requests: '+str(elapsed_time)+' seconds')
+  print('----------------------------------------------------\n')
+
   # collect information into network data structure 
   ##################################################
+  # track time to collect enr info into mat 
+  start_time = time.time()
+
   # rows: all enriched terms 
   row_node_names = []
   # cols: all gene lists 
@@ -353,11 +370,6 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   net.dat['mat'] = scipy.zeros([len(row_node_names),len(col_node_names)])
   net.dat['mat_up'] = scipy.zeros([len(row_node_names),len(col_node_names)])
   net.dat['mat_dn'] = scipy.zeros([len(row_node_names),len(col_node_names)])
-
-  if 'viz_title' in sig_enr_info:
-    inst_title = sig_enr_info['viz_title']
-  else:
-    inst_title = 'enrichment_vector'
 
   print('size of enrichment vector matrix: '+inst_title+' '+str(net.dat['mat'].shape))
   
@@ -398,8 +410,20 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
           net.dat['mat_dn'][row_index, col_index] = -inst_cs
           # net.dat['mat_info'][str((row_index,col_index))][inst_updn] = inst_genes
 
+
+  elapsed_time = time.time() - start_time
+  print('\n\n----------------------------------------------------')
+  print(inst_title + ': Time to Collect Enr into Matrix : '+str(elapsed_time)+' seconds')
+  print('----------------------------------------------------\n')
+
   # fast calc mult views using pandas 
+  # track time to collect enr info into mat 
+  start_time = time.time()
   net.fast_mult_views()
+  elapsed_time = time.time() - start_time
+  print('\n\n----------------------------------------------------')
+  print(inst_title + ': Time Clustering/Filtering : '+str(elapsed_time)+' seconds')
+  print('----------------------------------------------------\n')
 
   print('return net to run_enrich_background ' + inst_title)
 
