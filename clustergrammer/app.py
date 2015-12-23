@@ -440,15 +440,8 @@ def proc_g2e():
     # swap nans for zeros
     net.swap_nan_for_zero()
 
-    # filter the matrix using cutoff and min_num_meet
-    ###################################################
-    cutoff_meet = 0.01
-    min_num_meet = 1
-    net.filter_network_thresh( cutoff_meet, min_num_meet )
-
-    # cluster 
-    #############
-    net.cluster_row_and_col('cos')
+    # cluster g2e using pandas
+    net.fast_mult_views()
 
     # generate export dictionary 
     ###############################
