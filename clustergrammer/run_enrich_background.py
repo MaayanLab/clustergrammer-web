@@ -18,32 +18,38 @@ def make_enr_vect_clust(mongo_address, viz_id, g2e_post):
   else:
     export_dat['name'] = 'enrichment_vector'
 
-  # # try to get enr and make clustergram 
-  # try:
+  # try to get enr and make clustergram 
+  try:
 
-  # make clustergram 
-  threshold = 0.001
-  num_thresh = 1
-  # get results from Enrichr and make clustergram netowrk object 
-  net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
+    # make clustergram 
+    threshold = 0.001
+    num_thresh = 1
+    # get results from Enrichr and make clustergram netowrk object 
+    net = enr_fun.make_enr_vect_clust(g2e_post, threshold, num_thresh)
 
-  #!! export dat not working 
-  #!! need to fix this 
-  export_dat['dat'] = '' # net.export_net_json('dat')
-  export_dat['source'] = 'g2e_enr_vect'
-  dat_id = db.network_data.insert( export_dat )
+    # export dat 
+    try:
+      export_dat['dat'] = net.export_net_json('dat')
+      export_dat['source'] = 'g2e_enr_vect'
+      dat_id = db.network_data.insert( export_dat )
+      print('network data successfully uploaded')
+    except:
+      export_dat['dat'] = 'data-too-large'
+      export_dat['source'] = 'g2e_enr_vect'
+      dat_id = db.network_data.insert( export_dat )
+      print('network data too large to be uploaded')
 
-  update_viz = net.viz 
-  update_dat = dat_id
+    update_viz = net.viz 
+    update_dat = dat_id
 
-  # # if there is an error update json with error 
-  # except:
+  # if there is an error update json with error 
+  except:
 
-  #   print('\n--------------------------------')
-  #   print('error in make_enr_vect_clust: '+export_dat['name'])
-  #   print('----------------------------------\n')
-  #   update_viz = 'error'
-  #   update_dat = 'error'
+    print('\n--------------------------------')
+    print('error in make_enr_vect_clust: '+export_dat['name'])
+    print('----------------------------------\n')
+    update_viz = 'error'
+    update_dat = 'error'
 
 
   # export viz to database 
@@ -51,7 +57,13 @@ def make_enr_vect_clust(mongo_address, viz_id, g2e_post):
   found_viz['dat'] = update_dat
 
   # update the viz data 
-  db.networks.update_one( {"_id":viz_id}, {"$set": found_viz} )
+  try:
+    db.networks.update_one( {"_id":viz_id}, {"$set": found_viz} )
+    print('successfully made and uploaded ' + export_dat['name'] + ' clustergram')
+  except:
+    print('\n--------------------------------')
+    print('error in loading viz into database: '+export_dat['name'])
+    print('----------------------------------\n')
 
   # close database connection 
   client.close()

@@ -359,9 +359,8 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
   else:
     inst_title = 'enrichment_vector'
 
-  print('size of enrichment vector matrix: '+inst_title)
-  print(net.dat['mat'].shape)
-
+  print('size of enrichment vector matrix: '+inst_title+' '+str(net.dat['mat'].shape))
+  
   # # initialize mat_info - save intersecting gene info 
   # net.dat['mat_info'] = {}
   # for i in range(len(row_node_names)):
@@ -399,22 +398,9 @@ def make_enr_vect_clust(sig_enr_info, threshold, num_thresh):
           net.dat['mat_dn'][row_index, col_index] = -inst_cs
           # net.dat['mat_info'][str((row_index,col_index))][inst_updn] = inst_genes
 
-  print(net.dat['mat'].shape)
-
-
-
-  # # filter and cluster network 
-  # print('\n  filtering network')
-
-  # net.filter_network_thresh(threshold,num_thresh)
-
-  # print('\n  clustering network')
-  # net.make_mult_views(dist_type='cos',filter_row=['sum'])
-  # print('\n  finished clustering Enrichr vectors\n---------------------')
-
-  # import pdb; pdb.set_trace()
-
   # fast calc mult views using pandas 
   net.fast_mult_views()
+
+  print('return net to run_enrich_background ' + inst_title)
 
   return net 

@@ -1097,11 +1097,9 @@ class Network(object):
 
     # save clustering orders to node_info 
     if run_clustering == True:
-      print('\n\ntransferring clustering orders\n\n')
       self.dat['node_info']['row']['clust'] = clust_order['row']['clust']
       self.dat['node_info']['col']['clust'] = clust_order['col']['clust']
     else:
-      print('\n\nnot transferring clustering orders\n\n')
       self.dat['node_info']['row']['clust'] = clust_order['row']['ini']
       self.dat['node_info']['col']['clust'] = clust_order['col']['ini']
 
@@ -1232,11 +1230,9 @@ class Network(object):
   def viz_json(self, dendro=True):
     ''' make the dictionary for the clustergram.js visualization '''
 
-    print('in viz_json')
     # get dendrogram cutoff distances 
     all_dist = self.group_cutoffs()
 
-    print('viz_json: set up nodes')
     # make nodes for viz
     #####################
     # make rows and cols 
@@ -1273,7 +1269,6 @@ class Network(object):
         # append dictionary to list of nodes
         self.viz[inst_rc+'_nodes'].append(inst_dict)
 
-    print('viz_json: set up links')
     # links 
     ########
     for i in range(len( self.dat['nodes']['row'] )):
@@ -1343,23 +1338,12 @@ class Network(object):
     from clustergrammer import Network
     from copy import deepcopy
 
-    print('fast_mult_views')
-    print(self.dat['mat'].shape)
-
     # get dataframe dictionary of network and remove rows/cols with all zero values 
     df = self.dat_to_df()
-    # each row or column must have at least one non-zero value 
+    # each row or column must have at least one non-zero value  
     threshold = 0.001
     df = self.df_filter_row(df, threshold)
     df = self.df_filter_col(df, threshold)
-
-    print('after filtering')
-    print(df['mat'].shape)
-    print(df['mat_up'].shape)
-    print(df['mat_dn'].shape)
-    print('\n\n\n')
-
-    # import pdb; pdb.set_trace()
 
     # calculate initial view with no row filtering
     #################################################
@@ -1401,10 +1385,7 @@ class Network(object):
         # filter row 
         df = self.df_filter_row(df, cutoff)
 
-        print('filtering at cutoff ' + str(inst_filt))
-        print('matrix size')
-        print(df['mat'].shape)
-        print('\n')
+        print('\tfiltering at cutoff ' + str(inst_filt) + ' mat shape: ' + str(df['mat'].shape))
 
         # ini net 
         net = deepcopy(Network())
@@ -1429,11 +1410,12 @@ class Network(object):
           all_views.append(inst_view)          
 
         except:
-          print('did not cluster filtered view')
+          print('\t*** did not cluster filtered view')
 
     # add views to viz
     self.viz['views'] = all_views
 
+    print('\tfinished fast_mult_views')
 
   def make_mult_views(self, dist_type='cos',filter_row=['value'], filter_col=False, run_clustering=True, dendro=True):
     ''' 
@@ -1551,10 +1533,7 @@ class Network(object):
       df_copy = deepcopy(df['mat'])
 
     # filter rows 
-    print('filtering rows in df_filter_row')
-    print(df_copy.shape)
     df_copy = df_copy[df_copy.sum(axis=1) > threshold]
-    print(df_copy.shape)
 
     # filter columns to remove columns with all zero values 
     # transpose 
@@ -1588,9 +1567,6 @@ class Network(object):
         # grab up and down data 
         df['mat_up'] = net.grab_df_subset(df['mat_up'], inst_rows, inst_cols)
         df['mat_dn'] = net.grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
-
-    print('size of returned df["mat"]')
-    print(df['mat'].shape)
 
     return df   
 
