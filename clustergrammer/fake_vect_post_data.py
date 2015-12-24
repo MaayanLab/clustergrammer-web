@@ -33,7 +33,6 @@ def main():
     inst_col['col_title'] = col_title
     inst_col['link'] = 'col-link'
 
-    vect_post['columns'].append(inst_col)
 
     # each column will in general have vector, vector_up, and vector_dn 
     vector = []
@@ -46,6 +45,36 @@ def main():
     # generate vectors 
     for inst_row in vect_rows:
 
+      # genrate values 
+      ##################
+
+      # add positive/negative values 
+      if random.random() > 0.5:
+        value_up = 10*random.random()
+      else: 
+        value_up = 0
+
+      if random.random() > 0.5:
+        value_dn = -10*random.random()
+      else: 
+        value_dn = 0
+
+      value = value_up + value_dn
+
+      # genrate vector component 
+      #############################
+      vector.append([ inst_row, value ])
+      vector_up.append([ inst_row, value_up ])
+      vector_dn.append([ inst_row, value_dn ])
+
+    # save to columns 
+    inst_col['vector'] = vector
+    inst_col['vector_up'] = vector_up
+    inst_col['vector_dn'] = vector_dn
+
+
+    # save columns to vect_post
+    vect_post['columns'].append(inst_col)
 
   net.save_dict_to_json(vect_post, 'fake_vect_post.json', indent='indent')
 
@@ -66,7 +95,7 @@ def make_up_names(num_names):
   row_names = []
 
   for i in range(num_names):
-    row_names.append(id_generator(5, "6793YUIO"))
+    row_names.append(id_generator(5, "WERJASDFNYUIO"))
 
   row_names = list(set(row_names))
 
