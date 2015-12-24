@@ -32,13 +32,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -445,7 +445,7 @@ def viz_l1000cds2(user_objid):
 
 @app.route('/clustergrammer/vector_upload/', methods=['POST'])
 @cross_origin()
-def proc_g2e():
+def proc_vector_upload():
   import requests 
   import flask
   import json 
@@ -458,7 +458,7 @@ def proc_g2e():
 
   # load data from json 
   try:
-    g2e_post = json.loads(request.data)
+    vector_post = json.loads(request.data)
     inst_status = 'processing'
   except:
     inst_status = 'error'
@@ -466,14 +466,14 @@ def proc_g2e():
   # submit placeholder to mongo 
   ###############################
   export_viz = {}
-  if 'description' in g2e_post:
-    export_viz['name'] = g2e_post['description']
+  if 'title' in vector_post:
+    export_viz['name'] = vector_post['title']
   else:
-    export_viz['name'] = 'G2E'
+    export_viz['name'] = 'vector_post'
   export_viz['viz'] = inst_status
   export_viz['dat'] = inst_status
-  export_viz['source'] = 'g2e'
-  export_viz['post'] = g2e_post
+  export_viz['source'] = 'vector_post'
+  export_viz['post'] = vector_post
 
   # set up connection 
   client = MongoClient(mongo_address)
@@ -485,13 +485,13 @@ def proc_g2e():
 
   client.close()
 
-  # start processing if the g2e_post json was loaded correctly
+  # start processing if the vector_post json was loaded correctly
   if inst_status == 'processing':
 
     # initialize thread
     ########################
     sub_function = run_g2e_background.main
-    arg_list = [ mongo_address, viz_id, g2e_post ]
+    arg_list = [ mongo_address, viz_id, vector_post ]
     thread = threading.Thread(target=sub_function, args=arg_list)
     thread.setDaemon(True)
 

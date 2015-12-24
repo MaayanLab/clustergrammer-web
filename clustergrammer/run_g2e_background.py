@@ -1,4 +1,4 @@
-def main(mongo_address, viz_id, g2e_post):
+def main(mongo_address, viz_id, vect_post):
   from bson.objectid import ObjectId
   from pymongo import MongoClient
   from clustergrammer import Network
@@ -14,14 +14,17 @@ def main(mongo_address, viz_id, g2e_post):
   export_dat = {}
   export_viz = {}
 
-  # try to make clustegram using g2e_post 
+  # try to make clustegram using vect_post 
   try:
 
     # ini network obj 
     net = Network()
     
-    # load g2e data into network 
-    net.load_g2e_to_net(g2e_post)
+    # # load g2e data into network 
+    # net.load_g2e_to_net(vect_post)
+
+    # vector endpoint 
+    net.load_vect_post_to_net(vect_post)
 
     # swap nans for zeros
     net.swap_nan_for_zero()

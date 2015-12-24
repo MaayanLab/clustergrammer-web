@@ -17,10 +17,12 @@ def main():
   vect_post['link'] = 'some-link'
   vect_post['columns'] = []
 
-  num_columns = 4
+  num_columns = 5
+
+  split = True
 
   # fraction of rows in each column - 1 means all columns have all rows 
-  inst_prob = 0.5
+  inst_prob = 1
 
 
   # make column data 
@@ -69,8 +71,10 @@ def main():
 
     # save to columns 
     inst_col['vector'] = vector
-    inst_col['vector_up'] = vector_up
-    inst_col['vector_dn'] = vector_dn
+
+    if split:
+      inst_col['vector_up'] = vector_up
+      inst_col['vector_dn'] = vector_dn
 
 
     # save columns to vect_post
