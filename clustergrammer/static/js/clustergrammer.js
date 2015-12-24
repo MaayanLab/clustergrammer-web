@@ -90,7 +90,8 @@ function Config(args) {
     force_square:0,
     tile_click_hlight:false,
     super_label_scale: 1,
-    make_tile_tooltip:function(d){return d.info;}
+    make_tile_tooltip:function(d){return d.info;},
+    ini_view:null 
   };
 
   // Mixin defaults with user-defined arguments.
@@ -106,13 +107,15 @@ function Config(args) {
   // extend does not properly pass network_data
   config.network_data = args.network_data;
 
+  // replace undersores with space in row/col names 
   _.each(config.network_data.row_nodes, function(d){
     d.name = d.name.replace(/_/g, ' ');
   });
   _.each(config.network_data.col_nodes, function(d){
     d.name = d.name.replace(/_/g, ' ');
   });
-
+  
+  // replace underscore with space in row/col names from views 
   _.each(config.network_data.views, function(inst_view){
 
     var inst_nodes = inst_view.nodes;
@@ -128,6 +131,17 @@ function Config(args) {
     });
 
   })
+
+  var col_nodes = config.network_data.col_nodes;
+  var row_nodes = config.network_data.row_nodes;
+
+  // add names and instantaneous positions to links 
+  _.each(config.network_data.links, function(d){
+    d.name = row_nodes[d.source].name + '_' + col_nodes[d.target].name;
+    d.row_name = row_nodes[d.source].name;
+    d.col_name = col_nodes[d.target].name;
+  });  
+
 
   // transpose network if necessary
   if (config.transpose) {
@@ -146,7 +160,7 @@ function Config(args) {
     config.super.col = args.col_label;
   }
 
-  // initialize cluster ordering
+  // initialize cluster ordering - both rows and columns 
   config.inst_order = {};
   if (!Utils.is_undefined(args.order) && is_supported_order(args.order)) {
     config.inst_order.row = args.order;
@@ -154,6 +168,18 @@ function Config(args) {
   } else {
     config.inst_order.row = 'clust';
     config.inst_order.col = 'clust';
+  }
+
+  // set row or column order directly -- note that row/col are swapped 
+  // !! need to swap row/col orderings 
+  if (!Utils.is_undefined(args.row_order) && is_supported_order(args.row_order)) {
+    // !! row and col orderings are swapped, need to fix 
+    config.inst_order.col = args.row_order;
+  }
+
+  if (!Utils.is_undefined(args.col_order) && is_supported_order(args.col_order)) {
+    // !! row and col orderings are swapped, need to fix 
+    config.inst_order.row = args.col_order;
   }
 
   config.show_dendrogram = Utils.has(args.network_data.row_nodes[0], 'group') || Utils.has(args.network_data.col_nodes[0], 'group');
@@ -328,6 +354,7 @@ function Dendrogram(type, params) {
 
   function build_row_dendro() {
 
+
     // if (params.labels.show_label_tooltips){
     //   // d3-tooltip - for tiles 
     //   var tip = d3.tip()
@@ -340,7 +367,6 @@ function Dendrogram(type, params) {
 
     //   d3.select('#row_viz_zoom_container')
     //     .call(tip);
-
     // } 
 
     d3.selectAll('.row_viz_group')
@@ -782,19 +808,22 @@ function Matrix(network_data, svg_elem, params) {
         return d.value > 0 ? params.matrix.tile_colors[0] : params.matrix.tile_colors[1];
       })
       .on('mouseover', function(p) {
+
         // highlight row - set text to active if
         d3.selectAll('.row_label_text text')
           .classed('active', function(d) {
-            return p.row_name === d.name;
+            return p.row_name.replace(/_/g, ' ') === d.name;
           });
 
         d3.selectAll('.col_label_text text')
           .classed('active', function(d) {
             return p.col_name === d.name;
           });
+
         if (params.matrix.show_tile_tooltips){
           tip.show(p);
         }
+
       })
       .on('mouseout', function(d) {
         d3.selectAll('text').classed('active', false);
@@ -862,7 +891,7 @@ function Matrix(network_data, svg_elem, params) {
         // highlight row - set text to active if
         d3.selectAll('.row_label_text text')
           .classed('active', function(d) {
-            return p.row_name === d.name;
+            return p.row_name.replace(/_/g, ' ') === d.name;
           });
 
         d3.selectAll('.col_label_text text')
@@ -919,7 +948,7 @@ function Matrix(network_data, svg_elem, params) {
         // highlight row - set text to active if
         d3.selectAll('.row_label_text text')
           .classed('active', function(d) {
-            return p.row_name === d.name;
+            return p.row_name.replace(/_/g, ' ') === d.name;
           });
 
         d3.selectAll('.col_label_text text')
@@ -1306,8 +1335,18 @@ function VizParams(config){
     // initialize params object from config
     var params = config;
 
-    // // save a backup of the config object in params 
-    // params.config = config;
+    // // deep copy 
+    // params = jQuery.extend(true, {}, config)
+
+    // // shallow copy 
+    // var params = jQuery.extend({}, config)
+
+    // run initial filtering if necessary 
+    if (_.isNull(params.ini_view) === false){
+      params.network_data = filter_network_data(params.network_data, params.ini_view);
+      // remove ini_view 
+      params.ini_view = null;
+    }
 
     // Label Paramsters
     params.labels = {};
@@ -1386,10 +1425,13 @@ function VizParams(config){
     }
     params.viz.expand_button = config.expand_button;
 
-    // pass network_data to params
-    params.network_data = config.network_data;
+    // // pass network_data to params
+    // params.network_data = config.network_data;
 
-    var network_data = params.network_data;
+    var col_nodes = params.network_data.col_nodes;
+    var row_nodes = params.network_data.row_nodes;
+
+    // var network_data = params.network_data;
 
     // resize based on parent div
     parent_div_size_pos(params);
@@ -1404,8 +1446,6 @@ function VizParams(config){
     // Variable Label Widths
     // based on the length of the row/col labels - longer labels mean more space given
     // get row col data
-    var col_nodes = network_data.col_nodes;
-    var row_nodes = network_data.row_nodes;
 
     params.network_data.row_nodes_names = _.pluck(row_nodes, 'name');
     params.network_data.col_nodes_names = _.pluck(col_nodes, 'name');
@@ -1419,6 +1459,7 @@ function VizParams(config){
 
     // the maximum number of characters in a label
     params.labels.max_label_char = 10;
+    // params.labels.max_label_char = 15;
 
     // define label scale parameters: the more characters in the longest name, the larger the margin
     var min_num_char = 5;
@@ -1437,8 +1478,8 @@ function VizParams(config){
 
     // define label scale
     ///////////////////////////
-    var min_label_width = 85;
-    var max_label_width = 85;
+    var min_label_width = 65;
+    var max_label_width = 115;
     var label_scale = d3.scale.linear()
       .domain([min_num_char, max_num_char])
       .range([min_label_width, max_label_width]).clamp('true');
@@ -1447,22 +1488,14 @@ function VizParams(config){
     params.norm_label = {};
     params.norm_label.width = {};
 
-    // screen_label_scale - small reduction
-    var screen_label_scale = d3.scale.linear()
-      .domain([500,1000])
-      .range([1.0,1.0])
-      .clamp(true);
-
     // Label Scale
     ///////////////////////
     // dependent on max char length or row/col labels, screensize,
-    // and user-defined factor
-    params.norm_label.width.row = 1.2*label_scale(row_max_char)
-      * screen_label_scale(params.viz.svg_dim.width)
+    // and user-defined factor: row_label_scale and col_label_scale
+    params.norm_label.width.row = label_scale(row_max_char)
       * params.row_label_scale;
 
     params.norm_label.width.col = label_scale(col_max_char)
-      * screen_label_scale(params.viz.svg_dim.height)
       * params.col_label_scale;
 
     // normal label margins
@@ -1653,10 +1686,9 @@ function VizParams(config){
 
     // add names and instantaneous positions to links 
     _.each(params.network_data.links, function(d){
-
-      d.name = row_nodes[d.source].name + '_' + col_nodes[d.target].name;
-      d.row_name = row_nodes[d.source].name;
-      d.col_name = col_nodes[d.target].name;
+      // d.name = row_nodes[d.source].name + '_' + col_nodes[d.target].name;
+      // d.row_name = row_nodes[d.source].name;
+      // d.col_name = col_nodes[d.target].name;
       d.x = params.matrix.x_scale(d.target);
       d.y = params.matrix.y_scale(d.source);
     });
@@ -1674,7 +1706,7 @@ function VizParams(config){
     // params.network_data.links = params.cf.dim_x.top(Infinity);
 
     // initialize matrix 
-    params.matrix.matrix = initialize_matrix(network_data);
+    params.matrix.matrix = initialize_matrix(params.network_data);
 
     // visualization parameters
     //////////////////////////////
@@ -1725,7 +1757,7 @@ function VizParams(config){
     params.viz.real_zoom = params.norm_label.width.col / (params.matrix.x_scale.rangeBand()/2);
 
     // set opacity scale
-    params.matrix.max_link = _.max(network_data.links, function(d) {
+    params.matrix.max_link = _.max(params.network_data.links, function(d) {
       return Math.abs(d.value);
     }).value;
 
@@ -1761,14 +1793,14 @@ function VizParams(config){
     // tile type: simple or group
     // rect is the default faster and simpler option
     // group is the optional slower and more complex option that is activated with: highlighting or split tiles
-    if (Utils.has(network_data.links[0], 'value_up') || Utils.has(network_data.links[0], 'value_dn')) {
+    if (Utils.has(params.network_data.links[0], 'value_up') || Utils.has(params.network_data.links[0], 'value_dn')) {
       params.matrix.tile_type = 'updn';
     } else {
       params.matrix.tile_type = 'simple';
     }
 
     // check if rects should be highlighted
-    if (Utils.has(network_data.links[0], 'highlight')) {
+    if (Utils.has(params.network_data.links[0], 'highlight')) {
       params.matrix.highlight = 1;
     } else {
       params.matrix.highlight = 0;
@@ -4523,7 +4555,7 @@ function update_network(change_view){
   // get copy of old params 
   var old_params = this.params;
 
-  // make new_network_data 
+  // make new_network_data using immutable copy of network_data
   var new_network_data = filter_network_data(this.config.network_data, change_view); 
 
   // make Deep copy of this.config object 
@@ -4535,6 +4567,8 @@ function update_network(change_view){
   new_config.inst_order = old_params.viz.inst_order;
   // never switch to expand when updating the matrix 
   new_config.ini_expand = false;
+  // ensure that ini_view is not set 
+  new_config.ini_view = null;
 
   // make new params 
   var params = VizParams(new_config);
@@ -4730,6 +4764,7 @@ function enter_exit_update(params, network_data, reorder, delays){
   // enter exit update tiles  
   function eeu_existing_row(ini_inp_row_data){
 
+
     var inp_row_data = ini_inp_row_data.row_data;
 
     // remove zero values from 
@@ -4740,7 +4775,10 @@ function enter_exit_update(params, network_data, reorder, delays){
     // bind data to tiles 
     var cur_row_tiles = d3.select(this)
       .selectAll('.tile')
-      .data(row_values, function(d){return d.col_name;});
+      .data(row_values, function(d){
+        // console.log(d.col_name);
+        return d.col_name;
+      });
 
     ///////////////////////////
     // Exit 
@@ -5026,6 +5064,15 @@ function enter_exit_update(params, network_data, reorder, delays){
       .attr('transform', function(d){
         var x_pos = params.matrix.x_scale(d.pos_x) + 0.5*params.viz.border_width;
         var y_pos = 0.5*params.viz.border_width/params.viz.zoom_switch;
+
+        // if (isNaN(x_pos)){
+        //   console.log('\n')
+        //   console.log(d.col_name)
+        //   console.log(d.pos_x)
+        //   console.log(x_pos)
+        //   console.log('\n')
+        // }
+
         return 'translate('+x_pos+','+y_pos+')';
       });
 
@@ -5405,7 +5452,7 @@ function filter_network_data(orig_network_data, change_view){
 
   console.log(change_view)
 
-  // get view 
+  // Get Row Filtering View 
   ///////////////////////////////////////////////////////////////
   if (_.has(change_view,'filter_row')){
     // failsafe if there is only row+col filtering from front-end
@@ -5467,7 +5514,7 @@ function filter_network_data(orig_network_data, change_view){
       d.target = col_index;
       return d;
     }
-  })
+  });
 
   // set up new_network_data
   var new_network_data = {};
@@ -6315,31 +6362,6 @@ function Zoom(params){
     // update visible links 
     var min_rect_height = 3;
 
-    // downsample(params, min_rect_height);
-
-    // if (d3.select('.row_tile').empty()){
-    //   var links_in_view = update_viz_links(params, trans_x, trans_y, zoom_x, zoom_y, false);
-    //   draw_viz_links(params, links_in_view);
-
-    //   // // draw the new links using links_in_view 
-    //   // if (params.matrix.rect_height*zoom_y > min_rect_height){
-    //   //   draw_viz_links(params, links_in_view);
-    //   // } else if (d3.select('.ds_tile').empty()) {
-    //   //   downsample(params, min_rect_height);
-    //   // }
-    // }
-
-    //   // draw the new links using links_in_view 
-    //   if (params.matrix.rect_height*zoom_y > min_rect_height){
-    //     // draw_viz_links(params, );
-    //   } else if (d3.select('.ds_tile').empty()) {
-    //     downsample(params, min_rect_height);
-    //   }
-
-    // // if (d3.select('.ds_tile').empty()){
-    // //   downsample(params, min_rect_height);
-    // // }
-
     // apply transformation and reset translate vector
     // the zoom vector (zoom.scale) never gets reset
     ///////////////////////////////////////////////////
@@ -6483,13 +6505,6 @@ function Zoom(params){
 
       // center_y
       var center_y = -(zoom_y - 1) * half_height;
-
-      // do not update viz links
-      /////////////////////////////
-      // if (d3.select('.row_tile').empty()){
-      //   var links_in_view = update_viz_links(params, 0, 0, zoom_x, zoom_y, true);
-      //   draw_viz_links(params, links_in_view);
-      // }
 
       // transform clust group
       ////////////////////////////
@@ -6637,71 +6652,6 @@ function Zoom(params){
 
     return inst_links;
   }
-
-  function draw_viz_links(params, inst_links){
-
-    // exit old elements 
-    d3.selectAll('.tile')
-      .data(inst_links, function(d){return d.name;})
-      .exit()
-      .remove();
-
-    // enter new elements 
-    //////////////////////////
-    d3.select('#clust_group')
-      .selectAll('.tile')
-      .data(inst_links, function(d){return d.name;})
-      .enter()
-      .append('rect')
-      .style('fill-opacity',0)
-      .attr('class','tile new_tile')
-      .attr('width', params.matrix.rect_width)
-      .attr('height', params.matrix.rect_height)
-      .attr('transform', function(d) {
-        return 'translate(' + params.matrix.x_scale(d.target) + ','+params.matrix.y_scale(d.source)+')';
-      })
-      .style('fill', function(d) {
-          return d.value > 0 ? params.matrix.tile_colors[0] : params.matrix.tile_colors[1];
-      })
-      .style('fill-opacity', function(d) {
-          // calculate output opacity using the opacity scale
-          var output_opacity = params.matrix.opacity_scale(Math.abs(d.value));
-          return output_opacity;
-      });
-
-    d3.selectAll('.tile')
-      .on('mouseover',null)
-      .on('mouseout',null);
-
-    // redefine mouseover events for tiles 
-    d3.select('#clust_group')
-      .selectAll('.tile')
-      .on('mouseover', function(p) {
-        var row_name = p.name.split('_')[0];
-        var col_name = p.name.split('_')[1];
-        // highlight row - set text to active if
-        d3.selectAll('.row_label_text text')
-          .classed('active', function(d) {
-            return row_name === d.name;
-          });
-
-        d3.selectAll('.col_label_text text')
-          .classed('active', function(d) {
-            return col_name === d.name;
-          });
-      })
-      .on('mouseout', function mouseout() {
-        d3.selectAll('text').classed('active', false);
-      })
-      .attr('title', function(d) {
-        return d.value;
-      });
-
-    // // check the number of tiles 
-    // console.log(d3.selectAll('.tile')[0].length);
-    // console.log('\n\n')
-  }
-
 
   function constrain_font_size(params, trans){
 
@@ -7003,8 +6953,11 @@ function downsample(params, min_rect_height){
 // consume and validate user arguments, produce configuration object 
 var config = Config(args);
 
+// deepcopy
+var config_copy = jQuery.extend(true, {}, config);
+
 // make visualization parameters using configuration object 
-var params = VizParams(config);
+var params = VizParams(config_copy);
 
 // make visualization using parameters  
 var viz = Viz(params);
