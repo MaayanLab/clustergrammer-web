@@ -1,0 +1,22 @@
+{
+  "link": "some-link", 
+  "columns": [
+    {
+      "link": "col-link", 
+      "col_title": "Col-1"
+    }, 
+    {
+      "link": "col-link", 
+      "col_title": "Col-2"
+    }, 
+    {
+      "link": "col-link", 
+      "col_title": "Col-3"
+    }, 
+    {
+      "link": "col-link", 
+      "col_title": "Col-4"
+    }
+  ], 
+  "title": "Some-Clustergram"
+}
