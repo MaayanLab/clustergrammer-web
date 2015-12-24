@@ -605,7 +605,7 @@ look like the input gene list text title*/
   color:#333;
   text-align: justify;
   margin-top:2px;
-  margin-bottom: 3px;
+  /*margin-bottom: 3px;*/
   font-size: 15px;
   font-weight: 300;
   padding-left: 0px;
@@ -948,4 +948,15 @@ look like the input gene list text title*/
 
 .filter_text{
   display: none;
+}
+
+#help_link{
+  font-size: 30px;
+  /*margin-top: -11px;*/
+  margin-left: 5px;
+  color:#337ab7;
+}
+
+#help_link:hover{
+  color:#333;
 }
