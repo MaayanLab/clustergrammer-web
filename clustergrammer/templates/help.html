@@ -3,7 +3,7 @@
 
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <title>Clustergrammer</title>
+  <title>Clustergrammer: Help</title>
   <meta charset="UTF-8">
 
   <base href='/clustergrammer/'>
@@ -14,8 +14,8 @@
 <meta content="width=device-width, initial-scale=1" name="viewport">
 
 <link href="static/lib/css/bootstrap.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="static/css/help.css">
 <link rel="stylesheet" href="static/lib/css/prettify.css">
+<link rel="stylesheet" type="text/css" href="static/css/help.css">
 
 <div id="sidebar">
     <ul>
@@ -31,10 +31,10 @@
         <!-- <li><a href="/clustergrammer/help#clustergrammer_examples" > Examples </a></li> -->
       </ul>
 
-      <!-- <li><a href="/clustergrammer/help#api">API</a></li> -->
-      <!-- <ul id="sideBarSub"> -->
-        <!-- <li><a href="/clustergrammer/help#submit_matrix"> Submit Matrix </a></li> -->
-      <!-- </ul> -->
+      <li><a href="/clustergrammer/help#api">API</a></li>
+      <ul id="sideBarSub">
+        <li><a href="/clustergrammer/help#submit_matrix"> Submit Matrix </a></li>
+      </ul>
 
       <li><a href="/clustergrammer/help#contact">Contact</a></li>
 
@@ -44,11 +44,11 @@
 <div id="content">
 
   <img class='help_figure' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
-  <h4 id="subtitle">A web-based visualization tool that enables users and web-based applications to easily visualize a matrix of data as an interactive and shareable clustergram-heatmap.</h4>
+  <h4 id="subtitle">A web-based visualization tool that enables users and web-based applications to easily generate interactive and shareable clustergram-heatmap visualizations from a matrix of data.</h4>
 
   <section id="summary">
     <h3 class="first">Summary</h3>
-    <p>Clustergrammer is a web-based visualization tool that allows users and web-based applications to easily visualize a matrix of data as an interactive and shareable clustergram-heatmap. Clustergrammer simplifies the task of hierarchical clustering - which is commonly used in biology to study high-throughput data - and has no software requirements other than a modern browser (e.g. Chrome). Clustergrammer allows users to intuitively interact with their visualization - by zooming, reordering and filtering - and easily share their interactive visualizations on the web with collaborators. Clustergrammer is built using the JavaScript visualization library Data Driven Documents (D3.js) and is capable of visualizing large datasets (on the order of 100,000 data points), which cannot be effectively visualized using static images. Clustergrammer provides dynamic visualizations for the Ma'ayan Lab web-tools: Enrichr, Gen3va, L1000CDS2, and Harmonizome. Developers can also use the Clustergrammer API to produce dynamic visualizations for their own projects or view the open-source code on Github. </p>
+    <p>Clustergrammer is a web-based visualization tool that enables users and web-based applications to easily generate interactive and shareable clustergram-heatmap visualizations from a matrix of data. Clustergrammer simplifies the task of hierarchical clustering - which is commonly used in biology to study high-throughput data - and has no software requirements other than a modern browser (e.g. Chrome). Clustergrammer allows users to intuitively interact with their visualization - by zooming, reordering and filtering - and easily share their interactive visualizations on the web with collaborators. Clustergrammer is built using the JavaScript visualization library Data Driven Documents (D3.js) and is capable of visualizing large datasets (on the order of 100,000 data points), which cannot be effectively visualized using static images. Clustergrammer provides dynamic visualizations for the Ma'ayan Lab web-tools: Enrichr, Gen3va, L1000CDS2, and Harmonizome. Developers can also use the Clustergrammer API to produce dynamic visualizations for their own projects or view the open-source code on Github. </p>
   </section>
 
   <section id="tutorial">
@@ -65,15 +65,17 @@
     <p>and have a .txt or .tsv file extension. Once uploaded the user will be redirected to a visualization page where they can interact with their matrix visualization. The visualization page URL can also be used to return to the visualization at a later time or to share it with others. </p>
 
     <p>
-    Note that the user's data does not need to be clustered before uploading. Also, if a user is uploading an asymmetrical matrix, e.g. a matrix with more columns than rows, it is recommended that the user transpose the matrix if necessary in order to have more rows than columns. This will provide the best results in terms of zooming and filterings. 
+    Note that the user's data does not need to be clustered before uploading. Also, if a user is uploading an asymmetrical matrix, e.g. a matrix with more columns than rows, it is recommended that the user transpose the matrix, if necessary, in order to have more rows than columns - this will provide the best results in terms of zooming and filterings. 
     </p>
 
-    <h4 id='data_processing' class='subheader'> Data Processing </h4>
+    <h4 id='data_processing' class='subheader'> Matrix Processing </h4>
 
     <p>Clustergrammer aims to extend the capabilities of the clustergram visualization by providing users with a multitude of interchangable views of their data - e.g. views with different orderings and filters. Clustergrammer creates these 'views' of a users data in the following manner. First, Clustergrammer calculates a 'Cluster' ordering of rows and columns by performing hierarchical clustering of the rows and columns of a user's data (clustering is done using cosine distance and average linkage using the Python package SciPy). Groups of similar rows and columns are calculated at different distance thresholds to produce an interactive dendrogram-like colorbar. Second, Clustergrammer calculates a 'Rank' ordering of rows and columns by ranking the rows and columns based on the sum of their values. 
     </p>
 
-    <p>Third, the previous ordering calculations are repeated on successively filtered versions of the matrix. Clustergrammer start by finding the row with the greatest absolute value sum and this row-maximum-value is used to filter out rows from the matrix. Clustergrammer filters out rows that have an absolute value sum of less than some percentage of the row-maximum-value - where the percentage threshold varies from 0% to 90% in 10% increments. Finally, a user can dynamically create new views of their data by reordering the matrix based on the values in any row or column by double-clicking a row or column label. Collectively, these different orderings and filterings give the user a large set of interchangable views of their data. </p>
+    <p>Third, the previous ordering calculations are repeated on successively filtered versions of the matrix. Clustergrammer starts by finding the row with the greatest absolute value sum and this row-maximum-value is used to filter out rows from the matrix. Clustergrammer filters out rows that have an absolute value sum of less than some percentage of the row-maximum-value - where the percentage threshold varies from 0% to 90% in 10% increments. </p>
+
+    <p>Collectively, these different orderings and filterings give the user a large set of interchangable views of their data. </p>
 
     <h4 id="visualization" class='subheader'>Visualization</h4>
     
@@ -147,7 +149,37 @@
     
   </section>
 
-  <section id="tutorial">
+
+  <section id="api">
+    <h3 class="first">API</h3>
+    <p>Clustergrammer allows users to generate visualizations using a RESTful API. The API can be useful for a user that needs to generate many clustergrams or for developers that need to generate clustergrams automatically for their own applications. </p>
+
+    <p>A user can post a matrix file to Clustergrammer using the endpoint </p>
+
+<pre>
+  http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/
+</pre>    
+
+  <p> and receive a permanent link to their visualization. Below is an example in Python 2.7 showing the post request and how to obtain the permanent link from the response object.</p>
+  
+<pre id='example_post' class='prettyprint'> 
+  import requests 
+
+  filename = 'example_matrix.txt'
+  upload_url = 'http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/'
+
+  r = requests.post(upload_url, files={'file': open(filename, 'rb')})
+
+  link = r.text
+
+
+</pre>
+
+  </section>
+
+
+
+  <section id="contact">
     <h3>Contact</h3>
     <p>Please contact Avi Ma’ayan and Nicolas Fernandez for comments, suggestions, and support: </p>
 

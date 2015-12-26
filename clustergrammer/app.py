@@ -613,7 +613,7 @@ def l1000cds2_upload():
 
   return redirect('/clustergrammer/l1000cds2/'+l1000cds2['_id'])
 
-# upload network 
+# manual upload matrix 
 ############################
 @app.route('/clustergrammer/upload_network/', methods=['POST'])
 def upload_network():
@@ -622,8 +622,6 @@ def upload_network():
   import threading
   import time
   import StringIO
-
-  # try:
 
   if request.method == 'POST':
 
@@ -699,6 +697,88 @@ def upload_network():
   #   print('error catch')
   #   error_desc = 'There was an error in processing your matrix. Please check your format.'
   #   return redirect('/clustergrammer/error/'+error_desc)
+
+# API upload matrix 
+############################
+@app.route('/clustergrammer/matrix_upload/', methods=['POST'])
+def proc_matrix_upload():
+  import flask 
+  import load_tsv_file
+  import threading
+  import time
+  import StringIO
+
+  if request.method == 'POST':
+
+    req_file = flask.request.files['file']
+    buff = StringIO.StringIO(req_file.read())
+
+    inst_filename = req_file.filename 
+
+    print('\ninst_filename '+inst_filename+'\n\n')
+
+    if allowed_file(inst_filename):
+
+      # submit placeholder to mongo 
+      ###############################
+      # set up database connection 
+      client = MongoClient(mongo_address)
+      db = client.clustergrammer
+
+      # generate placeholder json - does not contain viz json 
+      export_viz = {}
+      export_viz['name'] = inst_filename
+      export_viz['viz'] = 'processing'
+      export_viz['dat'] = 'processing'
+      export_viz['source'] = 'user_upload'
+
+      # get the id that will be used to update the placeholder 
+      viz_id = db.networks.insert( export_viz )
+      viz_id = str(viz_id)
+
+      client.close()
+
+      # initialize thread 
+      #######################
+      print('initializing thread - uploading network')
+      sub_function = load_tsv_file.main
+      arg_list = [ buff, inst_filename, mongo_address, viz_id]
+      thread = threading.Thread(target=sub_function, args=arg_list)
+      thread.setDaemon(True)
+
+      # run subprocess
+      ##################
+      thread.start()
+
+      ####################
+      # check subprocess 
+      ####################
+      max_wait_time = 15
+      for wait_time in range(max_wait_time):
+
+        # wait one second
+        time.sleep(1)
+
+        print(wait_time)
+        print(thread.isAlive())
+
+        if thread.isAlive() == False:
+
+          print('\n\nthread is dead ... job finished\n-------------------\n')
+
+          return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
+
+      # redirect after maximum time has elapsed 
+      return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
+
+    else:
+
+      if len(inst_filename) > 0:
+        error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
+      else:
+        error_desc = 'Please choose a file to upload.'
+      return error_desc
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
