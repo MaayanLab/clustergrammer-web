@@ -49,10 +49,21 @@
 
       </div>
 
-      <a href="help" target="_blank" class="share-button" id="help_link"><i class="fa fa-question-circle"></i></a>
+      <div id='icons_section'>
+        
+        <div id='help_container'>
+          <a href="help" target="_blank"  id="help_link">
+            <i class="fa fa-question-circle"></i>
+          </a>
+        </div>
+
+        <div>
+          <i class="fa fa-share-alt" id='share_button' ></i>
+        </div>
+      </div>
 
       <!-- toggle clustergram order -->
-      <div class='viz_medium_text'>Row Order</div>
+      <div class='viz_medium_text clear_float'>Row Order</div>
       <div id='toggle_col_order' class="btn-group" data-toggle="buttons" >
         <label class="btn btn-primary active order_name" id="clust_row">
           <input type="radio" name="options" autocomplete="off" checked > Cluster
@@ -122,7 +133,7 @@
   </footer>
 
 
-  <!-- Modal -->
+  <!-- Dendro Modal -->
   <div id="dendro_info" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -135,13 +146,30 @@
         <div class="modal-body">
           <p>Some text in the modal.</p>
         </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div> -->
       </div>
 
     </div>
   </div>
+
+
+  <!-- Share Modal -->
+  <div id="share_info" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Share the visualization using the current url:</h4>
+        </div>
+        <div class="modal-body">
+          <input id='share_url' class='bootstrap_highlight'></input>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 
   <!-- Vendor -->
   <!-- jQuery -->
@@ -167,6 +195,11 @@
   <script src='static/js/load_local_network.js'></script>
 
   <script>
+
+    $('#share_button').click(function() {
+      $('#share_info').modal('toggle');
+      $('#share_url').val(window.location.href);
+    });
 
     function QueryStringToJSON() { 
       var pairs = location.search.slice(1).split('&');

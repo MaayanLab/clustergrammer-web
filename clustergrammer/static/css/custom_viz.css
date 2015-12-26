@@ -950,13 +950,49 @@ look like the input gene list text title*/
   display: none;
 }
 
+#icons_section{
+  margin:auto;
+}
+
 #help_link{
   font-size: 30px;
-  /*margin-top: -11px;*/
   margin-left: 5px;
   color:#337ab7;
 }
 
 #help_link:hover{
   color:#333;
+}
+
+#help_container{
+  float:left;
+  margin:auto;
+}
+
+#share_button{
+  font-size: 24px;
+  margin-left: 10px;
+  color:#337ab7;
+  margin-top: 9px
+}
+
+#share_button:hover{
+  color:#333;
+}
+
+#share_url{
+  width: 570px;
+}
+
+.bootstrap_highlight{
+  border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.clear_float{
+  clear: both;
 }

@@ -222,7 +222,7 @@ function play_demo(){
   }
 
   function type_out_search(inst_string){
-    $('#gene_search_box').val(inst_string)
+    $('#gene_search_box').val(inst_string);
     $( "#gene_search_box" ).autocomplete( "search", inst_string );
   }
 
