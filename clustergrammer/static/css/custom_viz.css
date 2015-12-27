@@ -996,3 +996,9 @@ look like the input gene list text title*/
 .clear_float{
   clear: both;
 }
+
+#clustergrammer_logo{
+  width:205px;
+  margin-top: 5px;
+  margin-left: -3px;
+}
