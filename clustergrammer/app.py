@@ -783,6 +783,9 @@ def proc_matrix_upload():
 @app.route("/clustergrammer/CCLE")
 @app.route("/Clustergrammer/CCLE")
 @app.route("/CLUSTERGRAMMER/CCLE")
+@app.route("/clustergrammer/CCLE/")
+@app.route("/Clustergrammer/CCLE/")
+@app.route("/CLUSTERGRAMMER/CCLE/")
 def ccle():
   return render_template('ccle.html', flask_var='')
 

@@ -134,12 +134,12 @@ h2 {
   background-color: #D0D0D0;
 }
 
-#iframe_preview{
-  display: block;
-  height: 520px;
-  width: 920px;
-  border: 1px solid #DEDEDE;
-}
+/*#tree_container{*/
+  /*display: block;*/
+  /*height: 520px;*/
+  /*width: 920px;*/
+  /*border: 1px solid #DEDEDE;*/
+/*}*/
 
 #input_form{
   margin-bottom: 10px;
@@ -242,5 +242,72 @@ h2 {
 #help_link{
   font-size: 30px;
   margin-top: -11px;
-  margin-left: 10px;
+  /*margin-left: 10px;*/
+}
+
+
+/*@import url(http://fonts.googleapis.com/css?family=Wire+One);*/
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  font-weight: 300;
+  position: relative;
+  padding: 20px;
+  height: 100%;
+}
+ 
+form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+ 
+.node {
+    border: solid 1px white;
+    line-height: 0.95;
+    overflow: hidden;
+    position: absolute;
+    /*border-radius: 6px;*/
+    background-image: -webkit-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:    -moz-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:     -ms-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:      -o-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
+    background-image:         linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0)); 
+
+}
+
+.node div {
+   padding: 6px 4%;
+}
+
+.node:hover{
+  /*background-color:'#000000';*/
+  background: yellow;
+}
+
+
+#tree_container{
+  margin-left: 20px;
+  margin-top: 20px;
+  width:900px;
+  height: 500px;
+}
+
+
+.d3-tip {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 2px;
+  max-width: 500px;
+}
+
+/* Style northward tooltips differently */
+.d3-tip.n:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
 }
