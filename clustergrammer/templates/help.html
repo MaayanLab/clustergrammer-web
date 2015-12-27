@@ -3,7 +3,7 @@
 
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-  <title>Clustergrammer: Help</title>
+  <title>Clustergrammer - Help</title>
   <meta charset="UTF-8">
 
   <base href='/clustergrammer/'>
@@ -62,7 +62,7 @@
     <img class='help_figure' id='upload_homepage' src="static/img/upload_homepage.png" alt="Upload"> 
     <p class="caption">Fig. 1 Screenshot of homepage upload section.</p>
 
-    <p>and have a .txt or .tsv file extension. Once uploaded the user will be redirected to a visualization page where they can interact with their matrix visualization. The visualization page URL can also be used to return to the visualization at a later time or to share it with others. </p>
+    <p>and have a .txt or .tsv file extension (download an example matrix here: <a href="/txt/example_matrix.txt" download>example_matrix.txt</a> ). Once uploaded the user will be redirected to a visualization page where they can interact with their matrix visualization. The visualization page URL can also be used to return to the visualization at a later time or to share it with others. </p>
 
     <p>
     Note that the user's data does not need to be clustered before uploading. Also, if a user is uploading an asymmetrical matrix, e.g. a matrix with more columns than rows, it is recommended that the user transpose the matrix, if necessary, in order to have more rows than columns - this will provide the best results in terms of zooming and filterings. 
@@ -75,12 +75,12 @@
 
     <p>Third, the previous ordering calculations are repeated on successively filtered versions of the matrix. Clustergrammer starts by finding the row with the greatest absolute value sum and this row-maximum-value is used to filter out rows from the matrix. Clustergrammer filters out rows that have an absolute value sum of less than some percentage of the row-maximum-value - where the percentage threshold varies from 0% to 90% in 10% increments. </p>
 
-    <p>Collectively, these different orderings and filterings give the user a large set of interchangable views of their data. </p>
+    <p> Additionally, a user can dynamically create new views of their data by reordering the matrix based on the values in any row or column by double-clicking a row or column label. Collectively, these different orderings and filterings give the user a large set of interchangable views of their data. </p>
 
     <h4 id="visualization" class='subheader'>Visualization</h4>
     
     <p>
-    The Clustergrammer visualization has many interactive features including: 
+    Clustergrammer visualizes your input matrix as a hierarchically clustered clustergram-heatmap, see interactive demo Fig 2. The color of the cells in the matrix indicate the values in the matrix: red/blue indicate positive/negative and opacity (darkness) indicates the magnitude of the value in the cell. The row and column labels are always visible at the lef and top of the matrix, respectively. The clustergrammer visualization has many interactive features including: 
     </p>
 
     <ul class='help_list'>
