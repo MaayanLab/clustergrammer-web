@@ -56,7 +56,7 @@ def send_static(path):
 @app.route("/Clustergrammer/")
 @app.route("/CLUSTERGRAMMER/")
 def index():
-  return render_template('index.html', flask_var='')
+  return render_template('index.html')
 
 @app.route("/clustergrammer/help")
 def help():
@@ -778,6 +778,13 @@ def proc_matrix_upload():
       else:
         error_desc = 'Please choose a file to upload.'
       return error_desc
+
+
+@app.route("/clustergrammer/CCLE")
+@app.route("/Clustergrammer/CCLE")
+@app.route("/CLUSTERGRAMMER/CCLE")
+def ccle():
+  return render_template('ccle.html', flask_var='')
 
 
 if __name__ == "__main__":

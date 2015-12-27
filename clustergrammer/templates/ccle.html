@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <base href='/clustergrammer/'>
 
-    <title>Clustergrammer</title>
+    <title>Clustergrammer - CCLE</title>
 
     <!-- <link rel="shortcut icon" href="static/map-o_32_transparent.ico"  type="image/x-icon"> -->
     <link rel="shortcut icon" href="static/icons/graham_cracker.ico"  type="image/x-icon">
@@ -21,7 +21,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
     <link rel="stylesheet" href="static/css/specific.css" />
-    <link rel="stylesheet" href="static/css/custom_index.css">
+    <link rel="stylesheet" href="static/css/custom_ccle.css">
     <link rel="stylesheet" href="static/lib/css/prettify.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
@@ -43,17 +43,15 @@
         <div class="row" > 
 
           <img src="static/icons/graham_cracker_70.png" id='home_graham_cracker' style="width:35px;height:35px;" >
-          <h1 id='website_title'> clustergrammer</h1>
+          <h1 id='website_title'> clustergrammer - CCLE Explorer </h1>
 
-          <p class='initial_paragraph first_instructions'>Clustergrammer is a visualization tool that enables users and web-based applications to easily generate interactive and shareable clustergram-heatmap visualizations from a matrix of data. Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and shareable clustergram like the example below. Press play or explore the example below to see the interactive features. </p>
+          <p class='initial_paragraph first_instructions'>The Clustergrammer Cancer Cell Line Encyclopedia (CCLE) Explorer allows users to browse expression data from different tissue subtypes (e.g. Lung) available from the CCLE. </p>
 
           <!-- non-local mongodb -->
-          <iframe id='iframe_preview' src="/clustergrammer/demo/566f6bbfb1a04e7f4087fcad?preview=true" frameBorder="0"></iframe> 
+          <div id='iframe_preview'> 
+          </div> 
 
-          <!-- local mongodb -->
-          <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true" frameBorder="0"></iframe>  -->
-
-          <a id=demo_link class='blue_links' href="/clustergrammer/viz/566f6bbfb1a04e7f4087fcad" target="_blank">See example in full page</a>
+          <!-- <a id=demo_link class='blue_links' href="/clustergrammer/viz/566f6bbfb1a04e7f4087fcad" target="_blank">See example in full page</a> -->
 
           <div id='upload_section'>
 
@@ -79,11 +77,11 @@ Row-C   0.2     0.1     2.5
           </div>                            
 
           <!-- start example row -->
-          <div id='homepage_examples'>
+          <!-- <div id='homepage_examples'> -->
 
-            <p id='example_title'>Clustergrammer Web-App Integration Examples</p>
+            <!-- <p id='example_title'>Clustergrammer Web-App Integration Examples</p> -->
 
-            <div class='row' >
+            <!-- <div class='row' >
               
 
               <div class='col-xs-4 example_col'>
@@ -116,34 +114,11 @@ Row-C   0.2     0.1     2.5
                 <p class='example_single_description'>Clustergrammer visualizes data from over 100 biological resources for the Ma'ayan lab web-resource Harmonogram. </p>
               </div>              
 
-            </div>
-            <!-- end row -->
-
-<!--             <div class='row' >
-
-              <div class='col-xs-4 example_col'>
-                <p class='example_single_title'>Geneva</p>
-                <div class='example_image_container'></div>
-                <p class='example_single_description'>Clustergrammer visualizes gene expression signatures extracted from the Geen Expression Omnibus using the Ma'ayan web-tools Geneva and GEO2Enrichr.  </p>
-              </div>
-              
-              <div class='col-xs-4 example_col'>
-                <p class='example_single_title'>Gene Expression Explorer</p>
-                <div class='example_image_container'></div>
-                <p class='example_single_description'>Clustergrammer has pre-loaded gene expression signatures available for exploration from the Cancer Cell Line Encyclopedia. Users can explore the data by tissue type.</p>
-              </div>
-
-              <div class='col-xs-4 example_col'>
-                <p class='example_single_title'>Clustergrammer API</p>
-                <div class='example_image_container'></div>
-                <p class='example_single_description'>The Clustergrammer API allows developers to dynamically create visualizations and embed them into their own projects.</p>
-              </div>
-
             </div> -->
             <!-- end row -->
 
 
-          </div>
+          <!-- </div> -->
 
         </div>
         <!-- end row -->
@@ -199,6 +174,8 @@ Row-C   0.2     0.1     2.5
 
   <!-- style code -->
   <!-- Clustergram Scripts -->
+  <script src='static/js/d3_clustergram.js'></script>
+  
 
   <script>
    
