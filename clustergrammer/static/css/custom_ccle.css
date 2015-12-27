@@ -26,6 +26,8 @@ body {
   /*height:900px;*/
   margin: 0px auto 0px auto;
   overflow-x:hidden;
+  padding-left: 0px;
+  padding-right: 0px;
 }
 
 html {
@@ -59,7 +61,7 @@ html {
   font-size: 13px;
   padding-left:10px;
   padding-right:10px;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 
@@ -159,7 +161,7 @@ h2 {
 
 #upload_section{
   margin-top: 10px;
-  margin-left: 15px;
+  /*margin-left: 15px;*/
 }
 
 .footer_text{
@@ -242,6 +244,7 @@ h2 {
 #help_link{
   font-size: 30px;
   margin-top: -11px;
+  padding-left: 0px;
   /*margin-left: 10px;*/
 }
 
@@ -253,7 +256,7 @@ body {
   margin: auto;
   font-weight: 300;
   position: relative;
-  padding: 20px;
+  /*padding: 20px;*/
   height: 100%;
 }
  
@@ -288,26 +291,10 @@ form {
 
 
 #tree_container{
-  margin-left: 20px;
-  margin-top: 20px;
-  width:900px;
-  height: 500px;
+  /*margin-left: 20px;*/
+  margin-top: 15px;
+  margin-bottom: 15px;
+  width:940px;
+  height: 600px;
 }
 
-
-.d3-tip {
-  line-height: 1;
-  font-weight: bold;
-  padding: 12px;
-  background: rgba(0, 0, 0, 0.8);
-  color: #fff;
-  border-radius: 2px;
-  max-width: 500px;
-}
-
-/* Style northward tooltips differently */
-.d3-tip.n:after {
-  margin: -1px 0 0 0;
-  top: 100%;
-  left: 0;
-}

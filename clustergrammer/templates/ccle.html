@@ -45,7 +45,7 @@
           <img src="static/icons/graham_cracker_70.png" id='home_graham_cracker' style="width:35px;height:35px;" >
           <h1 id='website_title'> clustergrammer - CCLE Explorer </h1>
 
-          <p class='initial_paragraph first_instructions'>The Clustergrammer Cancer Cell Line Encyclopedia (CCLE) Explorer allows users to browse expression data from different tissue subtypes (e.g. Lung) available from the CCLE. </p>
+          <p class='initial_paragraph first_instructions'>The Clustergrammer Cancer Cell Line Encyclopedia (CCLE) Explorer allows users to browse expression data from different tissue subtypes (e.g. Lung) available from the CCLE. Click on a tissue type to view a clustergram of gene expression data from the selected tissue type. </p>
 
           <!-- non-local mongodb -->
           <div id='tree_container'> 
@@ -55,7 +55,7 @@
 
           <div id='upload_section'>
 
-          <p class='initial_paragraph'>The CCLE gene expression data has been Z-score normalized and each tissue subtype clustergram will display the 1000 genes with the greatest variance. Click on a tissue subtype to be directed to a visualization of gene expression from the selected tissue subtype.</p>
+          <p class='initial_paragraph'>The size of the rectangle indicates the number of cell lines from a tissue are available from the CCLE. The CCLE gene expression data has been Z-score normalized and each tissue subtype clustergram will display the 1000 genes with the greatest variance. </p>
 
           <a href="help" target="_blank" class="btn share-button" id="help_link"><i class="fa fa-question-circle"></i></a>
 
@@ -116,7 +116,7 @@
   <!-- End Wrap all page content here -->
 
   <div id='footer'>
-    <div class="row" > 
+    <div class="row" id='footer-row' > 
       <div id='footer_text_container' class="col-xs-12 footer_section"> 
         <div class="text-muted footer_text">Clustergrammer is being developed by the <a class='blue_links' target="_blank"  href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a class='blue_links' target="_blank"   href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>  for the <a target="_blank" href="http://lincs-dcic.org/">BD2K-LINCS DCIC</a> and the <a target="_blank" href="http://commonfund.nih.gov/idg/overview">KMC-IDG</a>  </div>
         <!-- DCIC, BD2K, KMC, and GitHub -->
@@ -159,8 +159,6 @@
 
   <script>
    
-
-console.log('making treemap')
 
 var tree = {
     name: "tree",
@@ -264,8 +262,8 @@ var tree = {
   ]
 };
 
-var width = 900, // innerWidth-40
-    height = 500, // innerHeight-40,
+var width = 940, // innerWidth-40
+    height = 600, // innerHeight-40,
     color = d3.scale.category20c(),
     div = d3.select("#tree_container").append("div")
        .attr('id','new_div')
@@ -282,7 +280,9 @@ var node = div.datum(tree).selectAll(".node")
       .enter().append("div")
       .attr("class", "node")
       .on('click',function(d){
+        console.log(d.name);
         console.log(d.size);
+        console.log('\n')
       })
       .attr('title', function(d) { return d.children ? null : d.name; })
       .call(position)
