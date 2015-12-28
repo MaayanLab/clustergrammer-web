@@ -226,6 +226,14 @@ h2 {
   border: 0;
 }
 
+#CCLE_image{
+  margin-left: 5px;
+  margin-top: 5px;
+  width:290px;
+  height: 190px;
+  border: 0;
+}
+
 #harmonizome{
   margin-left: 10px;
 }
