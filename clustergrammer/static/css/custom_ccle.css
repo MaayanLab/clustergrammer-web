@@ -271,6 +271,8 @@ form {
     line-height: 0.95;
     overflow: hidden;
     position: absolute;
+    /*border: 2px;*/
+    /*border-color: white;*/
     /*border-radius: 6px;*/
     background-image: -webkit-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
     background-image:    -moz-linear-gradient(top, hsla(0,0%,100%,.3), hsla(0,0%,100%,0));
