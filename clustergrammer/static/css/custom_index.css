@@ -175,6 +175,7 @@ h2 {
 
 .first_instructions{
   margin-left: 0px;
+  text-align: justify;
 }
 
 #home_graham_cracker{
@@ -207,7 +208,7 @@ h2 {
 .example_single_description{
   font-size: 15px;
   font-weight: 300; 
-  /*text-align: center;*/
+  text-align: justify;
   padding: 5px;
 }
 
