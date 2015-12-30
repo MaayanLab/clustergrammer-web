@@ -142,9 +142,16 @@ function load_viz( viz_name, network_data ){
       'super_label_scale':super_label_scale,
       // 'col_label_scale':1.2,
       'opacity_scale':opacity_scale,
-      'order':ini_order
+      'order':ini_order,
     };
 
+
+    // initialize filter value 
+    if ( _.has(query_string,'filter_row_sum') ){
+      // set this up: 'ini_view':{'filter_row_sum':filter_row_sum}
+      arguments_obj.ini_view = { 'filter_row_sum' : query_string.filter_row_sum };
+      console.log(arguments_obj.ini_view);
+    }
 
 
     if (query_string.viz_type === 'enr_vect'){
@@ -239,6 +246,7 @@ function load_viz( viz_name, network_data ){
 
       // filter row based on sum of row
       if (filter_row_sum.length>0){
+        var inst_filter = 0;
         set_up_filters('filter_row_sum');
       } else {
         d3.selectAll('.filter_row_sum').remove();
@@ -251,9 +259,20 @@ function load_viz( viz_name, network_data ){
       d3.selectAll('.filter_row_sum').remove();
     }
 
+    // set up ini view 
+    if ( _.has(query_string,'filter_row_sum') ){
+      inst_filter = query_string.filter_row_sum;
+
+      // set up slider
+      $('#slider_filter_row_sum').slider( "value", inst_filter*10);
+      // set up slider title
+      d3.select('#filter_row_sum').text('Filter Sum: '+inst_filter*100+'%');          
+    }
+
+
     function set_up_filters(filter_type){
 
-      console.log('filter_type: '+filter_type)
+      console.log('filter_type: '+filter_type )
 
       // filter 
       ////////////////////
