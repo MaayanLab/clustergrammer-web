@@ -20,9 +20,6 @@ def main(mongo_address, viz_id, vect_post):
     # ini network obj 
     net = Network()
     
-    # # load g2e data into network 
-    # net.load_g2e_to_net(vect_post)
-
     # vector endpoint 
     net.load_vect_post_to_net(vect_post)
 

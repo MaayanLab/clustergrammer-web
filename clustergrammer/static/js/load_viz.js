@@ -146,8 +146,8 @@ function load_viz( viz_name, network_data ){
     };
 
 
-    // initialize filter value 
-    if ( _.has(query_string,'filter_row_sum') ){
+    // initialize filter value with querystring 
+    if ( _.has(query_string,'filter_row_sum') ){d
       // set this up: 'ini_view':{'filter_row_sum':filter_row_sum}
       arguments_obj.ini_view = { 'filter_row_sum' : query_string.filter_row_sum };
       console.log(arguments_obj.ini_view);
@@ -327,8 +327,7 @@ function load_viz( viz_name, network_data ){
           d3.select('#main_svg')
             .style('opacity',0.70);
 
-          d3.select('#'+filter_type).text('Filter '+filter_name+': '+10*inst_filt+'%');          
-
+          d3.select('#'+filter_type).text('Filter '+filter_name+': '+10*inst_filt+'%'); 
           $('.slider_filter').slider('disable');
           d3.selectAll('.btn').attr('disabled',true);
 
