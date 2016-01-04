@@ -27,7 +27,10 @@ def main(mongo_address, viz_id, vect_post):
     net.swap_nan_for_zero()
 
     # cluster g2e using pandas
-    net.fast_mult_views()
+    # net.fast_mult_views()
+
+    # calculate top views rather than percentage views
+    net.N_top_views()
 
     # export dat 
     try:

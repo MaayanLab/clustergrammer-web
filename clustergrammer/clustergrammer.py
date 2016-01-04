@@ -1416,14 +1416,112 @@ class Network(object):
 
     return df 
 
+  def N_top_views(self, dist_type='cos', run_clustering=True, dendro=True):
+    '''
+    This will calculate multiple views of a clustergram by filtering the data 
+    and clustering after each filtering. This filtering will keep the top N 
+    rows based on some quantity (sum, num-non-zero, etc). 
+    '''
+    from clustergrammer import Network
+    from copy import deepcopy 
+
+    # get dataframe dictionary of network and remove rows/cols with all zero values 
+    df = self.dat_to_df()
+    # each row or column must have at least one non-zero value 
+    threshold = 0.001
+    df = self.df_filter_row(df, threshold)
+    df = self.df_filter_col(df, threshold)
+
+    # calculate initial view with no row filtering
+    ##################################################
+    # swap back in the filtered df to dat 
+    self.df_to_dat(df)
+
+    # cluster initial view 
+    self.cluster_row_and_col('cos',run_clustering=run_clustering, dendro=dendro)
+
+    # set up views 
+    all_views = []
+
+    # top - only select the top rows 
+    inst_view = {}
+    inst_view['N_row_sum'] = 'all'
+    inst_view['dist'] = 'cos'
+    inst_view['nodes'] = {}
+    inst_view['nodes']['row_nodes'] = self.viz['row_nodes']
+    inst_view['nodes']['col_nodes'] = self.viz['col_nodes']
+
+    # add view with no filtering 
+    all_views.append(inst_view)
+
+    # keep the following number of top rows 
+    keep_top = [500,400,300,200,100,90,80,70,60,50,40,30,20,10]
+
+    # get copy of df and take abs value, cell line cols and gene rows
+    df_abs = deepcopy(df['mat'].abs())
+
+    # transpose to get gene columns 
+    df_abs = df_abs.transpose()
+
+    # sum the values of the genes in the cell lines 
+    tmp_sum = df_abs.sum(axis=0)
+
+    # 
+    tmp_sum.sort(ascending=False)
+
+    rows_sorted = tmp_sum.index.values.tolist()
+
+    for inst_keep in keep_top:
+
+      tmp_df = deepcopy(df)
+
+      if inst_keep < len(rows_sorted):
+
+        # get the labels of the rows that will be kept 
+        keep_rows = rows_sorted[0:inst_keep]
+
+        # filter the matrix 
+        tmp_df['mat'] = tmp_df['mat'].ix[keep_rows]
+
+        # initialize netowrk 
+        net = deepcopy(Network())
+
+
+        # filter columns - some columns may have all zero values 
+        tmp_df = self.df_filter_col(tmp_df,0.001)
+
+        # transfer to dat 
+        net.df_to_dat(tmp_df)
+
+        # try to cluster 
+        try: 
+          # cluster 
+          net.cluster_row_and_col('cos')
+          # add view 
+          inst_view = {}
+          inst_view['N_row_sum'] = inst_keep
+          inst_view['dist'] = 'cos'
+          inst_view['nodes'] = {}
+          inst_view['nodes']['row_nodes'] = net.viz['row_nodes']
+          inst_view['nodes']['col_nodes'] = net.viz['col_nodes']
+          all_views.append(inst_view)
+        except:
+          print('*** did not cluster filtered view')
+
+    # add views to viz 
+    self.viz['views'] = all_views
+
+    print('\tfinished fast_mult_views')
+
+
   def fast_mult_views(self, dist_type='cos', run_clustering=True, dendro=True):
     import numpy as np
     import pandas as pd
     ''' 
-    This will use Pandas to calculte multiple views of a clustergram
-    For now, it will disregard link information 
+    This will use Pandas to calculte multiple views of a clustergram 
+    Currently, it is only filtering based on row-sum and it is disregarding 
+    link information (used to add click functionality). 
     '''
-
     from clustergrammer import Network
     from copy import deepcopy
 
@@ -1445,6 +1543,7 @@ class Network(object):
     # set up views 
     all_views = []
 
+    # set up initial view 
     inst_view = {}
     inst_view['filter_row_sum'] = 0
     inst_view['dist'] = 'cos'
@@ -1452,9 +1551,10 @@ class Network(object):
     inst_view['nodes']['row_nodes'] = self.viz['row_nodes']
     inst_view['nodes']['col_nodes'] = self.viz['col_nodes']
 
+    # add view with no filtering 
     all_views.append(inst_view)
 
-    # filter betwen 0% and 90% of some threshoold 
+    # filter between 0% and 90% of some threshoold 
     all_filt = range(10)
     all_filt = [i/float(10) for i in all_filt]
 
@@ -1610,6 +1710,8 @@ class Network(object):
     ''' filter rows in matrix at some threshold
     and remove columns that have all zero values '''
 
+    print('\tdf_filter_row: '+str(threshold))
+
     import pandas as pd 
     from copy import deepcopy 
     from clustergrammer import Network
@@ -1704,10 +1806,9 @@ class Network(object):
 
     # filter columns 
     df = df[inst_cols]
+
     # filter rows 
-    df = df.transpose()
-    df = df[inst_rows]
-    df = df.transpose()
+    df = df.ix[inst_rows]
 
     return df
 

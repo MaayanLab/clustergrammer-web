@@ -147,10 +147,14 @@ function load_viz( viz_name, network_data ){
 
 
     // initialize filter value with querystring 
-    if ( _.has(query_string,'filter_row_sum') ){d
-      // set this up: 'ini_view':{'filter_row_sum':filter_row_sum}
+    if ( _.has(query_string,'filter_row_sum') ){
+      // set this up: 'ini_view'
       arguments_obj.ini_view = { 'filter_row_sum' : query_string.filter_row_sum };
-      console.log(arguments_obj.ini_view);
+    }
+
+    if ( _.has(query_string,'N_row_sum') ){
+      // set this up: 'ini_view'
+      arguments_obj.ini_view = { 'N_row_sum' : query_string.N_row_sum };
     }
 
 
@@ -222,9 +226,10 @@ function load_viz( viz_name, network_data ){
     ini_sliders();
 
     // filter_row = _.filter(network_data.views, function(d){return _.has(d,'filter_row')});
-    filter_row_value = _.filter(network_data.views, function(d){return _.has(d,'filter_row_value')});
-    filter_row_num = _.filter(network_data.views, function(d){return _.has(d,'filter_row_num')});
-    filter_row_sum = _.filter(network_data.views, function(d){return _.has(d,'filter_row_sum')});
+    var filter_row_value = _.filter(network_data.views, function(d){return _.has(d,'filter_row_value')});
+    var filter_row_num   = _.filter(network_data.views, function(d){return _.has(d,'filter_row_num')});
+    var filter_row_sum   = _.filter(network_data.views, function(d){return _.has(d,'filter_row_sum')});
+    var N_row_sum        = _.filter(network_data.views, function(d){return _.has(d,'N_row_sum')});
 
 
 
@@ -252,23 +257,125 @@ function load_viz( viz_name, network_data ){
         d3.selectAll('.filter_row_sum').remove();
       }
 
+      // filter top N
+      if (N_row_sum.length>0){
+        // var inst_filter = 0;
+        set_up_N_filters('N_row_sum');
+      } else {
+        d3.selectAll('.N_row_sum').remove();
+      }
+
     } else {
       d3.select('#filter_title').remove();
       d3.selectAll('.filter_row_value').remove();
       d3.selectAll('.filter_row_num').remove();
       d3.selectAll('.filter_row_sum').remove();
+      d3.selectAll('.N_row_sum').remove();
     }
 
     // set up ini view 
     if ( _.has(query_string,'filter_row_sum') ){
       inst_filter = query_string.filter_row_sum;
-
       // set up slider
       $('#slider_filter_row_sum').slider( "value", inst_filter*10);
       // set up slider title
       d3.select('#filter_row_sum').text('Filter Sum: '+inst_filter*100+'%');          
     }
 
+    if ( _.has(query_string,'N_row_sum') ){
+      inst_N = query_string.N_row_sum;
+
+      // make N_dictionary 
+      var N_dict = {};
+
+      // filters
+      var all_filt = _.pluck( network_data.views,'N_row_sum')
+
+      _.each(all_filt, function(d){
+        tmp_index = _.indexOf(all_filt, d)
+
+        N_dict[tmp_index] = d;
+
+      });      
+
+      // get the index of the current requested value so that the slider can be
+      // initialized 
+      _.each(N_dict,function(d,i){
+        if (String(d) === String(inst_N)){
+          inst_index = i;
+        }
+      });
+
+      // set up slider
+      $('#slider_N_row_sum').slider( "value", inst_index);
+
+      // set up slider title
+      d3.select('#N_row_sum').text('Top rows:  '+inst_N+' rows');
+    }    
+
+    function set_up_N_filters(filter_type){
+
+      // filter 
+      ////////////////////
+      var views = network_data.views;
+      var all_views = _.filter(views, function(d){return _.has(d,filter_type);});
+
+      var inst_max = all_views.length - 1;
+
+      // make N_dictionary 
+      var N_dict = {};
+
+      // filters
+      var all_filt = _.pluck( network_data.views,'N_row_sum')
+
+      _.each(all_filt, function(d){
+        tmp_index = _.indexOf(all_filt, d)
+
+        N_dict[tmp_index] = d;
+
+      });
+
+
+      $( '#slider_'+filter_type ).slider({
+        value:0,
+        min: 0,
+        max: inst_max,
+        step: 1,
+        stop: function( event, ui ) {
+
+          // change value 
+          $( "#amount" ).val( "$" + ui.value );
+
+          // get value 
+          var inst_index = $( '#slider_'+filter_type ).slider( "value" ); 
+
+          var inst_top = N_dict[inst_index];
+
+          change_view = {'N_row_sum':inst_top};
+          filter_name = 'N_row_sum';
+
+          d3.select('#main_svg').style('opacity',0.70);
+
+          d3.select('#'+filter_type).text('Top rows: '+inst_top+' rows'); 
+
+          $('.slider_filter').slider('disable');
+          d3.selectAll('.btn').attr('disabled',true);
+
+          cgm.update_network(change_view);
+
+          ini_sliders();
+
+          function enable_slider(){
+            $('.slider_filter').slider('enable');  
+            d3.selectAll('.btn').attr('disabled',null);
+          }
+          setTimeout(enable_slider, 2500);
+
+        }
+      });
+      $( "#amount" ).val( "$" + $( '#slider_'+filter_type ).slider( "value" ) );
+
+    } 
 
     function set_up_filters(filter_type){
 
