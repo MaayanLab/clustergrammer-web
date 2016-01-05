@@ -6,7 +6,7 @@ def main():
   from clustergrammer import Network
   net = Network()
 
-  row_num = 100
+  row_num = 200
   # make up all names for all data 
   row_names = make_up_names(row_num)
 
@@ -15,9 +15,11 @@ def main():
 
   vect_post['title'] = 'Some-Clustergram'
   vect_post['link'] = 'some-link'
+  vect_post['filter'] = 'N_row_sum'
+  vect_post['is_up_down'] = True
   vect_post['columns'] = []
 
-  num_columns = 5
+  num_columns = 10
 
   split = True
 
@@ -30,16 +32,14 @@ def main():
 
     inst_col = {}
 
-    col_title = 'Col-' + str( col_num+1 )
+    col_name = 'Col-' + str( col_num+1 )
 
-    inst_col['col_title'] = col_title
+    inst_col['col_name'] = col_name
     inst_col['link'] = 'col-link'
+    inst_col['cat'] = 'brain'
 
-
-    # each column will in general have vector, vector_up, and vector_dn 
-    vector = []
-    vector_up = []
-    vector_dn = []
+    # save to columns 
+    inst_col['data'] = [] #vector
 
     # get random subset of row_names 
     vect_rows = get_subset_rows(row_names, inst_prob)
@@ -63,18 +63,25 @@ def main():
 
       value = value_up + value_dn
 
-      # genrate vector component 
-      #############################
-      vector.append([ inst_row, value ])
-      vector_up.append([ inst_row, value_up ])
-      vector_dn.append([ inst_row, value_dn ])
+      # # generate vector component 
+      # #############################
+      # vector.append([ inst_row, value ])
+      # vector_up.append([ inst_row, value_up ])
+      # vector_dn.append([ inst_row, value_dn ])
 
-    # save to columns 
-    inst_col['vector'] = vector
+      # define row object - within column 
+      row_obj = {}
+      row_obj['row_name'] = inst_row
+      row_obj['val'] = value
+      row_obj['val_up'] = value_up
+      row_obj['val_dn'] = value_dn
 
-    if split:
-      inst_col['vector_up'] = vector_up
-      inst_col['vector_dn'] = vector_dn
+      inst_col['data'].append(row_obj)
+
+
+    # if split:
+    #   inst_col['vector_up'] = vector_up
+    #   inst_col['vector_dn'] = vector_dn
 
 
     # save columns to vect_post

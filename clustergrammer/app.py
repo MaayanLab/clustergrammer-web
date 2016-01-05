@@ -21,24 +21,24 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# local
-mongo_address = '10.125.162.57'
+# # local
+# mongo_address = '10.125.162.57'
 
-# # lab 
-# mongo_address = '146.203.54.165'
+# lab 
+mongo_address = '146.203.54.165'
 
 ##########################################
 # switch for local and docker development 
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -530,29 +530,6 @@ def proc_vector_upload():
     return flask.jsonify({
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
     }) 
-
-  # make network a dictionary 
-  # gnet = {}
-  # gnet['viz'] = net.viz
-
-  # viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-
-  # col_label = 'G2E Signatures'
-  # row_label = 'genes'
-  # qs = 'col_label='+col_label+'&'+'row_label='+row_label
-
-  # return flask.jsonify({
-  #   'preview_link': viz_url+net_id+'?preview=true&'+qs,
-  #   'link': viz_url+net_id+'?'+qs
-  # })
-
-  # except:
-
-  #   error_desc = 'Error in processing GEO2Enrichr signatures.'
-  #   return flask.jsonify({
-  #     'preview_link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc,
-  #     'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-  #   })  
 
 
 
