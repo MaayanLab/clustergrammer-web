@@ -21,24 +21,24 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# # local
-# mongo_address = '10.125.161.139'
+# local
+mongo_address = '10.125.161.139'
 
-# lab 
-mongo_address = '146.203.54.165'
+# # lab 
+# mongo_address = '146.203.54.165'
 
 ##########################################
 # switch for local and docker development 
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -465,6 +465,10 @@ def proc_vector_upload():
 
   # submit placeholder to mongo 
   ###############################
+  # set up connection 
+  client = MongoClient(mongo_address)
+  db = client.clustergrammer
+
   export_viz = {}
   if 'title' in vector_post:
     # use if valid title 
@@ -478,11 +482,16 @@ def proc_vector_upload():
   export_viz['viz'] = inst_status
   export_viz['dat'] = inst_status
   export_viz['source'] = 'vector_post'
-  export_viz['post'] = vector_post
 
-  # set up connection 
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
+
+  # save the posted json 
+  try: 
+    post_id = db.network_data.insert( vector_post )
+  except:
+    post_id = 'vector_post_too_large'
+
+  # export_viz['post'] = vector_post
+  export_viz['post'] = post_id
 
   # get the id tht will be used to update the placeholder 
   viz_id = db.networks.insert( export_viz ) 
