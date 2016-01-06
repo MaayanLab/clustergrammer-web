@@ -6,7 +6,7 @@ def main():
   from clustergrammer import Network
   net = Network()
 
-  row_num = 200
+  row_num = 800
   # make up all names for all data 
   row_names = make_up_names(row_num)
 
@@ -19,7 +19,7 @@ def main():
   vect_post['is_up_down'] = True
   vect_post['columns'] = []
 
-  num_columns = 10
+  num_columns = 3
 
   split = True
 
@@ -60,6 +60,14 @@ def main():
         value_dn = -10*random.random()
       else: 
         value_dn = 0
+
+      if inst_row == 'RFIOW':
+        value_up = 20
+        value_dn = 0
+
+      if inst_row == 'SEAFS':
+        value_up = 0
+        value_dn = -20        
 
       value = value_up + value_dn
 

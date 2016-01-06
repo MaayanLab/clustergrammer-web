@@ -22,7 +22,7 @@ ENTRY_POINT = '/clustergrammer'
 # address for mongodbs 
 
 # # local
-# mongo_address = '10.125.162.57'
+# mongo_address = '10.125.161.139'
 
 # lab 
 mongo_address = '146.203.54.165'
