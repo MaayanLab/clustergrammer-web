@@ -467,9 +467,14 @@ def proc_vector_upload():
   ###############################
   export_viz = {}
   if 'title' in vector_post:
-    export_viz['name'] = vector_post['title']
+    # use if valid title 
+    if len(vector_post['title']) > 0:
+      export_viz['name'] = vector_post['title']
+    else:
+      export_viz['name'] = 'vector_post'
   else:
     export_viz['name'] = 'vector_post'
+    
   export_viz['viz'] = inst_status
   export_viz['dat'] = inst_status
   export_viz['source'] = 'vector_post'
