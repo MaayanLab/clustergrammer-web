@@ -59,8 +59,11 @@
           </a>
         </div>
 
-        <div>
+        <div id='share_container'>
           <i class="fa fa-share-alt" id='share_button' ></i>
+        </div>
+        <div>
+          <i class="fa fa-camera" id='picture_button' ></i>
         </div>
       </div>
 
@@ -121,7 +124,7 @@
 
       <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
 
-      <div id='download_buttons'></div>
+      
 
     </div>
 
@@ -177,6 +180,26 @@
 
     </div>
   </div>
+
+
+  <!-- Picture Modal -->
+  <div id="picture_info" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Save a snapshot of the visualization:</h4>
+        </div>
+        <div class="modal-body">
+          <!-- <input id='share_url' class='bootstrap_highlight'></input> -->
+          <div id='download_buttons'></div>
+        </div>
+      </div>
+
+    </div>
+  </div>  
 
 
   <!-- Vendor -->

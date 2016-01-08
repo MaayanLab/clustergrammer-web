@@ -6,6 +6,12 @@ function load_viz( viz_name, network_data ){
       $('#share_url').val(window.location.href);
     });
 
+
+    $('#picture_button').click(function() {
+      $('#picture_info').modal('toggle');
+      // $('#share_url').val(window.location.href);
+    });
+
     function QueryStringToJSON() { 
       var pairs = location.search.slice(1).split('&');
       
@@ -336,7 +342,7 @@ function load_viz( viz_name, network_data ){
     d3.select('#download_buttons')
       .append('p')
       .append('a')
-      .html('download-svg')
+      .html('Download SVG')
       .on('click',function(){
         save_clust_svg();
       });
@@ -347,7 +353,7 @@ function load_viz( viz_name, network_data ){
     d3.select('#download_buttons')
       .append('p')
       .append('a')
-      .html('download-png')
+      .html('Download PNG')
       .on('click',function(){
         d3.select('#expand_button').style('opacity',0);
         saveSvgAsPng(document.getElementById("main_svg"), "clustergrammer.png");

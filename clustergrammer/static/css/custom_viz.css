@@ -969,7 +969,19 @@ look like the input gene list text title*/
   margin:auto;
 }
 
+#share_container{
+  float:left;
+  margin:auto;
+}
+
 #share_button{
+  font-size: 24px;
+  margin-left: 10px;
+  color:#337ab7;
+  margin-top: 9px
+}
+
+#picture_button{
   font-size: 24px;
   margin-left: 10px;
   color:#337ab7;
