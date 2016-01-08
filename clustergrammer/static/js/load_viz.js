@@ -214,7 +214,7 @@ function load_viz( viz_name, network_data ){
       }
 
       // make clustergram: pass network_data and the div name where the svg should be made
-      d3.select('#wait_message').style('display','none');
+      d3.select('#wait_message').remove();
       var cgm = clustergrammer(arguments_obj);
     }
 
@@ -312,6 +312,48 @@ function load_viz( viz_name, network_data ){
       // set up slider title
       d3.select('#N_row_sum').text('Top rows:  '+inst_N+' rows');
     }    
+
+
+    // save svg: example from: http://bl.ocks.org/pgiraud/8955139#profile.json
+    ////////////////////////////////////////////////////////////////////////////
+    function save_clust_svg(){
+
+      d3.select('#expand_button').style('opacity',0);
+
+      var html = d3.select("svg")
+            .attr("title", "test2")
+            .attr("version", 1.1)
+            .attr("xmlns", "http://www.w3.org/2000/svg")
+            .node().parentNode.innerHTML;        
+
+      var blob = new Blob([html], {type: "image/svg+xml"});              
+
+      saveAs(blob, "clustergrammer.svg");
+
+      d3.select('#expand_button').style('opacity',0.4);
+    }
+
+    d3.select('#download_buttons')
+      .append('p')
+      .append('a')
+      .html('download-svg')
+      .on('click',function(){
+        save_clust_svg();
+      });
+
+
+    // save as PNG 
+    /////////////////////////////////////////
+    d3.select('#download_buttons')
+      .append('p')
+      .append('a')
+      .html('download-png')
+      .on('click',function(){
+        d3.select('#expand_button').style('opacity',0);
+        saveSvgAsPng(document.getElementById("main_svg"), "clustergrammer.png");
+        d3.select('#expand_button').style('opacity',0.4);
+      })
+
 
     function set_up_N_filters(filter_type){
 
