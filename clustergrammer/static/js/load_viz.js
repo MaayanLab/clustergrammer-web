@@ -211,8 +211,7 @@ function load_viz( viz_name, network_data ){
     } else if (network_data === 'error') {
       console.log('here')
       d3.select('#wait_message')
-        .text('There was an error processing your matrix. Please re-check your data and try again.')
-        .style('margin-left','30px');
+        .text('There was an error processing your matrix. Please re-check your data and try again.');
     } else {
 
       if (_.has(network_data.row_nodes[0],'group')){

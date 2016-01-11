@@ -46,14 +46,35 @@ class Network(object):
 
     self.load_lines_from_tsv_to_net(lines)
 
-  def pandas_load_tsv_to_net(self, filename):
+  def pandas_load_tsv_to_net(self, file_buffer):
+    '''
+    A user can add category information to the columns 
+    '''
     import pandas as pd 
 
     tmp_df = {}
-    tmp_df['mat'] = pd.read_table(filename, index_col=0)
+    tmp_df['mat'] = pd.read_table(file_buffer, index_col=0, header=[0,1])
+
+    # test 
+    lines = file_buffer.getvalue().split('\n')
+
+    # check for headers 
+    cat_line = lines[1].split('\t')
+
+    add_cat = False
+    if cat_line[0] == '': 
+      add_cat = True
+
+    if len(lines)>2:
+      val_line = lines[2].split('\t')
 
     # save to self
     self.df_to_dat(tmp_df)
+
+    # add categories if necessary 
+    if add_cat:
+      cat_line = [i.strip() for i in cat_line]
+      self.dat['node_info']['col']['cl'] = cat_line[1:]
 
   def load_lines_from_tsv_to_net(self, lines):
     import numpy as np
@@ -1222,6 +1243,10 @@ class Network(object):
     self.dat['mat'] = df['mat'].values
     self.dat['nodes']['row'] = df['mat'].index.tolist()
     self.dat['nodes']['col'] = df['mat'].columns.tolist()
+
+    # check if there is category information in the column names  
+    if type(self.dat['nodes']['col'][0]) is tuple:
+      self.dat['nodes']['col'] = [i[0] for i in self.dat['nodes']['col']]
 
     if 'mat_up' in df:
       self.dat['mat_up'] = df['mat_up'].values
