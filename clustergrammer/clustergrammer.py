@@ -52,9 +52,6 @@ class Network(object):
     '''
     import pandas as pd 
 
-    tmp_df = {}
-    tmp_df['mat'] = pd.read_table(file_buffer, index_col=0, header=[0,1])
-
     # test 
     lines = file_buffer.getvalue().split('\n')
 
@@ -67,6 +64,14 @@ class Network(object):
 
     if len(lines)>2:
       val_line = lines[2].split('\t')
+
+    tmp_df = {}
+    if add_cat:
+      # read in names and categories 
+      tmp_df['mat'] = pd.read_table(file_buffer, index_col=0, header=[0,1])
+    else:
+      # read in names only 
+      tmp_df['mat'] = pd.read_table(file_buffer, index_col=0, header=0)
 
     # save to self
     self.df_to_dat(tmp_df)
