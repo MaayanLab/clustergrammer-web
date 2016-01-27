@@ -31,8 +31,16 @@ def main( buff, inst_filename, mongo_address, viz_id):
     # swap nans for zero 
     net.swap_nan_for_zero()
 
-    # fast mult views takes care of pre-filtering
-    net.fast_mult_views()
+    # deprecated clustering module
+    ####################################
+
+    # # fast mult views takes care of pre-filtering
+    # net.fast_mult_views()
+
+    ####################################
+
+    net.make_filtered_views(dist_type='cosine', dendro=True, \
+      views=['filter_row_sum'], linkage_type='average')
 
     ###############################
     # save to database 
