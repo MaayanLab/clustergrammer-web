@@ -21,11 +21,11 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# local
-mongo_address = '10.125.184.56'
+# # local
+# mongo_address = '10.125.175.249'
 
-# # lab 
-# mongo_address = '146.203.54.165'
+# lab 
+mongo_address = '146.203.54.165'
 
 ##########################################
 # switch for local and docker development 
@@ -569,7 +569,7 @@ def l1000cds2_upload():
   # cluster 
   cutoff_comp = 0
   min_num_comp = 2
-  net.cluster_row_and_col('cos', cutoff_comp, min_num_comp)  
+  net.cluster_row_and_col(dist_type='cosine', dendro=True)  
 
   # redefine initial ordering - rank by gene signature values and pert scores 
   net.dat['node_info']['row']['ini'] = net.sort_rank_node_values('row')

@@ -1,11 +1,12 @@
 # define a class for networks 
 class Network(object):
   '''
-  Networks have two states: the data state where they are stored as: matrix and nodes; 
-  and a viz state where they are stored as: viz.links, viz.row_nodes, viz.col_nodes.
+  Networks have two states: the data state where they are stored as: matrix and
+  nodes and a viz state where they are stored as: viz.links, viz.row_nodes, viz.
+  col_nodes.
 
-  The goal is to start in a data-state and produce a viz-state of the network that will be 
-  used as input to clustergram.js.
+  The goal is to start in a data-state and produce a viz-state of the network 
+  that will be used as input to clustergram.js.
   '''
 
   def __init__(self):
@@ -15,7 +16,8 @@ class Network(object):
     self.dat['nodes']['row'] = []
     self.dat['nodes']['col'] = []
 
-    # node_info holds the orderings (ini, clust, rank), classification ('cl'), and other general information 
+    # node_info holds the orderings (ini, clust, rank), classification ('cl'), 
+    # and other general information 
     self.dat['node_info'] = {}
     for inst_rc in self.dat['nodes']:
       self.dat['node_info'][inst_rc] = {}
@@ -52,18 +54,15 @@ class Network(object):
     '''
     import pandas as pd 
 
-    # test 
+    # get lines and check for category and value info 
     lines = file_buffer.getvalue().split('\n')
 
-    # check for headers 
+    # check for category info in headers
     cat_line = lines[1].split('\t')
 
     add_cat = False
     if cat_line[0] == '': 
       add_cat = True
-
-    if len(lines)>2:
-      val_line = lines[2].split('\t')
 
     tmp_df = {}
     if add_cat:
@@ -80,6 +79,23 @@ class Network(object):
     if add_cat:
       cat_line = [i.strip() for i in cat_line]
       self.dat['node_info']['col']['cl'] = cat_line[1:]
+
+    # make a dict of columns in categories 
+    ##########################################
+    col_in_cat = {}
+    for i in range(len(self.dat['node_info']['col']['cl'])):
+
+      inst_cat = self.dat['node_info']['col']['cl'][i]
+      inst_col = self.dat['nodes']['col'][i]
+
+      if inst_cat not in col_in_cat:
+        col_in_cat[inst_cat] = []
+
+      # collect col names for categories 
+      col_in_cat[inst_cat].append(inst_col)      
+
+    # save to node_info
+    self.dat['node_info']['col_in_cat'] = col_in_cat
 
   def load_lines_from_tsv_to_net(self, lines):
     import numpy as np
@@ -257,185 +273,6 @@ class Network(object):
           self.dat['mat'] = inst_vect
         else:
           self.dat['mat'] = np.hstack(( self.dat['mat'], inst_vect))
-
-  def load_cst_kea_enr_to_net(self, enr, pval_cutoff):
-    import scipy
-    import numpy as np
-
-    # enr - data structure 
-      # cell line 
-        # up_genes, dn_genes
-          # name, pval, pval_bon, pval_bh, int_genes 
-
-    print('loading cst enriched kinases ')
-
-    # the columns are the cell lines 
-    all_col = sorted(enr.keys())
-
-    # the rows are the enriched terms 
-    all_row = []
-
-    # gather all genes with significantly enriched pval_bh 
-    #######################################################
-    updn = ['up','dn']
-    # loop through cell lines 
-    for inst_cl in enr:
-      # loop through up/dn genes 
-      for inst_updn in updn:
-
-        # get inst_enr: the enrichment results from a cell line in either up/dn
-        inst_enr = enr[inst_cl][inst_updn]
-
-        # loop through enriched terms 
-        for i in range(len(inst_enr)):
-
-          # append name if pval is significant 
-          if inst_enr[i]['pval_bh'] <= pval_cutoff:
-
-            # append name to all terms 
-            all_row.append(inst_enr[i]['name'])
-
-    # get unique terms, sort them
-    all_row = sorted(list(set(all_row)))
-
-    # save row and column data to nodes 
-    nodes = {}
-    nodes['row'] = all_row
-    nodes['col'] = all_col
-
-    # gather data into matrix 
-    #############################
-    # initialize data_mat
-    data_mat = {}
-    data_mat['value']    = scipy.zeros([ len(all_row), len(all_col) ])
-    data_mat['value_up'] = scipy.zeros([ len(all_row), len(all_col) ])
-    data_mat['value_dn'] = scipy.zeros([ len(all_row), len(all_col) ])  
-
-    # save additional informaiton in a dictionary 
-    mat_info = {}
-
-    # loop through the rows (genes)
-    for i in range(len(all_row)):
-      
-      # get inst row: gene 
-      inst_gene = all_row[i]
-
-      # loop through the columns (cell lines)
-      for j in range(len(all_col)):
-
-        # get inst col: cell line 
-        inst_cl = all_col[j]
-
-        # initialize pval_nl negative log up/dn
-        pval_nl = {}
-
-        # ini list of substrates 
-        substrates = []
-
-        # get enrichment from up/dn genes
-        for inst_updn in updn:
-
-          # initialize pval_nl[inst_updn] = np.nan
-          pval_nl[inst_updn] = np.nan
-
-          # gather the current set of enrichment results
-          # from the cell line 
-          inst_enr = enr[inst_cl][inst_updn]
-
-          # check if kinase is in list of enriched results 
-          if any(d['name'] == inst_gene for d in inst_enr):
-
-            # get the dict from the list
-            inst_dict = self.find_dict_in_list( inst_enr, 'name', inst_gene)
-            
-            # only include significant pvalues
-            if inst_dict['pval_bh'] <= 0.05:
-
-              # retrieve the negative log pval_
-              pval_nl[inst_updn] = -np.log2( inst_dict['pval_bh'] )
-
-              # save ranks of substrates 
-              substrates.extend( inst_dict['ranks'] )
-
-            else:
-              # set nan pval
-              pval_nl[inst_updn] = np.nan
-
-        # set value for data_mat 
-        ###########################
-        # now that the enrichment results have been gathered
-        # for up/dn genes save the results 
-
-        # there is both up and down enrichment 
-        if np.isnan(pval_nl['up']) == False and np.isnan(pval_nl['dn']) == False:
-          
-          # set value of data_mat['merge'] as the mean of up/dn enrichment 
-          data_mat['value'][i,j] = np.mean([ pval_nl['up'], -pval_nl['dn'] ])
-
-          # set values of up/dn
-          data_mat['value_up'][i,j] =  pval_nl['up']
-          data_mat['value_dn'][i,j] = -pval_nl['dn']
-
-        # there is only up enrichment 
-        elif np.isnan(pval_nl['up']) == False:
-          # set value of data_mat as up enrichment 
-          data_mat['value'][i,j] = pval_nl['up'] 
-          data_mat['value_up'][i,j] = pval_nl['up']
-
-        # there is only dn enrichment
-        elif np.isnan(pval_nl['dn']) == False:
-          # set value of data_mat as the mean of up/dn enrichment 
-          data_mat['value'][i,j] = -pval_nl['dn']
-          data_mat['value_dn'][i,j] = -pval_nl['dn']
-
-        # save substrates to mat_info
-        mat_info[(i,j)] = substrates
-
-    # save nodes and data_mat to self.dat
-    self.dat['nodes'] = nodes
-    self.dat['mat'] = data_mat['value']
-
-    # add up and dn values into self.dat
-    self.dat['mat_up'] = data_mat['value_up']
-    self.dat['mat_dn'] = data_mat['value_dn']
-
-    # add mat_info with substrate information 
-    self.dat['mat_info'] = mat_info
-
-  def load_ccle_to_net(self, prot_type):
-    import scipy 
-    import numpy as np
-
-    # load ccle data 
-    ccle = self.load_json_to_dict('CCLE/nsclc_allzc.json')
-    ccle['data_z'] = np.asarray(ccle['data_z'], dtype = float)
-
-    # load protein type lists 
-    gs_list = self.load_json_to_dict('gene_classes_harmonogram.json')
-
-    # generate node lists 
-    # find the protein-types that are in ccle 
-    self.dat['nodes']['row'] = sorted(list(set(gs_list[prot_type]).intersection(ccle['gene'])))
-    self.dat['nodes']['col'] = ccle['cell_lines']
-
-
-    # initialize mat
-    self.dat['mat'] = scipy.zeros([ len(self.dat['nodes']['row']), len(self.dat['nodes']['col']) ])
-
-    # loop through rows and cols
-    for i in range(len(self.dat['nodes']['row'])):
-      for j in range(len(self.dat['nodes']['col'])):
-
-        # get inst_row and inst_col
-        inst_row = self.dat['nodes']['row'][i]
-        inst_col = self.dat['nodes']['col'][j]
-
-        # find gene and cl index in zscored data 
-        index_x = ccle['gene'].index(inst_row)
-        index_y = ccle['cell_lines'].index(inst_col)
-
-        # map primary data to mat 
-        self.dat['mat'][i,j] = ccle['data_z'][index_x, index_y]
 
   def load_vect_post_to_net(self, vect_post):
     import numpy as np
@@ -650,9 +487,6 @@ class Network(object):
         num_nonzero = np.count_nonzero(row_vect)
         # use integer number of non-zero measurements
         cutoff = row_filt_int * 10
-
-        # print('num_nonzero '+str(num_nonzero)+' cutoff: '+str(cutoff))
-        # print('\n')
 
         if num_nonzero>= cutoff:
           # add name 
@@ -976,7 +810,9 @@ class Network(object):
     # return number of links 
     return (abs(self.dat['mat'])>inst_thresh).sum()
 
-  def cluster_row_and_col(self, dist_type, cutoff=0, min_num_comp=1, dendro=True, run_clustering=True, run_rank=True):
+  def cluster_row_and_col(self, dist_type='cosine', linkage_type='average', dendro=True, \
+    run_clustering=True, run_rank=True):
+
     ''' 
     cluster net.dat and make visualization json, net.viz. 
     optionally leave out dendrogram colorbar groups with dendro argument 
@@ -989,7 +825,6 @@ class Network(object):
     # do not make dendrogram is you are not running clusttering 
     if run_clustering == False:
       dendro = False
-
 
     # make distance matrices 
     ##########################
@@ -1006,13 +841,11 @@ class Network(object):
     tmp_mat = deepcopy(self.dat['mat'])
 
     # calculate distance matrix 
-    row_dm = pdist( tmp_mat, metric='cosine' )
-    col_dm = pdist( tmp_mat.transpose(), metric='cosine' )
+    row_dm = pdist( tmp_mat, metric=dist_type )
+    col_dm = pdist( tmp_mat.transpose(), metric=dist_type )
 
     # prevent negative values 
-    # row 
     row_dm[row_dm < 0] = float(0)
-    # col
     col_dm[col_dm < 0] = float(0)
 
     # initialize clust order 
@@ -1024,16 +857,16 @@ class Network(object):
     clust_order['col']['ini'] = range(num_col, -1, -1)
 
     # cluster 
-    ##############
     if run_clustering == True:
-      # cluster rows 
-      cluster_method = 'average'
-      clust_order['row']['clust'], clust_order['row']['group'] = self.clust_and_group_nodes(row_dm, cluster_method)
-      clust_order['col']['clust'], clust_order['col']['group'] = self.clust_and_group_nodes(col_dm, cluster_method)
 
+      clust_order['row']['clust'], clust_order['row']['group'] = \
+      self.clust_and_group(row_dm, linkage_type=linkage_type)
+
+      clust_order['col']['clust'], clust_order['col']['group'] = \
+      self.clust_and_group(col_dm, linkage_type=linkage_type)
+
+    # rank 
     if run_rank == True:
-      # rank 
-      ############
       clust_order['row']['rank'] = self.sort_rank_nodes('row')
       clust_order['col']['rank'] = self.sort_rank_nodes('col')
 
@@ -1060,15 +893,86 @@ class Network(object):
     self.dat['node_info']['col']['ini']   = clust_order['col']['ini']
     self.dat['node_info']['col']['group'] = clust_order['col']['group']
 
+    if len(self.dat['node_info']['col']['cl']) > 0:
+      self.calc_cat_clust_order()
 
     # make the viz json - can optionally leave out dendrogram
     self.viz_json(dendro)
 
-  def clust_and_group_nodes( self, dm, cluster_method ):
+  def calc_cat_clust_order(self):
+    from clustergrammer import Network 
+    from copy import deepcopy 
+
+    col_in_cat = self.dat['node_info']['col_in_cat']
+
+    # alpha order categories 
+    all_cats = sorted(col_in_cat.keys())
+
+    # cluster each category
+    ##############################
+
+    # calc clustering of each category 
+    all_cat_orders = []
+    # this is the ordering of the columns based on their category, not 
+    # including their clustering order on top of their category 
+    tmp_col_names_list = []
+    for inst_cat in all_cats:
+
+      inst_cols = col_in_cat[inst_cat]
+
+      # keep a list of the columns 
+      tmp_col_names_list.extend(inst_cols)
+
+      cat_net = deepcopy(Network())
+
+      cat_net.dat['mat'] = deepcopy(self.dat['mat'])
+      cat_net.dat['nodes'] = deepcopy(self.dat['nodes'])
+
+      # get dataframe, to simplify column filtering 
+      cat_df = cat_net.dat_to_df()
+
+      # get subset of dataframe 
+      sub_df = {}
+      sub_df['mat'] = cat_df['mat'][inst_cols]
+
+      # load back to dat 
+      cat_net.df_to_dat(sub_df)
+
+      try:
+        cat_net.cluster_row_and_col('cos')
+        inst_cat_order = cat_net.dat['node_info']['col']['clust']
+
+      except:
+        inst_cat_order = range(len(cat_net.dat['nodes']['col']))
+
+      prev_order_len = len(all_cat_orders) 
+
+      # add previous order length to the current order number
+      inst_cat_order = [i+prev_order_len for i in inst_cat_order]
+      all_cat_orders.extend(inst_cat_order)
+
+    # sort tmp_col_names_lust by the integers in all_cat_orders 
+    names_col_cat_clust = [x for (y,x) in sorted(zip(all_cat_orders,tmp_col_names_list))]
+
+    # calc category-cluster order 
+    ##############################
+    final_order = []
+    for i in range(len(self.dat['nodes']['col'])):
+
+      # get the rank of the col in the order of col_nodes 
+      inst_col_name = self.dat['nodes']['col'][i]
+
+      inst_col_num = names_col_cat_clust.index(inst_col_name)
+
+      final_order.append(inst_col_num)
+
+    self.dat['node_info']['col']['cl_index'] = final_order    
+
+  def clust_and_group( self, dm, linkage_type='average' ):
     import scipy.cluster.hierarchy as hier
 
     # calculate linkage 
-    Y = hier.linkage( dm, method=cluster_method )
+    Y = hier.linkage( dm, method=linkage_type )
     Z = hier.dendrogram( Y, no_plot=True )
     # get ordering
     inst_clust_order = Z['leaves']
@@ -1153,22 +1057,6 @@ class Network(object):
 
     return sort_index
 
-  def calc_thresh_col_dist( self, vect_row, vect_col, cutoff, min_num_meet):
-    import scipy.spatial
-    import numpy as np
-
-    # apply cutoff 
-    vect_row, vect_col = self.threshold_vect_comparison(vect_row, vect_col, cutoff)
-
-    # check min_num_meet 
-    if len(vect_row) >= min_num_meet:
-      inst_dist = scipy.spatial.distance.cosine(vect_row, vect_col)
-    else:
-      # later the nans will be replaced with the maximum distance 
-      inst_dist = np.nan
-
-    return inst_dist
-
   def viz_json(self, dendro=True):
     ''' make the dictionary for the clustergram.js visualization '''
 
@@ -1188,10 +1076,16 @@ class Network(object):
         inst_dict['clust'] = self.dat['node_info'][inst_rc]['clust'].index(i)
         inst_dict['rank']  = self.dat['node_info'][inst_rc]['rank'][i]
 
-        # add node class 'cl' - this could potentially be a list of several classes 
-        # if 'cl' in self.dat['node_info'][inst_rc]:
+
+        # add node class cl 
         if len(self.dat['node_info'][inst_rc]['cl']) > 0:
           inst_dict['cl'] = self.dat['node_info'][inst_rc]['cl'][i]
+
+        # add node class cl_index
+        if 'cl_index' in self.dat['node_info'][inst_rc] > 0:
+          inst_dict['cl_index'] = self.dat['node_info'][inst_rc]['cl_index'][i]
+
+        # add node class val   
         if len(self.dat['node_info'][inst_rc]['value']) > 0:
           inst_dict['value'] = self.dat['node_info'][inst_rc]['value'][i]
 
@@ -1273,19 +1167,26 @@ class Network(object):
 
     return df 
 
-  def N_top_views(self, dist_type='cos', run_clustering=True, dendro=True):
+  def make_filtered_views(self, dist_type='cosine', run_clustering=True, \
+    dendro=True, views=['filter_row_sum','N_row_sum'], calc_col_cats=True, \
+    linkage_type='average'):
+
+    from copy import deepcopy
     '''
     This will calculate multiple views of a clustergram by filtering the data 
     and clustering after each filtering. This filtering will keep the top N 
     rows based on some quantity (sum, num-non-zero, etc). 
     '''
-    from clustergrammer import Network
-    from copy import deepcopy 
+
+    print('running make_filtered_views')
+
+    print('dist_type '+str(dist_type))
 
     # get dataframe dictionary of network and remove rows/cols with all zero values 
     df = self.dat_to_df()
+
     # each row or column must have at least one non-zero value 
-    threshold = 0.001
+    threshold = 0.0001
     df = self.df_filter_row(df, threshold)
     df = self.df_filter_col(df, threshold)
 
@@ -1295,24 +1196,165 @@ class Network(object):
     self.df_to_dat(df)
 
     # cluster initial view 
-    self.cluster_row_and_col('cos',run_clustering=run_clustering, dendro=dendro)
+    self.cluster_row_and_col(dist_type=dist_type, linkage_type=linkage_type, \
+      run_clustering=run_clustering, dendro=dendro)
 
     # set up views 
     all_views = []
 
-    # top - only select the top rows 
-    inst_view = {}
-    inst_view['N_row_sum'] = 'all'
-    inst_view['dist'] = 'cos'
-    inst_view['nodes'] = {}
-    inst_view['nodes']['row_nodes'] = self.viz['row_nodes']
-    inst_view['nodes']['col_nodes'] = self.viz['col_nodes']
+    # generate views for each column category (default to only one)
+    all_col_cat = ['all_category']
 
-    # add view with no filtering 
-    all_views.append(inst_view)
+    # check for column categories and check whether category specific clustering
+    # should be calculated 
+    if len(self.dat['node_info']['col']['cl']) > 0 and calc_col_cats:
+      tmp_cats = sorted(list(set(self.dat['node_info']['col']['cl'])))
+
+      # gather all col_cats 
+      all_col_cat.extend(tmp_cats)
+
+    for inst_col_cat in all_col_cat:
+
+      # make a copy of df to send to filters
+      send_df = deepcopy(df)
+
+      # add N_row_sum views 
+      if 'N_row_sum' in views:
+        print('add N top views')
+        all_views = self.add_N_top_views( send_df, all_views, dist_type=dist_type, current_col_cat=inst_col_cat )
+
+      if 'filter_row_sum' in views:
+        all_views = self.add_pct_top_views( send_df, all_views, dist_type=dist_type, current_col_cat=inst_col_cat )
+
+    # add views to viz 
+    self.viz['views'] = all_views
+
+    print('finished make_filtered_views')
+
+  def add_pct_top_views(self, df, all_views, dist_type='cosine', \
+    current_col_cat='all_category'):
+
+    from clustergrammer import Network 
+    from copy import deepcopy 
+    import numpy as np
+
+    # make a copy of the network so that filtering is not propagated 
+    copy_net = deepcopy(self)
+
+    # filter columns by category if necessary - do this on df, which is a copy
+    if current_col_cat != 'all_category':
+      keep_cols = copy_net.dat['node_info']['col_in_cat'][current_col_cat]
+      df['mat'] = copy_net.grab_df_subset(df['mat'], keep_rows='all', keep_cols=keep_cols)
+
+    # gather category key 
+    is_col_cat = False
+    if len(self.dat['node_info']['col']['cl']) > 0 and current_col_cat=='all_category':
+      is_col_cat = True
+      cat_key_col = {}
+      for i in range(len(self.dat['nodes']['col'])):
+        cat_key_col[ self.dat['nodes']['col'][i] ] = self.dat['node_info']['col']['cl'][i]
+
+    # filter between 0% and 90% of some threshoold 
+    all_filt = range(10)
+    all_filt = [i/float(10) for i in all_filt]
+
+    # row filtering values 
+    mat = deepcopy(df['mat'])
+    sum_row = np.sum(mat, axis=1)
+    max_sum = max(sum_row)
+
+    for inst_filt in all_filt:
+
+      cutoff = inst_filt * max_sum
+
+      # make a copy of the network so that filtering is not propagated 
+      copy_net = deepcopy(self)
+
+      # make copy of df
+      inst_df = deepcopy(df)
+
+      # filter row in df 
+      inst_df = copy_net.df_filter_row(inst_df, cutoff, take_abs=False)
+
+      # filter columns by category if necessary 
+      if current_col_cat != 'all_category':
+        keep_cols = copy_net.dat['node_info']['col_in_cat'][current_col_cat]
+        inst_df['mat'] = copy_net.grab_df_subset(inst_df['mat'], keep_rows='all', keep_cols=keep_cols)
+
+        if 'mat_up' in inst_df:
+          # grab up and down data 
+          inst_df['mat_up'] = copy_net.grab_df_subset(inst_df['mat_up'], keep_rows='all', keep_cols=keep_cols)
+          inst_df['mat_dn'] = copy_net.grab_df_subset(inst_df['mat_dn'], keep_rows='all', keep_cols=keep_cols)
+
+      # ini net 
+      net = deepcopy(Network())
+
+      # transfer to dat 
+      net.df_to_dat(inst_df)
+
+      # add col categories if necessary 
+      if is_col_cat: 
+        inst_col_cats = []
+
+        for inst_col_name in copy_net.dat['nodes']['col']:
+          inst_col_cats.append( cat_key_col[inst_col_name] )
+
+        # transfer category information 
+        net.dat['node_info']['col']['cl'] = inst_col_cats
+
+        # add col_in_cat
+        net.dat['node_info']['col_in_cat'] = copy_net.dat['node_info']['col_in_cat']
+
+      # try to cluster 
+      try: 
+
+        try:
+          # cluster
+          net.cluster_row_and_col(dist_type=dist_type,run_clustering=True)
+        except:
+          # cluster
+          net.cluster_row_and_col(dist_type=dist_type,run_clustering=False)
+
+        # add view 
+        inst_view = {}
+        inst_view['filter_row_sum'] = inst_filt
+        inst_view['dist'] = 'cos'
+        inst_view['col_cat'] = current_col_cat
+        inst_view['nodes'] = {}
+        inst_view['nodes']['row_nodes'] = net.viz['row_nodes']
+        inst_view['nodes']['col_nodes'] = net.viz['col_nodes']
+        all_views.append(inst_view)          
+
+      except:
+        print('\t*** did not cluster pct filtered view')
+
+    return all_views
+
+  def add_N_top_views(self, df, all_views, dist_type='cosine',\
+    current_col_cat='all_category'):
+
+    from clustergrammer import Network
+    from copy import deepcopy 
+
+    # make a copy of hte network 
+    copy_net = deepcopy(self)
+    
+    # filter columns by category if necessary 
+    if current_col_cat != 'all_category':
+      keep_cols = copy_net.dat['node_info']['col_in_cat'][current_col_cat]
+
+      df['mat'] = copy_net.grab_df_subset(df['mat'], keep_rows='all', keep_cols=keep_cols)    
+
+    # gather category key 
+    is_col_cat = False
+    if len(self.dat['node_info']['col']['cl']) > 0 and current_col_cat=='all_category':
+      is_col_cat = True
+      cat_key_col = {}
+      for i in range(len(self.dat['nodes']['col'])):
+        cat_key_col[ self.dat['nodes']['col'][i] ] = self.dat['node_info']['col']['cl'][i]
 
     # keep the following number of top rows 
-    keep_top = [500,400,300,200,100,90,80,70,60,50,40,30,20,10]
+    keep_top = ['all',500,400,300,200,100,90,80,70,60,50,40,30,20,10]
 
     # get copy of df and take abs value, cell line cols and gene rows
     df_abs = deepcopy(df['mat'])
@@ -1333,57 +1375,103 @@ class Network(object):
 
     for inst_keep in keep_top:
 
+      # initialize df
       tmp_df = deepcopy(df)
 
-      if inst_keep < len(rows_sorted):
+      # filter columns by category if necessary 
+      if current_col_cat != 'all_category':
+        keep_cols = copy_net.dat['node_info']['col_in_cat'][current_col_cat]
 
-        # get the labels of the rows that will be kept 
-        keep_rows = rows_sorted[0:inst_keep]
+        tmp_df['mat'] = copy_net.grab_df_subset(tmp_df['mat'], keep_rows='all', keep_cols=keep_cols)
 
-        # filter the matrix 
-        tmp_df['mat'] = tmp_df['mat'].ix[keep_rows]
+        if 'mat_up' in df:
+          # grab up and down data 
+          tmp_df['mat_up'] = copy_net.grab_df_subset(tmp_df['mat_up'], keep_rows='all', keep_cols=keep_cols)
+          tmp_df['mat_dn'] = copy_net.grab_df_subset(tmp_df['mat_dn'], keep_rows='all', keep_cols=keep_cols)      
+
+      if inst_keep < len(rows_sorted) or inst_keep == 'all':
 
         # initialize netowrk 
         net = deepcopy(Network())
 
+        # filter the rows 
+        if inst_keep != 'all':
 
-        # filter columns - some columns may have all zero values 
-        tmp_df = self.df_filter_col(tmp_df,0.001)
+          # get the labels of the rows that will be kept 
+          keep_rows = rows_sorted[0:inst_keep]
 
-        # transfer to dat 
-        net.df_to_dat(tmp_df)
+          # filter the matrix 
+          tmp_df['mat'] = tmp_df['mat'].ix[keep_rows]
+
+          if 'mat_up' in tmp_df:
+            tmp_df['mat_up'] = tmp_df['mat_up'].ix[keep_rows] 
+            tmp_df['mat_dn'] = tmp_df['mat_dn'].ix[keep_rows] 
+
+          # filter columns - some columns may have all zero values 
+          tmp_df = self.df_filter_col(tmp_df,0.001)
+
+          # transfer to dat 
+          net.df_to_dat(tmp_df)
+
+        else:
+          net.df_to_dat(tmp_df)
+
+        # add col categories if necessary 
+        if is_col_cat: 
+          inst_col_cats = []
+
+          for inst_col_name in self.dat['nodes']['col']:
+
+            inst_col_cats.append( cat_key_col[inst_col_name] )
+
+          # transfer category information 
+          net.dat['node_info']['col']['cl'] = inst_col_cats
+
+          # add col_in_cat 
+          net.dat['node_info']['col_in_cat'] = copy_net.dat['node_info']['col_in_cat']
 
         # try to cluster 
         try: 
-          # cluster 
-          net.cluster_row_and_col('cos')
+
+          try:
+            # cluster 
+            net.cluster_row_and_col(dist_type,run_clustering=True)
+          except:
+            # cluster 
+            net.cluster_row_and_col(dist_type,run_clustering=False)
+
           # add view 
           inst_view = {}
           inst_view['N_row_sum'] = inst_keep
           inst_view['dist'] = 'cos'
+          inst_view['col_cat'] = current_col_cat
           inst_view['nodes'] = {}
           inst_view['nodes']['row_nodes'] = net.viz['row_nodes']
           inst_view['nodes']['col_nodes'] = net.viz['col_nodes']
           all_views.append(inst_view)
         except:
-          print('*** did not cluster filtered view')
+          print('\t*** did not cluster N filtered view') 
 
-    # add views to viz 
-    self.viz['views'] = all_views
-
-    print('\tfinished fast_mult_views')
-
+    return all_views
 
   def fast_mult_views(self, dist_type='cos', run_clustering=True, dendro=True):
     import numpy as np
     import pandas as pd
+    from clustergrammer import Network
+    from copy import deepcopy
     ''' 
     This will use Pandas to calculte multiple views of a clustergram 
     Currently, it is only filtering based on row-sum and it is disregarding 
     link information (used to add click functionality). 
     '''
-    from clustergrammer import Network
-    from copy import deepcopy
+
+    # gather category key 
+    is_col_cat = False
+    if len(self.dat['node_info']['col']['cl']) > 0:
+      is_col_cat = True
+      cat_key_col = {}
+      for i in range(len(self.dat['nodes']['col'])):
+        cat_key_col[ self.dat['nodes']['col'][i] ] = self.dat['node_info']['col']['cl'][i]
 
     # get dataframe dictionary of network and remove rows/cols with all zero values 
     df = self.dat_to_df()
@@ -1442,6 +1530,15 @@ class Network(object):
         # transfer to dat 
         net.df_to_dat(df)
 
+        # add col categories if necessary 
+        if is_col_cat: 
+          inst_col_cats = []
+
+          for inst_col_name in self.dat['nodes']['col']:
+            inst_col_cats.append( cat_key_col[inst_col_name] )
+
+          net.dat['node_info']['col']['cl'] = inst_col_cats
+
         # try to cluster 
         try: 
 
@@ -1455,7 +1552,6 @@ class Network(object):
           inst_view['nodes'] = {}
           inst_view['nodes']['row_nodes'] = net.viz['row_nodes']
           inst_view['nodes']['col_nodes'] = net.viz['col_nodes']
-
           all_views.append(inst_view)          
 
         except:
@@ -1525,7 +1621,7 @@ class Network(object):
             all_views.append(inst_view)
 
           except:
-            print('did not cluster filtered view')
+            print('\t***did not cluster filtered view')
 
     # Default col Filtering 
     ###########################
@@ -1534,7 +1630,7 @@ class Network(object):
       # col filtering 
       #####################
       for col_filt in all_filt:
-        print(col_filt)
+        # print(col_filt)
         # initialize new net 
         net = deepcopy(Network())
         net.dat = deepcopy(self.dat)
@@ -1568,9 +1664,7 @@ class Network(object):
   @staticmethod
   def df_filter_row(df, threshold, take_abs=True):
     ''' filter rows in matrix at some threshold
-    and remove columns that have all zero values '''
-
-    print('\tdf_filter_row: '+str(threshold))
+    and remove columns that have a sum below this threshold '''
 
     import pandas as pd 
     from copy import deepcopy 
@@ -1583,63 +1677,34 @@ class Network(object):
     else:
       df_copy = deepcopy(df['mat'])
 
-    # filter rows 
-    df_copy = df_copy[ df_copy.sum(axis=1) > threshold]
+    ini_rows = df_copy.index.values.tolist()
 
-    # # transpose df 
-    # df_copy = df_copy.transpose()
-    # # sum the values of the rows 
-    # tmp_sum = df_copy.sum(axis=0)
-    # # transpose df_copy back 
-    # df_copy = df_copy.transpose()
-
-    # # take absolute value to keep most positive and most negative rows 
-    # tmp_sum = tmp_sum.abs()
-
-    # # sort rows by value 
-    # tmp_sum.sort(ascending=False)
-
-    # # filter series using threshold 
-    # tmp_sum = tmp_sum[tmp_sum>threshold]
-
-    # # get keep_row names 
-    # keep_rows = tmp_sum.index.values.tolist()
-
-    # # keep only a subset of the rows 
-    # df_copy = df_copy.ix[keep_rows]
-
-    # filter columns to remove columns with all zero values 
-    # transpose 
-    df_copy = df_copy.transpose()
-    df_copy = df_copy[df_copy.sum(axis=1) > 0]
-    # transpose back 
+    # transpose df 
     df_copy = df_copy.transpose()
 
-    # get df ready for export 
-    if take_abs == True:
+    # sum the values of the rows 
+    tmp_sum = df_copy.sum(axis=0)
 
-      # grab remaining rows and cols 
-      inst_rows = df_copy.index.tolist()
-      inst_cols = df_copy.columns.tolist()
+    # take absolute value to keep most positive and most negative rows 
+    tmp_sum = tmp_sum.abs()
 
-      df['mat'] = net.grab_df_subset(df['mat'], inst_rows, inst_cols)
+    # sort rows by value 
+    tmp_sum.sort(ascending=False)
+
+    # filter series using threshold 
+    tmp_sum = tmp_sum[tmp_sum>threshold]
+
+    # get keep_row names 
+    keep_rows = sorted(tmp_sum.index.values.tolist())
+
+    if len(keep_rows) < len(ini_rows):
+      # grab the subset of the data 
+      df['mat'] = net.grab_df_subset(df['mat'], keep_rows=keep_rows)
 
       if 'mat_up' in df:
         # grab up and down data 
-        df['mat_up'] = net.grab_df_subset(df['mat_up'], inst_rows, inst_cols)
-        df['mat_dn'] = net.grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
-
-    else:
-      # just transfer the copied data for mat 
-      df['mat'] = df_copy
-
-      if 'mat_up' in df:
-        # grab remaining rows and cols 
-        inst_rows = df_copy.index.tolist()
-        inst_cols = df_copy.columns.tolist()
-        # grab up and down data 
-        df['mat_up'] = net.grab_df_subset(df['mat_up'], inst_rows, inst_cols)
-        df['mat_dn'] = net.grab_df_subset(df['mat_dn'], inst_rows, inst_cols)
+        df['mat_up'] = net.grab_df_subset(df['mat_up'], keep_rows=keep_rows)
+        df['mat_dn'] = net.grab_df_subset(df['mat_dn'], keep_rows=keep_rows)
 
     return df   
 
@@ -1684,13 +1749,15 @@ class Network(object):
     return df   
 
   @staticmethod
-  def grab_df_subset(df, inst_rows, inst_cols):
+  def grab_df_subset(df, keep_rows='all', keep_cols='all'):
 
-    # filter columns 
-    df = df[inst_cols]
+    if keep_cols != 'all':
+      # filter columns 
+      df = df[keep_cols]
 
-    # filter rows 
-    df = df.ix[inst_rows]
+    if keep_rows != 'all':
+      # filter rows 
+      df = df.ix[keep_rows]
 
     return df
 

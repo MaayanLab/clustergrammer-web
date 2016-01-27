@@ -1,6 +1,6 @@
 /* clustergrammer 1.0
  * Nick Fernandez, Ma'ayan Lab, Icahn School of Medicine at Mount Sinai
- * (c) 2015
+ * (c) 2016
  */
 function clustergrammer(args) {
     'use strict';
@@ -91,7 +91,10 @@ function Config(args) {
     tile_click_hlight:false,
     super_label_scale: 1,
     make_tile_tooltip:function(d){return d.info;},
-    ini_view:null 
+    // initialize view, e.g. initialize with row filtering
+    ini_view:null, 
+    // initialize column category - only show data from one category
+    current_col_cat:'all_category'
   };
 
   // Mixin defaults with user-defined arguments.
@@ -189,7 +192,7 @@ function Config(args) {
   // check for category information
   if (config.show_categories) {
 
-    // !! set up option for manual color specification
+    // initialize dictionary of colors 
     config.class_colors = {};
 
     // associate classes with colors
@@ -206,13 +209,29 @@ function Config(args) {
     // associate classes with colors
     var class_cols = _.uniq(_.pluck(args.network_data.col_nodes, 'cl'));
     config.class_colors.col = {};
+
+    // custom column group colors 
+    var cat_colors = ['#1f77b4','orange','#8c564b','yellow','red','pink','blue','#e377c2','grey'];
+
     _.each(class_cols, function(c_col, i) {
-      if (i === 0) {
-        config.class_colors.col[c_col] = '#eee';
-      } else {
-        config.class_colors.col[c_col] = Colors.get_random_color(i);
-      }
+      
+      config.class_colors.col[c_col] = cat_colors[ i % cat_colors.length ];
     });
+
+    // generate a dictionary of columns in each category 
+    config.class_dict = {};
+    _.each( col_nodes, function(d){
+
+      // initialize array for each category 
+      if ( _.has(config.class_dict, d.cl) == false ){
+        config.class_dict[d.cl] = [];
+      }
+
+      // add column name to category array 
+      config.class_dict[d.cl].push(d.name);
+
+    });
+
   }
 
   /* Transpose network.
@@ -354,21 +373,6 @@ function Dendrogram(type, params) {
 
   function build_row_dendro() {
 
-
-    // if (params.labels.show_label_tooltips){
-    //   // d3-tooltip - for tiles 
-    //   var tip = d3.tip()
-    //     .attr('class', 'd3-tip')
-    //     .direction('e')
-    //     .offset([0, 0])
-    //     .html(function(group_nodes_list){
-    //       return group_nodes_list.join('\t');
-    //     });
-
-    //   d3.select('#row_viz_zoom_container')
-    //     .call(tip);
-    // } 
-
     d3.selectAll('.row_viz_group')
       .each(function(d){
 
@@ -383,23 +387,18 @@ function Dendrogram(type, params) {
           })
           .attr('height', params.matrix.y_scale.rangeBand())
           .style('fill', function(d) {
-            return get_group_color(d.group[inst_level]);
+            if (_.has(d,'group')){
+              var inst_color = get_group_color(d.group[inst_level]);
+            } else {
+              inst_color = '#eee';
+            }
+
+            return inst_color;
           })
           .attr('x', function() {
             var inst_offset = params.class_room.symbol_width + 1;
             return inst_offset + 'px';
           })
-
-        // if (params.labels.show_label_tooltips){
-        //   dendro_rect
-        //     .on('mouseover', function(d){
-        //       var group_nodes_list = get_inst_group('row',d);
-        //       tip.show(group_nodes_list);
-        //     })
-        //     .on('mouseout', function(d){
-        //       tip.hide();
-        //     });
-        // }
 
         // show group in modal 
         if (typeof params.click_group === 'function'){
@@ -431,20 +430,6 @@ function Dendrogram(type, params) {
       return 'translate(' + params.matrix.x_scale(inst_index) + ',0)';
     });
 
-    // if (params.labels.show_label_tooltips){
-    //   // d3-tooltip - for tiles 
-    //   var tip = d3.tip()
-    //     .attr('class', 'd3-tip')
-    //     .direction('s')
-    //     .offset([0, 0])
-    //     .html(function(group_nodes_list){
-    //       return group_nodes_list.join('\t');
-    //     });
-
-    //   d3.select('#row_viz_zoom_container')
-    //     .call(tip);
-    // }    
-
     d3.selectAll('.col_viz_group')
       .each(function(d){
 
@@ -459,19 +444,13 @@ function Dendrogram(type, params) {
             return inst_height;
           })
           .style('fill', function(d) {
-            return get_group_color(d.group[inst_level]);
+            if (_.has(d,'group')){
+              var inst_color = get_group_color(d.group[inst_level]);
+            } else {
+              inst_color ='#eee';
+            }
+            return inst_color;
           });
-
-        // if (params.labels.show_label_tooltips){
-        //   dendro_rect
-        //     .on('mouseover', function(d){
-        //       var group_nodes_list = get_inst_group('col',d);
-        //       tip.show(group_nodes_list );
-        //     })
-        //     .on('mouseout', function(d){
-        //       tip.hide();
-        //     }); 
-        // }
 
         if (typeof params.click_group==='function'){
           dendro_rect
@@ -505,81 +484,6 @@ function Dendrogram(type, params) {
 
     return group_nodes_list;
   }
-
-  // add callback functions 
-  /////////////////////////////
-  
-  // // !! optional row callback on click
-  // if (typeof params.click_group === 'function') {
-  //   // only add click functionality to row rect
-  //   row_class_rect
-  //     .on('click', function(d) {
-  //       var inst_level = params.group_level.row;
-  //      var inst_group = d.group[inst_level];
-  //       // find all row names that are in the same group at the same group_level
-  //       // get row_nodes
-  //       row_nodes = params.network_data.row_nodes;
-  //       var group_nodes = [];
-
-  //       _.each(row_nodes, function(node) {
-  //         // check that the node is in the group
-  //         if (node.group[inst_level] === inst_group) {
-  //         // make a list of genes that are in inst_group at this group_level
-  //         group_nodes.push(node.name);
-  //         }
-  //     });
-
-  //     // return the following information to the user
-  //     // row or col, distance cutoff level, nodes
-  //     var group_info = {};
-  //     group_info.type = 'row';
-  //     group_info.nodes = group_nodes;
-  //     group_info.info = {
-  //       'type': 'distance',
-  //       'cutoff': inst_level / 10
-  //     };
-
-  //     // pass information to group_click callback
-  //     params.click_group(group_info);
-
-  //   });
-  // }
-
-
-  // // optional column callback on click
-  // if (typeof params.click_group === 'function') {
-
-  //   d3.select('#col_viz_outer_container')
-  //     .on('click', function(d) {
-  //     var inst_level = params.group_level.col;
-  //     var inst_group = d.group[inst_level];
-  //     // find all column names that are in the same group at the same group_level
-  //     // get col_nodes
-  //     col_nodes = params.network_data.col_nodes;
-  //     var group_nodes = [];
-  //     _.each(col_nodes, function(node) {
-  //       // check that the node is in the group
-  //       if (node.group[inst_level] === inst_group) {
-  //       // make a list of genes that are in inst_group at this group_level
-  //       group_nodes.push(node.name);
-  //       }
-  //     });
-
-  //   // return the following information to the user
-  //   // row or col, distance cutoff level, nodes
-  //   var group_info = {};
-  //   group_info.type = 'col';
-  //   group_info.nodes = group_nodes;
-  //   group_info.info = {
-  //     'type': 'distance',
-  //     'cutoff': inst_level / 10
-  //   };
-
-  //   // pass information to group_click callback
-  //   params.click_group(group_info);
-
-  //   });
-  // }
 
   return {
     color_group: color_group,
@@ -1344,10 +1248,20 @@ function VizParams(config){
 
     // run initial filtering if necessary 
     if (_.isNull(params.ini_view) === false){
-      params.network_data = filter_network_data(params.network_data, params.ini_view);
+      params.network_data = change_network_view(params.network_data, params.ini_view);
       // remove ini_view 
       params.ini_view = null;
     }
+
+    // if (_.isNull(params.current_col_cat) === false){
+    //   console.log('\nVizParams: ini cat '+String(params.current_col_cat) );
+
+    //   // fitler categories 
+    //   params.network_data = show_one_cat(params.network_data, params);
+
+    //   params.network_data = filter_using_new_nodes( params.network_data, params.network_data.links, params.network_data.views);
+
+    // }
 
     // Label Paramsters
     params.labels = {};
@@ -1364,7 +1278,7 @@ function VizParams(config){
     }
 
     // optional classification
-    params.labels.show_categories = config.show_categories;
+    params.labels.show_categories = config.show_categories
     if (params.labels.show_categories){
       params.labels.class_colors = config.class_colors;
     }
@@ -1650,17 +1564,43 @@ function VizParams(config){
       }),
       clust_col: d3.range(params.viz.num_row_nodes).sort(function(a, b) {
         return row_nodes[b].clust - row_nodes[a].clust;
-      }),
-      // class
-      class_row: d3.range(params.viz.num_col_nodes).sort(function(a, b) {
-        return col_nodes[b].cl - col_nodes[a].cl;
-      }),
-      class_col: d3.range(params.viz.num_row_nodes).sort(function(a, b) {
-        return row_nodes[b].cl - row_nodes[a].cl;
       })
     };
 
-    
+
+
+    // // define class ordering - define on front-end 
+    // if (_.has(col_nodes[0],'cl')){
+
+    //   // the order should be interpreted as the nth node should be positioned here 
+    //   // in the order 
+
+    //   var tmp_col_nodes = _.sortBy(col_nodes,'cl')
+
+    //   var ordered_col_names = []
+    //   for (var i=0; i< tmp_col_nodes.length; i++){
+    //     ordered_col_names.push( tmp_col_nodes[i].name );
+    //   }
+
+    //   var order_col_class = []
+    //   for (var i=0; i< col_nodes.length; i++){
+    //     var inst_col_name = ordered_col_names[i];
+    //     order_col_class.push( _.indexOf( params.network_data.col_nodes_names, inst_col_name) );
+    //   }
+
+    //   params.matrix.orders.class_row = order_col_class;
+    // }
+
+    // define class orderings using category-sub-clustered orderings 
+    if (_.has(col_nodes[0],'cl_index')){
+      params.matrix.orders.class_row = d3.range(params.viz.num_col_nodes).sort(function(a, b) {
+        return col_nodes[b].cl_index - col_nodes[a].cl_index;
+      });
+
+    }
+
+
+
     // scaling functions to position rows and tiles, define rangeBands
     params.matrix.x_scale = d3.scale.ordinal().rangeBands([0, params.viz.clust.dim.width]);
     params.matrix.y_scale = d3.scale.ordinal().rangeBands([0, params.viz.clust.dim.height]);
@@ -1672,7 +1612,12 @@ function VizParams(config){
     } else if (params.viz.inst_order.row === 'rank') {
       params.matrix.x_scale.domain(params.matrix.orders.rank_row);
     } else if (params.viz.inst_order.row === 'class') {
-      params.matrix.x_scale.domain(params.matrix.orders.class_row);
+      if (_.has(params.matrix.orders,'class_row')){
+        params.matrix.x_scale.domain(params.matrix.orders.class_row);
+      } else {
+        params.matrix.x_scale.domain(params.matrix.orders.clust_row);
+      }
+
     }
 
     if (params.viz.inst_order.col === 'ini') {
@@ -1682,7 +1627,11 @@ function VizParams(config){
     } else if (params.viz.inst_order.col === 'rank') {
       params.matrix.y_scale.domain(params.matrix.orders.rank_col);
     } else if (params.viz.inst_order.col === 'class') {
-      params.matrix.y_scale.domain(params.matrix.orders.class_col);
+      if (_.has(params.matrix.orders,'class_row')){
+        params.matrix.y_scale.domain(params.matrix.orders.class_col);
+      } else {
+        params.matrix.y_scale.domain(params.matrix.orders.clust_col);
+      }
     }
 
     // add names and instantaneous positions to links 
@@ -1765,7 +1714,7 @@ function VizParams(config){
         return Math.abs(d.value);
       }).value;
 
-      console.log('using all links ')
+      // console.log('using all links ')
 
     } else {
 
@@ -1774,7 +1723,7 @@ function VizParams(config){
         return Math.abs(d.value);
       }).value;
 
-      console.log('using normal links ')
+      // console.log('using normal links ')
     }
 
     // set opacity_scale
@@ -2465,7 +2414,7 @@ function Labels(params){
       })
       // rotate labels - reduce width if rotating
       .attr('height', params.matrix.x_scale.rangeBand() * 0.66)
-      .attr('fill', function(d) {
+      .style('fill', function(d) {
         return d.value > 0 ? params.matrix.bar_colors[0] : params.matrix.bar_colors[1];
       })
       .attr('opacity', 0.4);
@@ -2499,6 +2448,11 @@ function Labels(params){
         .offset([20, 0])
         .html(function(d) {
           var inst_name = d.name.replace(/_/g, ' ').split('#')[0];
+
+          if (params.show_categories){
+            inst_name = inst_name + ': ' + String(d.cl);
+          }
+
           return "<span>" + inst_name + "</span>";
         });
 
@@ -2508,7 +2462,7 @@ function Labels(params){
         .call(tip);
         
       col_label_obj
-        .select('text')
+        // .select('text')
         .on('mouseover',tip.show)
         .on('mouseout',tip.hide);
 
@@ -2579,29 +2533,35 @@ function Labels(params){
 
     // append rectangle behind text
     col_label_click
-      .insert('rect', 'text')
+      .insert('rect')
       .attr('class','.highlight_rect')
-      .attr('x', 0)
+      .attr('x', 0) 
       .attr('y', 0)
-      .attr('width', 20)
-      .attr('height', 0.5*params.matrix.rect_width)
+      .attr('width', 10*params.matrix.rect_height)
+      .attr('height', 0.67*params.matrix.rect_width)
       .style('opacity', 0);
 
-    // change the size of the highlighting rects
-    col_label_click
-      .each(function() {
-        var bbox = d3.select(this)
-          .select('text')[0][0]
-          .getBBox();
-        d3.select(this)
-          .select('.highlight_rect')
-          .attr('x', bbox.x * 1.25)
-          .attr('y', 0)
-          .attr('width', bbox.width * 1.25)
-          .attr('height', params.matrix.x_scale.rangeBand() * 0.6)
-          .style('fill', 'yellow')
-          .style('opacity', 0);
-      });
+    // // only run this if there are col categories 
+    // if (params.labels.show_categories){
+    //   // change the size of the highlighting rects
+    //   col_label_click
+    //     .each(function(d) {
+    //       var bbox = d3.select(this)
+    //         .select('text')[0][0]
+    //         .getBBox();
+
+    //       d3.select(this)
+    //         .select('rect')
+    //         .attr('width', bbox.width * 1.1)
+    //         .attr('height', 0.67*params.matrix.rect_width)
+    //         .style('fill', function(d){
+    //           var inst_color = 'white';
+    //           inst_color = params.labels.class_colors.col[d.cl];
+    //           return inst_color 
+    //         })
+    //         .style('opacity', 0.30);
+    //     });
+    // }
 
     // add triangle under rotated labels
     col_label_click
@@ -2629,9 +2589,6 @@ function Labels(params){
       .style('opacity',0)
       .transition().delay(text_delay).duration(text_delay)
       .style('opacity',1);
-
-
-
 
 
     // add col callback function
@@ -3597,8 +3554,8 @@ function draw_grid_lines(row_nodes, col_nodes) {
           return inst_color;
         });
 
-      // append column value bars
-      if (Utils.has( params.network_data.col_nodes[0], 'value')) {
+      // // append column value bars
+      // if (Utils.has( params.network_data.col_nodes[0], 'value')) {
 
         svg_group.selectAll('.col_bars')
           .attr('width', function(d) {
@@ -3610,6 +3567,29 @@ function draw_grid_lines(row_nodes, col_nodes) {
           })
           // rotate labels - reduce width if rotating
           .attr('height', params.matrix.rect_width * 0.66);
+      // }
+
+      if (params.labels.show_categories){
+        // change the size of the highlighting rects
+        d3.selectAll('.col_label_click')
+          .each(function(d) {
+            var bbox = d3.select(this)
+              .select('text')[0][0]
+              .getBBox();
+
+            d3.select(this)
+              .select('rect')
+              .attr('width', bbox.width * 1.1)
+              .attr('height', 0.67*params.matrix.rect_width)
+              .style('fill', function(d){
+                var inst_color = 'white';
+                if (params.labels.show_categories){
+                  inst_color = params.labels.class_colors.col[d.cl];
+                }
+                return inst_color 
+              })
+              .style('opacity', 0.30);
+          });  
       }
 
       // resize dendrogram
@@ -4333,6 +4313,7 @@ function resize_after_update(params, row_nodes, col_nodes, links, duration, dela
           var inst_color = '#eee';
           if (params.labels.show_categories) {
             inst_color = params.labels.class_colors.col[d.cl];
+
           }
           return inst_color;
         });
@@ -4362,7 +4343,6 @@ function resize_after_update(params, row_nodes, col_nodes, links, duration, dela
         });      
     }
 
-
     // append column value bars
     if (Utils.has( params.network_data.col_nodes[0], 'value')) {
 
@@ -4379,6 +4359,30 @@ function resize_after_update(params, row_nodes, col_nodes, links, duration, dela
         .attr('height', params.matrix.x_scale.rangeBand() * 0.66);
     }
 
+  if (params.labels.show_categories){
+    // change the size of the highlighting rects
+    d3.selectAll('.col_label_click')
+      .each(function(d) {
+        var bbox = d3.select(this)
+          .select('text')[0][0]
+          .getBBox();
+
+        d3.select(this)
+          .select('rect')
+          .transition().delay(delays.update).duration(duration)
+          .attr('width', bbox.width * 1.1)
+          .attr('height', 0.67*params.matrix.rect_width)
+          .style('fill', function(d){
+            var inst_color = 'white';
+            if (params.labels.show_categories){
+              inst_color = params.labels.class_colors.col[d.cl];
+            }
+            return inst_color 
+          })
+          .style('opacity', 0.30);
+      });      
+  }
+  
   // resize dendrogram
   ///////////////////
 
@@ -4558,28 +4562,36 @@ function update_network(change_view){
 
   /*
   The original network_data is stored in this.config and will never be 
-  overwritten. In order to update the network I need to 
+  overwritten. In order to update the network I need to: 
   
   1. Create new network_data object using the filter value and 
-  this.config.network_data. I'll use crossfilter to only select links from the 
-  original network_data that are connecting the updated nodes. 
+  this.config.network_data. 
 
   2. Make new_config object by copying the original config and swapping in the 
   updated network_data object. 
 
   3. Use new_config to make new_params. With new_params and the updated 
-  network_data, I can 
+  network_data, I can make the visualization.
   */
 
   /////////////////////////////
-  // new way 
   /////////////////////////////
+
+  // debugger;
 
   // get copy of old params 
   var old_params = this.params;
 
-  // make new_network_data using immutable copy of network_data
-  var new_network_data = filter_network_data(this.config.network_data, change_view); 
+  // console.log('\n\n\nchange_view\n--------------------')
+  // console.log(change_view)
+  // console.log('\n--------------------\n\n\n')
+
+  // make new_network_data by filtering the original network data 
+  var config_copy = jQuery.extend(true, {}, this.config);
+  var new_network_data = change_network_view(this.params, config_copy.network_data, change_view); 
+
+  // console.log('new network data ')
+  // console.log(new_network_data)
 
   // make Deep copy of this.config object 
   var new_config = jQuery.extend(true, {}, this.config);
@@ -4592,10 +4604,15 @@ function update_network(change_view){
   new_config.ini_expand = false;
   // ensure that ini_view is not set 
   new_config.ini_view = null;
+  // pass on current_col_cat to preserve category filtering 
+  new_config.current_col_cat = this.params.current_col_cat;
 
   // make new params 
   var params = VizParams(new_config);
   var delays = define_enter_exit_delays(old_params, params);
+
+  // console.log('new params: '+params.current_col_cat)
+  // console.log('old params:'+this.params.current_col_cat)
 
   // ordering - necessary for reordering the function called on button click 
   var reorder = Reorder(params);
@@ -4618,11 +4635,11 @@ function update_network(change_view){
   }
 
   function new_change_groups(inst_rc, inst_index) {
-      if (inst_rc === 'row') {
-        row_dendrogram.change_groups(inst_rc,inst_index);
-      } else {
-        col_dendrogram.change_groups(inst_rc,inst_index);
-      }
+    if (inst_rc === 'row') {
+      row_dendrogram.change_groups(inst_rc,inst_index);
+    } else {
+      col_dendrogram.change_groups(inst_rc,inst_index);
+    }
   }
 
   this.change_groups = new_change_groups;
@@ -4820,7 +4837,6 @@ function enter_exit_update(params, network_data, reorder, delays){
     var cur_row_tiles = d3.select(this)
       .selectAll('.tile')
       .data(row_values, function(d){
-        // console.log(d.col_name);
         return d.col_name;
       });
 
@@ -5490,18 +5506,25 @@ function enter_exit_update(params, network_data, reorder, delays){
 }
 
 
-function filter_network_data(orig_network_data, change_view){
+function change_network_view(params, orig_network_data, change_view){
  
   var views = orig_network_data.views;
 
-  console.log(change_view)
+  console.log('change_network_view')
 
   // Get Row Filtering View 
   ///////////////////////////////////////////////////////////////
-  if (_.has(change_view,'filter_row')){
-    // failsafe if there is only row+col filtering from front-end
+  // change_view has the name of the new view (e.g. {N_row_sum:20})
+  // this view name is used to pull up the view information. The view consists 
+  // of a description of the view (e.g N_row_sum number and distance type) and 
+  // the nodes of the view (e.g. row_nodes and col_nodes). With the new set of 
+  // nodes, new_nodes, the links will be filtered in order to only keep links 
+  // between nodes that still exist in the view 
 
-    var inst_view = _.find(views, function(d){
+  if (_.has(change_view,'filter_row')){
+
+    // failsafe if there is only row+col filtering from front-end
+    var filt_views = _.filter(views, function(d){
 
       // failsafe from json 
       if (_.has(d, 'filter_row')){
@@ -5516,7 +5539,7 @@ function filter_network_data(orig_network_data, change_view){
   } else if (_.has(change_view, 'filter_row_value')) {
 
     // filter row value 
-    var inst_view = _.find(views, function(d){
+    var filt_views = _.filter(views, function(d){
 
       // failsafe from json 
       return d.filter_row_value == change_view.filter_row_value;
@@ -5525,39 +5548,71 @@ function filter_network_data(orig_network_data, change_view){
 
   } else if (_.has(change_view,'filter_row_sum')) {
 
-    var inst_view = _.find(views, function(d){
+    var filt_views = _.filter(views, function(d){
       return d.filter_row_sum == change_view.filter_row_sum;
     });
 
   } else if (_.has(change_view,'filter_row_num')) {
 
-    var inst_view = _.find(views, function(d){
+    var filt_views = _.filter(views, function(d){
       return d.filter_row_num == change_view.filter_row_num;
     });
 
   } else if (_.has(change_view, 'N_row_sum')){
 
-    var inst_view = _.find(views, function(d){
+    var filt_views = _.filter(views, function(d){
       return d.N_row_sum == change_view.N_row_sum;
     });
 
-    if(typeof inst_view === 'undefined'){
-        inst_view = views[0];
+    if(typeof filt_views === 'undefined'){
+        filt_views = [views[0]];
     };
 
   }
 
-  console.log('new view')
-  console.log(inst_view)
+  if (change_view==='default'){
+    filt_views = [views[0]];
+  }
+
+  // get the single view that will be used to update the network from 
+  // the array of filtered views 
+  if ( params.show_categories === false ){
+    console.log('\nview defined by filter only, no category\n')
+    var inst_view = filt_views[0];
+  } 
+
+  if (params.show_categories){
+
+    console.log('\nview defined by filter and category\n')
+    // apply category filtering if necessary 
+    var inst_view = _.find(filt_views, function(d){
+      return d.col_cat === params.current_col_cat;
+    })
+
+  }
 
   var new_nodes = inst_view.nodes;
+  var links = orig_network_data.links;
+
+  var new_network_data = filter_using_new_nodes(new_nodes, links, views);
+
+  return new_network_data;
+}
+
+
+
+function change_category( inst_cat ){
+  // change the category 
+  this.params.current_col_cat = inst_cat;
+  console.log('changed category to ' + String(inst_cat));
+}
+
+function filter_using_new_nodes(new_nodes, links, views){
 
   // get new names of rows and cols 
   var row_names = _.pluck(new_nodes.row_nodes, 'name');
   var col_names = _.pluck(new_nodes.col_nodes, 'name');
-
-  var links = orig_network_data.links;
-
+  
   var new_links = _.filter(links, function(d){
     var inst_row = d.name.split('_')[0];
     var inst_col = d.name.split('_')[1]; 
@@ -5591,7 +5646,6 @@ function filter_network_data(orig_network_data, change_view){
   new_network_data.views = views;
   
   return new_network_data;
-
 }
 
 /* Represents the entire visualization: labels, dendrogram (optional) and matrix.
@@ -5891,7 +5945,7 @@ function Reorder(params){
       } else if (inst_order === 'rank') {
         params.matrix.y_scale.domain(params.matrix.orders.rank_col);
       } else if (inst_order === 'class') {
-        params.matrix.x_scale.domain(params.matrix.orders.class_row);
+        // params.matrix.x_scale.domain(params.matrix.orders.class_row);
         params.matrix.y_scale.domain(params.matrix.orders.class_col);
       }
     }    
@@ -6666,7 +6720,7 @@ function Zoom(params){
           }
           return inst_value;
         })
-        }
+      }
 
       if (Utils.has( params.network_data.row_nodes[0], 'value')) {
 
@@ -6838,7 +6892,28 @@ function Zoom(params){
       d3.selectAll('.col_label_click').each(function() { trim_text(this, 'col'); });
     }
 
+    // constrain column text highlight bars 
+    // change the size of the highlighting rects
+    d3.selectAll('.col_label_click')
+      .each(function(d) {
+        var bbox = d3.select(this)
+          .select('text')[0][0]
+          .getBBox();
 
+        d3.select(this)
+          .select('rect')
+          .attr('width', bbox.width * 1.1)
+          .attr('height', 0.67*params.matrix.rect_width);
+          // .style('fill', function(d){
+          //   var inst_color = 'white';
+          //   if (params.labels.show_categories){
+          //     inst_color = params.labels.class_colors.col[d.cl];
+          //   }
+          //   return inst_color 
+          // })
+          // .style('opacity', 0.25);
+
+      });
 
   }
 
@@ -7045,7 +7120,8 @@ return {
     update_network: viz.update_network,
     params: viz.params,
     reset_zoom: viz.reset_zoom,
-    config: config
+    config: config,
+    change_category: change_category
 };
-	
+  
 }
