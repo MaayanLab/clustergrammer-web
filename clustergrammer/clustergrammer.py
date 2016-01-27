@@ -893,6 +893,7 @@ class Network(object):
     self.dat['node_info']['col']['ini']   = clust_order['col']['ini']
     self.dat['node_info']['col']['group'] = clust_order['col']['group']
 
+    #!! disabled temporarily 
     # if len(self.dat['node_info']['col']['cl']) > 0:
     #   self.calc_cat_clust_order()
 
