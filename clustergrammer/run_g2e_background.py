@@ -26,11 +26,17 @@ def main(mongo_address, viz_id, vect_post):
     # swap nans for zeros
     net.swap_nan_for_zero()
 
+    # deprecated clustering modules 
+    ####################################
     # cluster g2e using pandas
     # net.fast_mult_views()
 
-    # calculate top views rather than percentage views
-    net.N_top_views()
+    # # calculate top views rather than percentage views
+    # net.N_top_views()
+    ####################################
+
+    net.make_filtered_views(dist_type='cosine', dendro=True, \
+      views=['N_row_sum'], linkage_type='average')
 
     # export dat 
     try:
