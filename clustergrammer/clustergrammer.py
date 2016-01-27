@@ -893,8 +893,8 @@ class Network(object):
     self.dat['node_info']['col']['ini']   = clust_order['col']['ini']
     self.dat['node_info']['col']['group'] = clust_order['col']['group']
 
-    if len(self.dat['node_info']['col']['cl']) > 0:
-      self.calc_cat_clust_order()
+    # if len(self.dat['node_info']['col']['cl']) > 0:
+    #   self.calc_cat_clust_order()
 
     # make the viz json - can optionally leave out dendrogram
     self.viz_json(dendro)
