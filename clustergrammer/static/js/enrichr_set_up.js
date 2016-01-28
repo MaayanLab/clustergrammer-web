@@ -87,7 +87,7 @@ function ini_enr_slider(cgm, sub_views, inst_N, enr_score_type){
 
       d3.select('#main_svg').style('opacity',0.70);
 
-      d3.select('#'+filter_type).text('Top rows: '+inst_top+' rows'); 
+      d3.select('#'+filter_type).text('Top '+inst_top+' genes'); 
 
       $('.slider_filter').slider('disable');
       d3.selectAll('.btn').attr('disabled',true);
@@ -131,7 +131,7 @@ function ini_enr_slider(cgm, sub_views, inst_N, enr_score_type){
   $('#slider_N_row_sum_enr').slider( "value", inst_index);
 
   // set up slider title
-  d3.select('#N_row_sum_enr').text('Top rows:  '+inst_N+' rows');
+  d3.select('#N_row_sum_enr').text('Top '+inst_N+' genes');
 
 }
 

@@ -1,4 +1,4 @@
-
+_
 function load_viz( viz_name, network_data ){
 
     var first_name = viz_name.split('_')[0];
@@ -93,26 +93,30 @@ function load_viz( viz_name, network_data ){
       }      
     })
 
-    var bottom_margin = 33;
+    var margin_bottom = 33;
+    var margin_left = 225;
+    var margin_right = 5;
 
     // do not use footer for Enrichr and Geneva 
-    if (_.contains(['Enrichr','GEN3VA'],first_name)){
-      bottom_margin = 5;
+    if (_.contains(['Enrichr'],first_name)){
+      margin_bottom = 5;
+      margin_left = 155;
+      margin_right = 1;
     }
 
     // define the outer margins of the visualization
     var outer_margins = {
         'top':5 ,
-        'bottom':bottom_margin,
-        'left':225,
-        'right':5
+        'bottom':margin_bottom,
+        'left':margin_left,
+        'right':margin_right
       };
 
     var outer_margins_expand = {
         'top':5,
-        'bottom':bottom_margin,
+        'bottom':margin_bottom,
         'left':5,
-        'right':5
+        'right':margin_right
       };  
 
     // define callback function for clicking on tile

@@ -29,9 +29,15 @@
     <style>
       #clust_instruct_container {display: none}
       .footer_section {display: none}
-      .viz_instruct_text {margin-top: 10px}
-      #Enrichr_score_toggle {margin-left: 20px}
+      .viz_instruct_text {margin-top: 10px; font-size: 14px; padding-right: 5px}
+      #Enrichr_score_toggle {margin-left: 10px}
       #N_row_sum_enr {margin-bottom: 5px; margin-top: 0px;}
+      #clust_instruct_container {margin-left: 2px; width: 150px}
+      #gene_search_box {width: 70px}
+      #toggle_col_order {margin-left: 10px}
+      #toggle_row_order {margin-left: 10px}
+      #slider_N_row_sum_enr {width: 135px}
+      .viz_medium_text {margin-top: 5px}
     </style>
 
 </head>
@@ -69,7 +75,7 @@
       </div>
 
       <!-- toggle top terms -->
-      <div class='viz_medium_text clear_float'>Top Enriched Terms By:</div>
+      <div class='viz_medium_text clear_float'>Top Enriched Terms:</div>
       <div id='Enrichr_score_toggle'>
         
         <div id='toggle_enr' class="btn-group-vertical" data-toggle="buttons" >
@@ -112,8 +118,9 @@
       </div>      
 
       <!-- input box for gene search -->
+      <div class='viz_medium_text'>Gene Search</div>
       <div id='gene_search_container' class='row'>
-          <input id='gene_search_box' type="text" class="form-control" placeholder="Input Gene" aria-describedby="sizing-addon2">
+          <input id='gene_search_box' type="text" class="form-control" placeholder="Gene" aria-describedby="sizing-addon2">
 
           <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
             <label id='submit_gene_button' class="btn btn-primary active " >
@@ -129,7 +136,7 @@
         <p class='viz_instruct_text'>Row Group Size</p>
         <div id="slider_row"></div> -->
 
-        <div class='viz_large_text' id='filter_title'>Filter Rows:</div>
+        <div class='viz_medium_text' id='filter_title'>Filter Rows:</div>
 
         <div class='viz_instruct_text filter_row_sum' id='filter_row_sum'>Filter Sum: 0% </div>
         <div id="slider_filter_row_sum" class='slider_filter filter_row_sum'></div>
@@ -140,7 +147,7 @@
         <div class='viz_instruct_text filter_row_num' id='filter_row_num'>Filter Number Non-zero: 0% </div>
         <div id="slider_filter_row_num" class='slider_filter filter_row_num'></div>        
 
-        <div class='viz_instruct_text N_row_sum' id='N_row_sum_enr'>Top rows: all rows </div>
+        <div class='viz_instruct_text N_row_sum' id='N_row_sum_enr'>all rows </div>
         <div id="slider_N_row_sum_enr" class='slider_filter N_row_sum'></div>
 
       </div>
