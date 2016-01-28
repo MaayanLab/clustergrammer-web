@@ -30,6 +30,7 @@
       #clust_instruct_container {display: none}
       .footer_section {display: none}
       .viz_instruct_text {margin-top: 10px}
+      #Enrichr_score_toggle {margin-left: 20px}
     </style>
 
 </head>
@@ -67,21 +68,24 @@
       </div>
 
       <!-- toggle top terms -->
-      <div class='viz_medium_text clear_float'>Enriched Terms</div>
-      <div id='toggle_enr' class="btn-group-vertical" data-toggle="buttons" >
+      <div class='viz_medium_text clear_float'>Top Enriched Terms By:</div>
+      <div id='Enrichr_score_toggle'>
+        
+        <div id='toggle_enr' class="btn-group-vertical" data-toggle="buttons" >
 
-        <label class="btn btn-primary active order_name" id="enr_combined_score">
-          <input type="radio" name="options" autocomplete="off" checked > Combined Score
-        </label>
+          <label class="btn btn-primary active order_name" id="enr_combined_score">
+            <input type="radio" name="options" autocomplete="off" checked > Combined Score
+          </label>
 
-        <label class="btn btn-primary order_name" id="enr_pval">
-          <input type="radio" name="options" autocomplete="off" > P-value
-        </label>
+          <label class="btn btn-primary order_name" id="enr_pval">
+            <input type="radio" name="options" autocomplete="off" > P-value
+          </label>
 
-        <label class="btn btn-primary order_name" id="enr_zscore">
-          <input type="radio" name="options" autocomplete="off" > Z-score
-        </label>        
+          <label class="btn btn-primary order_name" id="enr_zscore">
+            <input type="radio" name="options" autocomplete="off" > Z-score
+          </label> 
 
+        </div>
       </div>
 
       <!-- toggle clustergram order -->
@@ -135,8 +139,8 @@
         <div class='viz_instruct_text filter_row_num' id='filter_row_num'>Filter Number Non-zero: 0% </div>
         <div id="slider_filter_row_num" class='slider_filter filter_row_num'></div>        
 
-        <div class='viz_instruct_text N_row_sum' id='N_row_sum'>Top rows: all rows </div>
-        <div id="slider_N_row_sum" class='slider_filter N_row_sum'></div>
+        <div class='viz_instruct_text N_row_sum' id='N_row_sum_enr'>Top rows: all rows </div>
+        <div id="slider_N_row_sum_enr" class='slider_filter N_row_sum'></div>
 
       </div>
 
@@ -250,6 +254,7 @@
   <!-- Clustergram Scripts -->
   <script src='static/js/clustergrammer.js'></script>
   <script src='static/js/load_viz.js'></script>
+  <script src='static/js/enrichr_set_up.js'></script>
 
   <script>
 
@@ -260,9 +265,10 @@
   // add Enrichr to viz_name 
   viz_name = 'Enrichr_'+viz_name;
 
-  load_viz(viz_name, network_data);
+  var cgm = load_viz(viz_name, network_data);
 
-  
+  enrichr_set_up(cgm, network_data);
+
   </script>
 
   <script>

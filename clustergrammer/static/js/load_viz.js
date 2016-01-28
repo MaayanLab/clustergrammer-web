@@ -97,7 +97,6 @@ function load_viz( viz_name, network_data ){
 
     // do not use footer for Enrichr and Geneva 
     if (_.contains(['Enrichr','GEN3VA'],first_name)){
-      console.log('bottom_margin')
       bottom_margin = 5;
     }
 
@@ -118,7 +117,6 @@ function load_viz( viz_name, network_data ){
 
     // define callback function for clicking on tile
     function click_tile_callback(tile_info){
-      console.log('my callback');
       console.log('clicking on ' + tile_info.row + ' row and ' + tile_info.col + ' col with value ' + String(tile_info.value))
     }
 
@@ -230,7 +228,6 @@ function load_viz( viz_name, network_data ){
     if (network_data === 'processing'){
       d3.select('#wait_message').text('Processing... please wait a moment and refresh page.');
     } else if (network_data === 'error') {
-      console.log('here')
       d3.select('#wait_message')
         .text('There was an error processing your matrix. Please re-check your data and try again.');
     } else {
@@ -285,7 +282,6 @@ function load_viz( viz_name, network_data ){
 
       // filter top N
       if (N_row_sum.length>0){
-        // var inst_filter = 0;
         set_up_N_filters('N_row_sum');
       } else {
         d3.selectAll('.N_row_sum').remove();
@@ -578,5 +574,7 @@ function load_viz( viz_name, network_data ){
       });
 
     }
+
+    return cgm;
 
   }
