@@ -326,6 +326,7 @@ function load_viz( viz_name, network_data ){
 
       // get the index of the current requested value so that the slider can be
       // initialized 
+      var inst_index = 0;
       _.each(N_dict,function(d,i){
         if (String(d) === String(inst_N)){
           inst_index = i;

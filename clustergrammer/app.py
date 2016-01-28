@@ -32,13 +32,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -377,7 +377,7 @@ def enrichr_clustergram():
     # define information return link - always the same link 
     ######################################
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/Enrichr/'
-    qs = '?preview=true&col_order=rank&row_order=clust&viz_type=Enrichr_clustergram&N_row_sum=30'
+    qs = '?preview=true&col_order=rank&row_order=clust&viz_type=Enrichr_clustergram&N_row_sum=20'
 
     # check if subprocess is finished 
     ###################################

@@ -120,6 +120,7 @@ function ini_enr_slider(cgm, sub_views, inst_N, enr_score_type){
 
   // get the index of the current requested value so that the slider can be
   // initialized 
+  var inst_index = 0;
   _.each(N_dict,function(d,i){
     if (String(d) === String(inst_N)){
       inst_index = i;
