@@ -66,6 +66,24 @@
         </div>
       </div>
 
+      <!-- toggle top terms -->
+      <div class='viz_medium_text clear_float'>Enriched Terms</div>
+      <div id='toggle_enr' class="btn-group-vertical" data-toggle="buttons" >
+
+        <label class="btn btn-primary active order_name" id="enr_combined_score">
+          <input type="radio" name="options" autocomplete="off" checked > Combined Score
+        </label>
+
+        <label class="btn btn-primary order_name" id="enr_pval">
+          <input type="radio" name="options" autocomplete="off" > P-value
+        </label>
+
+        <label class="btn btn-primary order_name" id="enr_zscore">
+          <input type="radio" name="options" autocomplete="off" > Z-score
+        </label>        
+
+      </div>
+
       <!-- toggle clustergram order -->
       <div class='viz_medium_text clear_float'>Row Order</div>
       <div id='toggle_col_order' class="btn-group" data-toggle="buttons" >
