@@ -51,7 +51,10 @@ $('#Enrichr_score_toggle').click(function(evt){
 
   console.log(change_view)
 
+  d3.selectAll('.btn').attr('disabled',true);
   cgm.update_network(change_view);
+  function enable_buttons(){d3.selectAll('.btn').attr('disabled',null);}
+  setTimeout(enable_buttons, 2500);
 
 })
 
