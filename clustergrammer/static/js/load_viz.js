@@ -180,6 +180,10 @@ function load_viz( viz_name, network_data ){
     if ( _.has(query_string,'N_row_sum') ){
       // set this up: 'ini_view'
       arguments_obj.ini_view = { 'N_row_sum' : query_string.N_row_sum };
+
+      if (query_string.viz_type == 'Enrichr_clustergram'){
+        arguments_obj.ini_view.enr_score_type = 'combined_score';
+      }
     }
 
 
