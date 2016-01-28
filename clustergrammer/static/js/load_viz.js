@@ -1,6 +1,8 @@
 
 function load_viz( viz_name, network_data ){
 
+    var first_name = viz_name.split('_')[0];
+
     $('#share_button').click(function() {
       $('#share_info').modal('toggle');
       $('#share_url').val(window.location.href);
@@ -60,11 +62,21 @@ function load_viz( viz_name, network_data ){
       var opacity_scale = 'linear';
     }
 
-    if (query_string.order){
-      var ini_order = query_string.order;
+    if (query_string.col_order){
+      var ini_col_order = query_string.col_order;
+      d3.select('#clust_col').classed('active',false);
+      d3.select('#'+ini_col_order+'_col').classed('active',true);
     } else {
-      var ini_order = 'clust'
+      var ini_col_order = 'clust'
     }
+
+    if (query_string.row_order){
+      var ini_row_order = query_string.row_order;
+      d3.select('#clust_row').classed('active',false);
+      d3.select('#'+ini_row_order+'_row').classed('active',true);
+    } else {
+      var ini_row_order = 'clust'
+    }    
 
 
 
@@ -81,17 +93,25 @@ function load_viz( viz_name, network_data ){
       }      
     })
 
+    var bottom_margin = 33;
+
+    // do not use footer for Enrichr and Geneva 
+    if (_.contains(['Enrichr','GEN3VA'],first_name)){
+      console.log('bottom_margin')
+      bottom_margin = 5;
+    }
+
     // define the outer margins of the visualization
     var outer_margins = {
         'top':5 ,
-        'bottom':33,
+        'bottom':bottom_margin,
         'left':225,
         'right':5
       };
 
     var outer_margins_expand = {
         'top':5,
-        'bottom':5,
+        'bottom':bottom_margin,
         'left':5,
         'right':5
       };  
@@ -148,7 +168,8 @@ function load_viz( viz_name, network_data ){
       'super_label_scale':super_label_scale,
       // 'col_label_scale':1.2,
       'opacity_scale':opacity_scale,
-      'order':ini_order,
+      'row_order':ini_row_order,
+      'col_order':ini_col_order
     };
 
 
@@ -194,7 +215,7 @@ function load_viz( viz_name, network_data ){
 
     if (query_string.viz_type === 'Enrichr_clustergram'){
       arguments_obj.col_label_scale = 1.25;
-      arguments_obj.row_label_scale = 0.75;
+      arguments_obj.row_label_scale = 1.0;
       arguments_obj.row_label = 'Input Genes';
       arguments_obj.col_label = 'Enriched Terms';
     }

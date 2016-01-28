@@ -32,13 +32,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -92,6 +92,31 @@ def viz(user_objid, slug=None):
 
   return render_template('viz.html', viz_network=d3_json, viz_name=viz_name)
 
+@app.route("/clustergrammer/Enrichr/<user_objid>")
+@app.route("/clustergrammer/Enrichr/<user_objid>/<slug>")
+def viz_Enrichr(user_objid, slug=None):
+  import flask
+  from bson.objectid import ObjectId
+  from copy import deepcopy
+
+  client = MongoClient(mongo_address)
+  db = client.clustergrammer
+
+  try: 
+    obj_id = ObjectId(user_objid)
+  except:
+    error_desc = 'Invalid visualization Id.'
+    return redirect('/clustergrammer/error/'+error_desc)
+
+  gnet = db.networks.find_one({'_id': obj_id })
+
+  client.close()
+
+  d3_json = gnet['viz']
+  viz_name = gnet['name']
+
+  return render_template('Enrichr.html', viz_network=d3_json, viz_name=viz_name)
+
 @app.route("/clustergrammer/demo/<user_objid>")
 def demo(user_objid):
   import flask
@@ -137,7 +162,7 @@ def enrichment_vectors():
     ####################################################### 
     g2e_post = {
       "viz_title":"Aging-Study",
-      "background_type": "KEA_2015",
+      "background_type": "ChEA_2015",
       "signature_ids": [
         {
           "enr_id_up": "949840",
@@ -351,8 +376,8 @@ def enrichr_clustergram():
 
     # define information return link - always the same link 
     ######################################
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-    qs = '?preview=true&order=rank&viz_type=Enrichr_clustergram'
+    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/Enrichr/'
+    qs = '?preview=true&col_order=rank&row_order=clust&viz_type=Enrichr_clustergram&N_row_sum=30'
 
     # check if subprocess is finished 
     ###################################
@@ -439,7 +464,7 @@ def viz_l1000cds2(user_objid):
   client.close()
   d3_json = gnet['viz']
 
-  print('\n\nloading from mongodb\n##################n\n')
+  print('\n\nloading from mongodb\n##################\n')
 
   return render_template('l1000cds2.html', viz_network=d3_json)
 
