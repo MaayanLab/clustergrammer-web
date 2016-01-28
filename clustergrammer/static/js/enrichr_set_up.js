@@ -15,13 +15,16 @@ function enrichr_set_up(cgm, network_data){
     });
 
   // get the value to initialize the slider 
-  inst_N = query_string.N_row_sum;
+  inst_top = query_string.N_row_sum;
 
-  // keeping global copy of the N_row_sum value 
-  inst_top = inst_N;
+  var found_view = _.filter(network_data.views,function(d){return d.N_row_sum==inst_top})
+
+  if (found_view.length===0){
+    inst_top = 'all';
+  }
 
   // initialize the slider 
-  ini_enr_slider(cgm, sub_views, inst_N, enr_score_type);
+  ini_enr_slider(cgm, sub_views, inst_top, enr_score_type);
 
 }
 
@@ -58,7 +61,7 @@ $('#Enrichr_score_toggle').click(function(evt){
 
 })
 
-function ini_enr_slider(cgm, sub_views, inst_N, enr_score_type){
+function ini_enr_slider(cgm, sub_views, inst_top, enr_score_type){
   var filter_type = 'N_row_sum_enr';
 
   var inst_max = sub_views.length - 1;
@@ -122,7 +125,7 @@ function ini_enr_slider(cgm, sub_views, inst_N, enr_score_type){
   // initialized 
   var inst_index = 0;
   _.each(N_dict,function(d,i){
-    if (String(d) === String(inst_N)){
+    if (String(d) === String(inst_top)){
       inst_index = i;
     }
   });
@@ -131,7 +134,7 @@ function ini_enr_slider(cgm, sub_views, inst_N, enr_score_type){
   $('#slider_N_row_sum_enr').slider( "value", inst_index);
 
   // set up slider title
-  d3.select('#N_row_sum_enr').text('Top '+inst_N+' genes');
+  d3.select('#N_row_sum_enr').text('Top '+inst_top+' genes');
 
 }
 

@@ -1249,7 +1249,6 @@ function VizParams(config){
     // run initial filtering if necessary 
     if (_.isNull(params.ini_view) === false){
 
-      console.log(params.ini_view)
       params.network_data = change_network_view( params, params.network_data, params.ini_view);
 
       // remove ini_view 
@@ -5526,8 +5525,6 @@ function change_network_view(params, orig_network_data, change_view){
  
   var views = orig_network_data.views;
 
-  console.log('change_network_view')
-
   // Get Row Filtering View 
   ///////////////////////////////////////////////////////////////
   // change_view has the name of the new view (e.g. {N_row_sum:20})
@@ -5537,7 +5534,6 @@ function change_network_view(params, orig_network_data, change_view){
   // nodes, new_nodes, the links will be filtered in order to only keep links 
   // between nodes that still exist in the view 
 
-  console.log('in change_network_view')
   console.log(change_view)
 
   if (_.has(change_view,'filter_row')){
@@ -5600,8 +5596,8 @@ function change_network_view(params, orig_network_data, change_view){
   // get the single view that will be used to update the network from 
   // the array of filtered views 
   if ( params.show_categories === false ){
-    console.log('\nview defined by filter only, no category\n')
-    console.log('there are '+String(filt_views.length)+' views with this N_row_sum')
+
+    console.log('There are '+String(filt_views.length)+' views found');
     var inst_view = filt_views[0];
 
     if (_.has(change_view,'enr_score_type')){
@@ -5610,8 +5606,25 @@ function change_network_view(params, orig_network_data, change_view){
         return d.enr_score_type == change_view.enr_score_type;
       })[0];
 
+      if (_.isUndefined(inst_view)){
+
+        console.log('did not find Enrichr view, will use default view: all, combined score');
+
+        var filt_views = _.filter(views, function(d){
+          return d.N_row_sum == 'all';
+        });
+
+        inst_view = _.filter(filt_views, function(d){
+          return d.enr_score_type == 'combined_score';
+        })[0];
+
+      }
+
+
       console.log('\n\n final inst_view ');
       console.log(inst_view);
+
+
     }
 
   } 
