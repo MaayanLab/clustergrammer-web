@@ -1,3 +1,5 @@
+
+// initialize slider 
 function enrichr_set_up(cgm, network_data){
 
   var query_string = QueryStringToJSON();
@@ -12,13 +14,46 @@ function enrichr_set_up(cgm, network_data){
       return d.enr_score_type == enr_score_type;
     });
 
+  // get the value to initialize the slider 
   inst_N = query_string.N_row_sum;
+
+  // keeping global copy of the N_row_sum value 
+  inst_top = inst_N;
 
   // initialize the slider 
   ini_enr_slider(cgm, sub_views, inst_N, enr_score_type);
 
 }
 
+
+// change enr_score_type 
+$('#Enrichr_score_toggle').click(function(evt){
+  var enr_score_type = $(evt.target).attr('id');
+
+  var change_view = {
+                      'N_row_sum':inst_top,
+                      'enr_score_type':enr_score_type
+                    };
+
+
+  // re-initialize slider with new enr_score_type 
+  //////////////////////////////////////////////////
+  var sub_views = _.filter(network_data.views, function(d){return _.has(d,'N_row_sum');});
+
+  // filter based on enr_score_type
+  sub_views = _.filter(sub_views, 
+    function(d){
+      return d.enr_score_type == enr_score_type;
+    });
+
+  // initialize the slider 
+  ini_enr_slider(cgm, sub_views, inst_top, enr_score_type);                    
+
+  console.log(change_view)
+
+  cgm.update_network(change_view);
+
+})
 
 function ini_enr_slider(cgm, sub_views, inst_N, enr_score_type){
   var filter_type = 'N_row_sum_enr';
@@ -38,12 +73,13 @@ function ini_enr_slider(cgm, sub_views, inst_N, enr_score_type){
       // get value 
       var inst_index = $( '#slider_'+filter_type ).slider( "value" ); 
 
-      var inst_top = N_dict[inst_index];
+      inst_top = N_dict[inst_index];
 
-      change_view = {
+      var change_view = {
         'N_row_sum':inst_top,
         'enr_score_type':enr_score_type
       };
+
       filter_name = 'N_row_sum';
 
       d3.select('#main_svg').style('opacity',0.70);

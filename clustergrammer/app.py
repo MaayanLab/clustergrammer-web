@@ -283,7 +283,7 @@ def enrichr_clustergram():
     # mock data 
     ####################################################### 
 
-    gmt = 'KEA_2015'
+    gmt = 'KEGG_2015'
     userListId = 939279
 
     # define the get url 
