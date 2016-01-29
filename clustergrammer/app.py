@@ -32,13 +32,13 @@ mongo_address = '146.203.54.165'
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 
@@ -116,6 +116,32 @@ def viz_Enrichr(user_objid, slug=None):
   viz_name = gnet['name']
 
   return render_template('Enrichr.html', viz_network=d3_json, viz_name=viz_name)
+
+@app.route("/clustergrammer/gen3va/<user_objid>")
+@app.route("/clustergrammer/gen3va/<user_objid>/<slug>")
+def viz_gen3va(user_objid, slug=None):
+  import flask
+  from bson.objectid import ObjectId
+  from copy import deepcopy
+
+  client = MongoClient(mongo_address)
+  db = client.clustergrammer
+
+  try: 
+    obj_id = ObjectId(user_objid)
+  except:
+    error_desc = 'Invalid visualization Id.'
+    return redirect('/clustergrammer/error/'+error_desc)
+
+  gnet = db.networks.find_one({'_id': obj_id })
+
+  client.close()
+
+  d3_json = gnet['viz']
+  viz_name = gnet['name']
+
+  return render_template('gen3va.html', viz_network=d3_json, viz_name=viz_name)
+
 
 @app.route("/clustergrammer/demo/<user_objid>")
 def demo(user_objid):
@@ -540,8 +566,12 @@ def proc_vector_upload():
     thread.start()
 
     # define information return link - always return the same linke
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-    inst_name = '/'+export_viz['name']
+    if export_viz['name'] != 'gen3va':
+      viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
+      inst_name = '/'+export_viz['name']
+    else:
+      viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/gen3va/'
+      inst_name = ''
 
     # check if subprocess is finished 
     ###################################
@@ -557,10 +587,16 @@ def proc_vector_upload():
 
         print('thread is finished')
         
-        return flask.jsonify({'link': viz_url+viz_id+inst_name})
+        return flask.jsonify({
+          'link': viz_url+viz_id+inst_name,
+          'id':viz_id
+          })
 
     # return link after max time has elapsed 
-    return flask.jsonify({'link': viz_url+viz_id+inst_name})
+    return flask.jsonify({
+      'link': viz_url+viz_id+inst_name,
+      'id':viz_id
+      })
 
   else:   
 

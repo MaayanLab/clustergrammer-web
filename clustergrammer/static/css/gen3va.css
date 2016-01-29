@@ -1,0 +1,94 @@
+#clust_instruct_container {
+	margin-left: 0;
+}
+
+/*#clustergrammer_logo {
+	display: none;
+}*/
+
+#help_link,
+#share_button,
+#picture_button {
+	color: #7fb800;
+}
+
+.viz_instruct_text {
+	font-family: arial;
+	font-size: 15px;
+	line-height: 1.2em;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	text-align: left;
+
+  width: 140px;
+  margin-left: 5px;
+  text-align: justify;
+}
+
+#report-page iframe,
+#report-page #pca-container {
+	border: none;
+}
+
+#footer_div {
+	display: none;
+}
+
+.btn {
+	border-radius: 0;
+	border: none;
+}
+
+/*.btn.btn-primary {
+	background-color: #1689e5;
+}*/
+
+#toggle a {
+	display: none;
+}
+
+#gene_search_container{
+	margin-left: 5px;
+}
+
+#gene_search_box {
+	border-radius: 0;
+	height: 32px;
+}
+
+.ui-corner-all,
+.ui-corner-bottom,
+.ui-corner-top,
+.ui-corner-left,
+.ui-corner-right,
+.ui-corner-br,
+.ui-corner-bl,
+.ui-corner-tr,
+.ui-corner-tl {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
+.slider_filter {
+	width: 135px;
+	margin-left: 5px;
+}
+
+#gene_search_box {
+	width: 70px;
+}
+
+.toggle_order_title{
+	margin-left: 5px;
+}
+
+.toggle_order_buttons{
+	margin-left: 20px;
+}
+
+.viz_medium_text{
+	margin-top: 5px;
+	margin-bottom: 5px;
+}

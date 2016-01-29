@@ -3,6 +3,8 @@ function load_viz( viz_name, network_data ){
 
     var first_name = viz_name.split('_')[0];
 
+    console.log('\n\nfirst name '+first_name+'\n\n')
+
     $('#share_button').click(function() {
       $('#share_info').modal('toggle');
       $('#share_url').val(window.location.href);
@@ -97,8 +99,10 @@ function load_viz( viz_name, network_data ){
     var margin_left = 225;
     var margin_right = 5;
 
+    console.log('first name')
+    console.log(first_name)
     // do not use footer for Enrichr and Geneva 
-    if (_.contains(['Enrichr'],first_name)){
+    if (_.contains(['Enrichr','gen3va'],first_name)){
       margin_bottom = 5;
       margin_left = 155;
       margin_right = 1;
@@ -155,8 +159,6 @@ function load_viz( viz_name, network_data ){
 
     }
 
-
-
     // define arguments object
     var arguments_obj = {
       'network_data': network_data,
@@ -192,27 +194,6 @@ function load_viz( viz_name, network_data ){
 
 
     if (query_string.viz_type === 'enr_vect'){
-      // show up/dn genes from enrichment 
-      function make_tile_tooltip(d){
-        // up and down 
-        if ( d.info.up.length > 0 && d.info.dn.length > 0 ){
-          var inst_up = 'Up Genes: '+ d.info.up.join('\t');
-          var inst_dn = 'Down Genes: '+ d.info.dn.join('\t');
-          var inst_string = "<p>"+inst_up+"</p>"+inst_dn;
-          // improve
-          var inst_score = Math.abs(d.value.toFixed(2));
-        } else if ( d.info.up.length > 0 ){
-          var inst_up = 'Up Genes: '+ d.info.up.join('\t');
-          var inst_string = inst_up;
-          var inst_score = d.value.toFixed(2);
-        } else if ( d.info.dn.length > 0 ){
-          var inst_dn = 'Down Genes: '+ d.info.dn.join('\t');
-          var inst_string = inst_dn;
-          var inst_score = -d.value.toFixed(2);
-        }
-        var inst_info = '<p>'+d.col_name+' is enriched for '+d.row_name+' with Combined Score: '+ inst_score +'</p>'
-        return inst_info + inst_string; 
-      }
 
       arguments_obj.make_tile_tooltip = make_tile_tooltip;
       arguments_obj.show_tile_tooltips = true;
@@ -431,7 +412,9 @@ function load_viz( viz_name, network_data ){
 
           d3.select('#'+filter_type).text('Top rows: '+inst_top+' rows'); 
 
-          $('.slider_filter').slider('disable');
+          // need to set up multiple sliders 
+          // $('.slider_filter').slider('disable');
+
           d3.selectAll('.btn').attr('disabled',true);
 
           cgm.update_network(change_view);
@@ -439,7 +422,7 @@ function load_viz( viz_name, network_data ){
           ini_sliders();
 
           function enable_slider(){
-            $('.slider_filter').slider('enable');  
+            // $('.slider_filter').slider('enable');  
             d3.selectAll('.btn').attr('disabled',null);
           }
           setTimeout(enable_slider, 2500);

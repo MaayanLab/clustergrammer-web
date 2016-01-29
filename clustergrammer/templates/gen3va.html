@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="static/css/specific.css" />
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
     <link rel="stylesheet" href="static/css/custom_viz.css">
+    <link rel="stylesheet" href="static/css/gen3va.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
@@ -40,14 +41,8 @@
 
     <div id='clust_instruct_container' >
 
-      <a target='_blank' href="/clustergrammer/">
-      <div>
-        <img class='help_figure' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
-      </div>
-      </a>
-
       <div class='gene_exp_view'>
-        <div class='viz_instruct_text'> Zoom using scroll, reorder using the buttons or by double-clicking the labels, search for rows using the search box, and idenfity groups of rows or columns of varying size using the sliders.</div>
+        <div class='viz_instruct_text'> Interact using the sidebar and by scrolling/panning.</div>
 
       </div>
 
@@ -68,8 +63,8 @@
       </div>
 
       <!-- toggle clustergram order -->
-      <div class='viz_medium_text clear_float'>Row Order</div>
-      <div id='toggle_col_order' class="btn-group" data-toggle="buttons" >
+      <div class='viz_medium_text clear_float toggle_order_title'>Row Order</div>
+      <div id='toggle_col_order' class="btn-group toggle_order_buttons" data-toggle="buttons" >
         <label class="btn btn-primary active order_name" id="clust_row">
           <input type="radio" name="options" autocomplete="off" checked > Cluster
         </label>
@@ -79,8 +74,8 @@
       </div>
 
       
-      <div class='viz_medium_text'>Column Order</div>
-      <div id='toggle_row_order' class="btn-group" data-toggle="buttons" >
+      <div class='viz_medium_text toggle_order_title'>Column Order</div>
+      <div id='toggle_row_order' class="btn-group toggle_order_buttons" data-toggle="buttons" >
         <label class="btn btn-primary active order_name" id="clust_col">
           <input type="radio" name="options" autocomplete="off" checked > Cluster
         </label>
@@ -91,7 +86,7 @@
 
       <!-- input box for gene search -->
       <div id='gene_search_container' class='row'>
-          <input id='gene_search_box' type="text" class="form-control" placeholder="Input Gene" aria-describedby="sizing-addon2">
+          <input id='gene_search_box' type="text" class="form-control" placeholder="Gene" aria-describedby="sizing-addon2">
 
           <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
             <label id='submit_gene_button' class="btn btn-primary active " >
@@ -100,29 +95,29 @@
           </div>
       </div>      
 
-      <div id='slider_container'>
-        <p class='viz_instruct_text'>Column Group Size</p>
+      <div id='slider_container' class='slider_filter'>
+        <p class='viz_medium_text'>Column Group Size</p>
         <div id="slider_col"></div>
-        <p class='viz_instruct_text'>Row Group Size</p>
+        <p class='viz_medium_text'>Row Group Size</p>
         <div id="slider_row"></div>
 
         <div class='viz_large_text' id='filter_title'>Filter Rows:</div>
 
-        <div class='viz_instruct_text filter_row_sum' id='filter_row_sum'>Filter Sum: 0% </div>
+        <div class='viz_medium_text filter_row_sum' id='filter_row_sum'>Filter Sum: 0% </div>
         <div id="slider_filter_row_sum" class='slider_filter filter_row_sum'></div>
 
-        <div class='viz_instruct_text filter_row_value' id='filter_row_value'>Filter Value: 0% </div>
+        <div class='viz_medium_text filter_row_value' id='filter_row_value'>Filter Value: 0% </div>
         <div id="slider_filter_row_value" class='slider_filter filter_row_value'></div>
 
-        <div class='viz_instruct_text filter_row_num' id='filter_row_num'>Filter Number Non-zero: 0% </div>
+        <div class='viz_medium_text filter_row_num' id='filter_row_num'>Filter Number Non-zero: 0% </div>
         <div id="slider_filter_row_num" class='slider_filter filter_row_num'></div>        
 
-        <div class='viz_instruct_text N_row_sum' id='N_row_sum'>Top rows: all rows </div>
-        <div id="slider_N_row_sum" class='slider_filter N_row_sum'></div>
+        <div class='viz_medium_text N_row_sum' id='N_row_sum'>Top rows: all rows </div>
+        <div id="slider_N_row_sum" class=' N_row_sum'></div>
 
       </div>
 
-      <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
+      <!-- <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a> -->
 
       
 
@@ -171,6 +166,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <a target='_blank' href="/clustergrammer/">
+            <div>
+              <img class='help_figure' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
+            </div>
+          </a>
+
           <h4 class="modal-title">Share the visualization using the current URL:</h4>
         </div>
         <div class="modal-body">
@@ -235,12 +237,6 @@
   network_data = {{ viz_network|tojson|safe }};
 
   viz_name = {{viz_name|tojson|safe}};
-
-  if (viz_name==='gen3va'){
-    viz_name = 'gen3va-viz';
-  }
-
-  console.log(viz_name)
 
   load_viz(viz_name, network_data);
 

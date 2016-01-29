@@ -1529,10 +1529,6 @@ function VizParams(config){
     // the enrichment bar should be 3/4ths of the height of the column labels
     var enr_max = Math.abs(_.max( col_nodes, function(d) { return Math.abs(d.value) } ).value) ;
 
-    console.log('\n\nenr_max')
-    console.log(enr_max)
-    console.log('\n\n')
-    
     params.labels.bar_scale_col = d3.scale
       .linear()
       .domain([0, enr_max])
@@ -4354,8 +4350,6 @@ function resize_after_update(params, row_nodes, col_nodes, links, duration, dela
         });      
     }
 
-    console.log('reset size after updata\n----------------------------')
-    _.each(col_nodes, function(d){console.log(String(d.name)+' '+String(d.value))})
 
     // append column value bars
     if (Utils.has( params.network_data.col_nodes[0], 'value')) {
