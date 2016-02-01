@@ -102,9 +102,15 @@ function load_viz( viz_name, network_data ){
     console.log('first name')
     console.log(first_name)
     // do not use footer for Enrichr and Geneva 
-    if (_.contains(['Enrichr','gen3va'],first_name)){
+    if (_.contains(['Enrichr'],first_name)){
       margin_bottom = 5;
       margin_left = 155;
+      margin_right = 1;
+    }
+
+    if (_.contains(['gen3va'],first_name)){
+      margin_bottom = 5;
+      margin_left = 165;
       margin_right = 1;
     }
 

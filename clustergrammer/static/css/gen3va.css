@@ -22,7 +22,7 @@
 
   width: 140px;
   margin-left: 5px;
-  text-align: justify;
+  /*text-align: justify;*/
 }
 
 #report-page iframe,
@@ -39,9 +39,13 @@
 	border: none;
 }
 
-/*.btn.btn-primary {
+.btn.btn-primary {
 	background-color: #1689e5;
-}*/
+}
+
+.btn.btn-primary.active{
+	background-color: #126db6;
+}
 
 #toggle a {
 	display: none;
@@ -91,4 +95,8 @@
 .viz_medium_text{
 	margin-top: 5px;
 	margin-bottom: 5px;
+}
+
+.ui-slider{
+	margin-left: 10px;
 }

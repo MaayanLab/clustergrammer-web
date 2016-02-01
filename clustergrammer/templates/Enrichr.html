@@ -22,22 +22,12 @@
     <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
     <link rel="stylesheet" href="static/css/specific.css" />
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
-    <link rel="stylesheet" href="static/css/custom_viz.css">
+    <link rel="stylesheet" href="static/css/Enrichr.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
     <style>
-      #clust_instruct_container {display: none}
-      .footer_section {display: none}
-      .viz_instruct_text {margin-top: 10px; font-size: 14px; padding-right: 5px}
-      #Enrichr_score_toggle {margin-left: 10px}
-      #N_row_sum_enr {margin-bottom: 5px; margin-top: 0px;}
-      #clust_instruct_container {margin-left: 2px; width: 150px}
-      #gene_search_box {width: 70px}
-      #toggle_col_order {margin-left: 10px}
-      #toggle_row_order {margin-left: 10px}
-      #slider_N_row_sum_enr {width: 135px; margin-left: 10px}
-      .viz_medium_text {margin-top: 5px}
+      
     </style>
 
 </head>
@@ -53,7 +43,7 @@
 
       <div class='gene_exp_view'>
         <div class='viz_instruct_text'> 
-        Enriched terms are shown as columns and input genes are shown as rows. The cells in the matrix indicate that a gene is assocaited with an enriched term. 
+        Enriched terms are shown as columns, input genes are shown as rows, and cells in the matrix indicate that a gene is assocaited with a term. 
         </div>
 
       </div>
@@ -62,15 +52,15 @@
         
         <div id='help_container'>
           <a href="help" target="_blank"  id="help_link">
-            <i class="fa fa-question-circle"></i>
+            <i class="fa fa-question-circle icon_buttons"></i>
           </a>
         </div>
 
         <div id='share_container'>
-          <i class="fa fa-share-alt" id='share_button' ></i>
+          <i class="fa fa-share-alt icon_buttons" id='share_button' ></i>
         </div>
         <div>
-          <i class="fa fa-camera" id='picture_button' ></i>
+          <i class="fa fa-camera icon_buttons" id='picture_button' ></i>
         </div>
       </div>
 
