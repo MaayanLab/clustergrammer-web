@@ -771,8 +771,11 @@ function ini_enr_slider(cgm, sub_views, inst_top, enr_score_type){
   // set up slider
   $('#slider_N_row_sum_enr').slider( "value", inst_index);
 
-  // set up slider title
-  d3.select('#N_row_sum_enr').text('Top '+inst_top+' genes');
+  if (inst_top != 'all'){
+    d3.select('#'+filter_type).text('Top '+inst_top+' genes'); 
+  } else{
+    d3.select('#'+filter_type).text('All genes'); 
+  }
 
 }
 
