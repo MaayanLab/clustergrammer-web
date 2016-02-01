@@ -1,7 +1,7 @@
 ------------------- latest instructions -----------------------
 
 docker build -t 146.203.54.165:5000/clustergrammer:latest . 
-docker run -it --rm -p 8087:80 146.203.54.165:5000/clustergrammer:latest
+docker run -it --rm -p 8087:80 146.203.54.165:5000/clustergrammer:latest 
 docker push 146.203.54.165:5000/clustergrammer:latest
 
 use this to check mongodb 

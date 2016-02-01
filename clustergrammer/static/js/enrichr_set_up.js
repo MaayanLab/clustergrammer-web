@@ -104,7 +104,7 @@ function load_viz( viz_name, network_data ){
     // do not use footer for Enrichr and Geneva 
     if (_.contains(['Enrichr'],first_name)){
       margin_bottom = 5;
-      margin_left = 150;
+      margin_left = 152;
       margin_right = 1;
     }
 
@@ -684,7 +684,11 @@ function ini_enr_slider(cgm, sub_views, inst_top, enr_score_type){
 
       d3.select('#main_svg').style('opacity',0.70);
 
-      d3.select('#'+filter_type).text('Top '+inst_top+' genes'); 
+      if (inst_top != 'all'){
+        d3.select('#'+filter_type).text('Top '+inst_top+' genes'); 
+      } else{
+        d3.select('#'+filter_type).text('All genes'); 
+      }
 
       $('.slider_filter').slider('disable');
       d3.selectAll('.btn').attr('disabled',true);
