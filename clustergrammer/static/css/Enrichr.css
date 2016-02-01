@@ -602,14 +602,15 @@ look like the input gene list text title*/
 .viz_instruct_text{
   width:99%;
   margin: 0 auto;
-  color:#333;
+  color:black;
   text-align: justify;
-  margin-top:2px;
-  /*margin-bottom: 3px;*/
-  font-size: 15px;
-  font-weight: 300;
+  /*font-weight: 300;*/
   padding-left: 0px;
   font-family: 'Droid Sans', sans-serif;
+  margin-top: 3px; 
+  margin-bottom: 0px; 
+  font-size: 14px; 
+  padding-right: 5px
 }
 
 .viz_large_text{
@@ -783,10 +784,10 @@ look like the input gene list text title*/
 
 /*container for gene search box*/
 #gene_search_container{
-  margin-top: 7px;
+  margin-top: 0px;
   margin-bottom: 5px;
   /*needed for some reason*/
-  margin-left: 0px;
+  margin-left: 2px;
   display: none:;
   width:195px;
 }
@@ -937,10 +938,12 @@ look like the input gene list text title*/
 
 #toggle_row_order{
   height: 23px;
+  margin-left: 14px;
 }
 
 #toggle_col_order{
   height: 23px;
+  margin-left: 14px;
 }
 
 #home_graham_cracker{
@@ -977,14 +980,14 @@ look like the input gene list text title*/
 
 #share_button{
   font-size: 24px;
-  margin-left: 10px;
+  margin-left: 25px;
   /*color:#337ab7;*/
   margin-top: 9px
 }
 
 #picture_button{
   font-size: 24px;
-  margin-left: 10px;
+  margin-left: 25px;
   /*color:#337ab7;*/
   margin-top: 9px
 }
@@ -1024,25 +1027,34 @@ look like the input gene list text title*/
       display: none
 }
 .footer_section {display: none}
-.viz_instruct_text {margin-top: 10px; font-size: 14px; padding-right: 5px}
-#Enrichr_score_toggle {margin-left: 10px}
+#Enrichr_score_toggle {
+  margin-left: 14px;
+}
 #N_row_sum_enr {margin-bottom: 5px; margin-top: 0px;}
 #clust_instruct_container {margin-left: 2px; width: 150px}
 #gene_search_box {
   width: 70px;
   border-radius: 0;
 }
-#toggle_col_order {margin-left: 10px}
-#toggle_row_order {margin-left: 10px}
-#slider_N_row_sum_enr {width: 135px; margin-left: 10px}
+#slider_N_row_sum_enr {width: 115px; margin-left: 12px}
+
 .viz_medium_text {
-  margin-top: 5px;
+  margin-top: 7px;
+  margin-bottom: 2px;
   font-family: 'Droid Sans', sans-serif;
+  font-size: 14px;
+  color: black;
 }
 
 .btn{
   border-radius: 0;
   border: none;
+  font-family: 'Droid Sans', sans-serif;
+  font-weight: 500;
+}
+
+.btn:hover{
+  background-color: #808080;
 }
 
 .icon_buttons{
@@ -1050,7 +1062,7 @@ look like the input gene list text title*/
 }
 
 #icons_section{
-  margin-left: 12px;
+  margin-left: 5px;
 }
 
 .label{
@@ -1070,9 +1082,21 @@ look like the input gene list text title*/
 }
 
 .btn-primary{
-      background-color: #A9A9A9;  
+  background-color: #A9A9A9;  
 }
 
 .btn-primary.active{
-      background-color: #757575;
+  background-color: black;
+}
+
+.btn:disabled{
+  background-color: red;
+}
+
+.btn.disabled, .btn[disabled]{
+  background-color: #A9A9A9; 
+}
+
+.btn.disabled.active, .btn[disabled].active {
+  background-color: #A9A9A9; 
 }
