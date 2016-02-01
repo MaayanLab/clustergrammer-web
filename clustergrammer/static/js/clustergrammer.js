@@ -4363,7 +4363,6 @@ function resize_after_update(params, row_nodes, col_nodes, links, duration, dela
           var inst_value = 0;
           if (d.value > 0){
 
-            console.log( String(d.name) +' '+ String(d.value) +'\n\n')
             inst_value = params.labels.bar_scale_col(d.value);
           }
           return inst_value;
@@ -4569,6 +4568,8 @@ function resize_after_update(params, row_nodes, col_nodes, links, duration, dela
 }
 
 function update_network(change_view){
+
+  console.log('\n\n\nupdating network')
 
   // create a new args object 
   //////////////////////////////////////////
@@ -5528,7 +5529,7 @@ function change_network_view(params, orig_network_data, change_view){
   // nodes, new_nodes, the links will be filtered in order to only keep links 
   // between nodes that still exist in the view 
 
-  console.log(change_view)
+  // console.log(change_view)
 
   if (_.has(change_view,'filter_row')){
 
@@ -5591,7 +5592,7 @@ function change_network_view(params, orig_network_data, change_view){
   // the array of filtered views 
   if ( params.show_categories === false ){
 
-    console.log('There are '+String(filt_views.length)+' views found');
+    // console.log('There are '+String(filt_views.length)+' views found');
     var inst_view = filt_views[0];
 
     if (_.has(change_view,'enr_score_type')){
@@ -5615,8 +5616,8 @@ function change_network_view(params, orig_network_data, change_view){
       }
 
 
-      console.log('\n\n final inst_view ');
-      console.log(inst_view);
+      // console.log('\n\n final inst_view ');
+      // console.log(inst_view);
 
 
     }

@@ -1,9 +1,11 @@
-_
+// prevent user from double clicking 
+global_lock = false;
+
 function load_viz( viz_name, network_data ){
 
     var first_name = viz_name.split('_')[0];
 
-    console.log('\n\nfirst name '+first_name+'\n\n')
+    // console.log('\n\nfirst name '+first_name+'\n\n')
 
     $('#share_button').click(function() {
       $('#share_info').modal('toggle');
@@ -99,8 +101,8 @@ function load_viz( viz_name, network_data ){
     var margin_left = 225;
     var margin_right = 5;
 
-    console.log('first name')
-    console.log(first_name)
+    // console.log('first name')
+    // console.log(first_name)
     // do not use footer for Enrichr and Geneva 
     if (_.contains(['Enrichr'],first_name)){
       margin_bottom = 5;
@@ -563,27 +565,46 @@ function load_viz( viz_name, network_data ){
       });
 
       $('#toggle_row_order .btn').off().click(function(evt) {
-        var order_id = $(evt.target).attr('id').split('_')[0];
 
-        d3.selectAll('.btn').attr('disabled',true);
-        cgm.reorder(order_id,'row');
-        function enable_slider(){
-          // $('.slider_filter').slider('enable');  
-          d3.selectAll('.btn').attr('disabled',null);
+        if (global_lock === false){
+          global_lock = true; 
+          var order_id = $(evt.target).attr('id').split('_')[0];
+
+          d3.selectAll('.btn').attr('disabled',true);
+          $('.slider_filter').slider('disable');
+          
+          cgm.reorder(order_id,'row');
+          function enable_slider(){
+            // $('.slider_filter').slider('enable');  
+            d3.selectAll('.btn').attr('disabled',null);
+            $('.slider_filter').slider('enable');  
+            global_lock = false;
+          }
+          setTimeout(enable_slider, 2500);
         }
-        setTimeout(enable_slider, 2500);
+
       });
 
+
       $('#toggle_col_order .btn').off().click(function(evt) {
-        var order_id = $(evt.target).attr('id').split('_')[0];
-        
-        d3.selectAll('.btn').attr('disabled',true);
-        cgm.reorder(order_id,'col');
-        function enable_slider(){
-          // $('.slider_filter').slider('enable');  
-          d3.selectAll('.btn').attr('disabled',null);
+
+        if (global_lock === false){
+          global_lock = true; 
+          var order_id = $(evt.target).attr('id').split('_')[0];
+          
+          d3.selectAll('.btn').attr('disabled',true);
+          $('.slider_filter').slider('disable');
+
+          cgm.reorder(order_id,'col');
+          function enable_slider(){
+            // $('.slider_filter').slider('enable');  
+            d3.selectAll('.btn').attr('disabled',null);
+            $('.slider_filter').slider('enable');  
+            global_lock = false;
+          }
+          setTimeout(enable_slider, 2500);
+
         }
-        setTimeout(enable_slider, 2500);
       });
 
     }
@@ -625,33 +646,45 @@ function enrichr_set_up(cgm, network_data){
 
 // change enr_score_type 
 $('#Enrichr_score_toggle').click(function(evt){
-  var enr_score_type = $(evt.target).attr('id');
 
-  var change_view = {
-                      'N_row_sum':inst_top,
-                      'enr_score_type':enr_score_type
-                    };
+  if (global_lock === false){
 
+    global_lock = true;
 
-  // re-initialize slider with new enr_score_type 
-  //////////////////////////////////////////////////
-  var sub_views = _.filter(network_data.views, function(d){return _.has(d,'N_row_sum');});
+    d3.selectAll('.btn').attr('disabled',true);
+    $('.slider_filter').slider('disable');
 
-  // filter based on enr_score_type
-  sub_views = _.filter(sub_views, 
-    function(d){
-      return d.enr_score_type == enr_score_type;
-    });
+    var enr_score_type = $(evt.target).attr('id');
 
-  // initialize the slider 
-  ini_enr_slider(cgm, sub_views, inst_top, enr_score_type);                    
+    var change_view = {
+                        'N_row_sum':inst_top,
+                        'enr_score_type':enr_score_type
+                      };
 
-  console.log(change_view)
+    // re-initialize slider with new enr_score_type 
+    //////////////////////////////////////////////////
+    var sub_views = _.filter(network_data.views, function(d){return _.has(d,'N_row_sum');});
 
-  d3.selectAll('.btn').attr('disabled',true);
-  cgm.update_network(change_view);
-  function enable_buttons(){d3.selectAll('.btn').attr('disabled',null);}
-  setTimeout(enable_buttons, 2500);
+    // filter based on enr_score_type
+    sub_views = _.filter(sub_views, 
+      function(d){
+        return d.enr_score_type == enr_score_type;
+      });
+
+    // initialize the slider 
+    ini_enr_slider(cgm, sub_views, inst_top, enr_score_type);                    
+
+    console.log(change_view)
+
+    cgm.update_network(change_view);
+    function enable_buttons(){
+      d3.selectAll('.btn').attr('disabled',null);
+      $('.slider_filter').slider('enable');  
+      global_lock = false;
+    }
+    setTimeout(enable_buttons, 2500);
+
+  }
 
 })
 
@@ -667,42 +700,49 @@ function ini_enr_slider(cgm, sub_views, inst_top, enr_score_type){
     step: 1,
     stop: function( event, ui ) {
 
-      // change value 
-      $( "#amount" ).val( "$" + ui.value );
 
-      // get value 
-      var inst_index = $( '#slider_'+filter_type ).slider( "value" ); 
+      if (global_lock === false){
 
-      inst_top = N_dict[inst_index];
+        global_lock = true;
+        
+        // change value 
+        $( "#amount" ).val( "$" + ui.value );
 
-      var change_view = {
-        'N_row_sum':inst_top,
-        'enr_score_type':enr_score_type
-      };
+        // get value 
+        var inst_index = $( '#slider_'+filter_type ).slider( "value" ); 
 
-      filter_name = 'N_row_sum';
+        inst_top = N_dict[inst_index];
 
-      d3.select('#main_svg').style('opacity',0.70);
+        var change_view = {
+          'N_row_sum':inst_top,
+          'enr_score_type':enr_score_type
+        };
 
-      if (inst_top != 'all'){
-        d3.select('#'+filter_type).text('Top '+inst_top+' genes'); 
-      } else{
-        d3.select('#'+filter_type).text('All genes'); 
+        filter_name = 'N_row_sum';
+
+        d3.select('#main_svg').style('opacity',0.70);
+
+        if (inst_top != 'all'){
+          d3.select('#'+filter_type).text('Top '+inst_top+' genes'); 
+        } else{
+          d3.select('#'+filter_type).text('All genes'); 
+        }
+
+        $('.slider_filter').slider('disable');
+        d3.selectAll('.btn').attr('disabled',true);
+
+        cgm.update_network(change_view);
+
+        // ini_sliders();
+
+        function enable_slider(){
+          $('.slider_filter').slider('enable');  
+          d3.selectAll('.btn').attr('disabled',null);
+          global_lock = false;
+        }
+        setTimeout(enable_slider, 2500);
+
       }
-
-      $('.slider_filter').slider('disable');
-      d3.selectAll('.btn').attr('disabled',true);
-
-      cgm.update_network(change_view);
-
-      // ini_sliders();
-
-      function enable_slider(){
-        $('.slider_filter').slider('enable');  
-        d3.selectAll('.btn').attr('disabled',null);
-      }
-      setTimeout(enable_slider, 2500);
-
     }
   });
   $( "#amount" ).val( "$" + $( '#slider_'+filter_type ).slider( "value" ) );
