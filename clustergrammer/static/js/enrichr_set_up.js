@@ -196,9 +196,7 @@ function load_viz( viz_name, network_data ){
       // set this up: 'ini_view'
       arguments_obj.ini_view = { 'N_row_sum' : query_string.N_row_sum };
 
-      if (query_string.viz_type == 'Enrichr_clustergram'){
-        arguments_obj.ini_view.enr_score_type = 'combined_score';
-      }
+      arguments_obj.ini_view.enr_score_type = 'combined_score';
     }
 
 
@@ -209,12 +207,11 @@ function load_viz( viz_name, network_data ){
 
     }
 
-    if (query_string.viz_type === 'Enrichr_clustergram'){
-      arguments_obj.col_label_scale = 1.25;
-      arguments_obj.row_label_scale = 1.0;
-      arguments_obj.row_label = 'Input Genes';
-      arguments_obj.col_label = 'Enriched Terms';
-    }
+    // Enrichr specific parameters 
+    arguments_obj.col_label_scale = 1.25;
+    arguments_obj.row_label_scale = 1.0;
+    arguments_obj.row_label = 'Input Genes';
+    arguments_obj.col_label = 'Enriched Terms';
 
     if (ini_expand){
       d3.select('.footer_section').style('display','none');
@@ -572,7 +569,7 @@ function load_viz( viz_name, network_data ){
 
           d3.selectAll('.btn').attr('disabled',true);
           $('.slider_filter').slider('disable');
-          
+
           cgm.reorder(order_id,'row');
           function enable_slider(){
             // $('.slider_filter').slider('enable');  

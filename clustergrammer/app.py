@@ -403,7 +403,7 @@ def enrichr_clustergram():
     # define information return link - always the same link 
     ######################################
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/Enrichr/'
-    qs = '?preview=true&col_order=rank&row_order=clust&viz_type=Enrichr_clustergram&N_row_sum=20'
+    qs = '?preview=false&col_order=rank&row_order=clust&N_row_sum=20'
 
     # check if subprocess is finished 
     ###################################
