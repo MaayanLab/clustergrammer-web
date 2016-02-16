@@ -156,6 +156,7 @@
     <h3 class="first">API</h3>
     <p>Clustergrammer allows users to generate visualizations using a RESTful API. The API can be useful for a user that needs to generate many clustergrams or for developers that need to generate clustergrams automatically for their own applications. </p>
 
+    <h4>Matrix Upload</h4>
     <p>A user can post a matrix file to Clustergrammer using the endpoint </p>
 
 <pre>
@@ -173,6 +174,96 @@
   r = requests.post(upload_url, files={'file': open(filename, 'rb')})
 
   link = r.text
+
+
+</pre>
+
+<h4>Vector Upload</h4>
+<p>Users can also upload their data in a vector format usin the endpoint</p>
+  
+<pre>
+  http://amp.pharm.mssm.edu/clustergrammer/vector_upload/
+</pre>
+
+<p>The vector_upload endpoint takes the following format </p>
+
+<pre>
+{
+  "title": "your-title",
+  "filter": "N_row_sum", 
+  "columns": [
+    {
+      "col_name": "Col-1", 
+      "data": [
+        {
+          "val": -3.75104426282247, 
+          "row_name": "SJDRJ"
+        }, 
+        {
+          "val": 0, 
+          "row_name": "ENJSY"
+        }, 
+        {
+          "val": -5.178993339948121, 
+          "row_name": "DFFUY"
+        }, 
+        {
+          "val": 9.159388949061842, 
+          "row_name": "YYDUA"
+        }, 
+        {
+          "val": 0, 
+          "row_name": "ASAEU"
+        }
+      ], 
+      "cat": "brain"
+    }, 
+    {
+      "col_name": "Col-2", 
+      "data": [
+        {
+          "val": -1.9031365060851146, 
+          "row_name": "SJDRJ"
+        }, 
+        {
+          "val": 0, 
+          "row_name": "ENJSY"
+        }, 
+        {
+          "val": -3.851673685341636, 
+          "row_name": "DFFUY"
+        }, 
+        {
+          "val": 0.7520898384357599, 
+          "row_name": "YYDUA"
+        }
+      ], 
+      "cat": "brain"
+    }
+  ]
+}  
+</pre>
+
+<p>The category, "cat", keys in the json are optional. The "filter" key defines the 
+type of row-filtering that should be pre-calculated for the visualization.</p>
+
+<p>Below is an example in Python 2.7 showing the vector post request and how to obtain
+the permanent link from the response object.</p>
+
+<pre  class='prettyprint'>
+
+  import requests
+  import json 
+
+  upload_url = 'http://amp.pharm.mssm.edu/clustergrammer/vector_upload/'
+
+  r = requests.post(upload_url, json.dumps(vector_json))
+
+  response_json = json.loads(r.text)
+
+  link = response_json['link']
+
+  print(link)  
 
 
 </pre>
