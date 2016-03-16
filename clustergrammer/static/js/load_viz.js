@@ -108,7 +108,14 @@ function load_viz( viz_name, network_data ){
       margin_right = 1;
     }
 
+    // tmp set up margins for gen3va
     if (_.contains(['gen3va'],first_name)){
+      margin_bottom = 5;
+      margin_left = 165;
+      margin_right = 1;
+    }
+
+    if (_.contains(['harmonizome'],first_name)){
       margin_bottom = 5;
       margin_left = 165;
       margin_right = 1;
