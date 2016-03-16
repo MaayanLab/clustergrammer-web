@@ -165,7 +165,7 @@ def viz_harmonizome(user_objid, slug=None):
   d3_json = gnet['viz']
   viz_name = gnet['name']
 
-  return render_template('gen3va.html', viz_network=d3_json, viz_name=viz_name)
+  return render_template('harmonizome.html', viz_network=d3_json, viz_name=viz_name)
 
 @app.route("/clustergrammer/demo/<user_objid>")
 def demo(user_objid):
