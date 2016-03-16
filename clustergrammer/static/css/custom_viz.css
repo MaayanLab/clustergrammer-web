@@ -988,6 +988,10 @@ look like the input gene list text title*/
   margin-top: 9px
 }
 
+#picture_button:hover{
+  color:#333;
+}
+
 #share_button:hover{
   color:#333;
 }
