@@ -450,7 +450,7 @@ def enrichr_clustergram():
     return flask.jsonify({'link': viz_url+viz_id+qs})
 
   except:
-    print('here')
+    print('error making enrichr clustergram')
     error_desc = 'Error in processing Enrichr clustergram.'
 
     return flask.jsonify({
