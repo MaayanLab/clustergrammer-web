@@ -27,7 +27,7 @@ def add_routes(app=None):
     elif request.method == 'GET':
 
       ####################################################### 
-      # mock data 
+      # get enrichment data from Enrichr 
       ####################################################### 
 
       gmt = 'ChEA_2015'
@@ -77,82 +77,81 @@ def add_routes(app=None):
       enr_json['gmt'] = gmt
       enr_json['enr_list'] = response_list
 
-
       ####################################################### 
       ####################################################### 
 
       print('\n\nrunning mock enrichment through get request\n\n')
 
-    # try:  
+    try:  
 
-    print('making clust')
+      print('making clust')
 
-    # submit placeholder to mongo 
-    ################################
+      # submit placeholder to mongo 
+      ################################
 
-    # set up database connection 
-    client = MongoClient(mongo_address)
-    db = client.clustergrammer
+      # set up database connection 
+      client = MongoClient(mongo_address)
+      db = client.clustergrammer
 
-    # generate placeholder json - does not contain viz json 
-    export_viz = {}
-    export_viz['name'] = str(enr_json['userListId']) + '_' + enr_json['gmt']
-    export_viz['viz'] = 'processing'
-    export_viz['dat'] = 'processing'
-    export_viz['source'] = 'Enrichr_clustergram'
+      # generate placeholder json - does not contain viz json 
+      export_viz = {}
+      export_viz['name'] = str(enr_json['userListId']) + '_' + enr_json['gmt']
+      export_viz['viz'] = 'processing'
+      export_viz['dat'] = 'processing'
+      export_viz['source'] = 'Enrichr_clustergram'
 
-    # this is the id that will be used to view the visualization 
-    viz_id = db.networks.insert( export_viz )
-    viz_id = str(viz_id)
+      # this is the id that will be used to view the visualization 
+      viz_id = db.networks.insert( export_viz )
+      viz_id = str(viz_id)
 
-    # close database connection 
-    client.close()
-    
-    # initialize thread
-    ######################
-    print('initializing thread')
-    sub_function = enr_sub.Enrichr_cluster
-    arg_list = [mongo_address, viz_id, enr_json['enr_list']]
-    thread = threading.Thread(target=sub_function, args=arg_list)
-    thread.setDaemon(True)
+      # close database connection 
+      client.close()
+      
+      # initialize thread
+      ######################
+      print('initializing thread')
+      sub_function = enr_sub.Enrichr_cluster
+      arg_list = [mongo_address, viz_id, enr_json['enr_list']]
+      thread = threading.Thread(target=sub_function, args=arg_list)
+      thread.setDaemon(True)
 
-    # run subprocess 
-    ####################
-    print('running subprocess and pass in viz_id ')
-    thread.start()
+      # run subprocess 
+      ####################
+      print('running subprocess and pass in viz_id ')
+      thread.start()
 
-    # define information return link - always the same link 
-    ######################################
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/Enrichr/'
-    qs = '?preview=false&col_order=rank&row_order=clust&N_row_sum=20'
+      # define information return link - always the same link 
+      ######################################
+      viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/Enrichr/'
+      qs = '?preview=false&col_order=rank&row_order=clust&N_row_sum=20'
 
-    # check if subprocess is finished 
-    ###################################
-    max_wait_time = 30
-    print('check if subprocess is done')
-    for wait_time in range(max_wait_time):
+      # check if subprocess is finished 
+      ###################################
+      max_wait_time = 30
+      print('check if subprocess is done')
+      for wait_time in range(max_wait_time):
 
-      # wait one second 
-      time.sleep(1)
+        # wait one second 
+        time.sleep(1)
 
-      print('wait_time'+str(wait_time)+' '+str(thread.isAlive()))
+        print('wait_time'+str(wait_time)+' '+str(thread.isAlive()))
 
-      if thread.isAlive() == False:
+        if thread.isAlive() == False:
 
-        print('\n\nthread is dead\n----------\n')
-        
-        return flask.jsonify({'link': viz_url+viz_id+qs})
+          print('\n\nthread is dead\n----------\n')
+          
+          return flask.jsonify({'link': viz_url+viz_id+qs})
 
-    # return link after max time has elapsed 
-    return flask.jsonify({'link': viz_url+viz_id+qs})
+      # return link after max time has elapsed 
+      return flask.jsonify({'link': viz_url+viz_id+qs})
 
-    # except:
-    #   print('error making enrichr clustergram')
-    #   error_desc = 'Error in processing Enrichr clustergram.'
+    except:
+      print('error making enrichr clustergram')
+      error_desc = 'Error in processing Enrichr clustergram.'
 
-    #   return flask.jsonify({
-    #     'link': 'error'
-    #   })     
+      return flask.jsonify({
+        'link': 'error'
+      })     
 
 
   app.register_blueprint(enrichr_clust)
