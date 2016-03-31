@@ -33,8 +33,6 @@ def add_routes(app=None):
 
     try:  
 
-      print('making clust')
-
       # submit placeholder to mongo 
       ################################
 
@@ -69,8 +67,6 @@ def add_routes(app=None):
       print('running subprocess and pass in viz_id ')
       thread.start()
 
-      # define information return link - always the same link 
-      ######################################
       viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/Enrichr/'
       qs = '?preview=false&col_order=rank&row_order=clust&N_row_sum=20'
 

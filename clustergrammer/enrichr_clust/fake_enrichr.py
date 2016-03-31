@@ -1,10 +1,8 @@
 def fake_post():
+  ''' get enrichment list from Enrichr
+  ''' 
   import requests 
   import json 
-
-  ####################################################### 
-  # get enrichment data from Enrichr 
-  ####################################################### 
 
   gmt = 'ChEA_2015'
   userListId = 939279
@@ -52,10 +50,5 @@ def fake_post():
   enr_json['userListId'] = userListId
   enr_json['gmt'] = gmt
   enr_json['enr_list'] = response_list
-
-  ####################################################### 
-  ####################################################### 
-
-  print('\n\nrunning mock enrichment through get request\n\n')
 
   return enr_json
