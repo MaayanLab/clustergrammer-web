@@ -14,6 +14,8 @@ from bson import json_util
 from bson.json_util import dumps
 from flask.ext.cors import cross_origin
 
+import about
+
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
 
@@ -869,6 +871,8 @@ def proc_matrix_upload():
 def ccle():
   return render_template('ccle.html', flask_var='')
 
+
+about.add_routes(app)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
