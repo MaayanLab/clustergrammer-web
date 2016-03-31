@@ -14,7 +14,7 @@ from bson import json_util
 from bson.json_util import dumps
 from flask.ext.cors import cross_origin
 
-import about
+import viz_pages
 
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
@@ -69,106 +69,6 @@ def help():
 @app.route("/clustergrammer/error/<error_desc>")
 def render_error_page(error_desc):
   return render_template('error.html', error_desc=error_desc)
-
-@app.route("/clustergrammer/viz/<user_objid>")
-@app.route("/clustergrammer/viz/<user_objid>/<slug>")
-def viz(user_objid, slug=None):
-  import flask
-  from bson.objectid import ObjectId
-  from copy import deepcopy
-
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
-
-  try: 
-    obj_id = ObjectId(user_objid)
-  except:
-    error_desc = 'Invalid visualization Id.'
-    return redirect('/clustergrammer/error/'+error_desc)
-
-  gnet = db.networks.find_one({'_id': obj_id })
-
-  client.close()
-
-  d3_json = gnet['viz']
-  viz_name = gnet['name']
-
-  return render_template('viz.html', viz_network=d3_json, viz_name=viz_name)
-
-@app.route("/clustergrammer/Enrichr/<user_objid>")
-@app.route("/clustergrammer/Enrichr/<user_objid>/<slug>")
-def viz_Enrichr(user_objid, slug=None):
-  import flask
-  from bson.objectid import ObjectId
-  from copy import deepcopy
-
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
-
-  try: 
-    obj_id = ObjectId(user_objid)
-  except:
-    error_desc = 'Invalid visualization Id.'
-    return redirect('/clustergrammer/error/'+error_desc)
-
-  gnet = db.networks.find_one({'_id': obj_id })
-
-  client.close()
-
-  d3_json = gnet['viz']
-  viz_name = gnet['name']
-
-  return render_template('Enrichr.html', viz_network=d3_json, viz_name=viz_name)
-
-@app.route("/clustergrammer/gen3va/<user_objid>")
-@app.route("/clustergrammer/gen3va/<user_objid>/<slug>")
-def viz_gen3va(user_objid, slug=None):
-  import flask
-  from bson.objectid import ObjectId
-  from copy import deepcopy
-
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
-
-  try: 
-    obj_id = ObjectId(user_objid)
-  except:
-    error_desc = 'Invalid visualization Id.'
-    return redirect('/clustergrammer/error/'+error_desc)
-
-  gnet = db.networks.find_one({'_id': obj_id })
-
-  client.close()
-
-  d3_json = gnet['viz']
-  viz_name = gnet['name']
-
-  return render_template('gen3va.html', viz_network=d3_json, viz_name=viz_name)
-
-@app.route("/clustergrammer/harmonizome/<user_objid>")
-@app.route("/clustergrammer/harmonizome/<user_objid>/<slug>")
-def viz_harmonizome(user_objid, slug=None):
-  import flask
-  from bson.objectid import ObjectId
-  from copy import deepcopy
-
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
-
-  try: 
-    obj_id = ObjectId(user_objid)
-  except:
-    error_desc = 'Invalid visualization Id.'
-    return redirect('/clustergrammer/error/'+error_desc)
-
-  gnet = db.networks.find_one({'_id': obj_id })
-
-  client.close()
-
-  d3_json = gnet['viz']
-  viz_name = gnet['name']
-
-  return render_template('harmonizome.html', viz_network=d3_json, viz_name=viz_name)
 
 @app.route("/clustergrammer/demo/<user_objid>")
 def demo(user_objid):
@@ -636,8 +536,6 @@ def proc_vector_upload():
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
     }) 
 
-
-
 # l1000cds2 post 
 ############################
 @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
@@ -872,7 +770,7 @@ def ccle():
   return render_template('ccle.html', flask_var='')
 
 
-about.add_routes(app)
+viz_pages.add_routes(app)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
