@@ -15,6 +15,7 @@ from bson.json_util import dumps
 from flask.ext.cors import cross_origin
 
 import viz_pages
+import home_page
 
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
@@ -55,16 +56,11 @@ def allowed_file(filename):
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
-@app.route("/clustergrammer/")
-@app.route("/Clustergrammer/")
-@app.route("/CLUSTERGRAMMER/")
-def index():
-  return render_template('index.html')
+
 
 @app.route("/clustergrammer/help")
 def help():
   return render_template('help.html')  
-
 
 @app.route("/clustergrammer/error/<error_desc>")
 def render_error_page(error_desc):
@@ -770,7 +766,10 @@ def ccle():
   return render_template('ccle.html', flask_var='')
 
 
+home_page.add_routes(app)
+
 viz_pages.add_routes(app)
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

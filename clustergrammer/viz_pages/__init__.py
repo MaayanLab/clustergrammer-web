@@ -3,12 +3,8 @@ from pymongo import MongoClient
 mongo_address = '146.203.54.165'
 
 def add_routes(app=None):
-  viz_page = Blueprint('about',__name__, static_url_path='/about/static', static_folder='./static', template_folder='./templates')
-
-  @viz_page.route('/clustergrammer/about')
-  def about():
-    return render_template('about.html')
-
+  viz_page = Blueprint('viz_pages',__name__, static_url_path='/viz_pages/static', 
+    static_folder='./static', template_folder='./templates')
   @viz_page.route("/clustergrammer/viz/<user_objid>")
   @viz_page.route("/clustergrammer/viz/<user_objid>/<slug>")
   def viz(user_objid, slug=None):
