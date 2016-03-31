@@ -15,7 +15,8 @@ from bson.json_util import dumps
 from flask.ext.cors import cross_origin
 
 import viz_pages
-import home_page
+import home_pages
+import demo_pages
 
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
@@ -56,39 +57,9 @@ def allowed_file(filename):
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
-
-
-@app.route("/clustergrammer/help")
-def help():
-  return render_template('help.html')  
-
 @app.route("/clustergrammer/error/<error_desc>")
 def render_error_page(error_desc):
   return render_template('error.html', error_desc=error_desc)
-
-@app.route("/clustergrammer/demo/<user_objid>")
-def demo(user_objid):
-  import flask
-  from bson.objectid import ObjectId
-  from copy import deepcopy
-
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
-
-  try: 
-    obj_id = ObjectId(user_objid)
-  except:
-    error_desc = 'Invalid visualization Id.'
-    return redirect('/clustergrammer/error/'+error_desc)
-
-  gnet = db.networks.find_one({'_id': obj_id })
-
-  client.close()
-
-  d3_json = gnet['viz']
-  viz_name = gnet['name']
-
-  return render_template('demo.html', viz_network=d3_json, viz_name=viz_name)  
 
 @app.route("/clustergrammer/load_Enrichr_gene_lists", methods=['POST','GET'])
 @cross_origin()
@@ -356,7 +327,6 @@ def enrichr_clustergram():
       'link': 'error'
     })   
 
-
 @app.route('/clustergrammer/status_check/<user_objid>')
 def status_check(user_objid):
   import flask
@@ -389,7 +359,6 @@ def status_check(user_objid):
     inst_status = 'finished'
     
   return inst_status
-
 
 @app.route("/clustergrammer/l1000cds2/<user_objid>")
 def viz_l1000cds2(user_objid):
@@ -756,19 +725,9 @@ def proc_matrix_upload():
       return error_desc
 
 
-@app.route("/clustergrammer/CCLE")
-@app.route("/Clustergrammer/CCLE")
-@app.route("/CLUSTERGRAMMER/CCLE")
-@app.route("/clustergrammer/CCLE/")
-@app.route("/Clustergrammer/CCLE/")
-@app.route("/CLUSTERGRAMMER/CCLE/")
-def ccle():
-  return render_template('ccle.html', flask_var='')
-
-
-home_page.add_routes(app)
-
+home_pages.add_routes(app)
 viz_pages.add_routes(app)
+demo_pages.add_routes(app)
 
 
 if __name__ == "__main__":
