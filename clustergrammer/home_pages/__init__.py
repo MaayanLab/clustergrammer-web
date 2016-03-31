@@ -20,4 +20,8 @@ def add_routes(app=None):
   def ccle():
     return render_template('ccle.html', flask_var='')
 
+  @home_pages.route("/clustergrammer/error/<error_desc>")
+  def render_error_page(error_desc):
+    return render_template('error.html', error_desc=error_desc)
+
   app.register_blueprint(home_pages)
