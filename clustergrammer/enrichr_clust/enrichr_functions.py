@@ -143,49 +143,76 @@ def enrichr_clust_from_response(response_list):
   scores = {}
   score_types = ['combined_score','pval','zscore']
 
-  for inst_score_type in score_types:
-    scores[inst_score_type] = pd.Series()
+  for score_type in score_types:
+    scores[score_type] = pd.Series()
 
   for inst_enr in ini_enr:
     if inst_enr['combined_score'] > 0:
 
       # make series of enriched terms with scores 
-      for inst_score_type in score_types:
+      for score_type in score_types:
 
         # collect the scores of the enriched terms 
-        if inst_score_type == 'combined_score':
-          scores[inst_score_type][inst_enr['name']] = inst_enr[inst_score_type]
-        if inst_score_type == 'pval':
-          scores[inst_score_type][inst_enr['name']] = -math.log(inst_enr[inst_score_type])
-        if inst_score_type == 'zscore':
-          scores[inst_score_type][inst_enr['name']] = -inst_enr[inst_score_type]
+        if score_type == 'combined_score':
+          scores[score_type][inst_enr['name']] = inst_enr[score_type]
+        if score_type == 'pval':
+          scores[score_type][inst_enr['name']] = -math.log(inst_enr[score_type])
+        if score_type == 'zscore':
+          scores[score_type][inst_enr['name']] = -inst_enr[score_type]
 
       # keep enrichement values 
       enr.append(inst_enr)
 
   # sort and normalize the scores 
-  for inst_score_type in score_types:
-    scores[inst_score_type] = scores[inst_score_type]/scores[inst_score_type].max()
-    scores[inst_score_type].sort(ascending=False)
+  for score_type in score_types:
+    scores[score_type] = scores[score_type]/scores[score_type].max()
+    scores[score_type].sort(ascending=False)
+
+  print('\n************* number of enriched terms')
+  print(len(scores['combined_score']))
+  print(scores['combined_score'])
+
+  number_of_enriched_terms = len(scores['combined_score'])
+
+  enr_score_types = ['combined_score','pval','zscore']
+
+  if number_of_enriched_terms <10:
+    num_dict = {'ten':10}
+  elif number_of_enriched_terms <20:
+    num_dict = {'ten':10, 'twenty':20}
+  else:
+    num_dict = {'ten':10, 'twenty':20, 'thirty':30}
+
+
 
   # gather lists of top scores 
   top_terms = {}
-  top_terms['combined_score'] = scores['combined_score'].index.tolist()[:10]
-  top_terms['pval'] = scores['pval'].index.tolist()[:10]
-  top_terms['zscore'] = scores['zscore'].index.tolist()[:10]
+  for enr_type in enr_score_types:
+    top_terms[enr_type] = {}
+    for num_terms in num_dict.keys():
+      inst_num = num_dict[num_terms]   
+      top_terms[enr_type][num_terms] = scores[enr_type].index.tolist()[: inst_num]
 
-  print('\ncombined_score')
-  print(scores['combined_score'][:10])
+  # top_terms['combined_score'] = scores['combined_score'].index.tolist()[:max_terms]
+  # top_terms['pval'] = scores['pval'].index.tolist()[:max_terms]
+  # top_terms['zscore'] = scores['zscore'].index.tolist()[:max_terms]
 
-  print('\npval')
-  print(scores['pval'][:10])
+  # print('\ncombined_score')
+  # print(scores['combined_score'][:10])
 
-  print('\nzscore')
-  print(scores['zscore'][:10])
+  # print('\npval')
+  # print(scores['pval'][:10])
+
+  # print('\nzscore')
+  # print(scores['zscore'][:10])
 
   # gather the terms that should be kept - they are at the top of the score list
-  keep_terms = top_terms['combined_score'] + \
-  top_terms['pval'] + top_terms['zscore']
+  keep_terms = []
+  for inst_enr_score in top_terms:
+    for tmp_num in num_dict.keys():
+      keep_terms.extend( top_terms[inst_enr_score][tmp_num] )
+
+  print(keep_terms)
 
   keep_terms = list(set(keep_terms))
 
@@ -233,14 +260,13 @@ def enrichr_clust_from_response(response_list):
 
   # cluster full matrix 
   #############################
-  # do not make multiple views 
+  # do not make multiple views
   views = ['']
 
-  print('\n\n\n')  
-  print('net nodes')
-  print(net.dat['nodes']['row'])
-  print('\n\n\n')  
-
+  # print('\n\n\n')  
+  # print('net nodes')
+  # print(net.dat['nodes']['row'])
+  # print('\n\n\n')  
 
   if len(net.dat['nodes']['row']) > 1:
     net.make_filtered_views(dist_type='jaccard', views=views, dendro=False)
@@ -250,42 +276,46 @@ def enrichr_clust_from_response(response_list):
   # get dataframe from full matrix 
   df = net.dat_to_df()
 
-  for inst_score_type in score_types:
+  for score_type in score_types:
 
-    inst_df = deepcopy(df)
-    inst_net = deepcopy(Network())
+    for num_terms in num_dict:
 
-    inst_df['mat'] = inst_df['mat'][top_terms[inst_score_type]]
+      inst_df = deepcopy(df)
+      inst_net = deepcopy(Network())
 
-    print('\n\n'+inst_score_type)
-    print(inst_df['mat'].shape)
-    print(top_terms[inst_score_type])
+      inst_df['mat'] = inst_df['mat'][top_terms[score_type][num_terms]]
 
-    # load back into net 
-    inst_net.df_to_dat(inst_df)
+      # print('\n\n'+score_type)
+      # print(inst_df['mat'].shape)
+      # print(top_terms[score_type])
 
-    # make views 
-    if len(net.dat['nodes']['row']) > 1:
-      inst_net.make_filtered_views(dist_type='jaccard', views=['N_row_sum'], dendro=False)
-    else:
-      inst_net.make_filtered_views(dist_type='jaccard', views=['N_row_sum'], dendro=False, run_clustering = False)
+      # load back into net 
+      inst_net.df_to_dat(inst_df)
 
-    inst_views = inst_net.viz['views']
+      # make views 
+      if len(net.dat['nodes']['row']) > 1:
+        inst_net.make_filtered_views(dist_type='jaccard', views=['N_row_sum'], dendro=False)
+      else:
+        inst_net.make_filtered_views(dist_type='jaccard', views=['N_row_sum'], dendro=False, run_clustering = False)
 
-    # add score_type to views 
-    for inst_view in inst_views:
-      inst_view['enr_score_type'] = inst_score_type
+      inst_views = inst_net.viz['views']
 
-      # add values to col_nodes and order according to rank 
-      for inst_col in inst_view['nodes']['col_nodes']:
+      # add score_type to views 
+      for inst_view in inst_views:
 
-        inst_col['rank'] = len(top_terms[inst_score_type]) - \
-        top_terms[inst_score_type].index(inst_col['name'])
-        
-        inst_name = inst_col['name']
-        inst_col['value'] = scores[inst_score_type][inst_name]
+        inst_view['N_col_sum'] = num_dict[num_terms]
 
-    # add views to main network 
-    net.viz['views'].extend(inst_views)
+        inst_view['enr_score_type'] = score_type
+
+        # add values to col_nodes and order according to rank 
+        for inst_col in inst_view['nodes']['col_nodes']:
+
+          inst_col['rank'] = len(top_terms[score_type][num_terms]) - top_terms[score_type][num_terms].index(inst_col['name'])
+          
+          inst_name = inst_col['name']
+          inst_col['value'] = scores[score_type][inst_name]
+
+      # add views to main network 
+      net.viz['views'].extend(inst_views)
 
   return net  
