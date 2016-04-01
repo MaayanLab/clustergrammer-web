@@ -55,6 +55,29 @@ function load_viz_new(network_data){
 
   cgm = Clustergrammer(arguments_obj);
 
+  _.each(['row','col'], function(inst_rc){
+
+    d3.select('.toggle_'+inst_rc+'_order')
+      .classed('btn-group-vertical',false)
+      .classed('btn-group',true)
+      .selectAll('button')
+      .style('width','68px')
+      .text(function(){
+        var inst_text = d3.select(this).text();
+        inst_text = inst_text.replace('Rank by','');
+        return inst_text;
+      });
+
+    d3.select('.toggle_'+inst_rc+'_order')
+
+  });
+
+  d3.select('.submit_gene_button')
+    .style('padding-top','7px');
+
+  d3.select('.gene_search_box')
+    .style('width','65px');
+
   // arguments_obj.root = '#container-id-2';
 
   // cgm = Clustergrammer(arguments_obj);
