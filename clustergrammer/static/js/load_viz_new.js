@@ -2,15 +2,15 @@ function load_viz_new(network_data){
 
   var outer_margins = {
       'top':5,
-      'bottom':33,
+      'bottom':5,
       'left':195,
       'right':2
     };
 
   var outer_margins_expand = {
       'top':5,
-      'bottom':33,
-      'left':5,
+      'bottom':5,
+      'left':5, 
       'right':2
     };
 
@@ -49,8 +49,8 @@ function load_viz_new(network_data){
     // 'size':viz_size
     // 'order':'rank'
     // 'row_order':'clust'
-    // 'col_order':'rank',
-    // 'ini_view':{'N_row_sum':'40', 'N_col_sum':'10'}
+    'col_order':'rank',
+    'ini_view':{'N_row_sum':'40', 'N_col_sum':'10'}
     // 'current_col_cat':'category-one'
   };
 
