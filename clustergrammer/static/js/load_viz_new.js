@@ -78,6 +78,10 @@ function load_viz_new(network_data){
   d3.select('.gene_search_box')
     .style('width','65px');
 
+  d3.selectAll('.btn')
+    .style('padding-top','3px')
+    .style('padding-bottom','3px');
+
   // arguments_obj.root = '#container-id-2';
 
   // cgm = Clustergrammer(arguments_obj);
