@@ -19,6 +19,8 @@ function load_viz_new(network_data){
     'height':600
   };
 
+  about_string = 'Enriched Terms are the columns, input genes are the rows, adn cells in the matrix indicate if a gene is associated with a term.';
+
   // define arguments object
   var arguments_obj = {
     root: '#container-id-1',
@@ -40,7 +42,7 @@ function load_viz_new(network_data){
     // 'row_label_scale':0.8
     // 'force_square':1
     // 'opacity_scale':'log',
-    // 'input_domain':2,
+    'input_domain':2,
     // 'do_zoom':false,
     // 'tile_colors':['#ED9124','#1C86EE'],
     // 'background_color':'orange',
@@ -50,8 +52,10 @@ function load_viz_new(network_data){
     // 'order':'rank'
     // 'row_order':'clust'
     'col_order':'rank',
-    'ini_view':{'N_row_sum':'25', 'N_col_sum':'10'}
+    'ini_view':{'N_row_sum':'25', 'N_col_sum':'10'},
     // 'current_col_cat':'category-one'
+    // 'title':'Clustergrammer',
+    'about':about_string
   };
 
   cgm = Clustergrammer(arguments_obj);

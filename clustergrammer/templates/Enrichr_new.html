@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
     <link rel="stylesheet" href="static/css/specific.css" />
     <link rel="stylesheet" href="static/css/jquery.accordion.css">
-    <link rel="stylesheet" href="static/css/Enrichr.css">
+    <link rel="stylesheet" href="static/css/Enrichr_new.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
@@ -105,7 +105,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Save a snapshot of the visualization:</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body"
           <!-- <input id='share_url' class='bootstrap_highlight'></input> -->
           <div id='download_buttons'></div>
         </div>
@@ -151,10 +151,6 @@
 
   // add Enrichr to viz_name 
   viz_name = 'Enrichr_'+viz_name;
-
-  // var cgm = load_viz(viz_name, network_data);
-
-  // enrichr_set_up(cgm, network_data);
 
   load_viz_new(network_data);
 
