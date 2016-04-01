@@ -11,10 +11,7 @@ import enrichr_functions as enr_fun
 
 import fake_enrichr 
 
-
-mongo_address = '146.203.54.165'
-
-def add_routes(app=None):
+def add_routes(app=None, mongo_address=None):
 
   print('\n\n\nEnrichr_cluster\n\n\n')
 

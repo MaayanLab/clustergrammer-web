@@ -26,11 +26,11 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# # local
-# mongo_address = '10.90.122.218'
+# local
+mongo_address = '192.168.1.5'
 
-# lab 
-mongo_address = '146.203.54.165'
+# # lab 
+# mongo_address = '146.203.54.165'
 
 ##########################################
 # switch for local and docker development 
@@ -57,127 +57,6 @@ def allowed_file(filename):
 @app.route(ENTRY_POINT + '/<path:path>') 
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
-
-@app.route("/clustergrammer/load_Enrichr_gene_lists", methods=['POST','GET'])
-@cross_origin()
-def enrichment_vectors():
-  import requests 
-  import flask 
-  import json 
-  from pymongo import MongoClient
-  import threading 
-  import time 
-  import run_enrich_background as enr_sub
-
-  if request.method == 'POST':
-    g2e_post = json.loads(request.data)
-
-  elif request.method == 'GET':
-
-    ####################################################### 
-    # mock data 
-    ####################################################### 
-    g2e_post = {
-      "viz_title":"Aging-Study",
-      "background_type": "ChEA_2015",
-      "signature_ids": [
-        {
-          "enr_id_up": "949840",
-          "col_title": "Age effect on lipopolysaccharide-induced neuroinflammation and sickness behavior",
-          "enr_id_dn": "949841"
-        },
-        {
-          "enr_id_up": "949842",
-          "col_title": "Age effect on lipopolysaccharide-induced neuroinflammation and sickness behavior 2",
-          "enr_id_dn": "949843"
-        },
-        {
-          "enr_id_up": "949844",
-          "col_title": "Age effect on extraocular muscles",
-          "enr_id_dn": "949845"
-        },
-        {
-          "enr_id_up": "949846",
-          "col_title": "Age effect on extraocular muscles 2",
-          "enr_id_dn": "949847"
-        }
-      ]
-    }
-
-
-    ####################################################### 
-    ####################################################### 
-
-    print('\n\nGET: running mock enrichment through get request')
-
-  try:  
-
-    # submit placeholder to mongo 
-    ################################
-    export_viz = {}
-    if 'viz_title' in g2e_post:
-      export_viz['name'] = g2e_post['viz_title']
-    else:
-      export_viz['name'] = 'enrichment_vector'
-    export_viz['viz'] = 'processing'
-    export_viz['dat'] = 'processing'
-    export_viz['source'] = 'g2e_enr_vect'
-    export_viz['post'] = g2e_post
-
-    # set up database connection 
-    client = MongoClient(mongo_address)
-    db = client.clustergrammer
-
-    # this is the id that will be used to view the visualization 
-    viz_id = db.networks.insert( export_viz )
-    viz_id = str(viz_id)
-
-    client.close()
-    
-    # initialize thread
-    ######################
-    sub_function = enr_sub.make_enr_vect_clust
-    arg_list = [mongo_address, viz_id, g2e_post]
-    thread = threading.Thread(target=sub_function, args=arg_list)
-    thread.setDaemon(True)
-
-    # run subprocess 
-    ####################
-    print('\n\n----------------------------------------------------')
-    print(export_viz['name'] + ': Starting enr_vect_clust subprocess: ' )
-    print('----------------------------------------------------\n')
-    thread.start()
-
-    # define information return link - always the same link 
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-    inst_name = '/'+export_viz['name']
-
-
-    # check if subprocess is finished 
-    ###################################
-    max_wait_time = 30
-    for wait_time in range(max_wait_time):
-
-      # wait one second 
-      time.sleep(1)
-
-      print('\twaiting '+str(wait_time)+' is alive '+str(thread.isAlive()))
-
-      if thread.isAlive() == False:
-
-        print('thread is finished')
-        
-        return flask.jsonify({'link': viz_url+viz_id+inst_name})
-
-    # return link after max time has elapsed 
-    return flask.jsonify({'link': viz_url+viz_id+inst_name})
-
-  except:
-    error_desc = 'Error in processing Enrichr enrichment vectors.'
-
-    return flask.jsonify({
-      'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-    }) 
 
 @app.route('/clustergrammer/status_check/<user_objid>')
 def status_check(user_objid):
@@ -571,9 +450,9 @@ def proc_matrix_upload():
       return error_desc
 
 home_pages.add_routes(app)
-viz_pages.add_routes(app)
+viz_pages.add_routes(app, mongo_address)
 demo_pages.add_routes(app)
-enrichr_clust.add_routes(app)
+enrichr_clust.add_routes(app, mongo_address)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

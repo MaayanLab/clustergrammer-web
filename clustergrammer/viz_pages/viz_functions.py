@@ -2,9 +2,7 @@ from flask import render_template, redirect
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 
-mongo_address = '146.203.54.165'
-
-def get_network_from_mongo(user_objid):
+def get_network_from_mongo(user_objid, mongo_address):
   client = MongoClient(mongo_address)
   db = client.clustergrammer
 
