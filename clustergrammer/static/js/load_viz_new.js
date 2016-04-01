@@ -7,13 +7,6 @@ function load_viz_new(network_data){
       'right':2
     };
 
-  var outer_margins_expand = {
-      'top':5,
-      'bottom':5,
-      'left':5, 
-      'right':2
-    };
-
   var viz_size = {
     'width':1000,
     'height':600
@@ -28,7 +21,6 @@ function load_viz_new(network_data){
     'row_label':'Row Title',
     'col_label':'Colum Title',
     'outer_margins': outer_margins,
-    'outer_margins_expand': outer_margins_expand,
     // 'outline_colors':['black','yellow'],
     // 'tile_click_hlight':true,
     'show_label_tooltips':true,
@@ -42,9 +34,11 @@ function load_viz_new(network_data){
     // 'row_label_scale':0.8
     // 'force_square':1
     // 'opacity_scale':'log',
-    'input_domain':2,
+    // 'input_domain':2,
     // 'do_zoom':false,
     // 'tile_colors':['#ED9124','#1C86EE'],
+    'bar_colors':['#ff6666','#1C86EE'],
+    'tile_colors':['#ff6666','#1C86EE'],
     // 'background_color':'orange',
     // 'tile_title': true,
     // 'click_group': click_group_callback,
@@ -55,7 +49,8 @@ function load_viz_new(network_data){
     'ini_view':{'N_row_sum':'25', 'N_col_sum':'10'},
     // 'current_col_cat':'category-one'
     // 'title':'Clustergrammer',
-    'about':about_string
+    'about':about_string,
+    'sidebar_width':150,
   };
 
   cgm = Clustergrammer(arguments_obj);

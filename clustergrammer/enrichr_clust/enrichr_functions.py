@@ -168,9 +168,9 @@ def enrichr_clust_from_response(response_list):
     scores[score_type] = scores[score_type]/scores[score_type].max()
     scores[score_type].sort(ascending=False)
 
-  print('\n************* number of enriched terms')
-  print(len(scores['combined_score']))
-  print(scores['combined_score'])
+  # print('\n************* number of enriched terms')
+  # print(len(scores['combined_score']))
+  # print(scores['combined_score'])
 
   number_of_enriched_terms = len(scores['combined_score'])
 
@@ -212,7 +212,7 @@ def enrichr_clust_from_response(response_list):
     for tmp_num in num_dict.keys():
       keep_terms.extend( top_terms[inst_enr_score][tmp_num] )
 
-  print(keep_terms)
+  # print(keep_terms)
 
   keep_terms = list(set(keep_terms))
 
