@@ -319,7 +319,7 @@ class Network(object):
     from copy import deepcopy 
 
     copy_net = deepcopy(self)
-    keep_top = ['all',500,400,300,200,100,80,60,40,20,10]
+    keep_top = ['all',100,50,25,10]
     df_abs = deepcopy(df['mat'])
     df_abs = df_abs.transpose()
 
