@@ -18,8 +18,8 @@ function load_viz_new(network_data){
   var arguments_obj = {
     root: '#container-id-1',
     'network_data': network_data,
-    'row_label':'Row Title',
-    'col_label':'Colum Title',
+    'row_label':'Input Genes',
+    'col_label':'Enriched Terms',
     'outer_margins': outer_margins,
     // 'outline_colors':['black','yellow'],
     // 'tile_click_hlight':true,
@@ -51,6 +51,7 @@ function load_viz_new(network_data){
     // 'title':'Clustergrammer',
     'about':about_string,
     'sidebar_width':150,
+    'row_search_placeholder':'Gene'
   };
 
   cgm = Clustergrammer(arguments_obj);
