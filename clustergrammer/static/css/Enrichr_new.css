@@ -83,9 +83,9 @@ li {
   /*width: 680px;*/
 }
 
-a {
+/*a {
   color: steelblue;
-}
+}*/
 
 a:not(:hover) {
   text-decoration: none;
@@ -958,15 +958,15 @@ look like the input gene list text title*/
   margin:auto;
 }
 
-#help_link{
+/*#help_link{
   font-size: 30px;
   margin-left: 5px;
   color:#337ab7;
-}
+}*/
 
-#help_link:hover{
+/*#help_link:hover{
   color:#333;
-}
+}*/
 
 #help_container{
   float:left;
