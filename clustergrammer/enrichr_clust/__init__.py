@@ -65,7 +65,7 @@ def add_routes(app=None, mongo_address=None):
       print('running subprocess and pass in viz_id ')
       thread.start()
 
-      viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/Enrichr/'
+      viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/Enrichr_new/'
       qs = '?preview=false&col_order=rank&row_order=clust&N_row_sum=20'
 
       # check if subprocess is finished 
