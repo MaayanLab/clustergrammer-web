@@ -1007,6 +1007,7 @@ look like the input gene list text title*/
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
   -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(82, 168, 236, 0.6);
+  width: 550px;
 }
 
 .clear_float{
@@ -1039,7 +1040,7 @@ look like the input gene list text title*/
 #slider_N_row_sum_enr {width: 115px; margin-left: 12px}
 
 .viz_medium_text {
-  margin-top: 7px;
+  margin-top: 1px;
   margin-bottom: 2px;
   font-family: 'Droid Sans', sans-serif;
   font-size: 14px;
@@ -1099,4 +1100,8 @@ look like the input gene list text title*/
 
 .btn.disabled.active, .btn[disabled].active {
   background-color: #A9A9A9; 
+}
+
+.clustergrammer_logo{
+  width:210px;
 }
