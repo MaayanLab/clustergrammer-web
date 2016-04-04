@@ -59,32 +59,6 @@ def allowed_file(filename):
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
-@app.route("/clustergrammer/l1000cds2/<user_objid>")
-def viz_l1000cds2(user_objid):
-  import flask
-  from bson.objectid import ObjectId
-  from copy import deepcopy
-
-  # set up connection 
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
-
-  try: 
-    obj_id = ObjectId(user_objid)
-  except:
-    error_desc = 'Invalid L1000CDS2 visualization ID '
-    return redirect('/clustergrammer/error/'+error_desc)
-
-  gnet = db.networks.find_one({'_id': ObjectId(user_objid) })
-
-  # close connection 
-  client.close()
-  d3_json = gnet['viz']
-
-  print('\n\nloading from mongodb\n##################\n')
-
-  return render_template('l1000cds2.html', viz_network=d3_json)
-
 @app.route('/clustergrammer/vector_upload/', methods=['POST'])
 @cross_origin()
 def proc_vector_upload():
@@ -204,49 +178,37 @@ def l1000cds2_upload():
   from pymongo import MongoClient
   from bson.objectid import ObjectId
 
-  # get the json 
   l1000cds2 = json.loads( request.form.get('signatures') )
 
-  # initialize network 
   net = Network()
 
-  # load l1000cds2 to .dat 
   net.load_l1000cds2(l1000cds2)
 
-  # cluster 
   cutoff_comp = 0
   min_num_comp = 2
   net.cluster_row_and_col(dist_type='cosine', dendro=True)  
 
-  # redefine initial ordering - rank by gene signature values and pert scores 
   net.dat['node_info']['row']['ini'] = net.sort_rank_node_values('row')
   net.dat['node_info']['col']['ini'] = net.sort_rank_node_values('col')
   net.viz = {}
   net.viz['row_nodes'] = []
   net.viz['col_nodes'] = []
   net.viz['links'] = []
-  # remake visualization 
   net.viz_json()
 
-  # generate export dictionary 
-  ###############################
   export_dict = {}
   export_dict['name'] = 'l1000cds2'
   export_dict['dat'] = net.export_net_json('dat')
   export_dict['viz'] = net.viz
   export_dict['_id'] = ObjectId(l1000cds2['_id'])
  
-  # set up connection 
   client = MongoClient(mongo_address)
   db = client.clustergrammer
 
-  # save to database 
-  ##################################
   tmp = db.networks.find_one({'_id': ObjectId(l1000cds2['_id']) })
   if tmp is None:
     tmp_id = db.networks.insert( export_dict ) 
 
-  # close client
   client.close()
 
   return redirect('/clustergrammer/l1000cds2/'+l1000cds2['_id'])

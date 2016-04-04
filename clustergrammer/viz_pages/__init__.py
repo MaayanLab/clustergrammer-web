@@ -36,4 +36,11 @@ def add_routes(app=None, mongo_address=None):
     net = viz_fun.get_network_from_mongo(user_objid, mongo_address)
     return viz_fun.render_page(net, 'harmonizome.html')
 
+  @viz_page.route("/clustergrammer/l1000cds2/<user_objid>")
+  @viz_page.route("/clustergrammer/l1000cds2/<user_objid>/<slug>")
+  def viz_l1000cds2(user_objid, slug=None):
+    
+    net = viz_fun.get_network_from_mongo(user_objid, mongo_address)
+    return viz_fun.render_page(net, 'l1000cds2.html')
+
   app.register_blueprint(viz_page)
