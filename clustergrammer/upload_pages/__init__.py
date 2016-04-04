@@ -46,7 +46,7 @@ def add_routes(app=None, mongo_address=None):
 
       if allowed_file(inst_filename):
 
-        thread, viz_id = run_load_tsv.main(mongo_address, inst_filename, buff)
+        thread, viz_id = run_load_tsv.upload(mongo_address, inst_filename, buff)
 
         max_wait_time = 15
         for wait_time in range(max_wait_time):
@@ -55,9 +55,9 @@ def add_routes(app=None, mongo_address=None):
 
           if thread.isAlive() == False:
 
-            return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
+            return run_load_tsv.response(viz_id, inst_filename, response_type='redirect')
 
-        return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
+        return run_load_tsv.response(viz_id, inst_filename, response_type='redirect')
 
       else:
         
@@ -77,7 +77,7 @@ def add_routes(app=None, mongo_address=None):
 
       if allowed_file(inst_filename):
 
-        thread, viz_id = run_load_tsv.main(mongo_address, inst_filename, buff)
+        thread, viz_id = run_load_tsv.upload(mongo_address, inst_filename, buff)
 
         max_wait_time = 15
         for wait_time in range(max_wait_time):
@@ -85,9 +85,9 @@ def add_routes(app=None, mongo_address=None):
           time.sleep(1)
 
           if thread.isAlive() == False:
-            return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
+            return run_load_tsv.response(viz_id, inst_filename, response_type='link')
 
-        return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
+        return run_load_tsv.response(viz_id, inst_filename, response_type='link')
 
       else:
 

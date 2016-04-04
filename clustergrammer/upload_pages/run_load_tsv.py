@@ -1,4 +1,4 @@
-def main(mongo_address, inst_filename, buff):
+def upload(mongo_address, inst_filename, buff):
   from pymongo import MongoClient
   import threading
   import load_tsv_file
@@ -28,10 +28,19 @@ def main(mongo_address, inst_filename, buff):
   return thread, viz_id
 
 def upload_error(inst_filename):
-  
+
   if len(inst_filename) > 0:
     error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
   else:
     error_desc = 'Please choose a file to upload.'
 
   return error_desc  
+
+def response(viz_id, inst_filename, response_type='redirect'):
+  from flask import redirect
+
+  if response_type == 'redirect':
+    return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
+
+  elif response_type == 'link':
+    return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
