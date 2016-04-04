@@ -16,49 +16,19 @@ def add_routes(app=None, mongo_address=None):
   @upload_pages.route('/clustergrammer/Enrichr_clustergram', methods=['POST','GET'])
   @cross_origin()
   def enrichr_clustergram():
-
     return enr_clust_endpoint.main(mongo_address)
 
   @upload_pages.route('/clustergrammer/vector_upload/', methods=['POST'])
   @cross_origin()
   def proc_vector_upload():
-
     return vector_upload_fun.main(mongo_address)
 
   @upload_pages.route('/clustergrammer/upload_network/', methods=['POST'])
   def upload_network():
-    import flask 
-
     return run_load_tsv.main(mongo_address, response_type='redirect')
 
   @upload_pages.route('/clustergrammer/matrix_upload/', methods=['POST'])
   def proc_matrix_upload():
-    import flask 
-    import StringIO
-    import time
-
-    if request.method == 'POST':
-
-      req_file = flask.request.files['file']
-      buff = StringIO.StringIO(req_file.read())
-      inst_filename = req_file.filename 
-
-      if allowed_file(inst_filename):
-
-        thread, viz_id = run_load_tsv.upload(mongo_address, inst_filename, buff)
-
-        max_wait_time = 15
-        for wait_time in range(max_wait_time):
-
-          time.sleep(1)
-
-          if thread.isAlive() == False:
-            return run_load_tsv.response(viz_id, inst_filename, response_type='link')
-
-        return run_load_tsv.response(viz_id, inst_filename, response_type='link')
-
-      else:
-
-        return run_load_tsv.upload_error()
+    return run_load_tsv.main(mongo_address, response_type='link')
 
   app.register_blueprint(upload_pages)
