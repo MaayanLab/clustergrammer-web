@@ -14,31 +14,31 @@ def Enrichr_cluster(mongo_address, viz_id, enr_list):
   # get placeholder viz data 
   found_viz = db.networks.find_one({'_id': viz_id })
 
-  # # try to get enr and make clustergram 
-  # try:
+  # try to get enr and make clustergram 
+  try:
 
-  # make clustergram 
-  threshold = 0.001
-  num_thresh = 1
-  # get results from Enrichr and make clustergram netowrk object 
-  net = enr_fun.enrichr_clust_from_response(enr_list)
+    # make clustergram 
+    threshold = 0.001
+    num_thresh = 1
+    # get results from Enrichr and make clustergram netowrk object 
+    net = enr_fun.enrichr_clust_from_response(enr_list)
 
-  # export dat to database 
-  #!! export dat not working 
-  export_dat = {}
-  export_dat['name'] = 'enrichment_vector'
-  export_dat['dat'] = '' # net.export_net_json('dat')
-  export_dat['source'] = 'Enrichr_clustergram'
-  dat_id = db.network_data.insert( export_dat )
+    # export dat to database 
+    #!! export dat not working 
+    export_dat = {}
+    export_dat['name'] = 'enrichment_vector'
+    export_dat['dat'] = '' # net.export_net_json('dat')
+    export_dat['source'] = 'Enrichr_clustergram'
+    dat_id = db.network_data.insert( export_dat )
 
-  update_viz = net.viz 
-  update_dat = dat_id
+    update_viz = net.viz 
+    update_dat = dat_id
 
-  # # if there is an error update json with error 
-  # except:
+  # if there is an error update json with error 
+  except:
 
-  #   update_viz = 'error'
-  #   update_dat = 'error'
+    update_viz = 'error'
+    update_dat = 'error'
 
 
   # export viz to database 
