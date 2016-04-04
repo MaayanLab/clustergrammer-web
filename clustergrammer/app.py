@@ -96,64 +96,6 @@ def l1000cds2_upload():
 
   return redirect('/clustergrammer/l1000cds2/'+l1000cds2['_id'])
 
-
-@app.route('/clustergrammer/matrix_upload/', methods=['POST'])
-def proc_matrix_upload():
-  import flask 
-  import load_tsv_file
-  import threading
-  import time
-  import StringIO
-
-  if request.method == 'POST':
-
-    req_file = flask.request.files['file']
-    buff = StringIO.StringIO(req_file.read())
-
-    inst_filename = req_file.filename 
-
-    if allowed_file(inst_filename):
-
-      client = MongoClient(mongo_address)
-      db = client.clustergrammer
-
-      export_viz = {}
-      export_viz['name'] = inst_filename
-      export_viz['viz'] = 'processing'
-      export_viz['dat'] = 'processing'
-      export_viz['source'] = 'user_upload'
-
-      # get the id that will be used to update the placeholder 
-      viz_id = db.networks.insert( export_viz )
-      viz_id = str(viz_id)
-
-      client.close()
-
-      sub_function = load_tsv_file.main
-      arg_list = [ buff, inst_filename, mongo_address, viz_id]
-      thread = threading.Thread(target=sub_function, args=arg_list)
-      thread.setDaemon(True)
-
-      thread.start()
-
-      max_wait_time = 15
-      for wait_time in range(max_wait_time):
-
-        time.sleep(1)
-
-        if thread.isAlive() == False:
-          return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
-
-      return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
-
-    else:
-
-      if len(inst_filename) > 0:
-        error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
-      else:
-        error_desc = 'Please choose a file to upload.'
-      return error_desc
-
 home_pages.add_routes(app)
 viz_pages.add_routes(app, mongo_address)
 demo_pages.add_routes(app)
