@@ -49,12 +49,6 @@ SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer'
 ######################################
 ######################################
 
-# define allowed extension
-ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
-
-def allowed_file(filename):
-  return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
 @app.route(ENTRY_POINT + '/<path:path>') 
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
@@ -63,7 +57,7 @@ def send_static(path):
 def l1000cds2_upload():
   import requests
   import json 
-  from clustergrammer import Network 
+  from clustergrammer_old import Network 
   from pymongo import MongoClient
   from bson.objectid import ObjectId
 
@@ -102,62 +96,6 @@ def l1000cds2_upload():
 
   return redirect('/clustergrammer/l1000cds2/'+l1000cds2['_id'])
 
-@app.route('/clustergrammer/upload_network/', methods=['POST'])
-def upload_network():
-  import flask 
-  import load_tsv_file
-  import threading
-  import time
-  import StringIO
-
-  if request.method == 'POST':
-
-    req_file = flask.request.files['file']
-    buff = StringIO.StringIO(req_file.read())
-
-    inst_filename = req_file.filename 
-
-    if allowed_file(inst_filename):
-
-      client = MongoClient(mongo_address)
-      db = client.clustergrammer
-
-      export_viz = {}
-      export_viz['name'] = inst_filename
-      export_viz['viz'] = 'processing'
-      export_viz['dat'] = 'processing'
-      export_viz['source'] = 'user_upload'
-
-      viz_id = db.networks.insert( export_viz )
-      viz_id = str(viz_id)
-
-      client.close()
-
-      sub_function = load_tsv_file.main
-      arg_list = [ buff, inst_filename, mongo_address, viz_id]
-      thread = threading.Thread(target=sub_function, args=arg_list)
-      thread.setDaemon(True)
-
-      thread.start()
-
-      max_wait_time = 15
-      for wait_time in range(max_wait_time):
-
-        # wait one second
-        time.sleep(1)
-
-        if thread.isAlive() == False:
-
-          return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
-
-      return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
-
-    else:
-      if len(inst_filename) > 0:
-        error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
-      else:
-        error_desc = 'Please choose a file to upload.'
-      return redirect('/clustergrammer/error/'+error_desc)
 
 @app.route('/clustergrammer/matrix_upload/', methods=['POST'])
 def proc_matrix_upload():
