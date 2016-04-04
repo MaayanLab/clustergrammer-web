@@ -1,3 +1,39 @@
+def main(mongo_address, response_type='redirect'):
+  from flask import request 
+  import StringIO
+  import load_tsv_file
+  import threading
+  import time
+  
+  if request.method == 'POST':
+
+    req_file = request.files['file']
+    buff = StringIO.StringIO(req_file.read())
+    inst_filename = req_file.filename 
+
+    if allowed_file(inst_filename):
+
+      thread, viz_id = upload(mongo_address, inst_filename, buff)
+
+      max_wait_time = 15
+      for wait_time in range(max_wait_time):
+
+        time.sleep(1)
+
+        if thread.isAlive() == False:
+
+          return response(viz_id, inst_filename, response_type=response_type)
+
+      return response(viz_id, inst_filename, response_type=response_type)
+
+    else:
+      
+      return upload_error()  
+
+def allowed_file(filename):
+  ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
+  return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
 def upload(mongo_address, inst_filename, buff):
   from pymongo import MongoClient
   import threading
