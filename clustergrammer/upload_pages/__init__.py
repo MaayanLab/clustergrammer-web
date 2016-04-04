@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint
 from flask.ext.cors import cross_origin
-from pymongo import MongoClient
 
 import Enrichr_clustergram_endpoint as enr_clust_endpoint
 import vector_upload_function as vector_upload_fun
