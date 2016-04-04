@@ -128,9 +128,6 @@ def proc_vector_upload():
   import time 
   import run_g2e_background
 
-  print('\n\n\nG2E endpoint\n\n\n')
-
-  # load data from json 
   try:
     vector_post = json.loads(request.data)
     inst_status = 'processing'
@@ -185,7 +182,6 @@ def proc_vector_upload():
 
     # run subprocess 
     ###################
-    print('initializing thread to process g2e')
     thread.start()
 
     # define information return link - always return the same linke
