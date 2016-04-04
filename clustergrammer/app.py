@@ -117,60 +117,39 @@ def upload_network():
 
     inst_filename = req_file.filename 
 
-    print('\ninst_filename '+inst_filename+'\n\n')
-
     if allowed_file(inst_filename):
 
-      # submit placeholder to mongo 
-      ###############################
-      # set up database connection 
       client = MongoClient(mongo_address)
       db = client.clustergrammer
 
-      # generate placeholder json - does not contain viz json 
       export_viz = {}
       export_viz['name'] = inst_filename
       export_viz['viz'] = 'processing'
       export_viz['dat'] = 'processing'
       export_viz['source'] = 'user_upload'
 
-      # get the id that will be used to update the placeholder 
       viz_id = db.networks.insert( export_viz )
       viz_id = str(viz_id)
 
       client.close()
 
-      # initialize thread 
-      #######################
-      print('initializing thread - uploading network')
       sub_function = load_tsv_file.main
       arg_list = [ buff, inst_filename, mongo_address, viz_id]
       thread = threading.Thread(target=sub_function, args=arg_list)
       thread.setDaemon(True)
 
-      # run subprocess
-      ##################
       thread.start()
 
-      ####################
-      # check subprocess 
-      ####################
       max_wait_time = 15
       for wait_time in range(max_wait_time):
 
         # wait one second
         time.sleep(1)
 
-        print(wait_time)
-        print(thread.isAlive())
-
         if thread.isAlive() == False:
-
-          print('\n\nthread is dead ... job finished\n-------------------\n')
 
           return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
 
-      # redirect after maximum time has elapsed 
       return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
 
     else:
@@ -179,11 +158,6 @@ def upload_network():
       else:
         error_desc = 'Please choose a file to upload.'
       return redirect('/clustergrammer/error/'+error_desc)
-
-  # except:
-  #   print('error catch')
-  #   error_desc = 'There was an error in processing your matrix. Please check your format.'
-  #   return redirect('/clustergrammer/error/'+error_desc)
 
 @app.route('/clustergrammer/matrix_upload/', methods=['POST'])
 def proc_matrix_upload():
@@ -200,17 +174,11 @@ def proc_matrix_upload():
 
     inst_filename = req_file.filename 
 
-    print('\ninst_filename '+inst_filename+'\n\n')
-
     if allowed_file(inst_filename):
 
-      # submit placeholder to mongo 
-      ###############################
-      # set up database connection 
       client = MongoClient(mongo_address)
       db = client.clustergrammer
 
-      # generate placeholder json - does not contain viz json 
       export_viz = {}
       export_viz['name'] = inst_filename
       export_viz['viz'] = 'processing'
@@ -223,37 +191,21 @@ def proc_matrix_upload():
 
       client.close()
 
-      # initialize thread 
-      #######################
-      print('initializing thread - uploading network')
       sub_function = load_tsv_file.main
       arg_list = [ buff, inst_filename, mongo_address, viz_id]
       thread = threading.Thread(target=sub_function, args=arg_list)
       thread.setDaemon(True)
 
-      # run subprocess
-      ##################
       thread.start()
 
-      ####################
-      # check subprocess 
-      ####################
       max_wait_time = 15
       for wait_time in range(max_wait_time):
 
-        # wait one second
         time.sleep(1)
 
-        print(wait_time)
-        print(thread.isAlive())
-
         if thread.isAlive() == False:
-
-          print('\n\nthread is dead ... job finished\n-------------------\n')
-
           return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
 
-      # redirect after maximum time has elapsed 
       return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
 
     else:
