@@ -17,7 +17,7 @@ from flask.ext.cors import cross_origin
 import viz_pages
 import home_pages
 import demo_pages
-import enrichr_clust
+import upload_pages
 import status_check
 
 # app = Flask(__name__)
@@ -76,15 +76,11 @@ def proc_vector_upload():
   except:
     inst_status = 'error'
 
-  # submit placeholder to mongo 
-  ###############################
-  # set up connection 
   client = MongoClient(mongo_address)
   db = client.clustergrammer
 
   export_viz = {}
   if 'title' in vector_post:
-    # use if valid title 
     if len(vector_post['title']) > 0:
       export_viz['name'] = vector_post['title']
     else:
@@ -96,37 +92,27 @@ def proc_vector_upload():
   export_viz['dat'] = inst_status
   export_viz['source'] = 'vector_post'
 
-
-  # save the posted json 
   try: 
     post_id = db.network_data.insert( vector_post )
   except:
     post_id = 'vector_post_too_large'
 
-  # export_viz['post'] = vector_post
   export_viz['post'] = post_id
 
-  # get the id tht will be used to update the placeholder 
   viz_id = db.networks.insert( export_viz ) 
   viz_id = str(viz_id)
 
   client.close()
 
-  # start processing if the vector_post json was loaded correctly
   if inst_status == 'processing':
 
-    # initialize thread
-    ########################
     sub_function = run_g2e_background.main
     arg_list = [ mongo_address, viz_id, vector_post ]
     thread = threading.Thread(target=sub_function, args=arg_list)
     thread.setDaemon(True)
 
-    # run subprocess 
-    ###################
     thread.start()
 
-    # define information return link - always return the same linke
     if export_viz['name'] == 'gen3va':
       viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/gen3va/'
       inst_name = ''
@@ -137,8 +123,6 @@ def proc_vector_upload():
       viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
       inst_name = '/'+export_viz['name']
 
-    # check if subprocess is finished 
-    ###################################
     max_wait_time = 30
     for wait_time in range(max_wait_time):
 
@@ -156,7 +140,6 @@ def proc_vector_upload():
           'id':viz_id
           })
 
-    # return link after max time has elapsed 
     return flask.jsonify({
       'link': viz_url+viz_id+inst_name,
       'id':viz_id
@@ -378,7 +361,7 @@ def proc_matrix_upload():
 home_pages.add_routes(app)
 viz_pages.add_routes(app, mongo_address)
 demo_pages.add_routes(app)
-enrichr_clust.add_routes(app, mongo_address)
+upload_pages.add_routes(app, mongo_address)
 status_check.add_routes(app, mongo_address)
 
 if __name__ == "__main__":
