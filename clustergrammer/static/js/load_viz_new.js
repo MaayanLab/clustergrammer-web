@@ -12,7 +12,7 @@ function load_viz_new(network_data){
     'height':600
   };
 
-  about_string = 'Enriched Terms are the columns, input genes are the rows, adn cells in the matrix indicate if a gene is associated with a term.';
+  about_string = 'Enriched Terms are the columns, input genes are the rows, and cells in the matrix indicate if a gene is associated with a term.';
 
   // define arguments object
   var arguments_obj = {
