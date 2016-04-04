@@ -77,11 +77,11 @@ def add_routes(app=None, mongo_address=None):
         # wait one second 
         time.sleep(1)
 
-        print('wait_time'+str(wait_time)+' '+str(thread.isAlive()))
+        print('enrichr_clustergram wait_time: '+str(wait_time)+' '+str(thread.isAlive()))
 
         if thread.isAlive() == False:
 
-          print('\n\nthread is dead\n----------\n')
+          print('\n\nenrichr_clustergram thread is dead\n----------\n')
           
           return flask.jsonify({'link': viz_url+viz_id+qs})
 

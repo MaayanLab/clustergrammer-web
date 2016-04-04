@@ -4,6 +4,12 @@ docker build -t maayanlab/clustergrammer:latest .
 docker run -it --rm -p 8087:80 maayanlab/clustergrammer:latest 
 docker push maayanlab/clustergrammer:latest 
 
+146.203.54.165:5000
+
+docker build -t 146.203.54.165:5000/clustergrammer:latest . 
+docker run -it --rm -p 8087:80 146.203.54.165:5000/clustergrammer:latest 
+docker push 146.203.54.165:5000/clustergrammer:latest 
+
 use this to check mongodb 
 db.getCollection('networks').find({}).sort({_id:-1}) 
 

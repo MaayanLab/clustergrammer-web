@@ -87,9 +87,6 @@ class Network(object):
     num_labels['row'] = num_rc + 1
     num_labels['col'] = num_cc + 1
 
-    print('found '+str(num_rc)+' row cats')
-    print('found '+str(num_cc)+' col cats')
-
     return num_labels
 
   def dict_cat(self):
@@ -214,8 +211,6 @@ class Network(object):
     and clustering after each filtering. This filtering will keep the top N 
     rows based on some quantity (sum, num-non-zero, etc). '''
 
-    print('\n\n--- start make_filtered_views')
-
     from copy import deepcopy
     df = self.dat_to_df()
 
@@ -231,28 +226,19 @@ class Network(object):
     all_views = []
     send_df = deepcopy(df)
 
-    # print('\nchecking column keys')
-    # print(self.dat['node_info']['col'].keys())
-
-    # print(send_df['mat'].columns.tolist())
-    
     if 'N_row_sum' in views:
-      print('\nadd N_row_sum')
       all_views = self.add_N_top_views( send_df, all_views, \
         dist_type=dist_type, rank_type='sum' )
 
     if 'N_row_var' in views:
-      print('\nadd N_row_var')
       all_views = self.add_N_top_views( send_df, all_views, \
         dist_type=dist_type, rank_type='var' )
 
     if 'pct_row_sum' in views:
-      print('add pct_row_sum')
       all_views = self.add_pct_top_views( send_df, all_views, \
         dist_type=dist_type, rank_type='sum' )
 
     if 'pct_row_var' in views:
-      print('add pct_row_var')
       all_views = self.add_pct_top_views( send_df, all_views, \
         dist_type=dist_type, rank_type='var' )        
 
@@ -260,8 +246,6 @@ class Network(object):
     #   pass
 
     self.viz['views'] = all_views
-
-    print('\n--- end make_filtered_views')
 
   def add_pct_top_views(self, df, all_views, dist_type='cosine', rank_type='sum'):
 
@@ -329,7 +313,14 @@ class Network(object):
       tmp_sum = df_abs.var(axis=0)
 
     tmp_sum = tmp_sum.abs()
-    tmp_sum.sort_values(inplace=True, ascending=False)
+
+    # new way of sorting in updated pandas version 
+    # tmp_sum.sort_values(inplace=True, ascending=False)
+
+    # old way of sorting in previous pandas version 
+    tmp_sum.sort(ascending=False)
+
+
     rows_sorted = tmp_sum.index.values.tolist()
 
     for inst_keep in keep_top:
@@ -440,17 +431,11 @@ class Network(object):
     self.viz_json(dendro)
 
   def calc_cat_clust_order(self, inst_rc):
-    # print('calc_cat_clust_order')
     from clustergrammer import Network 
     from copy import deepcopy 
 
     inst_keys = self.dat['node_info'][inst_rc].keys()
     all_cats = [x for x in inst_keys if 'cat-' in x]
-
-    # print('node_info '+str(inst_rc))
-    # print(self.dat['node_info'][inst_rc].keys())
-    # print('all_cats')
-    # print(all_cats)
 
     if len(all_cats) > 0:
       
@@ -465,8 +450,6 @@ class Network(object):
         all_cat_orders = []
         tmp_names_list = []
         for inst_cat in all_cats:
-
-          # print(inst_cat)
 
           inst_nodes = dict_cat[inst_cat]
 
@@ -502,17 +485,10 @@ class Network(object):
           prev_order_len = len(all_cat_orders)
 
           # add prev order length to the current order number 
-          # print('inst_cat_order '+str(inst_cat_order))
           inst_cat_order = [i+prev_order_len for i in inst_cat_order]
           all_cat_orders.extend(inst_cat_order)
 
-
-        # print('all_cat_orders')
-        # print(all_cat_orders)
-
         names_clust_list = [x for (y,x) in sorted(zip(all_cat_orders,tmp_names_list))]
-        # print('names_clust_list')
-        # print(names_clust_list)
 
         # calc category-cluster order 
         final_order = []
@@ -656,11 +632,6 @@ class Network(object):
         # get the number of categories from the length of the tuple 
         # subtract 1 because the name is the first element of the tuple 
         num_cat = len(self.dat['nodes'][inst_rc][0]) - 1
-        print(self.dat['nodes'][inst_rc][0])
-        print(len(self.dat['nodes'][inst_rc][0]))
-        print('num_cat')
-        print(num_cat)
-        print('\n\n')
         self.dat['node_info'][inst_rc]['full_names'] = self.dat['nodes'][inst_rc]
 
         for inst_rcat in range(num_cat):
@@ -747,7 +718,13 @@ class Network(object):
     df_copy = df_copy.transpose()
     tmp_sum = df_copy.sum(axis=0)
     tmp_sum = tmp_sum.abs()
-    tmp_sum.sort_values(inplace=True, ascending=False)
+
+    # new way of sorting in updated pandas version 
+    # tmp_sum.sort_values(inplace=True, ascending=False)
+
+    # old way of sorting in previous pandas version 
+    tmp_sum.sort(ascending=False)
+
 
     tmp_sum = tmp_sum[tmp_sum>threshold]
     keep_rows = sorted(tmp_sum.index.values.tolist())
