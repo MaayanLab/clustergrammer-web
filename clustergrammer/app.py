@@ -18,6 +18,7 @@ import viz_pages
 import home_pages
 import demo_pages
 import enrichr_clust
+import status_check
 
 # app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
@@ -57,39 +58,6 @@ def allowed_file(filename):
 @app.route(ENTRY_POINT + '/<path:path>') 
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
-
-@app.route('/clustergrammer/status_check/<user_objid>')
-def status_check(user_objid):
-  import flask
-  from bson.objectid import ObjectId
-
-  # initialize status 
-  inst_status = 'error'
-
-  # get object id 
-  try:
-    obj_id = ObjectId(user_objid)
-  except:
-    inst_status = 'invalid id'
-    return inst_status
-
-  # set up db connection 
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer
-
-  # find object 
-  net = db.networks.find_one({'_id': obj_id })
-  client.close()
-
-  # check if processing or error 
-  if net['viz'] == 'processing':
-    inst_status = 'processing'
-  elif net['viz'] == 'error':
-    inst_status = 'error'
-  elif type(net['viz'] is dict):
-    inst_status = 'finished'
-    
-  return inst_status
 
 @app.route("/clustergrammer/l1000cds2/<user_objid>")
 def viz_l1000cds2(user_objid):
@@ -449,6 +417,7 @@ home_pages.add_routes(app)
 viz_pages.add_routes(app, mongo_address)
 demo_pages.add_routes(app)
 enrichr_clust.add_routes(app, mongo_address)
+status_check.add_routes(app, mongo_address)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)

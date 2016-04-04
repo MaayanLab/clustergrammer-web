@@ -1,4 +1,4 @@
-def main(request, mongo_address):
+def main(mongo_address):
   import json 
   import fake_enrichr 
   from pymongo import MongoClient
@@ -6,6 +6,7 @@ def main(request, mongo_address):
   import flask 
   import time 
   import run_enrich_background as enr_sub
+  from flask import request
 
   if request.method == 'POST':
     enr_json = json.loads(request.data)
