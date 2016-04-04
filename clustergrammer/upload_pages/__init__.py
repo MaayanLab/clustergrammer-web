@@ -46,26 +46,7 @@ def add_routes(app=None, mongo_address=None):
 
       if allowed_file(inst_filename):
 
-        client = MongoClient(mongo_address)
-        db = client.clustergrammer
-
-        export_viz = {}
-        export_viz['name'] = inst_filename
-        export_viz['viz'] = 'processing'
-        export_viz['dat'] = 'processing'
-        export_viz['source'] = 'user_upload'
-
-        viz_id = db.networks.insert( export_viz )
-        viz_id = str(viz_id)
-
-        client.close()
-
-        sub_function = load_tsv_file.main
-        arg_list = [ buff, inst_filename, mongo_address, viz_id]
-        thread = threading.Thread(target=sub_function, args=arg_list)
-        thread.setDaemon(True)
-
-        thread.start()
+        thread, viz_id = run_load_tsv.main(mongo_address, inst_filename, buff)
 
         max_wait_time = 15
         for wait_time in range(max_wait_time):
@@ -79,11 +60,8 @@ def add_routes(app=None, mongo_address=None):
         return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
 
       else:
-        if len(inst_filename) > 0:
-          error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
-        else:
-          error_desc = 'Please choose a file to upload.'
-        return redirect('/clustergrammer/error/'+error_desc)
+        
+        return run_load_tsv.upload_error()
 
   @upload_pages.route('/clustergrammer/matrix_upload/', methods=['POST'])
   def proc_matrix_upload():
@@ -113,12 +91,6 @@ def add_routes(app=None, mongo_address=None):
 
       else:
 
-        if len(inst_filename) > 0:
-          error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
-        else:
-          error_desc = 'Please choose a file to upload.'
-        return error_desc
-
-
+        return run_load_tsv.upload_error()
 
   app.register_blueprint(upload_pages)

@@ -26,3 +26,12 @@ def main(mongo_address, inst_filename, buff):
   thread.start()
 
   return thread, viz_id
+
+def upload_error(inst_filename):
+  
+  if len(inst_filename) > 0:
+    error_desc = 'Your file, ' + inst_filename + ', is not a supported filetype.'
+  else:
+    error_desc = 'Please choose a file to upload.'
+
+  return error_desc  
