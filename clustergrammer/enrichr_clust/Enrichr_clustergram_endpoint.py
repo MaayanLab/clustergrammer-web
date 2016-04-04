@@ -46,9 +46,13 @@ def main(request, mongo_address):
       # wait one second 
       time.sleep(1)
 
+      print('wait time ' + str(wait_time) )
+
       if thread.isAlive() == False:
 
-        link_json = flask.jsonify({'link': viz_url+viz_id+qs})
+        print('thread is done')
+
+        return flask.jsonify({'link': viz_url+viz_id+qs})
 
     return flask.jsonify({'link': viz_url+viz_id+qs})
 
