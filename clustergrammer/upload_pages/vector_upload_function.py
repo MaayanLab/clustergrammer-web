@@ -8,25 +8,12 @@ def main(mongo_address):
   from pymongo import MongoClient
   
   from clustergrammer import Network
-  import run_g2e_background
+  import run_vector_upload
 
-  vector_post, inst_status = load_response_data(request.data)
+  vector_post, inst_status, export_viz = load_response_data(request.data)
 
   client = MongoClient(mongo_address)
   db = client.clustergrammer
-
-  export_viz = {}
-  if 'title' in vector_post:
-    if len(vector_post['title']) > 0:
-      export_viz['name'] = vector_post['title']
-    else:
-      export_viz['name'] = 'vector_post'
-  else:
-    export_viz['name'] = 'vector_post'
-    
-  export_viz['viz'] = inst_status
-  export_viz['dat'] = inst_status
-  export_viz['source'] = 'vector_post'
 
   try: 
     post_id = db.network_data.insert( vector_post )
@@ -42,7 +29,7 @@ def main(mongo_address):
 
   if inst_status == 'processing':
 
-    sub_function = run_g2e_background.main
+    sub_function = run_vector_upload.main
     arg_list = [ mongo_address, viz_id, vector_post ]
     thread = threading.Thread(target=sub_function, args=arg_list)
     thread.setDaemon(True)
@@ -94,4 +81,17 @@ def load_response_data(data):
     vector_post = None
     inst_status = 'error'
 
-  return vector_post, inst_status
+  export_viz = {}
+  if 'title' in vector_post:
+    if len(vector_post['title']) > 0:
+      export_viz['name'] = vector_post['title']
+    else:
+      export_viz['name'] = 'vector_post'
+  else:
+    export_viz['name'] = 'vector_post'
+    
+  export_viz['viz'] = inst_status
+  export_viz['dat'] = inst_status
+  export_viz['source'] = 'vector_post'
+
+  return vector_post, inst_status, export_viz
