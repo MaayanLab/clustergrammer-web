@@ -1,7 +1,6 @@
 def main(mongo_address, viz_id, vect_post):
   from bson.objectid import ObjectId
   from pymongo import MongoClient
-  from clustergrammer import Network
 
   client = MongoClient(mongo_address)
   db = client.clustergrammer 
@@ -9,7 +8,15 @@ def main(mongo_address, viz_id, vect_post):
 
   found_viz = db.networks.find_one({'_id': viz_id })
 
-  export_viz = {}
+  found_viz = update_found_doc(db, found_viz, vect_post)
+
+  update_doc_on_mongo(db, viz_id, found_viz)
+
+  client.close() 
+
+def update_found_doc(db, found_viz, vect_post):
+
+  from clustergrammer import Network
 
   try:
     net = Network()
@@ -28,16 +35,10 @@ def main(mongo_address, viz_id, vect_post):
     update_viz = 'error'
     update_dat = 'error'
 
-
   found_viz['viz'] = update_viz
   found_viz['dat'] = update_dat
 
-  try:
-    db.networks.update_one( {"_id":viz_id}, {"$set": found_viz} )
-  except:
-    print('G2E error in loading viz into database')
-
-  client.close() 
+  return found_viz
 
 def upload_dat(db, net):
   export_dat = {}
@@ -58,3 +59,9 @@ def make_export_dat(net):
   net.dat['mat_up'] = net.dat['mat_up'].tolist()
   net.dat['mat_dn'] = net.dat['mat_dn'].tolist()
   return net.export_net_json('dat')
+
+def update_doc_on_mongo(db, viz_id, found_viz):
+  try:
+    db.networks.update_one( {"_id":viz_id}, {"$set": found_viz} )
+  except:
+    print('G2E error in loading viz into database')  
