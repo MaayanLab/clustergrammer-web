@@ -22,9 +22,9 @@ def main(mongo_address, response_type='redirect'):
 
         if thread.isAlive() == False:
 
-          return response(viz_id, inst_filename, response_type=response_type)
+          return make_response(viz_id, inst_filename, response_type=response_type)
 
-      return response(viz_id, inst_filename, response_type=response_type)
+      return make_response(viz_id, inst_filename, response_type=response_type)
 
     else:
       
@@ -72,7 +72,7 @@ def upload_error(inst_filename):
 
   return error_desc  
 
-def response(viz_id, inst_filename, response_type='redirect'):
+def make_response(viz_id, inst_filename, response_type='redirect'):
   from flask import redirect
 
   if response_type == 'redirect':

@@ -1,5 +1,4 @@
 def main(mongo_address):
-  import flask
   from flask import request
   
   vector_post, inst_status, viz_name, viz_id = load_response_data(request.data, mongo_address)
@@ -22,8 +21,6 @@ def run_vector_clust(mongo_address, viz_id, vector_post, viz_name):
 
   thread.start()
 
-  viz_name, viz_url = make_viz_url_name(viz_name)
-
   max_wait_time = 30
   for wait_time in range(max_wait_time):
 
@@ -31,15 +28,15 @@ def run_vector_clust(mongo_address, viz_id, vector_post, viz_name):
 
     if thread.isAlive() is False:
 
-      return flask.jsonify({
-        'link': viz_url+viz_id+viz_name,
-        'id':viz_id
-        })
+      return make_response(viz_id, viz_name)
 
-  return flask.jsonify({
-    'link': viz_url+viz_id+viz_name,
-    'id':viz_id
-    })  
+  return make_response(viz_id, viz_name)
+
+def make_response(viz_id, viz_name, response_type='link'):
+  import flask
+
+  viz_name, viz_url = make_viz_url_name(viz_name)
+  return flask.jsonify({'link': viz_url+viz_id+viz_name,'id':viz_id})  
 
 def load_response_data(data, mongo_address):
   import json 
