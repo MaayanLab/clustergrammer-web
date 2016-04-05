@@ -3,7 +3,6 @@ def main(mongo_address):
   import requests 
   import flask
   from flask import request
-  import json 
   import threading 
   import time 
   from pymongo import MongoClient
@@ -11,11 +10,7 @@ def main(mongo_address):
   from clustergrammer import Network
   import run_g2e_background
 
-  try:
-    vector_post = json.loads(request.data)
-    inst_status = 'processing'
-  except:
-    inst_status = 'error'
+  vector_post, inst_status = load_response_data(request.data)
 
   client = MongoClient(mongo_address)
   db = client.clustergrammer
@@ -67,15 +62,10 @@ def main(mongo_address):
     max_wait_time = 30
     for wait_time in range(max_wait_time):
 
-      # wait one second 
       time.sleep(1)
-
-      print('\twaiting '+str(wait_time)+' is alive '+str(thread.isAlive()))
 
       if thread.isAlive() == False:
 
-        print('thread is finished')
-        
         return flask.jsonify({
           'link': viz_url+viz_id+inst_name,
           'id':viz_id
@@ -92,4 +82,16 @@ def main(mongo_address):
 
     return flask.jsonify({
       'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-    })     
+    }) 
+
+
+def load_response_data(data):
+  import json 
+  try:
+    vector_post = json.loads(data)
+    inst_status = 'processing'
+  except:
+    vector_post = None
+    inst_status = 'error'
+
+  return vector_post, inst_status
