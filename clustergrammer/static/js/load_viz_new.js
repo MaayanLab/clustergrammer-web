@@ -90,6 +90,9 @@ function load_viz_new(network_data){
     .style('width','145px')
     .style('margin-left','1px');
 
+  d3.selectAll('.sidebar_text')
+    .style('font-size','12px');
+
   // arguments_obj.root = '#container-id-2';
 
   // cgm = Clustergrammer(arguments_obj);
