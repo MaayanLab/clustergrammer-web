@@ -1,26 +1,15 @@
 def main(mongo_address):
-  
-  # import requests 
   import flask
   from flask import request
   
-  # from clustergrammer import Network
-
-  vector_post, inst_status, export_viz, viz_id = load_response_data(request.data, mongo_address)
+  vector_post, inst_status, viz_name, viz_id = load_response_data(request.data, mongo_address)
 
   if inst_status == 'processing':
-
-    return run_vector_clust(mongo_address, viz_id, vector_post, export_viz)
-
+    return run_vector_clust(mongo_address, viz_id, vector_post, viz_name)
   else:   
+    return make_error_json()
 
-    error_desc = 'Error in processing Enrichr enrichment vectors.'
-
-    return flask.jsonify({
-      'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-    }) 
-
-def run_vector_clust(mongo_address, viz_id, vector_post, export_viz):
+def run_vector_clust(mongo_address, viz_id, vector_post, viz_name):
   import flask
   import run_vector_upload
   import threading 
@@ -33,7 +22,7 @@ def run_vector_clust(mongo_address, viz_id, vector_post, export_viz):
 
   thread.start()
 
-  viz_name, viz_url = make_viz_url_name(export_viz)
+  viz_name, viz_url = make_viz_url_name(viz_name)
 
   max_wait_time = 30
   for wait_time in range(max_wait_time):
@@ -91,19 +80,25 @@ def load_response_data(data, mongo_address):
 
   client.close()
 
+  viz_name = export_viz['name']
 
-  return vector_post, inst_status, export_viz, viz_id
+  return vector_post, inst_status, viz_name, viz_id
 
-def make_viz_url_name(export_viz):
-  if export_viz['name'] == 'gen3va':
+def make_viz_url_name(viz_name):
+  if viz_name == 'gen3va':
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/gen3va/'
     viz_name = ''
-  elif export_viz['name'] == 'harmonizome':
+  elif viz_name == 'harmonizome':
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/harmonizome/'
     viz_name = ''      
   else:
     viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-    viz_name = '/'+export_viz['name']  
+    viz_name = '/' + viz_name
 
   return viz_name, viz_url
 
+def make_error_json():
+  error_desc = 'Error in processing Enrichr enrichment vectors.'
+  return flask.jsonify({
+    'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
+  })   
