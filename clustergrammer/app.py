@@ -1,18 +1,10 @@
 
-from flask import Flask
-from flask import Flask, request, session, g, redirect, url_for, \
-     abort, render_template, flash
-import json
+from flask import Flask, redirect
 import sys
 import logging
 from logging.handlers import RotatingFileHandler
 import os
 from flask import send_from_directory
-from pymongo import MongoClient
-import json
-from bson import json_util
-from bson.json_util import dumps
-from flask.ext.cors import cross_origin
 
 import viz_pages
 import home_pages
@@ -20,7 +12,6 @@ import demo_pages
 import upload_pages
 import status_check
 
-# app = Flask(__name__)
 app = Flask(__name__, static_url_path='')
 
 ENTRY_POINT = '/clustergrammer'
@@ -35,7 +26,6 @@ mongo_address = '146.203.54.165'
 
 ##########################################
 # switch for local and docker development 
-# docker_vs_local
 ##########################################
 
 # for local development 
