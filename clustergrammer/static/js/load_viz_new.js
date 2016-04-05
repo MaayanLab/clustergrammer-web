@@ -52,7 +52,7 @@ function load_viz_new(network_data){
     'about':about_string,
     'sidebar_width':150,
     'row_search_placeholder':'Gene',
-    'buffer_width':16
+    'buffer_width':20
   };
 
   cgm = Clustergrammer(arguments_obj);
@@ -87,9 +87,8 @@ function load_viz_new(network_data){
   d3.select('.submit_gene_button')
     .style('height','33px');
 
-  // d3.select('.sidebar_wrapper')
-  //   .style('width','140px')
-  //   .style('margin-left','1px');
+  d3.select('.sidebar_wrapper')
+    .style('margin-left','0px');
 
   d3.selectAll('.sidebar_text')
     .style('font-size','12px');
