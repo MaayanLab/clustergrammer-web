@@ -86,6 +86,10 @@ function load_viz_new(network_data){
   d3.select('.submit_gene_button')
     .style('height','33px');
 
+  d3.select('.sidebar_wrapper')
+    .style('width','145px')
+    .style('margin-left','1px');
+
   // arguments_obj.root = '#container-id-2';
 
   // cgm = Clustergrammer(arguments_obj);
