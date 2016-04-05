@@ -52,7 +52,7 @@ function load_viz_new(network_data){
     'about':about_string,
     'sidebar_width':150,
     'row_search_placeholder':'Gene',
-    'buffer_width':20
+    'buffer_width':25
   };
 
   cgm = Clustergrammer(arguments_obj);
