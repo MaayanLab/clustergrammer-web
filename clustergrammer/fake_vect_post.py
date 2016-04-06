@@ -3,10 +3,32 @@ import random
 random.seed(10)
 
 def main():
+  make_json()
+  # cluster()
+
+def cluster():
   from clustergrammer import Network
+
   net = Network()
 
-  row_num = 800
+  vect_post = net.load_json_to_dict('fake_vect_post.json')  
+
+  net.load_vect_post_to_net(vect_post)
+
+  net.swap_nan_for_zero()
+  
+  # net.N_top_views()
+  net.make_filtered_views(dist_type='cos',views=['N_row_sum','N_row_var'], dendro=True)
+
+  net.write_json_to_file('viz','json/large_vect_post_example.json','indent')  
+
+def make_json():
+  from clustergrammer_old import Network
+  net = Network()
+
+  row_num = 15
+  num_columns = 10
+
   # make up all names for all data 
   row_names = make_up_names(row_num)
 
@@ -19,7 +41,6 @@ def main():
   vect_post['is_up_down'] = True
   vect_post['columns'] = []
 
-  num_columns = 3
 
   split = True
 
@@ -32,11 +53,15 @@ def main():
 
     inst_col = {}
 
-    col_name = 'Col-' + str( col_num+1 )
+    col_name = 'Col-' + str( col_num+1 ) + ' make name longer'
 
     inst_col['col_name'] = col_name
     inst_col['link'] = 'col-link'
-    inst_col['cat'] = 'brain'
+
+    if col_num < 5:
+      inst_col['cat'] = 'brain'
+    else:
+      inst_col['cat'] = 'lung'
 
     # save to columns 
     inst_col['data'] = [] #vector
@@ -60,14 +85,6 @@ def main():
         value_dn = -10*random.random()
       else: 
         value_dn = 0
-
-      if inst_row == 'RFIOW':
-        value_up = 20
-        value_dn = 0
-
-      if inst_row == 'SEAFS':
-        value_up = 0
-        value_dn = -20        
 
       value = value_up + value_dn
 
@@ -114,7 +131,8 @@ def make_up_names(num_names):
   row_names = []
 
   for i in range(num_names):
-    row_names.append(id_generator(5, "WERJASDFNYUIO"))
+    length_of_names = int(30*random.random()) + 3
+    row_names.append(id_generator(length_of_names, "WERJASDFNYKEM1219UIO "))
 
   row_names = list(set(row_names))
 
