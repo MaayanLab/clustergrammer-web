@@ -21,9 +21,9 @@ def clust_vector_background(mongo_address, viz_id, vector_post, viz_name):
 
   thread.start()
 
-  print('\n\n')
-  print('clust_vector_background')
-  print(vector_post.keys())
+  response_type = 'link'
+  if 'response_type' in vector_post:
+    response_type = vector_post['response_type']
 
   max_wait_time = 30
   for wait_time in range(max_wait_time):
@@ -32,15 +32,20 @@ def clust_vector_background(mongo_address, viz_id, vector_post, viz_name):
 
     if thread.isAlive() is False:
 
-      return make_response(viz_id, viz_name)
+      return make_response(viz_id, viz_name, response_type)
 
-  return make_response(viz_id, viz_name)
+  return make_response(viz_id, viz_name, response_type)
 
 def make_response(viz_id, viz_name, response_type='link'):
   import flask
 
   viz_name, viz_url = make_viz_url_name(viz_name)
-  return flask.jsonify({'link': viz_url+viz_id+viz_name,'id':viz_id})  
+
+  response = {}
+  response['link'] = viz_url+viz_id+viz_name
+  response['id'] = viz_id
+
+  return flask.jsonify( response )
 
 def load_vector_data(data, mongo_address):
   import json 

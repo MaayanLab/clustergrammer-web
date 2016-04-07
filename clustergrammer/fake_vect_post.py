@@ -60,7 +60,7 @@ def make_json():
   vect_post['columns'] = []
 
   # the user can request a link or a json 
-  vect_post['response_type'] = 'link'
+  vect_post['response_type'] = 'json'
 
   split = True
 

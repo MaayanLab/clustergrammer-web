@@ -3,7 +3,7 @@
   "title": "Some-Clustergram", 
   "filter": "N_row_sum", 
   "link": "some-link", 
-  "response_type": "link", 
+  "response_type": "json", 
   "columns": [
     {
       "link": "col-link", 
