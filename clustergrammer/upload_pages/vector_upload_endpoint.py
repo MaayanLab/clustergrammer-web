@@ -32,18 +32,34 @@ def clust_vector_background(mongo_address, viz_id, vector_post, viz_name):
 
     if thread.isAlive() is False:
 
-      return make_response(viz_id, viz_name, response_type)
+      return make_response(mongo_address, viz_id, viz_name, response_type)
 
-  return make_response(viz_id, viz_name, response_type)
+  # did not finish clustering - do not return json 
+  return make_response(mongo_address, viz_id, viz_name, response_type='link')
 
-def make_response(viz_id, viz_name, response_type='link'):
+def make_response(mongo_address, viz_id, viz_name, response_type='link'):
   import flask
+  from bson.objectid import ObjectId
+  from pymongo import MongoClient
+  import json
 
   viz_name, viz_url = make_viz_url_name(viz_name)
 
   response = {}
   response['link'] = viz_url+viz_id+viz_name
   response['id'] = viz_id
+
+  if response_type == 'json':
+
+    client = MongoClient(mongo_address)
+    db = client.clustergrammer 
+    viz_id = ObjectId(viz_id)
+
+    viz_doc = db.networks.find_one({'_id': viz_id })
+
+    response['json'] = json.dumps(viz_doc['viz'])
+    client.close() 
+
 
   return flask.jsonify( response )
 
