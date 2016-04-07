@@ -10,9 +10,9 @@ def main(mongo_address):
 
 def clust_vector_background(mongo_address, viz_id, vector_post, viz_name):
   import flask
-  import run_vector_upload
   import threading 
   import time 
+  import run_vector_upload, api_response
 
   sub_function = run_vector_upload.main
   arg_list = [ mongo_address, viz_id, vector_post ]
@@ -32,51 +32,10 @@ def clust_vector_background(mongo_address, viz_id, vector_post, viz_name):
 
     if thread.isAlive() is False:
 
-      return make_response(mongo_address, viz_id, viz_name, response_type)
+      return api_response.make_response(mongo_address, viz_id, viz_name, response_type)
 
   # did not finish clustering - do not return json 
-  return make_response(mongo_address, viz_id, viz_name, response_type='link')
-
-def make_response(mongo_address, viz_id, viz_name, response_type='link'):
-  import flask
-  import json
-
-  viz_name, viz_url = make_viz_url_name(viz_name)
-
-  response = {}
-  response['link'] = viz_url+viz_id+viz_name
-  response['id'] = viz_id
-
-  if response_type == 'json':
-
-    viz_doc = get_viz_doc(mongo_address, viz_id)
-
-    response['json'] = json.dumps(viz_doc['viz'])
-
-  return flask.jsonify( response )
-
-def get_viz_doc(mongo_address, viz_id):
-  from bson.objectid import ObjectId
-  from pymongo import MongoClient
-  
-  try:
-    client = MongoClient(mongo_address)
-    db = client.clustergrammer 
-    viz_id = ObjectId(viz_id)
-
-    viz_doc = db.networks.find_one({'_id': viz_id })
-
-    if viz_doc == None:
-      viz_doc = {}
-      viz_doc['viz'] = 'did-not-find-viz'
-
-  except:
-    viz_doc = {}
-    viz_doc['viz'] = 'did-not-find-viz'
-
-  client.close()   
-
-  return viz_doc
+  return api_response.make_response(mongo_address, viz_id, viz_name, response_type='link')
 
 def load_vector_data(data, mongo_address):
   import json 
@@ -120,19 +79,6 @@ def load_vector_data(data, mongo_address):
   viz_name = export_viz['name']
 
   return vector_post, inst_status, viz_name, viz_id
-
-def make_viz_url_name(viz_name):
-  if viz_name == 'gen3va':
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/gen3va/'
-    viz_name = ''
-  elif viz_name == 'harmonizome':
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/harmonizome/'
-    viz_name = ''      
-  else:
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
-    viz_name = '/' + viz_name
-
-  return viz_name, viz_url
 
 def make_error_json():
   error_desc = 'Error in processing Enrichr enrichment vectors.'
