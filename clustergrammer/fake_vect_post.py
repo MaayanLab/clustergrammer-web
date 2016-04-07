@@ -6,11 +6,30 @@ def main():
   make_json()
   # cluster()
 
-def cluster():
-  from clustergrammer import Network
+  post_request()
+
+def post_request():
+  from clustergrammer_old import Network
+  import requests
+  import json 
 
   net = Network()
+  vect_post = net.load_json_to_dict('fake_vect_post.json')
 
+  upload_url = 'http://localhost:9000/clustergrammer/vector_upload/'
+
+  r = requests.post(upload_url, json.dumps(vect_post))
+
+  response_json = json.loads(r.text)
+
+  link = response_json['link']
+
+  print(link)  
+
+
+def cluster():
+  from clustergrammer import Network
+  net = Network()
   vect_post = net.load_json_to_dict('fake_vect_post.json')  
 
   net.load_vect_post_to_net(vect_post)
@@ -46,7 +65,6 @@ def make_json():
 
   # fraction of rows in each column - 1 means all columns have all rows 
   inst_prob = 1
-
 
   # make column data 
   for col_num in range(num_columns):
