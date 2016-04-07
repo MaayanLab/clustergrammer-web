@@ -59,11 +59,20 @@ def get_viz_doc(mongo_address, viz_id):
   from bson.objectid import ObjectId
   from pymongo import MongoClient
   
-  client = MongoClient(mongo_address)
-  db = client.clustergrammer 
-  viz_id = ObjectId(viz_id)
+  try:
+    client = MongoClient(mongo_address)
+    db = client.clustergrammer 
+    viz_id = ObjectId(viz_id)
 
-  viz_doc = db.networks.find_one({'_id': viz_id })
+    viz_doc = db.networks.find_one({'_id': viz_id })
+
+    if viz_doc == None:
+      viz_doc = {}
+      viz_doc['viz'] = 'did-not-find-viz'
+
+  except:
+    viz_doc = {}
+    viz_doc['viz'] = 'did-not-find-viz'
 
   client.close()   
 
