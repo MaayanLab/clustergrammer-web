@@ -39,8 +39,6 @@ def clust_vector_background(mongo_address, viz_id, vector_post, viz_name):
 
 def make_response(mongo_address, viz_id, viz_name, response_type='link'):
   import flask
-  from bson.objectid import ObjectId
-  from pymongo import MongoClient
   import json
 
   viz_name, viz_url = make_viz_url_name(viz_name)
@@ -51,17 +49,25 @@ def make_response(mongo_address, viz_id, viz_name, response_type='link'):
 
   if response_type == 'json':
 
-    client = MongoClient(mongo_address)
-    db = client.clustergrammer 
-    viz_id = ObjectId(viz_id)
-
-    viz_doc = db.networks.find_one({'_id': viz_id })
+    viz_doc = get_viz_doc(mongo_address, viz_id)
 
     response['json'] = json.dumps(viz_doc['viz'])
-    client.close() 
-
 
   return flask.jsonify( response )
+
+def get_viz_doc(mongo_address, viz_id):
+  from bson.objectid import ObjectId
+  from pymongo import MongoClient
+  
+  client = MongoClient(mongo_address)
+  db = client.clustergrammer 
+  viz_id = ObjectId(viz_id)
+
+  viz_doc = db.networks.find_one({'_id': viz_id })
+
+  client.close()   
+
+  return viz_doc
 
 def load_vector_data(data, mongo_address):
   import json 
@@ -123,4 +129,4 @@ def make_error_json():
   error_desc = 'Error in processing Enrichr enrichment vectors.'
   return flask.jsonify({
     'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
-  })   
+  }) 
