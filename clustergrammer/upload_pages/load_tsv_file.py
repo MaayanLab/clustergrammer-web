@@ -4,7 +4,7 @@ def main( buff, inst_filename, mongo_address, viz_id):
   from bson.objectid import ObjectId
   from pymongo import MongoClient
   from flask import request
-  from clustergrammer_old import Network
+  from clustergrammer import Network
   import StringIO
 
   client = MongoClient(mongo_address)
@@ -16,11 +16,11 @@ def main( buff, inst_filename, mongo_address, viz_id):
   try:
 
     net = Network()
-    net.pandas_load_tsv_to_net(buff)
+    net.load_tsv_to_net(buff)
 
     net.swap_nan_for_zero()
 
-    net.make_filtered_views(dist_type='cosine', dendro=True, \
+    net.make_clust(dist_type='cosine', dendro=True, \
       views=['filter_row_sum'], linkage_type='average')
 
     export_dat = {}
