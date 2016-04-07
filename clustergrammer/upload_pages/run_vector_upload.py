@@ -8,13 +8,13 @@ def main(mongo_address, viz_id, vect_post):
 
   viz_doc = db.networks.find_one({'_id': viz_id })
 
-  viz_doc = cluster_vect(db, viz_doc, vect_post)
+  viz_doc = clust_vect(db, viz_doc, vect_post)
 
   update_doc_on_mongo(db, viz_id, viz_doc)
 
   client.close() 
 
-def cluster_vect(db, viz_doc, vect_post):
+def clust_vect(db, viz_doc, vect_post):
 
   from clustergrammer import Network
 
@@ -22,8 +22,10 @@ def cluster_vect(db, viz_doc, vect_post):
     net = Network()
     net.load_vect_post_to_net(vect_post)
     net.swap_nan_for_zero()
-    net.make_clust(dist_type='cosine', dendro=True, \
-      views=['N_row_sum'], linkage_type='average')
+
+    views = ['N_row_sum', 'N_row_var']
+    net.make_clust(dist_type='cosine', dendro=True, views=views, 
+                  linkage_type='average')
 
     dat_id = upload_dat(db, net)
 

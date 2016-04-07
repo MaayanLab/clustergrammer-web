@@ -2,7 +2,7 @@ from flask import Blueprint
 from flask.ext.cors import cross_origin
 
 import Enrichr_clustergram_endpoint as enr_clust_endpoint
-import vector_upload_function as vector_upload_fun
+import vector_upload_endpoint
 import run_load_tsv
 
 def add_routes(app=None, mongo_address=None):
@@ -19,7 +19,7 @@ def add_routes(app=None, mongo_address=None):
   @upload_pages.route('/clustergrammer/vector_upload/', methods=['POST'])
   @cross_origin()
   def proc_vector_upload():
-    return vector_upload_fun.main(mongo_address)
+    return vector_upload_endpoint.main(mongo_address)
 
   @upload_pages.route('/clustergrammer/upload_network/', methods=['POST'])
   def upload_network():
