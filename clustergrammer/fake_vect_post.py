@@ -59,6 +59,8 @@ def make_json():
   vect_post['is_up_down'] = True
   vect_post['columns'] = []
 
+  # the user can request a link or a json 
+  vect_post['response_type'] = 'link'
 
   split = True
 

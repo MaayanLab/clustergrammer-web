@@ -1,14 +1,14 @@
 def main(mongo_address):
   from flask import request
   
-  vector_post, inst_status, viz_name, viz_id = load_response_data(request.data, mongo_address)
+  vector_post, inst_status, viz_name, viz_id = load_vector_data(request.data, mongo_address)
 
   if inst_status == 'processing':
-    return run_vector_clust(mongo_address, viz_id, vector_post, viz_name)
+    return clust_vector_background(mongo_address, viz_id, vector_post, viz_name)
   else:   
     return make_error_json()
 
-def run_vector_clust(mongo_address, viz_id, vector_post, viz_name):
+def clust_vector_background(mongo_address, viz_id, vector_post, viz_name):
   import flask
   import run_vector_upload
   import threading 
@@ -20,6 +20,10 @@ def run_vector_clust(mongo_address, viz_id, vector_post, viz_name):
   thread.setDaemon(True)
 
   thread.start()
+
+  print('\n\n')
+  print('clust_vector_background')
+  print(vector_post.keys())
 
   max_wait_time = 30
   for wait_time in range(max_wait_time):
@@ -38,7 +42,7 @@ def make_response(viz_id, viz_name, response_type='link'):
   viz_name, viz_url = make_viz_url_name(viz_name)
   return flask.jsonify({'link': viz_url+viz_id+viz_name,'id':viz_id})  
 
-def load_response_data(data, mongo_address):
+def load_vector_data(data, mongo_address):
   import json 
   from pymongo import MongoClient
 

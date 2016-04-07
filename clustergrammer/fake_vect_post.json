@@ -1,7 +1,9 @@
 {
+  "is_up_down": true, 
+  "title": "Some-Clustergram", 
   "filter": "N_row_sum", 
   "link": "some-link", 
-  "is_up_down": true, 
+  "response_type": "link", 
   "columns": [
     {
       "link": "col-link", 
@@ -973,6 +975,5 @@
       ], 
       "cat": "lung"
     }
-  ], 
-  "title": "Some-Clustergram"
+  ]
 }
