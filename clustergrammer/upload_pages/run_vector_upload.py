@@ -18,22 +18,22 @@ def update_found_doc(db, found_viz, vect_post):
 
   from clustergrammer import Network
 
-  try:
-    net = Network()
-    net.load_vect_post_to_net(vect_post)
-    net.swap_nan_for_zero()
-    net.make_filtered_views(dist_type='cosine', dendro=True, \
-      views=['N_row_sum'], linkage_type='average')
+  # try:
+  net = Network()
+  net.load_vect_post_to_net(vect_post)
+  net.swap_nan_for_zero()
+  net.make_clust(dist_type='cosine', dendro=True, \
+    views=['N_row_sum'], linkage_type='average')
 
-    dat_id = upload_dat(db, net)
+  dat_id = upload_dat(db, net)
 
-    update_viz = net.viz 
-    update_dat = dat_id
+  update_viz = net.viz 
+  update_dat = dat_id
 
-  except:
-    print('error clustering')
-    update_viz = 'error'
-    update_dat = 'error'
+  # except:
+  #   print('error clustering')
+  #   update_viz = 'error'
+  #   update_dat = 'error'
 
   found_viz['viz'] = update_viz
   found_viz['dat'] = update_dat
