@@ -4,10 +4,6 @@ def main(mongo_address, user_objid):
 
   viz_doc = vector_upload_endpoint.get_viz_doc(mongo_address, user_objid)
 
-  # print(viz_doc)
-
   viz_json = json.dumps(viz_doc['viz'])
 
   return viz_json
-
-  return 'something'
