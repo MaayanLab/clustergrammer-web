@@ -6,39 +6,39 @@ def main(mongo_address, viz_id, vect_post):
   db = client.clustergrammer 
   viz_id = ObjectId(viz_id)
 
-  found_viz = db.networks.find_one({'_id': viz_id })
+  viz_doc = db.networks.find_one({'_id': viz_id })
 
-  found_viz = update_found_doc(db, found_viz, vect_post)
+  viz_doc = cluster_vect(db, viz_doc, vect_post)
 
-  update_doc_on_mongo(db, viz_id, found_viz)
+  update_doc_on_mongo(db, viz_id, viz_doc)
 
   client.close() 
 
-def update_found_doc(db, found_viz, vect_post):
+def cluster_vect(db, viz_doc, vect_post):
 
   from clustergrammer import Network
 
-  # try:
-  net = Network()
-  net.load_vect_post_to_net(vect_post)
-  net.swap_nan_for_zero()
-  net.make_clust(dist_type='cosine', dendro=True, \
-    views=['N_row_sum'], linkage_type='average')
+  try:
+    net = Network()
+    net.load_vect_post_to_net(vect_post)
+    net.swap_nan_for_zero()
+    net.make_clust(dist_type='cosine', dendro=True, \
+      views=['N_row_sum'], linkage_type='average')
 
-  dat_id = upload_dat(db, net)
+    dat_id = upload_dat(db, net)
 
-  update_viz = net.viz 
-  update_dat = dat_id
+    update_viz = net.viz 
+    update_dat = dat_id
 
-  # except:
-  #   print('error clustering')
-  #   update_viz = 'error'
-  #   update_dat = 'error'
+  except:
+    print('error clustering')
+    update_viz = 'error'
+    update_dat = 'error'
 
-  found_viz['viz'] = update_viz
-  found_viz['dat'] = update_dat
+  viz_doc['viz'] = update_viz
+  viz_doc['dat'] = update_dat
 
-  return found_viz
+  return viz_doc
 
 def upload_dat(db, net):
   export_dat = {}
@@ -60,8 +60,8 @@ def make_export_dat(net):
   net.dat['mat_dn'] = net.dat['mat_dn'].tolist()
   return net.export_net_json('dat')
 
-def update_doc_on_mongo(db, viz_id, found_viz):
+def update_doc_on_mongo(db, viz_id, viz_doc):
   try:
-    db.networks.update_one( {"_id":viz_id}, {"$set": found_viz} )
+    db.networks.update_one( {"_id":viz_id}, {"$set": viz_doc} )
   except:
     print('G2E error in loading viz into database')  

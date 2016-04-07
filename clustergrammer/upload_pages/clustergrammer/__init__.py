@@ -41,6 +41,9 @@ class Network(object):
     ''' The main function run by the user to make their clustergram. 
     views is later referred to as requested_views.'''
     import make_clust_fun
+    print('\n\n*********************************')
+    print('using latest clustergrammer.py')
+    print('*********************************\n\n')
     make_clust_fun.make_clust(self, dist_type, run_clustering, dendro, 
                                    views, linkage_type, sim_mat)
 

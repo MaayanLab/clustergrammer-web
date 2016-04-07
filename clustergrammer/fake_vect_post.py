@@ -24,8 +24,7 @@ def post_request():
 
   link = response_json['link']
 
-  print(link)  
-
+  print(link.split('viz/')[1])  
 
 def cluster():
   from clustergrammer import Network
