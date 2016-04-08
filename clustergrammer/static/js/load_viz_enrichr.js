@@ -51,7 +51,8 @@ function load_viz_enrichr(network_data){
     // 'title':'Clustergrammer',
     'about':about_string,
     'sidebar_width':150,
-    'row_search_placeholder':'Gene'
+    'row_search_placeholder':'Gene',
+    'buffer_width':25
   };
 
   cgm = Clustergrammer(arguments_obj);
@@ -87,9 +88,10 @@ function load_viz_enrichr(network_data){
     .style('height','33px');
 
   d3.select('.sidebar_wrapper')
-    .style('width','145px')
-    .style('margin-left','1px');
+    .style('margin-left','0px');
 
+  d3.selectAll('.sidebar_text')
+    .style('font-size','12px');
 
   // arguments_obj.root = '#container-id-2';
 
