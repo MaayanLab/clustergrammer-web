@@ -20,8 +20,10 @@ def main( buff, inst_filename, mongo_address, viz_id):
 
     net.swap_nan_for_zero()
 
-    net.make_clust(dist_type='cosine', dendro=True, \
-      views=['N_row_sum', 'N_row_var'], linkage_type='average')
+    views = ['N_row_sum', 'N_row_var']
+
+    net.make_clust(dist_type='cosine', dendro=True, views=views, \
+                   linkage_type='average')
 
     export_dat = {}
     export_dat['name'] = inst_filename
