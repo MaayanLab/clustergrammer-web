@@ -17,7 +17,7 @@ app = Flask(__name__, static_url_path='')
 ENTRY_POINT = '/clustergrammer'
 
 # local
-mongo_address = '10.125.190.237'
+mongo_address = '192.168.1.6'
 
 # # lab 
 # mongo_address = '146.203.54.165'
