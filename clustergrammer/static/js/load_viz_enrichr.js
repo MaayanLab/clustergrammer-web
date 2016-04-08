@@ -1,10 +1,8 @@
-function load_viz_new(network_data){
-
-  console.log('load_viz_new')
+function load_viz_enrichr(network_data){
 
   var outer_margins = {
       'top':5,
-      'bottom':30,
+      'bottom':5,
       'left':195,
       'right':2
     };
@@ -14,7 +12,7 @@ function load_viz_new(network_data){
     'height':600
   };
 
-  about_string = 'Zoom, scroll, and click buttons to interact with the clustergram.';
+  about_string = 'Enriched Terms are the columns, input genes are the rows, and cells in the matrix indicate if a gene is associated with a term.';
 
   // define arguments object
   var arguments_obj = {
@@ -39,34 +37,64 @@ function load_viz_new(network_data){
     // 'input_domain':2,
     // 'do_zoom':false,
     // 'tile_colors':['#ED9124','#1C86EE'],
-    // 'bar_colors':['#ff6666','#1C86EE'],
-    // 'tile_colors':['#ff6666','#1C86EE'],
+    'bar_colors':['#ff6666','#1C86EE'],
+    'tile_colors':['#ff6666','#1C86EE'],
     // 'background_color':'orange',
     // 'tile_title': true,
     // 'click_group': click_group_callback,
     // 'size':viz_size
     // 'order':'rank'
     // 'row_order':'clust'
-    // 'col_order':'rank',
-    // 'ini_view':{'N_row_sum':'25', 'N_col_sum':'10'},
+    'col_order':'rank',
+    'ini_view':{'N_row_sum':'25', 'N_col_sum':'10'},
     // 'current_col_cat':'category-one'
     // 'title':'Clustergrammer',
     'about':about_string,
-    // 'sidebar_width':150,
+    'sidebar_width':150,
     'row_search_placeholder':'Gene'
   };
 
   cgm = Clustergrammer(arguments_obj);
 
+  _.each(['row','col'], function(inst_rc){
+
+    d3.select('.toggle_'+inst_rc+'_order')
+      .classed('btn-group-vertical',false)
+      .classed('btn-group',true)
+      .selectAll('button')
+      .style('width','68px')
+      .text(function(){
+        var inst_text = d3.select(this).text();
+        inst_text = inst_text.replace('Rank by','');
+        return inst_text;
+      });
+
+    d3.select('.toggle_'+inst_rc+'_order')
+
+  });
+
+  d3.select('.submit_gene_button')
+    .style('padding-top','7px');
+
+  d3.select('.gene_search_box')
+    .style('width','65px');
+
+  d3.selectAll('.btn')
+    .style('padding-top','3px')
+    .style('padding-bottom','3px');
+
+  d3.select('.submit_gene_button')
+    .style('height','33px');
+
+  d3.select('.sidebar_wrapper')
+    .style('width','145px')
+    .style('margin-left','1px');
+
+
+  // arguments_obj.root = '#container-id-2';
+
+  // cgm = Clustergrammer(arguments_obj);
 
   d3.select(cgm.params.root + ' .wait_message').remove();
 
-  d3.select(cgm.params.root+ ' .title_section')
-    .append('img')
-    .classed('title_image',true)
-    .attr('src','static/img/clustergrammer_logo.png')
-    .attr('alt','clustergrammer')
-    .style('width','167px')
-    .style('margin-left','-2px')
-    .style('margin-top','5px');
 }

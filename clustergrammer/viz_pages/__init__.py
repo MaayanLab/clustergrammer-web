@@ -12,6 +12,12 @@ def add_routes(app=None, mongo_address=None):
     net = viz_fun.get_network_from_mongo(user_objid, mongo_address)
     return viz_fun.render_page(net, 'viz.html')
 
+  @viz_page.route("/clustergrammer/viz_new/<user_objid>")
+  @viz_page.route("/clustergrammer/viz_new/<user_objid>/<slug>")
+  def viz_new(user_objid, slug=None):
+    net = viz_fun.get_network_from_mongo(user_objid, mongo_address)
+    return viz_fun.render_page(net, 'viz_new.html')
+
   @viz_page.route("/clustergrammer/Enrichr/<user_objid>")
   @viz_page.route("/clustergrammer/Enrichr/<user_objid>/<slug>")
   def viz_Enrichr(user_objid, slug=None):

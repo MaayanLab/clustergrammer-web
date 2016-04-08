@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href='/clustergrammer/'>
+
+    <title>Clustergrammer</title>
+
+    <link rel="shortcut icon" href="img/graham_cracker.ico"  type="image/x-icon">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/lib/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="static/css/custom_new.css" rel="stylesheet">
+    <!-- for jquery sliders -->
+    <!-- <link href="static/lib/jquery-ui.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!-- for icons -->
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+  <!-- svg_div - visualization will be put here -->
+  <div id='container-id-1'>
+      <h1 class='wait_message'>Please wait ...</h1>
+  </div>
+  <!-- <div id='container-id-2'>
+      <h1 class='wait_message'>Please wait ...</h1>
+  </div> -->
+
+  <!-- footer -->
+  <footer id='footer_div' class="footer navbar-fixed-bottom">
+    <div class="row" >
+      <div class="col-xs-12 footer_section">
+        <p class="text-muted">Clustergrammer.js is being developed by the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>. </p>
+      </div>
+    </div>
+  </footer>
+  <!-- end footer -->  
+
+  <!-- Share Modal -->
+  <div class="modal fade share_info" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+          <a target='_blank' href="/clustergrammer/">
+            <div>
+              <img class='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
+            </div>
+          </a>
+
+          <h4 class="modal-title">Share the visualization using the current URL:</h4>
+        </div>
+        <div class="modal-body">
+          <input class='bootstrap_highlight share_url'></input>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Picture Modal -->
+  <div class="modal fade picture_info" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Save a snapshot of the visualization:</h4>
+        </div>
+        <div class="modal-body"
+          <input class='bootstrap_highlight share_url'></input> 
+          <div class='download_buttons'></div>
+        </div>
+      </div>
+
+    </div>
+  </div>  
+
+  <!-- Required JS Libraries -->
+  <script src="static/lib/js/d3.js"></script>
+  <script src="static/lib/js/jquery-1.11.2.min.js"></script>
+  <script src="static/lib/js/jquery-ui.js"></script>
+  <script src="static/lib/js/bootstrap.min.js"></script>
+  <script src="static/lib/js/underscore-min.js"></script>
+  <script src="static/lib/js/underscore.strings.js"></script>
+  <script src="static/lib/js/d3.tip.js"></script>
+  <script src='static/lib/js/crossfilter.js'></script>
+  <script src='static/lib/js/saveSVGasPNG.js'></script>
+  <script src='static/lib/js/FileSaver.js'></script>
+
+  <!-- clustergram.js -->
+  <script src='static/js/clustergrammer_new.js'></script>
+  <!-- <script src='play_demo.js'></script> -->
+  <script src='static/js/load_viz_new.js'></script>
+
+  <script>
+    
+    network_data = {{ viz_network|tojson|safe }};
+
+    viz_name = {{viz_name|tojson|safe}};
+
+    console.log(network_data)
+
+    load_viz_new(network_data);
+
+  </script>
+
+</body>
+
+</html>
