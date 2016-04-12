@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from pymongo import MongoClient
-mongo_address = '146.203.54.165'
+# mongo_address = '146.203.54.165'
+mongo_address = '146.203.54.131'
 
 def add_routes(app=None):
   demo_pages = Blueprint('demo_pages', __name__, static_url_path='/demo_pages/static',
