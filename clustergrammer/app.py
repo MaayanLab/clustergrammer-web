@@ -26,29 +26,27 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# # local
-# mongo_address = '192.168.1.2'
+# local
+mongo_address = '192.168.1.6'
 
-# lab 
-
-# elizabeth
+# # elizabeth
 # mongo_address = '146.203.54.165'
 
-# hannah
-mongo_address = '146.203.54.131'
+# # hannah
+# mongo_address = '146.203.54.131'
 
 ##########################################
 # switch for local and docker development 
 # docker_vs_local
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 ######################################
@@ -456,7 +454,7 @@ def proc_matrix_upload():
 
 home_pages.add_routes(app)
 viz_pages.add_routes(app, mongo_address)
-demo_pages.add_routes(app)
+demo_pages.add_routes(app, mongo_address)
 enrichr_clust.add_routes(app, mongo_address)
 
 if __name__ == "__main__":
