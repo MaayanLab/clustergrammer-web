@@ -26,11 +26,11 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# local
-mongo_address = '192.168.1.6'
+# # local
+# mongo_address = '192.168.1.6'
 
-# # elizabeth
-# mongo_address = '146.203.54.165'
+# elizabeth
+mongo_address = '146.203.54.165'
 
 # # hannah
 # mongo_address = '146.203.54.131'
