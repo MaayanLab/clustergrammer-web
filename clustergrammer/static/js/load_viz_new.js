@@ -20,8 +20,8 @@ function load_viz_new(network_data){
   var args = {
     root: '#container-id-1',
     'network_data': network_data,
-    'row_label':'Input Genes',
-    'col_label':'Enriched Terms',
+    // 'row_label':'Input Genes',
+    // 'col_label':'Enriched Terms',
     'outer_margins': outer_margins,
     // 'outline_colors':['black','yellow'],
     // 'tile_click_hlight':true,
