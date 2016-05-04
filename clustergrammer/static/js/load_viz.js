@@ -4,6 +4,7 @@ function load_viz( viz_name, network_data ){
     var first_name = viz_name.split('_')[0];
 
     console.log('\n\nfirst name '+first_name+'\n\n')
+    console.log(network_data)
 
     $('#share_button').click(function() {
       $('#share_info').modal('toggle');

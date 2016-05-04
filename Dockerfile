@@ -32,7 +32,7 @@ RUN pip install poster
 # use apt-get to install scipy
 RUN apt-get -y install python-numpy python-scipy python-matplotlib 
 
-RUN pip install pandas==0.16.0
+RUN pip install pandas==0.17.1
 
 RUN pip install pymongo
 RUN pip install -Iv flask-cors==2.0.1
