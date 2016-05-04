@@ -17,7 +17,7 @@ function load_viz_new(network_data){
   about_string = 'Zoom, scroll, and click buttons to interact with the clustergram.';
 
   // define arguments object
-  var arguments_obj = {
+  var args = {
     root: '#container-id-1',
     'network_data': network_data,
     'row_label':'Input Genes',
@@ -56,7 +56,24 @@ function load_viz_new(network_data){
     'row_search_placeholder':'Gene'
   };
 
-  cgm = Clustergrammer(arguments_obj);
+  function resize_container(){
+
+    var screen_width = window.innerWidth;
+    var screen_height = window.innerHeight - 30;
+
+    d3.select(args.root)
+      .style('width', screen_width+'px')
+      .style('height', screen_height+'px');
+  }
+
+  resize_container();
+
+  d3.select(window).on('resize',function(){
+    resize_container();
+    cgm.resize_viz();
+  });  
+
+  cgm = Clustergrammer(args);
 
 
   d3.select(cgm.params.root + ' .wait_message').remove();
