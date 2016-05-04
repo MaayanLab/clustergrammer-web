@@ -26,7 +26,7 @@ function load_viz_demo(network_data){
     // 'highlight_color':'yellow',
     // 'super_label_scale':1.25,
     // 'transpose':true,
-    // 'ini_expand':true,
+    'ini_expand':true,
     'col_label_scale':0.60,
     'row_label_scale':0.60,
     // 'force_square':1
