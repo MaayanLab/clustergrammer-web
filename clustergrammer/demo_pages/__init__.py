@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from pymongo import MongoClient
-mongo_address = '146.203.54.165'
+# mongo_address = '146.203.54.165'
 
 def add_routes(app=None):
   demo_pages = Blueprint('demo_pages', __name__, static_url_path='/demo_pages/static',
@@ -12,8 +12,8 @@ def add_routes(app=None):
     from bson.objectid import ObjectId
     from copy import deepcopy
 
-    client = MongoClient(mongo_address)
-    db = client.clustergrammer
+    # client = MongoClient(mongo_address)
+    # db = client.clustergrammer
 
     try: 
       obj_id = ObjectId(user_objid)
@@ -21,13 +21,13 @@ def add_routes(app=None):
       error_desc = 'Invalid visualization Id.'
       return redirect('/clustergrammer/error/'+error_desc)
 
-    gnet = db.networks.find_one({'_id': obj_id })
+    # gnet = db.networks.find_one({'_id': obj_id })
 
-    client.close()
+    # client.close()
 
-    d3_json = gnet['viz']
-    viz_name = gnet['name']
+    # d3_json = gnet['viz']
+    # viz_name = gnet['name']
 
-    return render_template('demo.html', viz_network=d3_json, viz_name=viz_name)    
+    return render_template('demo.html')
 
   app.register_blueprint(demo_pages)
