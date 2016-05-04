@@ -18,26 +18,26 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# # local
-# mongo_address = '192.168.1.6'
+# local
+mongo_address = '10.90.122.218'
 
 # # elizabeth
 # mongo_address = '146.203.54.165'
 
-# hannah
-mongo_address = '146.203.54.131'
+# # hannah
+# mongo_address = '146.203.54.131'
 
 ##########################################
 # switch for local and docker development 
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development 
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker 
+# logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 ######################################
@@ -48,6 +48,9 @@ def send_static(path):
 
 @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
 def l1000cds2_upload():
+  '''
+  l1000cds2 is using a old version of clustergrammer.py  
+  '''
   import requests
   import json 
   from clustergrammer_old import Network 

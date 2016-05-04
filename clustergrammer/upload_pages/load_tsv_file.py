@@ -4,7 +4,8 @@ def main( buff, inst_filename, mongo_address, viz_id):
   from bson.objectid import ObjectId
   from pymongo import MongoClient
   from flask import request
-  from clustergrammer import Network
+  # from clustergrammer import Network
+  from clustergrammer_v100 import Network
   import StringIO
 
   client = MongoClient(mongo_address)
