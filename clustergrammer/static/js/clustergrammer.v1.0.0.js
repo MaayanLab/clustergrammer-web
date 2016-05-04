@@ -6495,10 +6495,14 @@ var Clustergrammer =
 
     if (d3.select(params.root + ' .demo_group').empty()) {
 
+      var clust_transform = d3.select(params.root + ' .clust_container').attr('transform');
+      var clust_x = Number(clust_transform.split('(')[1].split(',')[0]);
+      var clust_y = Number(clust_transform.split(',')[1].replace(')', ''));
+
       // demo text container
       var demo_group = d3.select(params.root + ' .viz_svg').append('g').classed('demo_group', true).attr('transform', function () {
-        var pos_x = 200;
-        var pos_y = 200;
+        var pos_x = clust_x + 20;
+        var pos_y = clust_y + 40;
         return 'translate(' + pos_x + ',' + pos_y + ')';
       });
 
@@ -9446,10 +9450,15 @@ var Clustergrammer =
     var params = cgm.params;
 
     if (d3.select(params.root + ' .play_button').empty()) {
+
       var play_button = d3.select(params.root + ' .viz_svg').append('g').classed('play_button', true).classed('running_demo', false);
 
-      var trans_x = 400;
-      var trans_y = 350;
+      var clust_transform = d3.select(params.root + ' .clust_container').attr('transform');
+      var clust_x = Number(clust_transform.split('(')[1].split(',')[0]);
+      var clust_y = Number(clust_transform.split(',')[1].replace(')', ''));
+
+      var trans_x = clust_x + params.viz.clust.dim.width / 2;
+      var trans_y = clust_y + params.viz.clust.dim.height / 2;
 
       play_button.attr('transform', function () {
         return 'translate(' + trans_x + ',' + trans_y + ')';
