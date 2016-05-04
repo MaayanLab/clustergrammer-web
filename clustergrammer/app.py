@@ -53,6 +53,7 @@ def l1000cds2_upload():
   from clustergrammer_old import Network 
   from pymongo import MongoClient
   from bson.objectid import ObjectId
+  from flask import request
 
   l1000cds2 = json.loads( request.form.get('signatures') )
 
