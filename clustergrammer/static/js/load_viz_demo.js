@@ -48,7 +48,8 @@ function load_viz_demo(network_data){
     // 'about':about_string,
     // 'sidebar_width':150,
     'sidebar_icons':false,
-    'row_search_placeholder':'Gene'
+    'row_search_placeholder':'Gene',
+    'max_allow_fs':12,
   };
 
   function resize_container(){
