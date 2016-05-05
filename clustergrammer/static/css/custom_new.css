@@ -6,6 +6,10 @@
   margin-bottom: 20px;
 }*/
 
+html{
+  overflow: hidden;
+}
+
 /*stylize footer */
 footer {
   text-align: center;
