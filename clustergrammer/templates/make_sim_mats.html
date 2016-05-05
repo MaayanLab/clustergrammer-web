@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <base href='/clustergrammer/'>
+
+    <title>Clustergrammer</title>
+
+    <!-- <link rel="shortcut icon" href="static/map-o_32_transparent.ico"  type="image/x-icon"> -->
+    <link rel="shortcut icon" href="static/icons/graham_cracker.ico"  type="image/x-icon">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/lib/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="static/lib/css/bootstrap-switch.css">
+    <link rel="stylesheet" href="static/css/specific.css" />
+    <link rel="stylesheet" href="static/css/custom_index.css">
+    <link rel="stylesheet" href="static/lib/css/prettify.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+
+    <style>
+      #input_form {display: none}
+    </style>
+
+</head>
+
+<body onload="prettyPrint()">
+
+  <!-- Wrap all page content here -->
+  <div id="wrap" class='toggled'>
+
+      <!-- main container - required --> 
+      <div id='main_container'>
+
+        <!-- this row is - required fluid causes problems --> 
+        <div class="row" > 
+
+          <img src="static/icons/graham_cracker_70.png" id='home_graham_cracker' style="width:35px;height:35px;" >
+          <h1 id='website_title'> clustergrammer</h1>
+
+          <p class='initial_paragraph first_instructions'>Clustergrammer is a visualization tool that enables users and web-based applications to easily generate interactive and shareable clustergram-heatmap visualizations from a matrix of data. Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and shareable clustergram like the example below. Press play or explore the example below to see the interactive features. </p>
+
+          <!-- non-local mongodb -->
+          <!-- <iframe id='iframe_preview' src="/clustergrammer/  demo/566f6bbfb1a04e7f4087fcad?preview=true" frameBorder="0"></iframe>  -->
+
+          <!-- category local example -->
+          <iframe id='iframe_preview' src="/clustergrammer/demo/" frameBorder="0"></iframe> 
+          <!-- 572a63400329efd3b8ed4b5e -->
+
+          <!-- local mongodb -->
+          <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true" frameBorder="0"></iframe>  -->
+
+          <a id=demo_link class='blue_links' href="/clustergrammer/viz/572b87720329ef3c113674c4/rc_two_cats.txt" target="_blank">See example in full page</a>
+
+          <div id='upload_section'>
+
+            <p class='initial_paragraph'>Your uploaded tab-separated matrix file should have the following format: </p>
+
+              <pre id='example_tsv' class='prettyprint'> 
+       Col-A   Col-B   Col-C
+Row-A   0.0    -0.1     1.0
+Row-B   3.0     0.0     8.0
+Row-C   0.2     0.1     2.5
+              </pre>
+
+            <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
+            <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization. </p>
+
+            <form id='input_form'  action="{{ url_for('upload_pages.upload_network') }}" method=post enctype=multipart/form-data>
+              <input type=file name=file title='Choose File'  >
+              <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
+            </form>
+
+            <a href="help" target="_blank" class="btn share-button" id="help_link"><i class="fa fa-question-circle"></i></a>
+
+          </div>                            
+
+          <!-- start example row -->
+          <div id='homepage_examples'>
+
+            <p id='example_title'>Clustergrammer Web-App Integration Examples</p>
+
+            <div class='row' >
+              
+
+              <div class='col-xs-4 example_col'>
+                <p class='example_single_title'>L1000CDS2</p>
+                <a href='http://amp.pharm.mssm.edu/clustergrammer/l1000cds2/55e0b68a5bf3665f1a726bfa' target='_blank'>
+                  <div class='example_image_container'>
+                    <img class='example_image' id='L1000CDS2' src="static/img/L1000CDS2.png" alt="L1000CDS2">
+                  </div>
+                </a>
+                <p class='example_single_description'>Clustergrammer visualizes gene-expression-signature search results from the Ma'ayan lab web tool L1000CDS2, which allows users to find perturbations from the L1000 project whose signatures are similar or antisimilar to their input signature. </p>
+              </div>
+
+              <div class='col-xs-4 example_col'>
+                <p class='example_single_title'>CCLE Explorer</p>
+                <a href='/clustergrammer/CCLE/' >
+                  <div class='example_image_container'>
+                    <img id='CCLE_image' src="static/img/CCLE_tree.png" alt="CCLE Explorer">
+                  </div>
+                </a>
+                <p class='example_single_description'>Cancer Cell Line Encyclopedia (CCLE) Explorer enables users to browse relative mRNA expression data for cancer cell lines from the CCLE by tissue of origin using Clustergrammer.</p>
+              </div>
+
+              <div class='col-xs-4 example_col'>
+                <p class='example_single_title'>Harmonogram</p>
+                <a href='http://amp.pharm.mssm.edu/harmonogram/' target='_blank'>
+                  <div class='example_image_container'>
+                    <img class='example_image' id='harmonizome' src="static/img/harmonizome.png" alt="Harmonogram">
+                  </div>
+                </a>
+
+  
+
+                <p class='example_single_description'>
+                Clustergrammer visualizes data from over one hundred biological resources for the Ma'ayan lab web-resource <a href="http://amp.pharm.mssm.edu/Harmonizome/" target='_blank'> Harmonizome</a>. The visualization allows users to identify to identify the amount of knowledge available for different classes of genes (e.g. kinases). 
+                </p>
+              </div>              
+
+            </div>
+            <!-- end row -->
+
+<!--             <div class='row' >
+
+              <div class='col-xs-4 example_col'>
+                <p class='example_single_title'>Geneva</p>
+                <div class='example_image_container'></div>
+                <p class='example_single_description'>Clustergrammer visualizes gene expression signatures extracted from the Geen Expression Omnibus using the Ma'ayan web-tools Geneva and GEO2Enrichr.  </p>
+              </div>
+              
+              <div class='col-xs-4 example_col'>
+                <p class='example_single_title'>Gene Expression Explorer</p>
+                <div class='example_image_container'></div>
+                <p class='example_single_description'>Clustergrammer has pre-loaded gene expression signatures available for exploration from the Cancer Cell Line Encyclopedia. Users can explore the data by tissue type.</p>
+              </div>
+
+              <div class='col-xs-4 example_col'>
+                <p class='example_single_title'>Clustergrammer API</p>
+                <div class='example_image_container'></div>
+                <p class='example_single_description'>The Clustergrammer API allows developers to dynamically create visualizations and embed them into their own projects.</p>
+              </div>
+
+            </div> -->
+            <!-- end row -->
+
+
+          </div>
+
+        </div>
+        <!-- end row -->
+
+
+      </div>
+      <!-- end main container -->
+
+  </div> 
+  <!-- End Wrap all page content here -->
+
+  <div id='footer'>
+    <div class="row" > 
+      <div id='footer_text_container' class="col-xs-12 footer_section"> 
+        <div class="text-muted footer_text">Clustergrammer is being developed by the <a class='blue_links' target="_blank"  href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a class='blue_links' target="_blank"   href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>  for the <a target="_blank" href="http://lincs-dcic.org/">BD2K-LINCS DCIC</a> and the <a target="_blank" href="http://commonfund.nih.gov/idg/overview">KMC-IDG</a>  </div>
+        <!-- DCIC, BD2K, KMC, and GitHub -->
+        <div class="text-muted footer_text">
+        and is an open source project available on GitHub: <a class='blue_links' target="_blank"  href="https://github.com/MaayanLab/clustergrammer">Clustergrammer</a> and <a class='blue_links' target="_blank"  href="https://github.com/cornhundred/clustergrammer.js">Clustergrammer.js</a>
+         
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  
+
+
+    <!-- Vendor -->
+  <!-- jQuery -->
+  <script src="static/lib/js/jquery-1.11.2.min.js"></script>
+
+  <!-- <script src='static/lib/js/jquery.accordion.js'></script> -->
+  <!-- Bootstrap Core JavaScript -->
+  <script src="static/lib/js/bootstrap.min.js"></script>
+  <script src="static/lib/js/bootstrap-switch.min.js"></script>
+  <script src="static/lib/js/blockUI.js"></script>
+  <script src="static/lib/js/d3.js"></script>
+  
+  <!-- stylized file upload button -->
+  <!-- http://gregpike.net/demos/bootstrap-file-input/demo.html -->
+  <script type="text/javascript" src="static/lib/js/bootstrap.file-input.js"> </script>
+  <script type="text/javascript">
+    $('input[type=file]').bootstrapFileInput();
+    $('.file-inputs').bootstrapFileInput();
+  </script>
+  <script type="text/javascript" src="static/lib/js/prettify.js"> </script>
+
+  <!-- style code -->
+  <!-- Clustergram Scripts -->
+
+  <script>
+   
+    // display the upload button 
+    d3.select('#input_form').style('display','block');
+
+    d3.select('#file_upload_button').on('click',function(){
+
+      // make wait sign 
+      $.blockUI({ css: { 
+          border: 'none', 
+          padding: '15px', 
+          backgroundColor: '#000', 
+          '-webkit-border-radius': '10px', 
+          '-moz-border-radius': '10px', 
+          opacity: .8, 
+          color: '#fff' 
+      } });
+
+      d3.select('.blockMsg').select('h1').text('Please wait...');
+
+
+    })
+
+  </script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-71147904-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+
+</body>
+
