@@ -30,7 +30,7 @@ def add_routes(app=None, mongo_address=None):
 
   @upload_pages.route('/clustergrammer/test_sim_mat', methods=['POST'])
   def test_sim_mat():
-    return load_tsv_endpoint.main(mongo_address, response_type='redirect')
+    return load_tsv_endpoint.main(mongo_address, response_type='redirect', req_sim_mat=True)
 
   @upload_pages.route('/clustergrammer/matrix_upload/', methods=['POST'])
   def proc_matrix_upload():

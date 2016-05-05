@@ -1,4 +1,4 @@
-def main( buff, inst_filename, mongo_address, viz_id):
+def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   import numpy as np
   import flask
   from bson.objectid import ObjectId
@@ -24,7 +24,7 @@ def main( buff, inst_filename, mongo_address, viz_id):
     views = ['N_row_sum', 'N_row_var']
 
     net.make_clust(dist_type='cosine', dendro=True, views=views, \
-                   linkage_type='average')
+                   linkage_type='average', sim_mat=req_sim_mat)
 
     export_dat = {}
     export_dat['name'] = inst_filename

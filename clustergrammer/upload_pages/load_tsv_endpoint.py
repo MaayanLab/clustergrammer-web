@@ -1,4 +1,4 @@
-def main(mongo_address, response_type='redirect'):
+def main(mongo_address, response_type='redirect', req_sim_mat=False):
   from flask import request 
   import StringIO
   import load_tsv_file
@@ -13,7 +13,7 @@ def main(mongo_address, response_type='redirect'):
 
     if allowed_file(inst_filename):
 
-      thread, viz_id = start_upload(mongo_address, inst_filename, buff)
+      thread, viz_id = start_upload(mongo_address, inst_filename, buff, req_sim_mat)
 
       max_wait_time = 15
       for wait_time in range(max_wait_time):
@@ -34,7 +34,7 @@ def allowed_file(filename):
   ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
   return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-def start_upload(mongo_address, inst_filename, buff):
+def start_upload(mongo_address, inst_filename, buff, req_sim_mat=False):
   from pymongo import MongoClient
   import threading
   import load_tsv_file
@@ -55,7 +55,7 @@ def start_upload(mongo_address, inst_filename, buff):
   client.close()
 
   sub_function = load_tsv_file.main
-  arg_list = [ buff, export_viz['name'], mongo_address, viz_id]
+  arg_list = [ buff, export_viz['name'], mongo_address, viz_id, req_sim_mat]
   thread = threading.Thread(target=sub_function, args=arg_list)
   thread.setDaemon(True)
 
