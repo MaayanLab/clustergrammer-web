@@ -13,7 +13,7 @@ def main(mongo_address, response_type='redirect'):
 
     if allowed_file(inst_filename):
 
-      thread, viz_id = upload(mongo_address, inst_filename, buff)
+      thread, viz_id = start_upload(mongo_address, inst_filename, buff)
 
       max_wait_time = 15
       for wait_time in range(max_wait_time):
@@ -34,7 +34,7 @@ def allowed_file(filename):
   ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
   return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-def upload(mongo_address, inst_filename, buff):
+def start_upload(mongo_address, inst_filename, buff):
   from pymongo import MongoClient
   import threading
   import load_tsv_file

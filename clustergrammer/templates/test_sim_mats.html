@@ -45,7 +45,7 @@
           <img src="static/icons/graham_cracker_70.png" id='home_graham_cracker' style="width:35px;height:35px;" >
           <h1 id='website_title'> clustergrammer</h1>
 
-          <p class='initial_paragraph first_instructions'>Clustergrammer is a visualization tool that enables users and web-based applications to easily generate interactive and shareable clustergram-heatmap visualizations from a matrix of data. Upload a matrix as a tab-separated file to obtain a zoomable, reorderable, and shareable clustergram like the example below. Press play or explore the example below to see the interactive features. </p>
+          <p class='initial_paragraph first_instructions'>TEST: make clustergram and row/col similarity matrices</p>
 
           <!-- non-local mongodb -->
           <!-- <iframe id='iframe_preview' src="/clustergrammer/  demo/566f6bbfb1a04e7f4087fcad?preview=true" frameBorder="0"></iframe>  -->
@@ -73,7 +73,7 @@ Row-C   0.2     0.1     2.5
             <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
             <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization. </p>
 
-            <form id='input_form'  action="{{ url_for('upload_pages.upload_network') }}" method=post enctype=multipart/form-data>
+            <form id='input_form'  action="{{ url_for('upload_pages.test_sim_mat') }}" method=post enctype=multipart/form-data>
               <input type=file name=file title='Choose File'  >
               <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
             </form>

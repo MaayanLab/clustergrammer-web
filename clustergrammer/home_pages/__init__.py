@@ -10,9 +10,9 @@ def add_routes(app=None):
   def index():
     return render_template('index.html')  
 
-  @home_pages.route('/clustergrammer/make_sim_mats/')
-  def make_sim_mats():
-    return render_template('make_sim_mats.html')
+  @home_pages.route('/clustergrammer/test_sim_mats/')
+  def test_sim_mats():
+    return render_template('test_sim_mats.html')
 
   @home_pages.route("/clustergrammer/help")
   def help():
