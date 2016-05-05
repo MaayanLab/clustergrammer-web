@@ -15,11 +15,6 @@ footer {
   padding-right:10px;
 }
 
-/* for highlighting row/col labels on hover*/
-text.active {
-  font-weight: bold;
-}
-
 /* default svg size for fixed svg option*/
 #svg_div{
   width:1000px;
@@ -28,7 +23,7 @@ text.active {
 
 .viz_medium_text{
   width:99%;
-  margin: 0 auto;
+  margin-left: 5px;
   margin-top: 3px;
   margin-bottom: 3px;
   color:#333;
@@ -64,7 +59,7 @@ text.active {
 }
 
 .wait_message{
-  margin-left: 300px;
+  margin-left: 50px;
   margin-top: 10px;
   opacity: 0.5;
 }
@@ -105,4 +100,8 @@ text.active {
 
 .share_url{
   width: 570px;
+}
+
+.sidebar_text{
+  font-weight: 300;
 }
