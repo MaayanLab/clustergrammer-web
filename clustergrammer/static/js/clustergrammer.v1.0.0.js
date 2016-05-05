@@ -6437,6 +6437,7 @@ var Clustergrammer =
   var play_categories = __webpack_require__(156);
   var play_conclusion = __webpack_require__(157);
   var toggle_play_button = __webpack_require__(160);
+  var play_menu_button = __webpack_require__(161);
 
   module.exports = function play_demo() {
 
@@ -6467,15 +6468,24 @@ var Clustergrammer =
       // intro text
       var inst_time = 750;
 
+      // clustergram interaction
+      ///////////////////////////////////
       inst_time = run_segment(params, inst_time, play_intro);
       inst_time = run_segment(params, inst_time, play_zoom);
       inst_time = run_segment(params, inst_time, play_reset_zoom);
-      inst_time = run_segment(params, inst_time, play_groups);
       inst_time = run_segment(params, inst_time, play_categories);
       inst_time = run_segment(params, inst_time, play_reorder_row);
+
+      // sidebar interaction
+      ///////////////////////////////////
+      inst_time = run_segment(params, inst_time, play_menu_button);
+      inst_time = run_segment(params, inst_time, play_groups);
       inst_time = run_segment(params, inst_time, play_reorder_buttons);
       inst_time = run_segment(params, inst_time, play_search);
       inst_time = run_segment(cgm, inst_time, play_filter);
+
+      // conclusion
+      ///////////////////////////////////
       inst_time = run_segment(params, inst_time, quick_cluster);
       inst_time = run_segment(params, inst_time, play_conclusion);
     }
@@ -9231,15 +9241,15 @@ var Clustergrammer =
       setTimeout(highlight_sidebar_element, 5000, params, 'slider_' + filter_type, 13000);
 
       text = 'Filter: Top 20 rows by sum';
-      setTimeout(demo_text, 5000, params, text, 3500);
+      setTimeout(demo_text, 5000, params, text, 4000);
       setTimeout(run_update, 5300, cgm, filter_type, 20, 1);
 
       text = 'Filter: Top 10 rows by sum';
-      setTimeout(demo_text, 10000, params, text, 3500);
+      setTimeout(demo_text, 10000, params, text, 4000);
       setTimeout(run_update, 10300, cgm, filter_type, 10, 2);
 
       text = 'Filter: All rows';
-      setTimeout(demo_text, 15000, params, text, 3500);
+      setTimeout(demo_text, 15000, params, text, 4000);
       setTimeout(run_update, 15300, cgm, filter_type, 'all', 0);
     }
 
@@ -9276,22 +9286,39 @@ var Clustergrammer =
 
 /***/ },
 /* 154 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
   'use strict';
 
-  // var demo_text = require('./demo_text');
+  var sim_click = __webpack_require__(111);
+
   module.exports = function quick_cluster() {
     /* eslint-disable */
 
     function run(params) {
 
-      click_reorder_button(params, 'row', 'clust');
-      click_reorder_button(params, 'col', 'clust');
+      var x_trans = Number(d3.select(params.root + ' .expand_button').attr('x').replace('px', ''));
+      var y_trans = Number(d3.select(params.root + ' .expand_button').attr('y').replace('px', ''));
+
+      var wait_click = 0;
+      var wait_real_click = 400;
+      setTimeout(sim_click, wait_click, params, 'single', x_trans, y_trans);
+      setTimeout(click_menu_button, wait_real_click, params);
+
+      setTimeout(reset_cluster_order, 1500, params);
     }
 
     function get_duration() {
-      return 2000;
+      return 3000;
+    }
+
+    function click_menu_button(params) {
+      $(params.root + ' .expand_button').d3Click();
+    };
+
+    function reset_cluster_order(params) {
+      click_reorder_button(params, 'row', 'clust');
+      click_reorder_button(params, 'col', 'clust');
     }
 
     function click_reorder_button(params, inst_rc, inst_order) {
@@ -9301,6 +9328,15 @@ var Clustergrammer =
 
       $(inst_button).click();
     }
+
+    // allows doubleclicking on d3 element
+    jQuery.fn.d3Click = function () {
+      this.each(function (i, e) {
+        var evt = document.createEvent("MouseEvents");
+        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        e.dispatchEvent(evt);
+      });
+    };
 
     return {
       run: run,
@@ -9532,6 +9568,87 @@ var Clustergrammer =
 
       $.unblockUI();
     }
+    };
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+  'use strict';
+
+  var demo_text = __webpack_require__(108);
+  var sim_click = __webpack_require__(111);
+
+  module.exports = function play_menu_button() {
+    /* eslint-disable */
+
+    function run(params) {
+
+      var text = 'View additional controls\nby clicking the menu button';
+      demo_text(params, text, 4000);
+
+      // var inst_element = get_row_element(params, 'EGFR');
+
+      // var group_trans = d3.select(inst_element).attr('transform');
+
+      // var container_trans = d3.select(params.root+' .clust_container')
+      //   .attr('transform')
+      //   .split(',')[1].replace(')','');
+
+      // var x_trans = params.viz.norm_labels.width.row * 0.9;
+
+      // var row_trans = group_trans.split(',')[1].replace(')','');
+      // var y_trans = String(Number(row_trans) + Number(container_trans) +
+      //   params.viz.rect_height/2);
+
+      var x_trans = Number(d3.select(params.root + ' .expand_button').attr('x').replace('px', ''));
+      var y_trans = Number(d3.select(params.root + ' .expand_button').attr('y').replace('px', ''));
+
+      var wait_click = 3000;
+      var wait_real_click = 3400;
+      setTimeout(sim_click, wait_click, params, 'single', x_trans, y_trans);
+      setTimeout(click_menu_button, wait_real_click, params);
+    }
+
+    function get_duration() {
+      return 5000;
+    }
+
+    function click_menu_button(params) {
+      $(params.root + ' .expand_button').d3Click();
+    };
+
+    function get_row_element(params, inst_row) {
+
+      var inst_element = d3.selectAll(params.root + ' .row_label_group').filter(function () {
+        var inst_data = this.__data__;
+        return inst_data.name == inst_row;
+      })[0][0];
+
+      return inst_element;
+    }
+
+    // allows doubleclicking on d3 element
+    jQuery.fn.d3Click = function () {
+      this.each(function (i, e) {
+        var evt = document.createEvent("MouseEvents");
+        evt.initMouseEvent("click", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        e.dispatchEvent(evt);
+      });
+    };
+
+    // allows doubleclicking on d3 element
+    jQuery.fn.d3DblClick = function () {
+      this.each(function (i, e) {
+        var evt = document.createEvent("MouseEvents");
+        evt.initMouseEvent("dblclick", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+        e.dispatchEvent(evt);
+      });
+    };
+    return {
+      run: run,
+      get_duration: get_duration
+    };
     };
 
 /***/ }
