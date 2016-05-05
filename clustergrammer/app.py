@@ -18,14 +18,14 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# local
-mongo_address = '10.90.122.218'
+# # local
+# mongo_address = '10.90.122.218'
 
 # # elizabeth
 # mongo_address = '146.203.54.165'
 
-# # hannah
-# mongo_address = '146.203.54.131'
+# hannah
+mongo_address = '146.203.54.131'
 
 ##########################################
 # switch for local and docker development 
