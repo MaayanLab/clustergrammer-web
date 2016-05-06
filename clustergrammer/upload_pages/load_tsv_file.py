@@ -36,15 +36,25 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
     update_viz = net.viz 
     update_dat = dat_id
 
+    if req_sim_mat:
+      update_sim_row = net.sim['row']
+      update_sim_col = net.sim['col']
+
   except:
     print('\n-----------------------')
     print('error in clustering')
     print('-----------------------\n')
     update_viz = 'error'
     update_dat = 'error'
+    if req_sim_mat:
+      update_sim_row = net.sim['row']
+      update_sim_col = net.sim['col']
 
   found_viz['viz'] = update_viz
   found_viz['dat'] = update_dat
+  if req_sim_mat:
+    found_viz['sim_row'] = update_sim_row
+    found_viz['sim_col'] = update_sim_col
 
   db.networks.update_one( {'_id':viz_id}, {'$set': found_viz} )
 
