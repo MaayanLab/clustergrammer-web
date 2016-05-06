@@ -1,13 +1,12 @@
-function load_viz_multiple_clust(network_data){
+function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col){
 
   var tmp_num;
   var cat_colors;
 
-  make_clust(network_data, make_sim_mats)
-  console.log('load_viz_multiple_clust')
+  make_clust(network_data, make_sim_mats, network_sim_row, network_sim_col);
 
-  // tmo
-  unblock();
+  // // tmo
+  // unblock();
 }
 
 // make wait sign 
@@ -81,7 +80,7 @@ window.onscroll = function() {
 
 }
 
-function make_clust(network_data, make_sim_mats){
+function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_col){
 
   var args = $.extend(true, {}, default_args);
   args.root = '#container-id-1';
@@ -91,15 +90,15 @@ function make_clust(network_data, make_sim_mats){
   d3.select(cgm.params.root+' .wait_message').remove();
   cat_colors = cgm.params.cat_colors;
 
-  // make_sim_mats('col', cat_colors, unblock);
-  // make_sim_mats('row', cat_colors, unblock);
+  make_sim_mats(network_sim_col, 'col', cat_colors, unblock);
+  make_sim_mats(network_sim_row, 'row', cat_colors, unblock);
 
 }
 
-function make_sim_mats(inst_rc, cat_colors, unblock){
+function make_sim_mats(inst_network, inst_rc, cat_colors, unblock){
 
   clust_name = 'mult_view_sim_'+inst_rc+'.json'
-  d3.json('json/'+clust_name, function(network_data){
+  // d3.json('json/'+clust_name, function(network_data){
 
     var args = $.extend(true, {}, default_args);
     args.cat_colors = {};
@@ -115,11 +114,11 @@ function make_sim_mats(inst_rc, cat_colors, unblock){
 
     args.root = '#container-id-'+tmp_num;
 
-    args.network_data = network_data;
+    args.network_data = inst_network;
     cgm = Clustergrammer(args);
     d3.select(cgm.params.root+' .wait_message').remove();
     unblock();
-  });
+  // });
 
 }
 

@@ -104,11 +104,13 @@
 
   <script>
     
-    network_data = {{ viz_network|tojson|safe }};
+    var network_data = {{ viz_network|tojson|safe }};
+    var network_sim_row = {{ viz_sim_row|tojson|safe }};
+    var network_sim_col = {{ viz_sim_col|tojson|safe }};
 
-    viz_name = {{viz_name|tojson|safe}};
+    var viz_name = {{viz_name|tojson|safe}};
 
-    load_viz_multiple_clust(network_data);
+    load_viz_multiple_clust(network_data, network_sim_row, network_sim_col);
 
   </script>
 

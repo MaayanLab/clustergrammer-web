@@ -22,7 +22,11 @@ def get_network_from_mongo(user_objid, mongo_address):
 
 def render_page(net, page_route):
   if net != 'error':
-    return render_template(page_route, viz_network=net['viz'], viz_name=net['name'])
+
+    if page_route == 'viz_sim_mats.html':
+      return render_template(page_route, viz_network=net['viz'], viz_name=net['name'], viz_sim_row=net['sim_row'], viz_sim_col=net['sim_col'])
+    elif page_route == 'viz_sim.html':
+      return render_template(page_route, viz_network=net['viz'], viz_name=net['name'])
   else:
     error_desc = 'Invalid visualization Id.'
     return redirect('/clustergrammer/error/'+error_desc)  
