@@ -22,9 +22,9 @@ def main(mongo_address, response_type='redirect', req_sim_mat=False):
 
         if thread.isAlive() == False:
 
-          return make_response(viz_id, inst_filename, response_type=response_type)
+          return make_response(viz_id, inst_filename, response_type=response_type, req_sim_mat=req_sim_mat)
 
-      return make_response(viz_id, inst_filename, response_type=response_type)
+      return make_response(viz_id, inst_filename, response_type=response_type, req_sim_mat=req_sim_mat)
 
     else:
       
@@ -72,11 +72,20 @@ def upload_error(inst_filename):
 
   return error_desc  
 
-def make_response(viz_id, inst_filename, response_type='redirect'):
+def make_response(viz_id, inst_filename, response_type='redirect', req_sim_mat=False):
   from flask import redirect
 
   if response_type == 'redirect':
-    return redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
+    if req_sim_mat:
+      inst_redirect = redirect('/clustergrammer/viz_sim_mats/'+viz_id+'/'+inst_filename)
+    else:
+      inst_redirect = redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
+    return inst_redirect
 
   elif response_type == 'link':
-    return 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
+    if req_sim_mat:
+      inst_link = 'http://amp.pharm.mssm.edu/clustergrammer/viz_sim_mats/'+viz_id+'/'+inst_filename
+    else:
+      inst_link = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
+
+    return 
