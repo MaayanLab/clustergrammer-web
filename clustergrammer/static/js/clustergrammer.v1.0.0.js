@@ -2723,15 +2723,48 @@ var Clustergrammer =
       return 'translate(' + x_pos + ',' + y_pos + ')';
     });
 
-    // // experimental tile display toggling
-    // .classed('hide_tile', function(){
-    //   var inst_opacity = Number(d3.select(this).style('fill-opacity'));
-    //   var inst_status = false;
-    //   if (inst_opacity<0.5){
-    //     var inst_status = true;
-    //   }
-    //   return inst_status;
-    // });
+    // // tile circles
+    // /////////////////////////////
+    // var tile = d3.select(row_selection)
+    //   .selectAll('circle')
+    //   .data(row_values, function(d){ return d.col_name; })
+    //   .enter()
+    //   .append('circle')
+    //   .attr('cx', params.viz.rect_height/4)
+    //   .attr('cy', params.viz.rect_height/4)
+    //   .attr('r', params.viz.rect_height/4)
+    //   .attr('class', 'tile_circle')
+    //   // .attr('width', params.viz.rect_width/2)
+    //   // .attr('height', params.viz.rect_height/2)
+    //   // // switch the color based on up/dn value
+    //   // .style('fill', function(d) {
+    //   //   // return d.value > 0 ? params.matrix.tile_colors[0] : params.matrix.tile_colors[1];
+    //   //   return 'black';
+    //   // })
+    //   // .on('mouseover', function(...args) {
+    //   //     mouseover_tile(params, this, tip, args);
+    //   // })
+    //   // .on('mouseout', function() {
+    //   //   mouseout_tile(params, this, tip);
+    //   // })
+    //   .style('fill-opacity', function(d) {
+    //     // calculate output opacity using the opacity scale
+    //     var output_opacity = params.matrix.opacity_scale(Math.abs(d.value));
+    //     if (output_opacity < 0.3){
+    //       output_opacity = 0;
+    //     } else if (output_opacity < 0.6){
+    //       output_opacity = 0.35;
+    //     } else {
+    //       output_opacity = 1;
+    //     }
+    //     return output_opacity;
+    //     // return 0.1;
+    //   })
+    //   .attr('transform', function(d) {
+    //     var x_pos = params.viz.x_scale(d.pos_x) + 0.5*params.viz.border_width + params.viz.rect_width/4;
+    //     var y_pos = 0.5*params.viz.border_width/params.viz.zoom_switch + params.viz.rect_height/4;
+    //     return 'translate(' + x_pos + ','+y_pos+')';
+    //   });
 
     if (params.matrix.tile_type == 'updn') {
 
@@ -3683,6 +3716,12 @@ var Clustergrammer =
       }
       d3.selectAll(params.root + ' .dendro_shadow').remove();
       dendro_mouseout(this);
+    }).on('click', function (d) {
+      d3.select(params.root + ' .dendro_info').select('.modal-title').html('Rows in Group');
+
+      $(params.root + ' .dendro_info .current_names').val(d.all_names.join(', '));
+
+      $(params.root + ' .dendro_info').modal('toggle');
     });
 
     var triangle_opacity;
@@ -3729,7 +3768,10 @@ var Clustergrammer =
         triangle_info[tmp_group].pos_bot = inst_bot;
         triangle_info[tmp_group].pos_mid = (inst_top + inst_bot) / 2;
         triangle_info[tmp_group].name = tmp_group;
+        triangle_info[tmp_group].all_names = [];
       }
+
+      triangle_info[tmp_group].all_names.push(d.name);
 
       if (inst_top < triangle_info[tmp_group].pos_top) {
         triangle_info[tmp_group].name_top = d.name;
@@ -3914,6 +3956,13 @@ var Clustergrammer =
       }
       d3.selectAll(params.root + ' .dendro_shadow').remove();
       dendro_mouseout(this);
+    }).on('click', function (d) {
+
+      d3.select(params.root + ' .dendro_info').select('.modal-title').html('Columns in Group');
+
+      $(params.root + ' .dendro_info .current_names').val(d.all_names.join(', '));
+
+      $(params.root + ' .dendro_info').modal('toggle');
     });
 
     var triangle_opacity;
@@ -3961,7 +4010,10 @@ var Clustergrammer =
         triangle_info[tmp_group].pos_bot = inst_bot;
         triangle_info[tmp_group].pos_mid = (inst_top + inst_bot) / 2;
         triangle_info[tmp_group].name = tmp_group;
+        triangle_info[tmp_group].all_names = [];
       }
+
+      triangle_info[tmp_group].all_names.push(d.name);
 
       if (inst_top < triangle_info[tmp_group].pos_top) {
         triangle_info[tmp_group].name_top = d.name;
@@ -4656,8 +4708,16 @@ var Clustergrammer =
       t.selectAll('.row').attr('transform', function (d) {
         var tmp_index = _.indexOf(row_nodes_names, d.name);
         return 'translate(0,' + params.viz.y_scale(tmp_index) + ')';
-      }).selectAll('.tile').attr('transform', function (d) {
+      });
+
+      t.selectAll('.row').selectAll('.tile').attr('transform', function (d) {
         return 'translate(' + params.viz.x_scale(d.pos_x) + ' , 0)';
+      });
+
+      t.selectAll('.row').selectAll('.tile_circle').attr('transform', function (d) {
+        var x_pos = params.viz.x_scale(d.pos_x) + 0.5 * params.viz.border_width + params.viz.rect_width / 4;
+        var y_pos = 0.5 * params.viz.border_width / params.viz.zoom_switch + params.viz.rect_height / 4;
+        return 'translate(' + x_pos + ' , ' + y_pos + ')';
       });
 
       t.selectAll('.tile_up').attr('transform', function (d) {
@@ -6117,7 +6177,6 @@ var Clustergrammer =
 
   module.exports = function position_play_button(params) {
 
-    console.log('positioning play button');
     var clust_transform = d3.select(params.root + ' .clust_container').attr('transform');
 
     var clust_x = Number(clust_transform.split('(')[1].split(',')[0]);
@@ -6128,7 +6187,6 @@ var Clustergrammer =
     d3.select(params.root + ' .play_button').attr('transform', function () {
       return 'translate(' + trans_x + ',' + trans_y + ')';
     });
-    // .style('opacity',1);
     };
 
 /***/ },
@@ -9662,26 +9720,32 @@ var Clustergrammer =
 
   module.exports = function ini_modals(params) {
 
+    // share modal
+    ///////////////////////////////////////
     var share_modal = make_modal_skeleton(params, 'share_info');
 
     share_modal.header.append('a').attr('target', '_blank').attr('href', '/clustergrammer/');
-
-    // share_modal.header
-    //   .append('div')
-    // .append('img');
-    // .classed('clustergrammer_logo', true)
-    // .attr('src', 'img/clustergrammer_logo.png')
-    // .attr('alt', 'Clustergrammer');
 
     share_modal.header.append('h4').classed('modal-title', true).html('Share the visualization using the current URL:');
 
     share_modal.body.append('input').classed('bootstrap_highlight', true).classed('share_url', true);
 
+    // picture modal
+    ///////////////////////////////////////
     var screenshot_modal = make_modal_skeleton(params, 'picture_info');
 
     screenshot_modal.header.append('h4').classed('modal-title', true).html('Save a snapshot of the visualization');
 
     screenshot_modal.body.append('div').classed('download_buttons', true);
+
+    // dendro modal
+    ///////////////////////////////////////
+    var dendro_modal = make_modal_skeleton(params, 'dendro_info');
+
+    dendro_modal.header.append('h4').classed('modal-title', true);
+    // .html('Group data points');
+
+    dendro_modal.body.append('div').classed('dendro_text', true).append('input').classed('bootstrap_highlight', true).classed('current_names', true).style('width', '100%');
     };
 
 /***/ },
@@ -9690,7 +9754,7 @@ var Clustergrammer =
 
   'use strict';
 
-  module.exports = function make_skeleton(params, modal_class) {
+  module.exports = function make_modal_skeleton(params, modal_class) {
 
     var modal_skeleton = {};
 

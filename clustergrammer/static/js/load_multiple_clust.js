@@ -36,7 +36,7 @@ $(document).ready(function(){
 });
 
 
-resize_container();
+// resize_container();
 
 window.onscroll = function() {
 
