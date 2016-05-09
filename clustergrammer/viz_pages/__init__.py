@@ -10,12 +10,12 @@ def add_routes(app=None, mongo_address=None):
   @viz_page.route("/clustergrammer/viz/<user_objid>/<slug>")
   def viz(user_objid, slug=None):
 
-    if 'sim_row:' in slug:
-      mat_type = 'sim_row'
-    elif 'sim_col' in slug:
-      mat_type = 'sim_col'
-    else: 
-      mat_type = 'clust'
+    mat_type = 'clust'
+    if slug is not None:
+      if 'sim_row:' in slug:
+        mat_type = 'sim_row'
+      elif 'sim_col' in slug:
+        mat_type = 'sim_col'
 
     net = viz_fun.get_network_from_mongo(user_objid, mongo_address)
 

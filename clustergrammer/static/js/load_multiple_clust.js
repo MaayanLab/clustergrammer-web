@@ -1,14 +1,10 @@
 function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col, viz_id){
 
-  console.log('viz_id '+String(viz_id))
-
   var tmp_num;
   var cat_colors;
 
   make_clust(network_data, make_sim_mats, network_sim_row, network_sim_col);
 
-  // // tmo
-  // unblock();
 }
 
 // make wait sign 
@@ -33,54 +29,7 @@ var default_args = {
   'row_search_placeholder':'Gene'
 };
 
-$(document).ready(function(){
-    $(this).scrollTop(0);
-});
-
-
 // resize_container();
-
-window.onscroll = function() {
-
-  var show_col_sim = 200;
-  var show_row_sim = 1200;
-  var hide_clust = 900;
-  var hide_col_sim = 1800;
-  var inst_scroll = $(document).scrollTop();
-
-  // // load col sim mat 
-  // if (inst_scroll > show_col_sim){
-  //   if (d3.select('#container-id-2 .viz_svg').empty()){
-  //     make_sim_mats('col', cat_colors)
-  //   }
-  // }
-
-  // // load row sim mat 
-  // if (inst_scroll > show_row_sim){
-  //   if (d3.select('#container-id-3 .viz_svg').empty()){
-  //     make_sim_mats('row', cat_colors)
-  //   }
-  // }
-
-  // hide clust 
-  if (inst_scroll > hide_clust){
-    d3.select('#container-id-1 .viz_svg')
-      .style('display', 'none');
-  } else {
-    d3.select('#container-id-1 .viz_svg')
-      .style('display', 'block');
-  }
-
-  // hide col sim mat
-  if (inst_scroll > hide_col_sim || inst_scroll < show_col_sim){
-    d3.select('#container-id-2 .viz_svg')
-      .style('display', 'none');
-  } else {
-    d3.select('#container-id-2 .viz_svg')
-      .style('display', 'block');
-  }
-
-}
 
 function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_col){
 
@@ -94,6 +43,15 @@ function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_co
 
   make_sim_mats(network_sim_col, 'col', cat_colors, unblock);
   make_sim_mats(network_sim_row, 'row', cat_colors, unblock);
+
+  d3.selectAll('.fullscreen_link_container')
+    .append('a')
+    .attr('target', '_blank')
+    .classed('blue_links', true)
+    .attr('href',function(){
+      return 'viz/'+viz_id;
+    })
+    .html('View in full page');
 
 }
 
@@ -138,5 +96,48 @@ function resize_container(){
     .style('height', screen_height+'px');
 }
 
+window.onscroll = function() {
 
+  var show_col_sim = 200;
+  var show_row_sim = 1200;
+  var hide_clust = 900;
+  var hide_col_sim = 1800;
+  var inst_scroll = $(document).scrollTop();
 
+  // // load col sim mat 
+  // if (inst_scroll > show_col_sim){
+  //   if (d3.select('#container-id-2 .viz_svg').empty()){
+  //     make_sim_mats('col', cat_colors)
+  //   }
+  // }
+
+  // // load row sim mat 
+  // if (inst_scroll > show_row_sim){
+  //   if (d3.select('#container-id-3 .viz_svg').empty()){
+  //     make_sim_mats('row', cat_colors)
+  //   }
+  // }
+
+  // hide clust 
+  if (inst_scroll > hide_clust){
+    d3.select('#container-id-1 .viz_svg')
+      .style('display', 'none');
+  } else {
+    d3.select('#container-id-1 .viz_svg')
+      .style('display', 'block');
+  }
+
+  // hide col sim mat
+  if (inst_scroll > hide_col_sim || inst_scroll < show_col_sim){
+    d3.select('#container-id-2 .viz_svg')
+      .style('display', 'none');
+  } else {
+    d3.select('#container-id-2 .viz_svg')
+      .style('display', 'block');
+  }
+
+}
+
+$(document).ready(function(){
+    $(this).scrollTop(0);
+});
