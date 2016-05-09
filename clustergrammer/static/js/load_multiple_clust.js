@@ -1,4 +1,6 @@
-function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col){
+function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col, viz_id){
+
+  console.log('viz_id '+String(viz_id))
 
   var tmp_num;
   var cat_colors;

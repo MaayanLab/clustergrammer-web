@@ -27,9 +27,12 @@ def render_page(net, page_route, mat_type='three_mats'):
     print(net.keys())
 
     if page_route == 'viz_sim_mats.html':
+
+      viz_id = str(net['_id'])
+
       return render_template(page_route, viz_network=net['viz'], 
         viz_name=net['name'], viz_sim_row=net['sim_row'], 
-        viz_sim_col=net['sim_col'])
+        viz_sim_col=net['sim_col'], viz_id=viz_id)
 
     elif page_route == 'viz.html':
 

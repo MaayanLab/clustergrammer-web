@@ -110,7 +110,9 @@
 
     var viz_name = {{viz_name|tojson|safe}};
 
-    load_viz_multiple_clust(network_data, network_sim_row, network_sim_col);
+    var viz_id = {{viz_id|tojson|safe}};
+
+    load_viz_multiple_clust(network_data, network_sim_row, network_sim_col, viz_id);
 
   </script>
 
