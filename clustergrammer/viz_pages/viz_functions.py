@@ -20,8 +20,11 @@ def get_network_from_mongo(user_objid, mongo_address):
 
   return net
 
-def render_page(net, page_route):
+def render_page(net, page_route, mat_type='three_mats'):
+  print('\nrender page\t'+str(mat_type)+'\n-----------------------------')
   if net != 'error':
+
+    print(net.keys())
 
     if page_route == 'viz_sim_mats.html':
       return render_template(page_route, viz_network=net['viz'], 
@@ -29,7 +32,15 @@ def render_page(net, page_route):
         viz_sim_col=net['sim_col'])
 
     elif page_route == 'viz.html':
-      return render_template(page_route, viz_network=net['viz'], 
+
+      if mat_type == 'clust':
+        viz_network = net['viz']
+      elif mat_type == 'sim_row':
+        viz_network = net['sim_row']
+      elif mat_type == 'sim_col':
+        viz_network = net['sim_col']
+
+      return render_template(page_route, viz_network=viz_network, 
         viz_name=net['name'])
   else:
     error_desc = 'Invalid visualization Id.'
