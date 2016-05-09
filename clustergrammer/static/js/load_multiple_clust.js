@@ -110,7 +110,7 @@ function resize_container(){
 
 window.onscroll = function() {
 
-  var show_col_sim = 200;
+  var show_col_sim = 0;
   var show_row_sim = 1200;
   var hide_clust = 900;
   var hide_col_sim = 1800;
