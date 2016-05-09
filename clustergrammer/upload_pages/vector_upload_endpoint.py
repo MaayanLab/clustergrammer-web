@@ -56,7 +56,7 @@ def load_vector_data(data, mongo_address):
       export_viz['name'] = 'vector_post'
   else:
     export_viz['name'] = 'vector_post'
-    
+
   export_viz['viz'] = inst_status
   export_viz['dat'] = inst_status
   export_viz['source'] = 'vector_post'

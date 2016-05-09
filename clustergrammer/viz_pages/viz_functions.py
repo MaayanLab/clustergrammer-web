@@ -20,9 +20,10 @@ def get_network_from_mongo(user_objid, mongo_address):
 
   return net
 
-def render_page(net, page_route, mat_type='three_mats'):
+def render_page(net, page_route, mat_type='clust'):
   if net != 'error':
 
+    # render sim_mats page 
     if page_route == 'viz_sim_mats.html':
 
       viz_id = str(net['_id'])
@@ -31,7 +32,8 @@ def render_page(net, page_route, mat_type='three_mats'):
         viz_name=net['name'], viz_sim_row=net['sim_row'], 
         viz_sim_col=net['sim_col'], viz_id=viz_id)
 
-    elif page_route == 'viz.html':
+    # render viz page 
+    else:
 
       if mat_type == 'clust':
         viz_network = net['viz']
@@ -43,6 +45,7 @@ def render_page(net, page_route, mat_type='three_mats'):
 
       return render_template(page_route, viz_network=viz_network, 
         viz_name=net['name'])
+      
   else:
     error_desc = 'Invalid visualization Id.'
     return redirect('/clustergrammer/error/'+error_desc)  

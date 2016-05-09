@@ -1,4 +1,4 @@
-def main(mongo_address, viz_id, vect_post):
+def main(mongo_address, viz_id, vector_post):
   from bson.objectid import ObjectId
   from pymongo import MongoClient
 
@@ -8,22 +8,31 @@ def main(mongo_address, viz_id, vect_post):
 
   viz_doc = db.networks.find_one({'_id': viz_id })
 
-  viz_doc = clust_vect(db, viz_doc, vect_post)
+  viz_doc = clust_vect(db, viz_doc, vector_post)
 
   update_doc_on_mongo(db, viz_id, viz_doc)
 
   client.close() 
 
-def clust_vect(db, viz_doc, vect_post):
+def clust_vect(db, viz_doc, vector_post):
 
   from clustergrammer import Network
 
   try:
     net = Network()
-    net.load_vect_post_to_net(vect_post)
+    net.load_vect_post_to_net(vector_post)
     net.swap_nan_for_zero()
 
+    # default views 
     views = ['N_row_sum', 'N_row_var']
+
+    if 'filter' in vector_post:
+      views = []
+      views.append(vector_post['filter'])
+
+    if 'views' in vector_post:
+      views = vector_post['views']
+
     net.make_clust(dist_type='cosine', dendro=True, views=views, 
                   linkage_type='average')
 
