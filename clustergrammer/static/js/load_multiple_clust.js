@@ -1,4 +1,5 @@
-function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col, viz_id){
+function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col, 
+  viz_id, viz_name){
 
   var tmp_num;
   var cat_colors;
@@ -44,14 +45,25 @@ function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_co
   make_sim_mats(network_sim_col, 'col', cat_colors, unblock);
   make_sim_mats(network_sim_row, 'row', cat_colors, unblock);
 
-  d3.selectAll('.fullscreen_link_container')
-    .append('a')
-    .attr('target', '_blank')
-    .classed('blue_links', true)
-    .attr('href',function(){
-      return 'viz/'+viz_id;
-    })
-    .html('View in full page');
+
+  var fs_links = ['link_clust', 'link_sim_col', 'link_sim_row'];
+  _.each(fs_links, function(inst_link){
+    d3.select('#'+inst_link)
+      .append('a')
+      .attr('target', '_blank')
+      .classed('blue_links', true)
+      .attr('href',function(){
+        var mat_type = '';
+        if (inst_link === 'link_sim_col'){
+          mat_type = 'sim_col:'
+        } else if (inst_link === 'link_sim_row'){
+          mat_type = 'sim_row:'
+        }
+        return 'viz/'+viz_id+'/'+mat_type+viz_name;
+      })
+      .html('View in full page')
+      .style('margin-left', '1013px');
+  });
 
 }
 
