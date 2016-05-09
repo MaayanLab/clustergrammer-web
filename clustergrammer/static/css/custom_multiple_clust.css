@@ -74,10 +74,6 @@ h1 {
   overflow: hidden;
 }
 
-.clustergrammer_logo{
-  width:210px;
-}
-
 .icon_buttons{
   color: #337ab7;
 }
@@ -88,7 +84,7 @@ h1 {
 
 .viz_title{
   width: 1125px;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 300;
   margin-left: -10px;
   margin-top: 10px;
@@ -112,7 +108,9 @@ h1 {
 }
 
 #clustergrammer_logo{
-  width: 250px;
+  width: 238px;
+  margin-top: -2px;
+  float:left;
 }
 
 .blue_links{
@@ -121,4 +119,9 @@ h1 {
 
 .fullscreen_link_container{
   margin-left: 1013px;
+}
+
+#file_title{
+  float:left;
+  margin-left: 10px;
 }

@@ -45,6 +45,8 @@ function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_co
   make_sim_mats(network_sim_col, 'col', cat_colors, unblock);
   make_sim_mats(network_sim_row, 'row', cat_colors, unblock);
 
+  d3.select('#file_title')
+    .html(viz_name);
 
   var fs_links = ['link_clust', 'link_sim_col', 'link_sim_row'];
   _.each(fs_links, function(inst_link){
