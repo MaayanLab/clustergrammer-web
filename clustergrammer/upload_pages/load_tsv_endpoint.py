@@ -88,4 +88,4 @@ def make_response(viz_id, inst_filename, response_type='redirect', req_sim_mat=F
     else:
       inst_link = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
 
-    return 
+    return inst_link 
