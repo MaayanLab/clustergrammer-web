@@ -18,26 +18,26 @@ ENTRY_POINT = '/clustergrammer'
 
 # address for mongodbs 
 
-# local
-mongo_address = '10.90.122.177'
+# # local
+# mongo_address = '10.90.122.177'
 
 # # elizabeth
 # mongo_address = '146.203.54.165'
 
-# # hannah
-# mongo_address = '146.203.54.131'
+# hannah
+mongo_address = '146.203.54.131'
 
 ##########################################
 # switch for local and docker development 
 ##########################################
 
-# for local development 
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# # for local development 
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker 
-# logging.basicConfig(stream=sys.stderr) 
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker 
+logging.basicConfig(stream=sys.stderr) 
 
 ######################################
 ######################################

@@ -74,7 +74,7 @@ Row-C   0.2     0.1     2.5
             <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization. </p>
 
             <form id='input_form'  action="{{ url_for('upload_pages.upload_network') }}" method=post enctype=multipart/form-data>
-              <input type=file name=file title='Choose File'  >
+              <input type=file name=file title='Choose File' >
               <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
             </form>
 
@@ -181,9 +181,8 @@ Row-C   0.2     0.1     2.5
   
 
 
-    <!-- Vendor -->
-  <!-- jQuery -->
   <script src="static/lib/js/jquery-1.11.2.min.js"></script>
+  <script src="static/lib/js/d3.js"></script>
 
   <!-- <script src='static/lib/js/jquery.accordion.js'></script> -->
   <!-- Bootstrap Core JavaScript -->
@@ -208,6 +207,13 @@ Row-C   0.2     0.1     2.5
    
     // display the upload button 
     d3.select('#input_form').style('display','block');
+
+    d3.select('#file_upload_button').attr('disabled','true');
+    d3.select('#input_form')
+      .on('click',function(){
+        d3.select('#file_upload_button')
+          .attr('disabled', null);
+      });
 
     d3.select('#file_upload_button').on('click',function(){
 
