@@ -5,7 +5,7 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   from pymongo import MongoClient
   from flask import request
   # from clustergrammer import Network
-  from clustergrammer_v100 import Network
+  from clustergrammer_v120 import Network
   import StringIO
 
   client = MongoClient(mongo_address)
