@@ -28,7 +28,7 @@ def main(mongo_address, response_type='redirect', req_sim_mat=False):
 
     else:
       
-      return upload_error()  
+      return upload_error(inst_filename)
 
 def allowed_file(filename):
   ALLOWED_EXTENSIONS = set(['txt', 'tsv'])
