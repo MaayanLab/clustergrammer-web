@@ -1,3 +1,6 @@
+cgm = {};
+resize_container();
+
 function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col,
   viz_id, viz_name){
 
@@ -30,17 +33,15 @@ var default_args = {
   'row_search_placeholder':'Gene'
 };
 
-// resize_container();
-
 function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_col){
 
   var args = $.extend(true, {}, default_args);
   args.root = '#container-id-1';
   args.network_data = network_data;
 
-  cgm = Clustergrammer(args);
-  d3.select(cgm.params.root+' .wait_message').remove();
-  cat_colors = cgm.params.cat_colors;
+  cgm.clust = Clustergrammer(args);
+  d3.select(cgm.clust.params.root+' .wait_message').remove();
+  cat_colors = cgm.clust.params.cat_colors;
 
   make_sim_mats(network_sim_col, 'col', cat_colors, unblock);
   make_sim_mats(network_sim_row, 'row', cat_colors, unblock);
@@ -64,7 +65,8 @@ function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_co
         return 'viz/'+viz_id+'/'+mat_type+viz_name;
       })
       .html('View in full page')
-      .style('margin-left', '1013px');
+      .style('float', 'right')
+      .style('margin-right', '24px');
   });
 
 }
@@ -72,27 +74,25 @@ function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_co
 function make_sim_mats(inst_network, inst_rc, cat_colors, unblock){
 
   clust_name = 'mult_view_sim_'+inst_rc+'.json'
-  // d3.json('json/'+clust_name, function(network_data){
 
-    var args = $.extend(true, {}, default_args);
-    args.cat_colors = {};
-    if (inst_rc === 'col'){
-      tmp_num = 2;
-      args.cat_colors.row = cat_colors.col;
-      args.cat_colors.col = cat_colors.col;
-    } else if (inst_rc === 'row'){
-      tmp_num = 3;
-      args.cat_colors.row = cat_colors.row;
-      args.cat_colors.col = cat_colors.row;
-    }
+  var args = $.extend(true, {}, default_args);
+  args.cat_colors = {};
+  if (inst_rc === 'col'){
+    tmp_num = 2;
+    args.cat_colors.row = cat_colors.col;
+    args.cat_colors.col = cat_colors.col;
+  } else if (inst_rc === 'row'){
+    tmp_num = 3;
+    args.cat_colors.row = cat_colors.row;
+    args.cat_colors.col = cat_colors.row;
+  }
 
-    args.root = '#container-id-'+tmp_num;
+  args.root = '#container-id-'+tmp_num;
 
-    args.network_data = inst_network;
-    cgm = Clustergrammer(args);
-    d3.select(cgm.params.root+' .wait_message').remove();
-    unblock();
-  // });
+  args.network_data = inst_network;
+  cgm[inst_rc] = Clustergrammer(args);
+  d3.select(cgm[inst_rc].params.root+' .wait_message').remove();
+  unblock();
 
 }
 
@@ -102,12 +102,13 @@ function unblock(){
 
 function resize_container(){
 
-  var screen_width = viz_size.width;
-  var screen_height = viz_size.height;
+  var screen_width = d3.select('#wrap').style('width').replace('px','');
+
+  screen_width = Number(screen_width) - 30;
 
   d3.selectAll('.clustergrammer_container')
-    .style('width', screen_width+'px')
-    .style('height', screen_height+'px');
+    .style('width', screen_width+'px');
+
 }
 
 window.onscroll = function() {
@@ -154,4 +155,13 @@ window.onscroll = function() {
 
 $(document).ready(function(){
     $(this).scrollTop(0);
+});
+
+d3.select(window).on('resize',function(){
+  resize_container();
+
+  _.each(cgm, function(inst_cgm){
+    inst_cgm.resize_viz();
+  })
+
 });

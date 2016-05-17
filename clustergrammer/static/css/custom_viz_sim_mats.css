@@ -13,8 +13,9 @@ html, body {
 #wrap {
   /*width: 1140px;*/
   min-height: 100%;
-  padding-left: 30px;
-  padding-right: 30px;
+  /*padding-left: 30px;*/
+  /*padding-right: 30px;*/
+  min-width: 1000px;
   /*margin: 0 auto -50px;*/
   /*padding: 0 0 50px;*/
 }
@@ -60,11 +61,6 @@ h1 {
   top:0px;
 }
 
-.viz_description{
-  font-size: 16px;
-  font-weight: 300;
-}
-
 .sidebar_text{
   font-weight: 300;
 }
@@ -85,7 +81,7 @@ h1 {
 }
 
 .viz_title{
-  width: 1125px;
+  width: 100%;
   font-size: 28px;
   font-weight: 300;
   margin-left: -10px;
@@ -102,8 +98,10 @@ h1 {
 }
 
 .viz_description{
-  margin-top: 10px;
-  margin-left: 5px;
+  font-size: 16px;
+  font-weight: 300;
+  margin-top: 25px;
+  margin-left: 15px;
   margin-right: 20px;
   text-align: justify;
   margin-bottom: 30px;
