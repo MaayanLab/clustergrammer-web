@@ -1,4 +1,4 @@
-function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col, 
+function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col,
   viz_id, viz_name){
 
   var tmp_num;
@@ -8,15 +8,15 @@ function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col,
 
 }
 
-// make wait sign 
-$.blockUI({ css: { 
-    border: 'none', 
-    padding: '15px', 
-    backgroundColor: '#000', 
-    '-webkit-border-radius': '10px', 
-    '-moz-border-radius': '10px', 
-    opacity: .8, 
-    color: '#fff' 
+// make wait sign
+$.blockUI({ css: {
+    border: 'none',
+    padding: '15px',
+    backgroundColor: '#000',
+    '-webkit-border-radius': '10px',
+    '-moz-border-radius': '10px',
+    opacity: .8,
+    color: '#fff'
 } });
 
 d3.select('.blockMsg').select('h1').text('Please wait...');
@@ -118,21 +118,21 @@ window.onscroll = function() {
   var hide_col_sim = 1800;
   var inst_scroll = $(document).scrollTop();
 
-  // // load col sim mat 
+  // // load col sim mat
   // if (inst_scroll > show_col_sim){
   //   if (d3.select('#container-id-2 .viz_svg').empty()){
   //     make_sim_mats('col', cat_colors)
   //   }
   // }
 
-  // // load row sim mat 
+  // // load row sim mat
   // if (inst_scroll > show_row_sim){
   //   if (d3.select('#container-id-3 .viz_svg').empty()){
   //     make_sim_mats('row', cat_colors)
   //   }
   // }
 
-  // hide clust 
+  // hide clust
   if (inst_scroll > hide_clust){
     d3.select('#container-id-1 .viz_svg')
       .style('display', 'none');

@@ -16,10 +16,10 @@ app = Flask(__name__, static_url_path='')
 
 ENTRY_POINT = '/clustergrammer'
 
-# address for mongodbs 
+# address for mongodbs
 
-# # local
-# mongo_address = '10.90.122.218'
+# local
+mongo_address = '10.90.122.218'
 
 # # elizabeth
 # mongo_address = '146.203.54.165'
@@ -28,32 +28,32 @@ ENTRY_POINT = '/clustergrammer'
 mongo_address = '146.203.54.131'
 
 ##########################################
-# switch for local and docker development 
+# switch for local and docker development
 ##########################################
 
-# # for local development 
-# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer' 
+# for local development
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer'
 
-# for docker development
-SERVER_ROOT = '/app/clustergrammer'
-# change routing of logs when running docker 
-logging.basicConfig(stream=sys.stderr) 
+# # for docker development
+# SERVER_ROOT = '/app/clustergrammer'
+# # change routing of logs when running docker
+# logging.basicConfig(stream=sys.stderr)
 
 ######################################
 ######################################
 
-@app.route(ENTRY_POINT + '/<path:path>') 
+@app.route(ENTRY_POINT + '/<path:path>')
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
 @app.route('/clustergrammer/l1000cds2/', methods=['POST'])
 def l1000cds2_upload():
   '''
-  l1000cds2 is using a old version of clustergrammer.py  
+  l1000cds2 is using a old version of clustergrammer.py
   '''
   import requests
-  import json 
-  from clustergrammer_old import Network 
+  import json
+  from clustergrammer_old import Network
   from pymongo import MongoClient
   from bson.objectid import ObjectId
   from flask import request
@@ -66,7 +66,7 @@ def l1000cds2_upload():
 
   cutoff_comp = 0
   min_num_comp = 2
-  net.cluster_row_and_col(dist_type='cosine', dendro=True)  
+  net.cluster_row_and_col(dist_type='cosine', dendro=True)
 
   net.dat['node_info']['row']['ini'] = net.sort_rank_node_values('row')
   net.dat['node_info']['col']['ini'] = net.sort_rank_node_values('col')
@@ -81,13 +81,13 @@ def l1000cds2_upload():
   export_dict['dat'] = net.export_net_json('dat')
   export_dict['viz'] = net.viz
   export_dict['_id'] = ObjectId(l1000cds2['_id'])
- 
+
   client = MongoClient(mongo_address)
   db = client.clustergrammer
 
   tmp = db.networks.find_one({'_id': ObjectId(l1000cds2['_id']) })
   if tmp is None:
-    tmp_id = db.networks.insert( export_dict ) 
+    tmp_id = db.networks.insert( export_dict )
 
   client.close()
 
@@ -101,4 +101,3 @@ status_check.add_routes(app, mongo_address)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
- 

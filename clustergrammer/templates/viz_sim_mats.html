@@ -17,13 +17,13 @@
     <link rel="stylesheet" href="static/lib/css/bootstrap.css">
     <link rel="stylesheet" href="static/css/jquery-ui.css">
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
-    <link rel="stylesheet" href="static/css/custom_multiple_clust.css">
+    <link rel="stylesheet" href="static/css/custom_viz_sim_mats.css">
 
 </head>
 
 <body>
 
-  <div id="wrap" class='toggled'>
+  <div id="wrap" class='toggled container'>
 
     <div class='row viz_title' id='clustergram_title'>
       <!-- Clustergrammer -->
@@ -33,7 +33,7 @@
       <div id='file_title'></div>
     </div>
 
-    <div class="row" > 
+    <div class="row" >
       <div id='container-id-1' class='clustergrammer_container'>
           <div class='wait_message'>Please wait ...</div>
       </div>
@@ -49,11 +49,11 @@
       Column Similarity Matrix
     </div>
 
-    <div class="row" > 
+    <div class="row" >
       <div id='container-id-2' class='clustergrammer_container'>
           <div class='wait_message'>Please wait ...</div>
-      </div> 
-    </div> 
+      </div>
+    </div>
     <div id='link_sim_col'></div>
 
     <div class='row viz_description' id='col_sim_desc'>
@@ -65,11 +65,11 @@
       Row Similarity Matrix
     </div>
 
-    <div class="row" > 
+    <div class="row" >
       <div id='container-id-3' class='clustergrammer_container'>
           <div class='wait_message'>Please wait ...</div>
-      </div> 
-    </div> 
+      </div>
+    </div>
     <div id='link_sim_row'></div>
 
     <div class='row viz_description' id='row_sim_desc'>
@@ -77,22 +77,22 @@
     </div>
 
 
-  </div> 
+  </div>
 
   <div id='footer'>
-    <div class="row" > 
-      <div id='footer_text_container' class="col-xs-12 footer_section"> 
+    <div class="row" >
+      <div id='footer_text_container' class="col-xs-12 footer_section">
         <div class="text-muted footer_text">Clustergrammer is being developed by the <a class='blue_links' target="_blank"  href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a class='blue_links' target="_blank"   href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>  for the <a target="_blank" href="http://lincs-dcic.org/">BD2K-LINCS DCIC</a> and the <a target="_blank" href="http://commonfund.nih.gov/idg/overview">KMC-IDG</a>  </div>
         <!-- DCIC, BD2K, KMC, and GitHub -->
         <div class="text-muted footer_text">
         and is an open source project available on GitHub: <a class='blue_links' target="_blank"  href="https://github.com/MaayanLab/clustergrammer">Clustergrammer</a> and <a class='blue_links' target="_blank"  href="https://github.com/cornhundred/clustergrammer.js">Clustergrammer.js</a>
-         
+
         </div>
 
       </div>
     </div>
   </div>
-  
+
 
   <!-- Required JS Libraries -->
   <script src="static/lib/js/d3.js"></script>
@@ -107,7 +107,7 @@
   <script src='static/js/load_multiple_clust.js'></script>
 
   <script>
-    
+
     var network_data = {{ viz_network|tojson|safe }};
     var network_sim_row = {{ viz_sim_row|tojson|safe }};
     var network_sim_col = {{ viz_sim_col|tojson|safe }};
