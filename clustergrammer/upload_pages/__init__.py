@@ -6,8 +6,8 @@ import vector_upload_endpoint, load_tsv_endpoint, get_viz_json_endpoint
 
 def add_routes(app=None, mongo_address=None):
 
-  upload_pages = Blueprint('upload_pages', __name__, 
-    static_url_path='/upload_pages/static', static_folder='./static', 
+  upload_pages = Blueprint('upload_pages', __name__,
+    static_url_path='/upload_pages/static', static_folder='./static',
     template_folder='./templates')
 
   @upload_pages.route('/clustergrammer/Enrichr_clustergram', methods=['POST','GET'])
@@ -26,7 +26,7 @@ def add_routes(app=None, mongo_address=None):
 
   @upload_pages.route('/clustergrammer/upload_network/', methods=['POST'])
   def upload_network():
-    return load_tsv_endpoint.main(mongo_address, response_type='redirect')
+    return load_tsv_endpoint.main(mongo_address, response_type='redirect', req_sim_mat=True)
 
   @upload_pages.route('/clustergrammer/test_sim_mat', methods=['POST'])
   def test_sim_mat():
