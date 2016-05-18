@@ -5,7 +5,8 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   from pymongo import MongoClient
   from flask import request
   # from clustergrammer import Network
-  from clustergrammer_v120 import Network
+  # from clustergrammer_v120 import Network
+  from clustergrammer_v132 import Network
   import StringIO
 
   client = MongoClient(mongo_address)
@@ -33,7 +34,7 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
 
     dat_id = db.network_data.insert(export_dat)
 
-    update_viz = net.viz 
+    update_viz = net.viz
     update_dat = dat_id
 
     if req_sim_mat:
@@ -61,4 +62,3 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   client.close()
 
 
-  

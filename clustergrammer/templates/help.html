@@ -44,7 +44,7 @@
 <div id="content">
 
   <a href="/clustergrammer/">
-  <img class='help_figure' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
+  <img class='help_figure' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer">
   </a>
   <h4 id="subtitle">A web-based visualization tool that enables users and web-based applications to easily generate interactive and shareable clustergram-heatmap visualizations from a matrix of data.</h4>
 
@@ -61,18 +61,18 @@
 
 
 
-    <img class='help_figure' id='upload_homepage' src="static/img/upload_homepage.png" alt="Upload"> 
+    <img class='help_figure' id='upload_homepage' src="static/img/upload_homepage.png" alt="Upload">
     <p class="caption">Fig. 1 Screenshot of homepage upload section.</p>
 
     <p>and have a .txt or .tsv file extension (download an example matrix here: <a href="/txt/example_matrix.txt" download>example_matrix.txt</a> ). Once uploaded the user will be redirected to a visualization page where they can interact with their matrix visualization. The visualization page URL can also be used to return to the visualization at a later time or to share it with others. </p>
 
     <p>
-    Note that the user's data does not need to be clustered before uploading. Also, if a user is uploading an asymmetrical matrix, e.g. a matrix with more columns than rows, it is recommended that the user transpose the matrix, if necessary, in order to have more rows than columns - this will provide the best results in terms of zooming and filterings. 
+    Note that the user's data does not need to be clustered before uploading. Also, if a user is uploading an asymmetrical matrix, e.g. a matrix with more columns than rows, it is recommended that the user transpose the matrix, if necessary, in order to have more rows than columns - this will provide the best results in terms of zooming and filterings.
     </p>
 
     <h4 id='data_processing' class='subheader'> Matrix Processing </h4>
 
-    <p>Clustergrammer aims to extend the capabilities of the clustergram visualization by providing users with a multitude of interchangable views of their data - e.g. views with different orderings and filters. Clustergrammer creates these 'views' of a users data in the following manner. First, Clustergrammer calculates a 'Cluster' ordering of rows and columns by performing hierarchical clustering of the rows and columns of a user's data (clustering is done using cosine distance and average linkage using the Python package SciPy). Groups of similar rows and columns are calculated at different distance thresholds to produce an interactive dendrogram-like colorbar. Second, Clustergrammer calculates a 'Rank' ordering of rows and columns by ranking the rows and columns based on the sum of their values. 
+    <p>Clustergrammer aims to extend the capabilities of the clustergram visualization by providing users with a multitude of interchangable views of their data - e.g. views with different orderings and filters. Clustergrammer creates these 'views' of a users data in the following manner. First, Clustergrammer calculates a 'Cluster' ordering of rows and columns by performing hierarchical clustering of the rows and columns of a user's data (clustering is done using cosine distance and average linkage using the Python package SciPy). Groups of similar rows and columns are calculated at different distance thresholds to produce an interactive dendrogram-like colorbar. Second, Clustergrammer calculates a 'Rank' ordering of rows and columns by ranking the rows and columns based on the sum of their values.
     </p>
 
     <p>Third, the previous ordering calculations are repeated on successively filtered versions of the matrix. Clustergrammer starts by finding the row with the greatest absolute value sum and this row-maximum-value is used to filter out rows from the matrix. Clustergrammer filters out rows that have an absolute value sum of less than some percentage of the row-maximum-value - where the percentage threshold varies from 0% to 90% in 10% increments. </p>
@@ -80,9 +80,9 @@
     <p> Additionally, a user can dynamically create new views of their data by reordering the matrix based on the values in any row or column by double-clicking a row or column label. Collectively, these different orderings and filterings give the user a large set of interchangable views of their data. </p>
 
     <h4 id="visualization" class='subheader'>Visualization</h4>
-    
+
     <p>
-    Clustergrammer visualizes your input matrix as a hierarchically clustered clustergram-heatmap, see interactive demo Fig 2. The color of the cells in the matrix indicate the values in the matrix: red/blue indicate positive/negative and opacity (darkness) indicates the magnitude of the value in the cell. The row and column labels are always visible at the lef and top of the matrix, respectively. The clustergrammer visualization has many interactive features including: 
+    Clustergrammer visualizes your input matrix as a hierarchically clustered clustergram-heatmap, see interactive demo Fig 2. The color of the cells in the matrix indicate the values in the matrix: red/blue indicate positive/negative and opacity (darkness) indicates the magnitude of the value in the cell. The row and column labels are always visible at the lef and top of the matrix, respectively. The clustergrammer visualization has many interactive features including:
     </p>
 
     <ul class='help_list'>
@@ -91,7 +91,7 @@
       <li>Search</li>
       <li>Dendrogram-like Colorbar</li>
       <li>Filtering</li>
-    </ul>  
+    </ul>
 
     <p>
     and these can be quickly overviewed or interactively browsed using the demo below - see Fig. 2. Press play or explore to see the interactive features:
@@ -99,7 +99,9 @@
 
 
     <!-- production -->
-    <iframe id='iframe_preview' src="/clustergrammer/demo/566f6bbfb1a04e7f4087fcad?preview=true&demo_text_size=30" frameBorder="0"></iframe> 
+    <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6bbfb1a04e7f4087fcad?preview=true&demo_text_size=30" frameBorder="0"></iframe>  -->
+
+    <iframe id='iframe_preview' src="/clustergrammer/demo/" frameBorder="0"></iframe>
 
     <!-- local -->
     <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true&demo_text_size=30" frameBorder="0"></iframe>  -->
@@ -113,42 +115,42 @@
     <h5 class='section_title'>Reorder</h5>
     <p>Users can reorder all rows or all columns based on 'Cluster' or 'Rank' using the buttons on the sidebar, see Fig. 3. The Cluster ordering or rows and columns is calculated using hierarchical clustering (clustering is done using cosine distance and average linkage using the Python package SciPy). Users can also reorder the matrix based on any row or column by double-clicking any row or column label. </p>
 
-    <img class='help_figure' id='reorder_buttons' src="static/img/reorder_buttons.png" alt="Reorder_buttons"> 
+    <img class='help_figure' id='reorder_buttons' src="static/img/reorder_buttons.png" alt="Reorder_buttons">
     <p class="caption">Fig. 3 Row and column reorder buttons - part of sidebar controls.</p>
 
     <h5 class='section_title'>Search</h5>
     <p>Clustergrammer allows users to search for rows using the sidebar search box, see Fig. 4. The row search has autocomplete that matches your partial search to the row names. Pressing search also zooms into and centers the selected row in the visualization.</p>
 
-    <img class='help_figure' id='row_search_with_autocomplete' src="static/img/row_search_with_autocomplete.png" alt="Reorder_buttons"> 
+    <img class='help_figure' id='row_search_with_autocomplete' src="static/img/row_search_with_autocomplete.png" alt="Reorder_buttons">
     <p class="caption">Fig. 4 Row search with autocomplete - part of sidebar controls.</p>
 
     <h5 class='section_title'>Dendrogram-like Colorbar</h5>
 
     <p>Groups of similar rows/columns can be identified using the dendrogram-like colorbar. Groups are calculated for several similarity threshold distances and the group size can be controlled using the sidebar group sliders, see Fig. 5. Moving the slider to the left reduces the group sizes and moving to the right increases the group sizes. Hovering over a colorbar will how you the rows or columns that are in the group and clicking on a colorbar will bring up the group in a pop-up modal, which allows a user to copy the list.  </p>
 
-    <img class='help_figure colorbar_slider' id='med_col_slider' src="static/img/med_col_slider.png" alt="slider"> 
-    <img class='help_figure colorbar_help' id='med_col_group' src="static/img/med_col_group.png" alt="slider"> 
+    <img class='help_figure colorbar_slider' id='med_col_slider' src="static/img/med_col_slider.png" alt="slider">
+    <img class='help_figure colorbar_help' id='med_col_group' src="static/img/med_col_group.png" alt="slider">
 
-    <img class='help_figure colorbar_slider' id='large_col_slider' src="static/img/large_col_slider.png" alt="slider"> 
-    <img class='help_figure colorbar_help' id='large_col_group' src="static/img/large_col_group.png" alt="slider"> 
+    <img class='help_figure colorbar_slider' id='large_col_slider' src="static/img/large_col_slider.png" alt="slider">
+    <img class='help_figure colorbar_help' id='large_col_group' src="static/img/large_col_group.png" alt="slider">
 
     <p class="caption">Fig. 5 Dendrogram-like colorbar slider controls. Sliding to the right increases the size of the row/column groups.</p>
 
     <h5 class='section_title'>Filtering</h5>
     <p>Clustergrammer allows users to filter out rows in the data that have relatively low values. This can be useful when working with sparse data or for investigating how clustering changes when only a subset of the data is considered. </p>
 
-    <img class='help_figure filter_slider' id='med_col_slider' src="static/img/no_filter_slider.png" alt="slider"> 
-    <img class='help_figure filter_clust' id='med_col_group' src="static/img/no_filter.png" alt="slider"> 
+    <img class='help_figure filter_slider' id='med_col_slider' src="static/img/no_filter_slider.png" alt="slider">
+    <img class='help_figure filter_clust' id='med_col_group' src="static/img/no_filter.png" alt="slider">
 
-    <img class='help_figure filter_slider' id='large_col_slider' src="static/img/yes_filter_slider.png" alt="slider"> 
-    <img class='help_figure filter_clust' id='large_col_group' src="static/img/yes_filter.png" alt="slider"> 
+    <img class='help_figure filter_slider' id='large_col_slider' src="static/img/yes_filter_slider.png" alt="slider">
+    <img class='help_figure filter_clust' id='large_col_group' src="static/img/yes_filter.png" alt="slider">
 
     <p class="caption">Fig. 6 Filter rows by adjusting the filter slider.</p>
 
     <!-- <h4 id="clustergrammer_examples" class='subheader'>Clustergrammer Examples</h4> -->
     <!-- <p>Users can .</p> -->
 
-    
+
   </section>
 
 
@@ -161,12 +163,12 @@
 
 <pre>
   http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/
-</pre>    
+</pre>
 
   <p> and receive a permanent link to their visualization. Below is an example in Python 2.7 showing the post request and how to obtain the permanent link from the response object.</p>
-  
-<pre id='example_post' class='prettyprint'> 
-  import requests 
+
+<pre id='example_post' class='prettyprint'>
+  import requests
 
   filename = 'example_matrix.txt'
   upload_url = 'http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/'
@@ -180,7 +182,7 @@
 
 <h4>Vector Upload</h4>
 <p>Users can also upload their data in a vector format usin the endpoint</p>
-  
+
 <pre>
   http://amp.pharm.mssm.edu/clustergrammer/vector_upload/
 </pre>
@@ -190,61 +192,61 @@
 <pre>
 {
   "title": "your-title",
-  "filter": "N_row_sum", 
+  "filter": "N_row_sum",
   "columns": [
     {
-      "col_name": "Col-1", 
+      "col_name": "Col-1",
       "data": [
         {
-          "val": -3.75104426282247, 
+          "val": -3.75104426282247,
           "row_name": "SJDRJ"
-        }, 
+        },
         {
-          "val": 0, 
+          "val": 0,
           "row_name": "ENJSY"
-        }, 
+        },
         {
-          "val": -5.178993339948121, 
+          "val": -5.178993339948121,
           "row_name": "DFFUY"
-        }, 
+        },
         {
-          "val": 9.159388949061842, 
+          "val": 9.159388949061842,
           "row_name": "YYDUA"
-        }, 
+        },
         {
-          "val": 0, 
+          "val": 0,
           "row_name": "ASAEU"
         }
-      ], 
+      ],
       "cat": "brain"
-    }, 
+    },
     {
-      "col_name": "Col-2", 
+      "col_name": "Col-2",
       "data": [
         {
-          "val": -1.9031365060851146, 
+          "val": -1.9031365060851146,
           "row_name": "SJDRJ"
-        }, 
+        },
         {
-          "val": 0, 
+          "val": 0,
           "row_name": "ENJSY"
-        }, 
+        },
         {
-          "val": -3.851673685341636, 
+          "val": -3.851673685341636,
           "row_name": "DFFUY"
-        }, 
+        },
         {
-          "val": 0.7520898384357599, 
+          "val": 0.7520898384357599,
           "row_name": "YYDUA"
         }
-      ], 
+      ],
       "cat": "brain"
     }
   ]
-}  
+}
 </pre>
 
-<p>The category, "cat", keys in the json are optional. The "filter" key defines the 
+<p>The category, "cat", keys in the json are optional. The "filter" key defines the
 type of row-filtering that should be pre-calculated for the visualization.</p>
 
 <p>Below is an example in Python 2.7 showing the vector post request and how to obtain
@@ -253,7 +255,7 @@ the permanent link from the response object.</p>
 <pre  class='prettyprint'>
 
   import requests
-  import json 
+  import json
 
   upload_url = 'http://amp.pharm.mssm.edu/clustergrammer/vector_upload/'
 
@@ -263,7 +265,7 @@ the permanent link from the response object.</p>
 
   link = response_json['link']
 
-  print(link)  
+  print(link)
 
 
 </pre>
