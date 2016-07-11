@@ -15,7 +15,10 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   viz_id = ObjectId(viz_id)
   found_viz = db.networks.find_one({'_id':viz_id})
 
+  print('in load_tsv_file ' + inst_filename)
+
   try:
+    print('try to cluster')
 
     net = Network()
     net.load_tsv_to_net(buff)
@@ -42,9 +45,7 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
       update_sim_col = net.sim['col']
 
   except:
-    print('\n-----------------------')
-    print('error in clustering')
-    print('-----------------------\n')
+    print('error in load_tsv_file clustering')
     update_viz = 'error'
     update_dat = 'error'
     if req_sim_mat:
@@ -57,6 +58,7 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
     found_viz['sim_row'] = update_sim_row
     found_viz['sim_col'] = update_sim_col
 
+  print('updating document ' + inst_filename)
   db.networks.update_one( {'_id':viz_id}, {'$set': found_viz} )
 
   client.close()
