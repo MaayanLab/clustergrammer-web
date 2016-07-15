@@ -1,11 +1,11 @@
 # define a class for networks
 class Network(object):
   '''
-  Networks have two states: 
+  Networks have two states:
 
-  1) the data state, where they are stored as a matrix and nodes 
+  1) the data state, where they are stored as a matrix and nodes
 
-  2) the viz state where they are stored as viz.links, viz.row_nodes, and 
+  2) the viz state where they are stored as viz.links, viz.row_nodes, and
   viz.col_nodes.
 
   The goal is to start in a data-state and produce a viz-state of
@@ -22,7 +22,7 @@ class Network(object):
 
   def load_tsv_to_net(self, file_buffer):
     ''' This will load a tsv matrix file buffer, this is exposed so that it will
-    be possible to load data without having to read from a file. ''' 
+    be possible to load data without having to read from a file. '''
     import load_data
     load_data.load_tsv_to_net(self, file_buffer)
 
@@ -38,13 +38,10 @@ class Network(object):
   def make_clust(self, dist_type='cosine', run_clustering=True,
                  dendro=True, views=['pct_row_sum', 'N_row_sum'],
                  linkage_type='average', sim_mat=False):
-    ''' The main function run by the user to make their clustergram. 
+    ''' The main function run by the user to make their clustergram.
     views is later referred to as requested_views.'''
     import make_clust_fun
-    print('\n\n*********************************')
-    print('using latest clustergrammer.py')
-    print('*********************************\n\n')
-    make_clust_fun.make_clust(self, dist_type, run_clustering, dendro, 
+    make_clust_fun.make_clust(self, dist_type, run_clustering, dendro,
                                    views, linkage_type, sim_mat)
 
   def produce_view(self, requested_view=None):
@@ -55,12 +52,12 @@ class Network(object):
       print(requested_view)
 
   def swap_nan_for_zero(self):
-    ''' Expose this to user for their optional use ''' 
+    ''' Expose this to user for their optional use '''
     import numpy as np
     self.dat['mat'][np.isnan(self.dat['mat'])] = 0
 
   def df_to_dat(self, df):
-    ''' Convert from pandas dataframe to clustergrammers dat format ''' 
+    ''' Convert from pandas dataframe to clustergrammers dat format '''
     import data_formats
     data_formats.df_to_dat(self, df)
 
