@@ -17,40 +17,40 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
 
   print('in load_tsv_file ' + inst_filename)
 
-  try:
-    print('try to cluster')
+  # try:
+  print('trying to cluster tsv')
 
-    net = Network()
-    net.load_tsv_to_net(buff)
+  net = Network()
+  net.load_tsv_to_net(buff)
 
-    net.swap_nan_for_zero()
+  net.swap_nan_for_zero()
 
-    views = ['N_row_sum', 'N_row_var']
+  views = ['N_row_sum', 'N_row_var']
 
-    net.make_clust(dist_type='cosine', dendro=True, views=views, \
-                   linkage_type='average', sim_mat=req_sim_mat)
+  net.make_clust(dist_type='cosine', dendro=True, views=views, \
+                 linkage_type='average', sim_mat=req_sim_mat)
 
-    export_dat = {}
-    export_dat['name'] = inst_filename
-    export_dat['dat'] = net.export_net_json('dat')
-    export_dat['source'] = 'user_upload'
+  export_dat = {}
+  export_dat['name'] = inst_filename
+  export_dat['dat'] = net.export_net_json('dat')
+  export_dat['source'] = 'user_upload'
 
-    dat_id = db.network_data.insert(export_dat)
+  dat_id = db.network_data.insert(export_dat)
 
-    update_viz = net.viz
-    update_dat = dat_id
+  update_viz = net.viz
+  update_dat = dat_id
 
-    if req_sim_mat:
-      update_sim_row = net.sim['row']
-      update_sim_col = net.sim['col']
+  if req_sim_mat:
+    update_sim_row = net.sim['row']
+    update_sim_col = net.sim['col']
 
-  except:
-    print('error in load_tsv_file clustering')
-    update_viz = 'error'
-    update_dat = 'error'
-    if req_sim_mat:
-      update_sim_row = net.sim['row']
-      update_sim_col = net.sim['col']
+  # except:
+  #   print('\nerror in clustering tsv file\n-------------------------\n')
+  #   update_viz = 'error'
+  #   update_dat = 'error'
+  #   if req_sim_mat:
+  #     update_sim_row = 'error'
+  #     update_sim_col = 'error'
 
   found_viz['viz'] = update_viz
   found_viz['dat'] = update_dat
