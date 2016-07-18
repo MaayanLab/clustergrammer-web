@@ -3,6 +3,10 @@ def Enrichr_cluster(mongo_address, viz_id, enr_list):
   from bson.objectid import ObjectId
   from pymongo import MongoClient
 
+  print('------------------------')
+  print('-- run_enrich_background')
+  print('------------------------\n')
+
   # set up database connection
   client = MongoClient(mongo_address)
   db = client.clustergrammer

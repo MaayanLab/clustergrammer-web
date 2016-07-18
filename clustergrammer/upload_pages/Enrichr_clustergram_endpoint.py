@@ -1,10 +1,10 @@
 def main(mongo_address):
-  import json 
-  import fake_enrichr 
+  import json
+  import fake_enrichr
   from pymongo import MongoClient
-  import threading 
-  import flask 
-  import time 
+  import threading
+  import flask
+  import time
   import run_enrich_background as enr_sub
   from flask import request
 
@@ -13,9 +13,11 @@ def main(mongo_address):
 
   elif request.method == 'GET':
 
-    enr_json = fake_enrichr.fake_post()   
+    enr_json = fake_enrichr.fake_post()
 
-  try:  
+  try:
+
+    print('\n\nEnrichr: '+enr_json['gmt'])
 
     client = MongoClient(mongo_address)
     db = client.clustergrammer
@@ -30,7 +32,7 @@ def main(mongo_address):
     viz_id = str(viz_id)
 
     client.close()
-    
+
     sub_function = enr_sub.Enrichr_cluster
     arg_list = [mongo_address, viz_id, enr_json['enr_list']]
     thread = threading.Thread(target=sub_function, args=arg_list)
@@ -44,7 +46,7 @@ def main(mongo_address):
     max_wait_time = 30
     for wait_time in range(max_wait_time):
 
-      # wait one second 
+      # wait one second
       time.sleep(1)
 
       print('wait time ' + str(wait_time) )
@@ -62,6 +64,6 @@ def main(mongo_address):
 
     return flask.jsonify({
       'link': 'error'
-    })     
+    })
 
 # def make_response(mongo_address, )
