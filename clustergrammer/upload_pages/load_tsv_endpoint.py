@@ -1,21 +1,21 @@
 def main(mongo_address, response_type='redirect', req_sim_mat=False):
-  from flask import request 
+  from flask import request
   import StringIO
   import load_tsv_file
   import threading
   import time
-  
+
   if request.method == 'POST':
 
     req_file = request.files['file']
     buff = StringIO.StringIO(req_file.read())
-    inst_filename = req_file.filename 
+    inst_filename = req_file.filename
 
     if allowed_file(inst_filename):
 
       thread, viz_id = start_upload(mongo_address, inst_filename, buff, req_sim_mat)
 
-      max_wait_time = 15
+      max_wait_time = 45
       for wait_time in range(max_wait_time):
 
         time.sleep(1)
@@ -27,7 +27,7 @@ def main(mongo_address, response_type='redirect', req_sim_mat=False):
       return make_response(viz_id, inst_filename, response_type=response_type, req_sim_mat=req_sim_mat)
 
     else:
-      
+
       return upload_error(inst_filename)
 
 def allowed_file(filename):
@@ -48,7 +48,7 @@ def start_upload(mongo_address, inst_filename, buff, req_sim_mat=False):
   export_viz['dat'] = 'processing'
   export_viz['source'] = 'user_upload'
 
-  # get the id that will be used to update the placeholder 
+  # get the id that will be used to update the placeholder
   viz_id = db.networks.insert( export_viz )
   viz_id = str(viz_id)
 
@@ -70,7 +70,7 @@ def upload_error(inst_filename):
   else:
     error_desc = 'Please choose a file to upload.'
 
-  return error_desc  
+  return error_desc
 
 def make_response(viz_id, inst_filename, response_type='redirect', req_sim_mat=False):
   from flask import redirect
@@ -88,4 +88,4 @@ def make_response(viz_id, inst_filename, response_type='redirect', req_sim_mat=F
     else:
       inst_link = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
 
-    return inst_link 
+    return inst_link
