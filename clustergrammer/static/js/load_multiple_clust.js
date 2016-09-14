@@ -41,7 +41,7 @@ function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_co
 
   cgm.clust = Clustergrammer(args);
   d3.select(cgm.clust.params.root+' .wait_message').remove();
-  cat_colors = cgm.clust.params.cat_colors;
+  cat_colors = cgm.clust.params.viz.cat_colors;
 
   make_sim_mats(network_sim_col, 'col', cat_colors, unblock);
   make_sim_mats(network_sim_row, 'row', cat_colors, unblock);
