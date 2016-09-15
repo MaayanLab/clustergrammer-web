@@ -99,6 +99,7 @@ viz_pages.add_routes(app, mongo_address)
 demo_pages.add_routes(app)
 upload_pages.add_routes(app, mongo_address)
 status_check.add_routes(app, mongo_address)
+grab_data.add_routes(app)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',port=5000,debug=True)
