@@ -36,16 +36,16 @@
   <!-- Wrap all page content here -->
   <div id="wrap" class='toggled'>
 
-      <!-- main container - required --> 
+      <!-- main container - required -->
       <div id='main_container'>
 
-        <!-- this row is - required fluid causes problems --> 
-        <div class="row" > 
+        <!-- this row is - required fluid causes problems -->
+        <div class="row" >
 
 
 
           <a href="/clustergrammer/">
-            <img class='help_figure' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
+            <img class='help_figure' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer">
           </a>
 
           <h1 id='website_title'> CCLE Explorer </h1>
@@ -54,8 +54,8 @@
           The Cancer Cell Line Encyclopedia (CCLE) Explorer enables users to browse relative mRNA expression data for cancer cell lines from the CCLE by tissue of origin using Clustergrammer. Click on a tissue type to view a clustergram of gene expression data from the selected tissue type. </p>
 
           <!-- non-local mongodb -->
-          <div id='tree_container'> 
-          </div> 
+          <div id='tree_container'>
+          </div>
 
           <!-- <a id=demo_link class='blue_links' href="/clustergrammer/viz/566f6bbfb1a04e7f4087fcad" target="_blank">See example in full page</a> -->
 
@@ -65,7 +65,7 @@
 
           <a href="help" target="_blank" class="btn share-button" id="help_link"><i class="fa fa-question-circle"></i></a>
 
-          </div>                            
+          </div>
 
           <!-- start example row -->
           <!-- <div id='homepage_examples'> -->
@@ -73,7 +73,7 @@
             <!-- <p id='example_title'>Clustergrammer Web-App Integration Examples</p> -->
 
             <!-- <div class='row' >
-              
+
 
               <div class='col-xs-4 example_col'>
                 <p class='example_single_title'>L1000CDS2</p>
@@ -103,7 +103,7 @@
                   </div>
                 </a>
                 <p class='example_single_description'>Clustergrammer visualizes data from over 100 biological resources for the Ma'ayan lab web-resource Harmonogram. </p>
-              </div>              
+              </div>
 
             </div> -->
             <!-- end row -->
@@ -118,24 +118,24 @@
       </div>
       <!-- end main container -->
 
-  </div> 
+  </div>
   <!-- End Wrap all page content here -->
 
   <div id='footer'>
-    <div class="row" id='footer-row' > 
-      <div id='footer_text_container' class="col-xs-12 footer_section"> 
+    <div class="row" id='footer-row' >
+      <div id='footer_text_container' class="col-xs-12 footer_section">
         <div class="text-muted footer_text">Clustergrammer is being developed by the <a class='blue_links' target="_blank"  href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> at the <a class='blue_links' target="_blank"   href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a>  for the <a target="_blank" href="http://lincs-dcic.org/">BD2K-LINCS DCIC</a> and the <a target="_blank" href="http://commonfund.nih.gov/idg/overview">KMC-IDG</a>  </div>
         <!-- DCIC, BD2K, KMC, and GitHub -->
         <div class="text-muted footer_text">
         and is an open source project available on GitHub: <a class='blue_links' target="_blank"  href="https://github.com/MaayanLab/clustergrammer">Clustergrammer</a> and <a class='blue_links' target="_blank"  href="https://github.com/cornhundred/clustergrammer.js">Clustergrammer.js</a>
-         
+
         </div>
 
       </div>
     </div>
   </div>
 
-  
+
 
 
     <!-- Vendor -->
@@ -148,7 +148,7 @@
   <script src="static/lib/js/bootstrap-switch.min.js"></script>
   <script src="static/lib/js/blockUI.js"></script>
   <script src="static/lib/js/d3.js"></script>
-  
+
   <!-- stylized file upload button -->
   <!-- http://gregpike.net/demos/bootstrap-file-input/demo.html -->
   <script type="text/javascript" src="static/lib/js/bootstrap.file-input.js"> </script>
@@ -161,224 +161,126 @@
   <!-- style code -->
   <!-- Clustergram Scripts -->
   <script src='static/js/d3_clustergram.js'></script>
-  
+
 
   <script>
-   
 
-  // var tree = {
-  //     name: "tree",
-  //     "children": [
-  //     {
-  //       "size": 12, 
-  //       "name": "THYROID"
-  //     }, 
-  //     {
-  //       "size": 2, 
-  //       "name": "SALIVARY GLAND"
-  //     }, 
-  //     {
-  //       "size": 21, 
-  //       "name": "SOFT TISSUE"
-  //     }, 
-  //     {
-  //       "size": 180, 
-  //       "name": "HAEMATOPOIETIC AND LYMPHOID"
-  //     }, 
-  //     {
-  //       "size": 8, 
-  //       "name": "BILIARY TRACT"
-  //     }, 
-  //     {
-  //       "size": 44, 
-  //       "name": "PANCREAS"
-  //     }, 
-  //     {
-  //       "size": 69, 
-  //       "name": "CENTRAL NERVOUS SYSTEM"
-  //     }, 
-  //     {
-  //       "size": 1, 
-  //       "name": "SMALL INTESTINE"
-  //     }, 
-  //     {
-  //       "size": 29, 
-  //       "name": "BONE"
-  //     }, 
-  //     {
-  //       "size": 61, 
-  //       "name": "LARGE INTESTINE"
-  //     }, 
-  //     {
-  //       "size": 17, 
-  //       "name": "AUTONOMIC GANGLIA"
-  //     }, 
-  //     {
-  //       "size": 11, 
-  //       "name": "PLEURA"
-  //     }, 
-  //     {
-  //       "size": 27, 
-  //       "name": "URINARY TRACT"
-  //     }, 
-  //     {
-  //       "size": 187, 
-  //       "name": "LUNG"
-  //     }, 
-  //     {
-  //       "size": 59, 
-  //       "name": "BREAST"
-  //     }, 
-  //     {
-  //       "size": 62, 
-  //       "name": "SKIN"
-  //     }, 
-  //     {
-  //       "size": 52, 
-  //       "name": "OVARY"
-  //     }, 
-  //     {
-  //       "size": 8, 
-  //       "name": "PROSTATE"
-  //     }, 
-  //     {
-  //       "size": 36, 
-  //       "name": "KIDNEY"
-  //     }, 
-  //     {
-  //       "size": 32, 
-  //       "name": "UPPER AERODIGESTIVE TRACT"
-  //     }, 
-  //     {
-  //       "size": 38, 
-  //       "name": "STOMACH"
-  //     }, 
-  //     {
-  //       "size": 27, 
-  //       "name": "ENDOMETRIUM"
-  //     }, 
-  //     {
-  //       "size": 26, 
-  //       "name": "OESOPHAGUS"
-  //     }, 
-  //     {
-  //       "size": 28, 
-  //       "name": "LIVER"
-  //     }
-  //   ]
-  // };
 
 var tree = {
-  name: "tree",
   "children": [
     {
-      "mongo_id": "568088c2aa0fce664fa0d1c4", 
-      "name": "THYROID", 
+      "mongo_id": "57db082c0329ef78ffc9b490",
+      "name": "THYROID",
       "size": 12
-    }, 
+    },
     {
-      "mongo_id": "568088c3aa0fce664fa0d1c6", 
-      "name": "SOFT TISSUE", 
+      "mongo_id": "57db082e0329ef78ffc9b491",
+      "name": "SALIVARY GLAND",
+      "size": 2
+    },
+    {
+      "mongo_id": "57db08330329ef78ffc9b492",
+      "name": "SOFT TISSUE",
       "size": 21
-    }, 
+    },
     {
-      "mongo_id": "568088c6aa0fce664fa0d1c7", 
-      "name": "HAEMATOPOIETIC AND LYMPHOID TISSUE", 
+      "mongo_id": "57db08400329ef78ffc9b493",
+      "name": "HAEMATOPOIETIC AND LYMPHOID TISSUE",
       "size": 180
-    }, 
+    },
     {
-      "mongo_id": "568088ceaa0fce664fa0d1cc", 
-      "name": "BILIARY TRACT", 
+      "mongo_id": "57db08570329ef78ffc9b498",
+      "name": "BILIARY TRACT",
       "size": 8
-    }, 
+    },
     {
-      "mongo_id": "568088caaa0fce664fa0d1c9", 
-      "name": "PANCREAS", 
+      "mongo_id": "57db08490329ef78ffc9b495",
+      "name": "PANCREAS",
       "size": 44
-    }, 
+    },
     {
-      "mongo_id": "568088ccaa0fce664fa0d1ca", 
-      "name": "CENTRAL NERVOUS SYSTEM", 
+      "mongo_id": "57db08500329ef78ffc9b496",
+      "name": "CENTRAL NERVOUS SYSTEM",
       "size": 69
-    }, 
+    },
     {
-      "mongo_id": "568088cdaa0fce664fa0d1cb", 
-      "name": "BONE", 
+      "mongo_id": "57db08550329ef78ffc9b497",
+      "name": "BONE",
       "size": 29
-    }, 
+    },
     {
-      "mongo_id": "568088c9aa0fce664fa0d1c8", 
-      "name": "LARGE INTESTINE", 
+      "mongo_id": "57db08450329ef78ffc9b494",
+      "name": "LARGE INTESTINE",
       "size": 61
-    }, 
+    },
     {
-      "mongo_id": "568088ceaa0fce664fa0d1cd", 
-      "name": "AUTONOMIC GANGLIA", 
+      "mongo_id": "57db085a0329ef78ffc9b499",
+      "name": "AUTONOMIC GANGLIA",
       "size": 17
-    }, 
+    },
     {
-      "mongo_id": "568088cfaa0fce664fa0d1ce", 
-      "name": "PLEURA", 
+      "mongo_id": "57db085c0329ef78ffc9b49a",
+      "name": "PLEURA",
       "size": 11
-    }, 
+    },
     {
-      "mongo_id": "568088d0aa0fce664fa0d1cf", 
-      "name": "URINARY TRACT", 
+      "mongo_id": "57db08600329ef78ffc9b49b",
+      "name": "URINARY TRACT",
       "size": 27
-    }, 
+    },
     {
-      "mongo_id": "568088d2aa0fce664fa0d1d0", 
-      "name": "LUNG", 
+      "mongo_id": "57db086b0329ef78ffc9b49c",
+      "name": "LUNG",
       "size": 187
-    }, 
+    },
     {
-      "mongo_id": "568088d5aa0fce664fa0d1d1", 
-      "name": "BREAST", 
+      "mongo_id": "57db086f0329ef78ffc9b49d",
+      "name": "BREAST",
       "size": 59
-    }, 
+    },
     {
-      "mongo_id": "568088d6aa0fce664fa0d1d2", 
-      "name": "SKIN", 
+      "mongo_id": "57db08730329ef78ffc9b49e",
+      "name": "SKIN",
       "size": 62
-    }, 
+    },
     {
-      "mongo_id": "568088d7aa0fce664fa0d1d3", 
-      "name": "OVARY", 
+      "mongo_id": "57db08790329ef78ffc9b49f",
+      "name": "OVARY",
       "size": 52
-    }, 
+    },
     {
-      "mongo_id": "568088d8aa0fce664fa0d1d4", 
-      "name": "PROSTATE", 
+      "mongo_id": "57db087c0329ef78ffc9b4a0",
+      "name": "PROSTATE",
       "size": 8
-    }, 
+    },
     {
-      "mongo_id": "568088d9aa0fce664fa0d1d5", 
-      "name": "KIDNEY", 
+      "mongo_id": "57db08810329ef78ffc9b4a1",
+      "name": "KIDNEY",
       "size": 36
-    }, 
+    },
     {
-      "mongo_id": "568088daaa0fce664fa0d1d6", 
-      "name": "UPPER AERODIGESTIVE TRACT", 
+      "mongo_id": "57db08850329ef78ffc9b4a2",
+      "name": "UPPER AERODIGESTIVE TRACT",
       "size": 32
-    }, 
+    },
     {
-      "mongo_id": "568088dbaa0fce664fa0d1d7", 
-      "name": "STOMACH", 
+      "mongo_id": "57db088b0329ef78ffc9b4a3",
+      "name": "STOMACH",
       "size": 38
-    }, 
+    },
     {
-      "mongo_id": "568088dbaa0fce664fa0d1d8", 
-      "name": "ENDOMETRIUM", 
+      "mongo_id": "57db088f0329ef78ffc9b4a4",
+      "name": "ENDOMETRIUM",
       "size": 27
-    }, 
+    },
     {
-      "mongo_id": "568088ddaa0fce664fa0d1d9", 
-      "name": "OESOPHAGUS", 
+      "mongo_id": "57db08920329ef78ffc9b4a5",
+      "name": "OESOPHAGUS",
       "size": 26
-    }, 
+    },
     {
-      "mongo_id": "568088deaa0fce664fa0d1da", 
-      "name": "LIVER", 
+      "mongo_id": "57db08970329ef78ffc9b4a6",
+      "name": "LIVER",
       "size": 28
     }
   ]
@@ -396,7 +298,7 @@ var treemap = d3.layout.treemap()
     .sticky(true)
     .value(function(d) { return d.size; });
 
- 
+
 var node = div.datum(tree).selectAll(".node")
       .data(treemap.nodes)
       .enter().append("div")
