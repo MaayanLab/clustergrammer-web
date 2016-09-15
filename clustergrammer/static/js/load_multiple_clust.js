@@ -38,6 +38,7 @@ function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_co
   var args = $.extend(true, {}, default_args);
   args.root = '#container-id-1';
   args.network_data = network_data;
+  args.row_tip_callback = gene_info;
 
   cgm.clust = Clustergrammer(args);
   d3.select(cgm.clust.params.root+' .wait_message').remove();

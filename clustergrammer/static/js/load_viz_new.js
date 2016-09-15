@@ -53,7 +53,8 @@ function load_viz_new(network_data){
     // 'title':'Clustergrammer',
     'about':about_string,
     // 'sidebar_width':150,
-    'row_search_placeholder':'Gene'
+    'row_search_placeholder':'Gene',
+    'row_tip_callback':gene_info
   };
 
   function resize_container(){
@@ -71,7 +72,7 @@ function load_viz_new(network_data){
   d3.select(window).on('resize',function(){
     resize_container();
     cgm.resize_viz();
-  });  
+  });
 
   cgm = Clustergrammer(args);
 
