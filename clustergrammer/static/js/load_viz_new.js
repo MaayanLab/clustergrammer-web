@@ -89,4 +89,9 @@ function load_viz_new(network_data){
     .style('width','163px')
     .style('margin-left','2px')
     .style('margin-top','5px');
+
+  // Enrichr categories
+  //////////////////////
+  enr_obj = Enrichr_request(cgm);
+  enr_obj.enrichr_icon();
 }

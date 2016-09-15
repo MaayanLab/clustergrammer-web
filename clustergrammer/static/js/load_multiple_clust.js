@@ -44,6 +44,11 @@ function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_co
   d3.select(cgm.clust.params.root+' .wait_message').remove();
   cat_colors = cgm.clust.params.viz.cat_colors;
 
+  // Enrichr categories
+  //////////////////////
+  enr_obj = Enrichr_request(cgm['clust']);
+  enr_obj.enrichr_icon();
+
   make_sim_mats(network_sim_col, 'col', cat_colors, unblock);
   make_sim_mats(network_sim_row, 'row', cat_colors, unblock);
 
