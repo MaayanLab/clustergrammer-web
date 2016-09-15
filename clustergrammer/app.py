@@ -11,6 +11,7 @@ import home_pages
 import demo_pages
 import upload_pages
 import status_check
+import grab_data
 
 app = Flask(__name__, static_url_path='')
 
