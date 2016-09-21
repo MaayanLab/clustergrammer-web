@@ -15,6 +15,8 @@ def add_routes(app=None):
   def gene_info(gene_symbol):
     import requests
 
+    print('imported requests\n*****************')
+
     base_url = 'http://amp.pharm.mssm.edu/Harmonizome/api/1.0/gene/'
 
     url = base_url + gene_symbol
