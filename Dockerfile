@@ -20,7 +20,7 @@ RUN pip install nose==1.3.4
 
 RUN pip install numpy==1.9.2
 RUN pip install scipy==0.15.1
-
+RUN pip install pandas==0.17.1
 RUN pip install six==1.9.0
 RUN pip install wsgiref==0.1.2
 RUN pip install requests==2.6.0
