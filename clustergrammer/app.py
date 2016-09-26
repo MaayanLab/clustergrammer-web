@@ -33,7 +33,7 @@ mongo_address = '146.203.54.131'
 ##########################################
 
 # for local development
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer/clustergrammer'
+SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer-web/clustergrammer'
 
 # # for docker development
 # SERVER_ROOT = '/app/clustergrammer'
