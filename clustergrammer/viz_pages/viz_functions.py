@@ -20,14 +20,17 @@ def get_network_from_mongo(user_objid, mongo_address):
   # look up sim_row and sim_col if necessary
 
   for inst_rc in ['sim_row', 'sim_col']:
-    if type(net[inst_rc]) is not dict:
 
-      inst_id = net[inst_rc]
+    if inst_rc in net:
 
-      found_sim = db.networks.find_one({'_id': inst_id})
+      if type(net[inst_rc]) is not dict:
 
-      net[inst_rc] = found_sim
-      found_sim['_id'] = str(found_sim['_id'])
+        inst_id = net[inst_rc]
+
+        found_sim = db.networks.find_one({'_id': inst_id})
+
+        net[inst_rc] = found_sim
+        found_sim['_id'] = str(found_sim['_id'])
 
   client.close()
 

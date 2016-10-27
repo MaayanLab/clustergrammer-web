@@ -11,34 +11,37 @@ def main():
 def post_request():
   from clustergrammer_old import Network
   import requests
-  import json 
+  import json
+
+  print('vector upload')
 
   net = Network()
   vect_post = net.load_json_to_dict('fake_vect_post.json')
 
   upload_url = 'http://localhost:9000/clustergrammer/vector_upload/'
 
+  print('making request')
   r = requests.post(upload_url, json.dumps(vect_post))
 
   response_json = json.loads(r.text)
 
   link = response_json['link']
 
-  print(link.split('viz/')[1])  
+  print(link.split('viz/')[1])
 
 def cluster():
   from clustergrammer import Network
   net = Network()
-  vect_post = net.load_json_to_dict('fake_vect_post.json')  
+  vect_post = net.load_json_to_dict('fake_vect_post.json')
 
   net.load_vect_post_to_net(vect_post)
 
   net.swap_nan_for_zero()
-  
+
   # net.N_top_views()
   net.make_filtered_views(dist_type='cos',views=['N_row_sum','N_row_var'], dendro=True)
 
-  net.write_json_to_file('viz','json/large_vect_post_example.json','indent')  
+  net.write_json_to_file('viz','json/large_vect_post_example.json','indent')
 
 def make_json():
   from clustergrammer_old import Network
@@ -47,10 +50,10 @@ def make_json():
   row_num = 15
   num_columns = 10
 
-  # make up all names for all data 
+  # make up all names for all data
   row_names = make_up_names(row_num)
 
-  # initialize vect_post 
+  # initialize vect_post
   vect_post = {}
 
   vect_post['title'] = 'Some-Clustergram'
@@ -59,15 +62,15 @@ def make_json():
   vect_post['is_up_down'] = True
   vect_post['columns'] = []
 
-  # the user can request a link or a json 
+  # the user can request a link or a json
   vect_post['response_type'] = 'json'
 
   split = True
 
-  # fraction of rows in each column - 1 means all columns have all rows 
+  # fraction of rows in each column - 1 means all columns have all rows
   inst_prob = 1
 
-  # make column data 
+  # make column data
   for col_num in range(num_columns):
 
     inst_col = {}
@@ -82,38 +85,38 @@ def make_json():
     else:
       inst_col['cat'] = 'lung'
 
-    # save to columns 
+    # save to columns
     inst_col['data'] = [] #vector
 
-    # get random subset of row_names 
+    # get random subset of row_names
     vect_rows = get_subset_rows(row_names, inst_prob)
 
-    # generate vectors 
+    # generate vectors
     for inst_row in vect_rows:
 
-      # genrate values 
+      # genrate values
       ##################
 
-      # add positive/negative values 
+      # add positive/negative values
       if random.random() > 0.5:
         value_up = 10*random.random()
-      else: 
+      else:
         value_up = 0
 
       if random.random() > 0.5:
         value_dn = -10*random.random()
-      else: 
+      else:
         value_dn = 0
 
       value = value_up + value_dn
 
-      # # generate vector component 
+      # # generate vector component
       # #############################
       # vector.append([ inst_row, value ])
       # vector_up.append([ inst_row, value_up ])
       # vector_dn.append([ inst_row, value_dn ])
 
-      # define row object - within column 
+      # define row object - within column
       row_obj = {}
       row_obj['row_name'] = inst_row
       row_obj['val'] = value
@@ -157,9 +160,9 @@ def make_up_names(num_names):
 
   return row_names
 
-  
+
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
   return ''.join(random.choice(chars) for _ in range(size))
-  
+
 
 main()
