@@ -39,6 +39,11 @@ h1 {
   margin-bottom: 20px;
 }
 
+.sidebar_button_text{
+  font-size: 13px;
+  font-weight: 300;
+}
+
 .btn{
   padding-top:2px;
   padding-bottom:2px;
@@ -124,4 +129,11 @@ h1 {
 #file_title{
   float:left;
   margin-left: 10px;
+}
+
+.clust_icon{
+  float:left;
+  width: 33.3333333%;
+  padding-left: 15px;
+  padding-right: 15px;
 }
