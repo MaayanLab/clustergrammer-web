@@ -4,9 +4,6 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   from bson.objectid import ObjectId
   from pymongo import MongoClient
   from flask import request
-  # from clustergrammer import Network
-  # from clustergrammer_v120 import Network
-  # from clustergrammer_v132 import Network
 
   # clustergrammer.py version 1.1.2 latest: 10-27-2016
   # version number is different because the python library was separated from
