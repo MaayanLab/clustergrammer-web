@@ -19,8 +19,8 @@ def post_request():
   vect_post = net.load_json_to_dict('fake_vect_post.json')
 
   # upload_url = 'http://localhost:9000/clustergrammer/vector_upload/'
-  upload_url = 'http://0.0.0.0:8087/clustergrammer/vector_upload/'
-
+  # upload_url = 'http://0.0.0.0:8087/clustergrammer/vector_upload/'
+  upload_url = 'http://amp.pharm.mssm.edu/clustergrammer/vector_upload/'
 
   print('making request')
   r = requests.post(upload_url, json.dumps(vect_post))
