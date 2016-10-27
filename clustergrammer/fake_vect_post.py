@@ -27,7 +27,7 @@ def post_request():
 
   link = response_json['link']
 
-  print(link.split('viz/')[1])
+  print(link.split('clustergrammer/')[1])
 
 def cluster():
   from clustergrammer import Network
@@ -47,7 +47,7 @@ def make_json():
   from clustergrammer_old import Network
   net = Network()
 
-  row_num = 15
+  row_num = 50
   num_columns = 10
 
   # make up all names for all data
@@ -58,7 +58,7 @@ def make_json():
 
   vect_post['title'] = 'Some-Clustergram'
   vect_post['link'] = 'some-link'
-  vect_post['filter'] = 'N_row_sum'
+  vect_post['views'] = ['N_row_var']
   vect_post['is_up_down'] = True
   vect_post['columns'] = []
 

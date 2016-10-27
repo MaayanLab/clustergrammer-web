@@ -1,7 +1,9 @@
 {
   "is_up_down": true, 
+  "views": [
+    "N_row_var"
+  ], 
   "title": "Some-Clustergram", 
-  "filter": "N_row_sum", 
   "link": "some-link", 
   "response_type": "json", 
   "columns": [
@@ -11,56 +13,128 @@
       "data": [
         {
           "val_up": 0, 
-          "val_dn": 0, 
-          "val": 0, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
+          "val_dn": -8.957039947869323, 
+          "val": -8.957039947869323, 
+          "row_name": "AIM2JWOJE9EWE"
         }, 
         {
-          "val_up": 1.8746337771455779, 
-          "val_dn": -5.7001250556682965, 
-          "val": -3.8254912785227186, 
-          "row_name": "YMNI2"
+          "val_up": 7.216015888723595, 
+          "val_dn": -2.8586470085676763, 
+          "val": 4.357368880155919, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
         }, 
         {
-          "val_up": 7.9359809980506215, 
-          "val_dn": 0, 
-          "val": 7.9359809980506215, 
-          "row_name": "EAAR IY12KN1E"
-        }, 
-        {
-          "val_up": 0, 
-          "val_dn": 0, 
-          "val": 0, 
+          "val_up": 5.6938734380339, 
+          "val_dn": -5.530904412625045, 
+          "val": 0.16296902540885494, 
           "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
         }, 
         {
-          "val_up": 0, 
-          "val_dn": 0, 
-          "val": 0, 
-          "row_name": "2KKSYF1KYKK"
+          "val_up": 4.919622719565479, 
+          "val_dn": -2.5930779464386555, 
+          "val": 2.326544773126823, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
         }, 
         {
-          "val_up": 0.4954204395411921, 
-          "val_dn": 0, 
-          "val": 0.4954204395411921, 
+          "val_up": 0, 
+          "val_dn": -8.248029284134091, 
+          "val": -8.248029284134091, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -2.7391024099317853, 
+          "val": -2.7391024099317853, 
           "row_name": "KJY NWWEEERY KYYKY1"
         }, 
         {
-          "val_up": 3.6046181496956367, 
-          "val_dn": 0, 
-          "val": 3.6046181496956367, 
+          "val_up": 0, 
+          "val_dn": -0.5801787000317127, 
+          "val": -0.5801787000317127, 
+          "row_name": "N2SJW11SK Y9F"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.0246249460982115, 
+          "val": -7.0246249460982115, 
           "row_name": "19N9  1EUUWDD1MSJJR9OA1"
         }, 
         {
-          "val_up": 0.42769345609904863, 
-          "val_dn": -4.28768925948003, 
-          "val": -3.859995803380981, 
-          "row_name": "2DD"
+          "val_up": 0.9946238930415097, 
+          "val_dn": 0, 
+          "val": 0.9946238930415097, 
+          "row_name": "O1F1 JADUSSMM"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.954530953005463, 
+          "val": -8.954530953005463, 
+          "row_name": "NIM2UN "
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
+          "row_name": "92MDEK1F1YEMEDA M1W"
+        }, 
+        {
+          "val_up": 4.297453524321844, 
+          "val_dn": 0, 
+          "val": 4.297453524321844, 
+          "row_name": "F11AMII1EN"
+        }, 
+        {
+          "val_up": 9.283831355160801, 
+          "val_dn": -7.246265575819669, 
+          "val": 2.037565779341133, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.408353537951932, 
+          "val": -9.408353537951932, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "IUJ"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.4460650873214793, 
+          "val": -3.4460650873214793, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 6.763069090309096, 
+          "val_dn": -7.613505838551574, 
+          "val": -0.850436748242478, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "IEFEWUEEIEO1UUNW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.2397902742232807, 
+          "val": -3.2397902742232807, 
+          "row_name": "2DD"
+        }, 
+        {
+          "val_up": 8.336801694829157, 
+          "val_dn": 0, 
+          "val": 8.336801694829157, 
           "row_name": "MJRYJ1U9KFY"
         }, 
         {
@@ -70,33 +144,171 @@
           "row_name": "R9  MWWRODFIDEYEMUJANW"
         }, 
         {
-          "val_up": 4.682266931317387, 
-          "val_dn": -8.78662340621077, 
-          "val": -4.104356474893383, 
-          "row_name": "ESY11"
+          "val_up": 4.847464819599455, 
+          "val_dn": 0, 
+          "val": 4.847464819599455, 
+          "row_name": " EJ1DORY2 KF99O1R O"
         }, 
         {
-          "val_up": 0, 
-          "val_dn": -5.814035960002586, 
-          "val": -5.814035960002586, 
-          "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
-        }, 
-        {
-          "val_up": 0, 
-          "val_dn": -8.89966798550269, 
-          "val": -8.89966798550269, 
-          "row_name": "EOKMEKYNNM"
+          "val_up": 4.486537780941814, 
+          "val_dn": 0, 
+          "val": 4.486537780941814, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "F11AMII1EN"
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
         }, 
         {
-          "val_up": 1.183786186206881, 
+          "val_up": 0, 
+          "val_dn": -6.56154527881763, 
+          "val": -6.56154527881763, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.718434345655542, 
+          "val": -7.718434345655542, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
+        }, 
+        {
+          "val_up": 6.088454751030641, 
+          "val_dn": -7.758065772107615, 
+          "val": -1.6696110210769746, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 7.853742617981513, 
+          "val_dn": -4.684544447209462, 
+          "val": 3.1691981707720505, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -6.418975448002354, 
+          "val": -6.418975448002354, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 6.47126244337147, 
           "val_dn": 0, 
-          "val": 1.183786186206881, 
+          "val": 6.47126244337147, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -6.752854449395481, 
+          "val": -6.752854449395481, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "ANA2UK2199111K9"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "ESY11"
+        }, 
+        {
+          "val_up": 0.7360439610988823, 
+          "val_dn": -8.72435590978297, 
+          "val": -7.988311948684087, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.611680403277429, 
+          "val": -9.611680403277429, 
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 7.498742547947559, 
+          "val_dn": -1.069724872750285, 
+          "val": 6.429017675197274, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.070976888553151, 
+          "val": -9.070976888553151, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
+        }, 
+        {
+          "val_up": 9.12914606727942, 
+          "val_dn": 0, 
+          "val": 9.12914606727942, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 9.564434918440554, 
+          "val_dn": 0, 
+          "val": 9.564434918440554, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 2.9965389264740914, 
+          "val_dn": 0, 
+          "val": 2.9965389264740914, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 1.0483121843936172, 
+          "val_dn": -4.108073882832888, 
+          "val": -3.059761698439271, 
+          "row_name": "EWWWE9 RNWY11IE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "2KKSYF1KYKK"
+        }, 
+        {
+          "val_up": 3.440096463328959, 
+          "val_dn": -0.6606870424656686, 
+          "val": 2.7794094208632902, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 1.8496893525577318, 
+          "val_dn": -0.44133427311960904, 
+          "val": 1.4083550794381228, 
+          "row_name": "EOKMEKYNNM"
+        }, 
+        {
+          "val_up": 7.668519424836473, 
+          "val_dn": 0, 
+          "val": 7.668519424836473, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
@@ -107,40 +319,46 @@
       "col_name": "Col-2 make name longer", 
       "data": [
         {
-          "val_up": 4.7430595829878195, 
-          "val_dn": -3.991306989101824, 
-          "val": 0.7517525938859957, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
+          "val_up": 0, 
+          "val_dn": -8.609384268929652, 
+          "val": -8.609384268929652, 
+          "row_name": "AIM2JWOJE9EWE"
+        }, 
+        {
+          "val_up": 2.4310390404124913, 
+          "val_dn": 0, 
+          "val": 2.4310390404124913, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "YMNI2"
-        }, 
-        {
-          "val_up": 1.8850163089050076, 
-          "val_dn": -5.312451051630381, 
-          "val": -3.4274347427253735, 
-          "row_name": "EAAR IY12KN1E"
-        }, 
-        {
-          "val_up": 0, 
-          "val_dn": -0.17287214496327974, 
-          "val": -0.17287214496327974, 
           "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
         }, 
         {
-          "val_up": 3.3849770452010564, 
-          "val_dn": -7.269942391468164, 
-          "val": -3.8849653462671077, 
-          "row_name": "2KKSYF1KYKK"
+          "val_up": 0, 
+          "val_dn": -6.16253975281095, 
+          "val": -6.16253975281095, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -9.867250158432233, 
-          "val": -9.867250158432233, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.737329947999181, 
+          "val": -5.737329947999181, 
           "row_name": "KJY NWWEEERY KYYKY1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -4.803405675327401, 
+          "val": -4.803405675327401, 
+          "row_name": "N2SJW11SK Y9F"
         }, 
         {
           "val_up": 0, 
@@ -150,50 +368,254 @@
         }, 
         {
           "val_up": 0, 
-          "val_dn": -2.469302036330141, 
-          "val": -2.469302036330141, 
-          "row_name": "2DD"
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "O1F1 JADUSSMM"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -5.8457557555695185, 
-          "val": -5.8457557555695185, 
-          "row_name": "MJRYJ1U9KFY"
+          "val_dn": -0.6076051180085551, 
+          "val": -0.6076051180085551, 
+          "row_name": "NIM2UN "
         }, 
         {
-          "val_up": 0, 
-          "val_dn": -0.3109580371788745, 
-          "val": -0.3109580371788745, 
-          "row_name": "R9  MWWRODFIDEYEMUJANW"
+          "val_up": 8.191906573637821, 
+          "val_dn": -4.608499820806202, 
+          "val": 3.5834067528316194, 
+          "row_name": "92MDEK1F1YEMEDA M1W"
+        }, 
+        {
+          "val_up": 4.747305513567829, 
+          "val_dn": -1.5270791580996335, 
+          "val": 3.2202263554681956, 
+          "row_name": "F11AMII1EN"
+        }, 
+        {
+          "val_up": 8.025781263793842, 
+          "val_dn": 0, 
+          "val": 8.025781263793842, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 2.0350297917589266, 
+          "val_dn": -1.321237837790582, 
+          "val": 0.7137919539683446, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "ESY11"
+          "row_name": "IUJ"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -9.791484711904916, 
-          "val": -9.791484711904916, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -1.6059158532147189, 
+          "val": -1.6059158532147189, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.267841750613144, 
+          "val": -8.267841750613144, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 7.293198374151496, 
+          "val_dn": 0, 
+          "val": 7.293198374151496, 
+          "row_name": "IEFEWUEEIEO1UUNW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.065058035392413, 
+          "val": -3.065058035392413, 
+          "row_name": "2DD"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -0.8455047671564953, 
+          "val": -0.8455047671564953, 
+          "row_name": "MJRYJ1U9KFY"
+        }, 
+        {
+          "val_up": 2.9528680984225897, 
+          "val_dn": 0, 
+          "val": 2.9528680984225897, 
+          "row_name": "R9  MWWRODFIDEYEMUJANW"
+        }, 
+        {
+          "val_up": 8.22401693372501, 
+          "val_dn": 0, 
+          "val": 8.22401693372501, 
+          "row_name": " EJ1DORY2 KF99O1R O"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
+        }, 
+        {
+          "val_up": 3.7267838138128195, 
+          "val_dn": 0, 
+          "val": 3.7267838138128195, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 9.959824386585732, 
+          "val_dn": -8.447254092881348, 
+          "val": 1.5125702937043837, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
+        }, 
+        {
+          "val_up": 7.856796535538049, 
+          "val_dn": -0.4989835403720533, 
+          "val": 7.357812995165995, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -4.92114621476476, 
+          "val": -4.92114621476476, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 0.1285716489489308, 
+          "val_dn": 0, 
+          "val": 0.1285716489489308, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.552380131705877, 
+          "val": -7.552380131705877, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 4.359988882202495, 
+          "val_dn": -7.464090960645661, 
+          "val": -3.1041020784431668, 
+          "row_name": "ANA2UK2199111K9"
+        }, 
+        {
+          "val_up": 1.8926247047738098, 
+          "val_dn": -8.136690140679502, 
+          "val": -6.244065435905692, 
+          "row_name": "ESY11"
+        }, 
+        {
+          "val_up": 6.479225528487296, 
+          "val_dn": -1.8235002844286574, 
+          "val": 4.6557252440586385, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
           "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "EOKMEKYNNM"
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 5.786974269181132, 
+          "val_dn": 0, 
+          "val": 5.786974269181132, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
+          "val_up": 0.5513729720508387, 
+          "val_dn": 0, 
+          "val": 0.5513729720508387, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
+        }, 
+        {
+          "val_up": 2.739790952360943, 
+          "val_dn": -4.588463970971021, 
+          "val": -1.8486730186100777, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
+        }, 
+        {
+          "val_up": 8.943086379267415, 
+          "val_dn": 0, 
+          "val": 8.943086379267415, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 7.541643891894445, 
+          "val_dn": -3.1721032771438584, 
+          "val": 4.369540614750587, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 4.504110548786395, 
+          "val_dn": 0, 
+          "val": 4.504110548786395, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 2.348728612700893, 
+          "val_dn": 0, 
+          "val": 2.348728612700893, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -1.4043858746596094, 
+          "val": -1.4043858746596094, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -2.439777928662724, 
+          "val": -2.439777928662724, 
+          "row_name": "EWWWE9 RNWY11IE"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "F11AMII1EN"
+          "row_name": "2KKSYF1KYKK"
         }, 
         {
-          "val_up": 6.24134409589682, 
-          "val_dn": -5.516914886945516, 
-          "val": 0.724429208951304, 
+          "val_up": 9.261648736203203, 
+          "val_dn": -4.002427317778686, 
+          "val": 5.2592214184245165, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.29377456048978, 
+          "val": -9.29377456048978, 
+          "row_name": "EOKMEKYNNM"
+        }, 
+        {
+          "val_up": 8.313691767630011, 
+          "val_dn": 0, 
+          "val": 8.313691767630011, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
@@ -204,34 +626,34 @@
       "col_name": "Col-3 make name longer", 
       "data": [
         {
-          "val_up": 1.4078755503076001, 
+          "val_up": 0, 
           "val_dn": 0, 
-          "val": 1.4078755503076001, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
+          "val": 0, 
+          "row_name": "AIM2JWOJE9EWE"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -8.06655387093411, 
-          "val": -8.06655387093411, 
-          "row_name": "YMNI2"
-        }, 
-        {
-          "val_up": 5.7579279884445045, 
-          "val_dn": -7.5368869690204185, 
-          "val": -1.778958980575914, 
-          "row_name": "EAAR IY12KN1E"
+          "val_dn": -9.16824840370544, 
+          "val": -9.16824840370544, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -7.130455453644915, 
-          "val": -7.130455453644915, 
+          "val_dn": 0, 
+          "val": 0, 
           "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
         }, 
         {
-          "val_up": 6.088183675731145, 
-          "val_dn": -5.355760083692563, 
-          "val": 0.7324235920385815, 
-          "row_name": "2KKSYF1KYKK"
+          "val_up": 0, 
+          "val_dn": -7.117867252745468, 
+          "val": -7.117867252745468, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.47305606923994, 
+          "val": -5.47305606923994, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
         }, 
         {
           "val_up": 0, 
@@ -240,57 +662,267 @@
           "row_name": "KJY NWWEEERY KYYKY1"
         }, 
         {
-          "val_up": 4.189088504829264, 
-          "val_dn": -3.741219529226343, 
-          "val": 0.4478689756029208, 
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "N2SJW11SK Y9F"
+        }, 
+        {
+          "val_up": 1.4518005318874694, 
+          "val_dn": -4.408860474703364, 
+          "val": -2.957059942815895, 
           "row_name": "19N9  1EUUWDD1MSJJR9OA1"
         }, 
         {
-          "val_up": 1.1556706933541094, 
+          "val_up": 4.8288072664387185, 
+          "val_dn": -9.89084827891898, 
+          "val": -5.062041012480262, 
+          "row_name": "O1F1 JADUSSMM"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -4.580069218234141, 
+          "val": -4.580069218234141, 
+          "row_name": "NIM2UN "
+        }, 
+        {
+          "val_up": 2.468920389580662, 
           "val_dn": 0, 
-          "val": 1.1556706933541094, 
+          "val": 2.468920389580662, 
+          "row_name": "92MDEK1F1YEMEDA M1W"
+        }, 
+        {
+          "val_up": 6.096757963176387, 
+          "val_dn": 0, 
+          "val": 6.096757963176387, 
+          "row_name": "F11AMII1EN"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.081086537995692, 
+          "val": -3.081086537995692, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.092041027852993, 
+          "val": -3.092041027852993, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
+        }, 
+        {
+          "val_up": 0.5541123761764355, 
+          "val_dn": 0, 
+          "val": 0.5541123761764355, 
+          "row_name": "IUJ"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -4.430738472221307, 
+          "val": -4.430738472221307, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 7.637052225166666, 
+          "val_dn": -3.4524458811635386, 
+          "val": 4.184606344003128, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 5.6119477413414245, 
+          "val_dn": 0, 
+          "val": 5.6119477413414245, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "IEFEWUEEIEO1UUNW"
+        }, 
+        {
+          "val_up": 2.91066289887846, 
+          "val_dn": -2.799747046531942, 
+          "val": 0.11091585234651813, 
           "row_name": "2DD"
         }, 
         {
-          "val_up": 1.7554304677382027, 
-          "val_dn": -0.2777866574228627, 
-          "val": 1.47764381031534, 
+          "val_up": 1.9261595541655863, 
+          "val_dn": -7.46303508850882, 
+          "val": -5.536875534343234, 
           "row_name": "MJRYJ1U9KFY"
         }, 
         {
-          "val_up": 4.5142253232260305, 
-          "val_dn": -8.254559249996857, 
-          "val": -3.740333926770827, 
+          "val_up": 7.866445206071353, 
+          "val_dn": -2.056477315537373, 
+          "val": 5.809967890533979, 
           "row_name": "R9  MWWRODFIDEYEMUJANW"
         }, 
         {
-          "val_up": 3.3869315316278783, 
-          "val_dn": -1.5476854922727068, 
-          "val": 1.8392460393551715, 
+          "val_up": 0, 
+          "val_dn": -8.386240342105797, 
+          "val": -8.386240342105797, 
+          "row_name": " EJ1DORY2 KF99O1R O"
+        }, 
+        {
+          "val_up": 5.765590831960741, 
+          "val_dn": -7.233336641229254, 
+          "val": -1.4677458092685134, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
+        }, 
+        {
+          "val_up": 8.801406697754652, 
+          "val_dn": -9.36304374030751, 
+          "val": -0.5616370425528583, 
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -2.692572321616211, 
+          "val": -2.692572321616211, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 8.916491617224922, 
+          "val_dn": -8.31444241379729, 
+          "val": 0.602049203427633, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 0.838983736915685, 
+          "val_dn": 0, 
+          "val": 0.838983736915685, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.169918919883534, 
+          "val": -8.169918919883534, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.362928597164055, 
+          "val": -5.362928597164055, 
+          "row_name": "ANA2UK2199111K9"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -1.704566376978356, 
+          "val": -1.704566376978356, 
           "row_name": "ESY11"
         }, 
         {
           "val_up": 0, 
+          "val_dn": -1.3127681595489227, 
+          "val": -1.3127681595489227, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 7.236920433794191, 
           "val_dn": 0, 
-          "val": 0, 
+          "val": 7.236920433794191, 
           "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
+        }, 
+        {
+          "val_up": 3.082648969641295, 
+          "val_dn": -3.805826054980579, 
+          "val": -0.7231770853392838, 
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 8.961076511386173, 
+          "val_dn": 0, 
+          "val": 8.961076511386173, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.785042209142276, 
+          "val": -8.785042209142276, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
+        }, 
+        {
+          "val_up": 9.135815472366852, 
+          "val_dn": -2.4271115003597767, 
+          "val": 6.708703972007076, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
+        }, 
+        {
+          "val_up": 5.714706376167687, 
+          "val_dn": -3.5948433721450246, 
+          "val": 2.1198630040226623, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 6.920256725748865, 
+          "val_dn": 0, 
+          "val": 6.920256725748865, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 4.987765975335523, 
+          "val_dn": 0, 
+          "val": 4.987765975335523, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 4.281884625333813, 
+          "val_dn": 0, 
+          "val": 4.281884625333813, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -1.9416546602512197, 
+          "val": -1.9416546602512197, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 4.574654691168868, 
+          "val_dn": 0, 
+          "val": 4.574654691168868, 
+          "row_name": "EWWWE9 RNWY11IE"
+        }, 
+        {
+          "val_up": 5.633617387314964, 
+          "val_dn": -5.836111877769936, 
+          "val": -0.20249449045497148, 
+          "row_name": "2KKSYF1KYKK"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 8.52787247641039, 
+          "val_dn": 0, 
+          "val": 8.52787247641039, 
           "row_name": "EOKMEKYNNM"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -6.536205110018008, 
-          "val": -6.536205110018008, 
-          "row_name": "F11AMII1EN"
-        }, 
-        {
-          "val_up": 9.53030786325389, 
-          "val_dn": -1.4924763061885926, 
-          "val": 8.037831557065298, 
+          "val_dn": -4.814310256620643, 
+          "val": -4.814310256620643, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
@@ -301,22 +933,16 @@
       "col_name": "Col-4 make name longer", 
       "data": [
         {
-          "val_up": 4.352669881392836, 
-          "val_dn": -8.342924830775175, 
-          "val": -3.990254949382339, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
-        }, 
-        {
-          "val_up": 7.230334277180315, 
-          "val_dn": 0, 
-          "val": 7.230334277180315, 
-          "row_name": "YMNI2"
-        }, 
-        {
           "val_up": 0, 
+          "val_dn": -3.611523039912562, 
+          "val": -3.611523039912562, 
+          "row_name": "AIM2JWOJE9EWE"
+        }, 
+        {
+          "val_up": 0.34964493449875733, 
           "val_dn": 0, 
-          "val": 0, 
-          "row_name": "EAAR IY12KN1E"
+          "val": 0.34964493449875733, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
         }, 
         {
           "val_up": 0, 
@@ -325,69 +951,285 @@
           "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
         }, 
         {
-          "val_up": 7.636932181583756, 
-          "val_dn": 0, 
-          "val": 7.636932181583756, 
-          "row_name": "2KKSYF1KYKK"
+          "val_up": 0, 
+          "val_dn": -1.5091926956079005, 
+          "val": -1.5091926956079005, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
         }, 
         {
-          "val_up": 1.925293928446824, 
-          "val_dn": -2.4147850811016136, 
-          "val": -0.4894911526547896, 
+          "val_up": 0, 
+          "val_dn": -4.380822198007548, 
+          "val": -4.380822198007548, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
+        }, 
+        {
+          "val_up": 3.565443154454593, 
+          "val_dn": -0.8567894665735576, 
+          "val": 2.708653687881035, 
           "row_name": "KJY NWWEEERY KYYKY1"
         }, 
         {
-          "val_up": 0, 
-          "val_dn": 0, 
-          "val": 0, 
+          "val_up": 9.691512640838319, 
+          "val_dn": -1.9802943496270142, 
+          "val": 7.7112182912113045, 
+          "row_name": "N2SJW11SK Y9F"
+        }, 
+        {
+          "val_up": 2.692574011632093, 
+          "val_dn": -4.708851806278746, 
+          "val": -2.016277794646653, 
           "row_name": "19N9  1EUUWDD1MSJJR9OA1"
         }, 
         {
-          "val_up": 5.9823596842167746, 
-          "val_dn": -8.182798896986082, 
-          "val": -2.2004392127693073, 
-          "row_name": "2DD"
-        }, 
-        {
-          "val_up": 0, 
-          "val_dn": -9.873259668642348, 
-          "val": -9.873259668642348, 
-          "row_name": "MJRYJ1U9KFY"
-        }, 
-        {
-          "val_up": 7.49366537890681, 
-          "val_dn": -5.916397313634473, 
-          "val": 1.577268065272337, 
-          "row_name": "R9  MWWRODFIDEYEMUJANW"
-        }, 
-        {
-          "val_up": 0, 
-          "val_dn": -4.557024768645837, 
-          "val": -4.557024768645837, 
-          "row_name": "ESY11"
-        }, 
-        {
-          "val_up": 2.0925683481859316, 
-          "val_dn": 0, 
-          "val": 2.0925683481859316, 
-          "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
+          "val_up": 6.304073122831717, 
+          "val_dn": -4.1026886143446255, 
+          "val": 2.2013845084870916, 
+          "row_name": "O1F1 JADUSSMM"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "EOKMEKYNNM"
+          "row_name": "NIM2UN "
         }, 
         {
-          "val_up": 0, 
+          "val_up": 7.6368089750142385, 
+          "val_dn": -8.719291918321773, 
+          "val": -1.082482943307534, 
+          "row_name": "92MDEK1F1YEMEDA M1W"
+        }, 
+        {
+          "val_up": 5.534847745417743, 
           "val_dn": 0, 
-          "val": 0, 
+          "val": 5.534847745417743, 
           "row_name": "F11AMII1EN"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -1.549500901963522, 
-          "val": -1.549500901963522, 
+          "val_dn": -0.7976762471197862, 
+          "val": -0.7976762471197862, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 1.7248846203571067, 
+          "val_dn": 0, 
+          "val": 1.7248846203571067, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
+        }, 
+        {
+          "val_up": 7.314001995378636, 
+          "val_dn": -9.03175250856801, 
+          "val": -1.7177505131893742, 
+          "row_name": "IUJ"
+        }, 
+        {
+          "val_up": 7.160503913541662, 
+          "val_dn": -8.273343734622332, 
+          "val": -1.1128398210806694, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -0.26877905375214506, 
+          "val": -0.26877905375214506, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 1.7414316263781637, 
+          "val_dn": 0, 
+          "val": 1.7414316263781637, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "IEFEWUEEIEO1UUNW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.393631371849482, 
+          "val": -9.393631371849482, 
+          "row_name": "2DD"
+        }, 
+        {
+          "val_up": 6.111543352976162, 
+          "val_dn": 0, 
+          "val": 6.111543352976162, 
+          "row_name": "MJRYJ1U9KFY"
+        }, 
+        {
+          "val_up": 9.025609923945431, 
+          "val_dn": 0, 
+          "val": 9.025609923945431, 
+          "row_name": "R9  MWWRODFIDEYEMUJANW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.840475035759553, 
+          "val": -7.840475035759553, 
+          "row_name": " EJ1DORY2 KF99O1R O"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -6.9222683985984546, 
+          "val": -6.9222683985984546, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
+        }, 
+        {
+          "val_up": 8.83862656991617, 
+          "val_dn": 0, 
+          "val": 8.83862656991617, 
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.937196920417295, 
+          "val": -8.937196920417295, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 1.3882089954210497, 
+          "val_dn": 0, 
+          "val": 1.3882089954210497, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -2.7739699742496713, 
+          "val": -2.7739699742496713, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 4.767686806283987, 
+          "val_dn": -6.353840724606117, 
+          "val": -1.5861539183221298, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 3.4387453343627983, 
+          "val_dn": -5.711235276140664, 
+          "val": -2.272489941777866, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -6.751953426748924, 
+          "val": -6.751953426748924, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 6.567526900282667, 
+          "val_dn": 0, 
+          "val": 6.567526900282667, 
+          "row_name": "ANA2UK2199111K9"
+        }, 
+        {
+          "val_up": 7.36439823479648, 
+          "val_dn": -7.832294616248796, 
+          "val": -0.4678963814523165, 
+          "row_name": "ESY11"
+        }, 
+        {
+          "val_up": 7.462428211762015, 
+          "val_dn": 0, 
+          "val": 7.462428211762015, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 3.8356372965738803, 
+          "val_dn": 0, 
+          "val": 3.8356372965738803, 
+          "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -2.0347254221023237, 
+          "val": -2.0347254221023237, 
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 3.280017292111619, 
+          "val_dn": 0, 
+          "val": 3.280017292111619, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.98423844293095, 
+          "val": -9.98423844293095, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
+        }, 
+        {
+          "val_up": 0.743760749108161, 
+          "val_dn": 0, 
+          "val": 0.743760749108161, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
+        }, 
+        {
+          "val_up": 8.274669099348905, 
+          "val_dn": -6.54368665441118, 
+          "val": 1.7309824449377258, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 5.942142345297009, 
+          "val_dn": -0.19787931248932522, 
+          "val": 5.744263032807684, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 1.8546710549756484, 
+          "val_dn": 0, 
+          "val": 1.8546710549756484, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 2.918355197779224, 
+          "val_dn": -9.878146890955993, 
+          "val": -6.9597916931767685, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.619211919491694, 
+          "val": -3.619211919491694, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "EWWWE9 RNWY11IE"
+        }, 
+        {
+          "val_up": 2.6210487125965845, 
+          "val_dn": -7.122386659684778, 
+          "val": -4.501337947088193, 
+          "row_name": "2KKSYF1KYKK"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 5.900766231143868, 
+          "val_dn": 0, 
+          "val": 5.900766231143868, 
+          "row_name": "EOKMEKYNNM"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -4.480220896873507, 
+          "val": -4.480220896873507, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
@@ -398,93 +1240,303 @@
       "col_name": "Col-5 make name longer", 
       "data": [
         {
-          "val_up": 0, 
-          "val_dn": -0.7343550637201324, 
-          "val": -0.7343550637201324, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
+          "val_up": 9.597747526209163, 
+          "val_dn": -0.5149036699575227, 
+          "val": 9.08284385625164, 
+          "row_name": "AIM2JWOJE9EWE"
         }, 
         {
-          "val_up": 0, 
+          "val_up": 3.9134011018456083, 
           "val_dn": 0, 
-          "val": 0, 
-          "row_name": "YMNI2"
+          "val": 3.9134011018456083, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
         }, 
         {
-          "val_up": 0, 
-          "val_dn": -5.507429261498079, 
-          "val": -5.507429261498079, 
-          "row_name": "EAAR IY12KN1E"
-        }, 
-        {
-          "val_up": 8.992831994953924, 
-          "val_dn": 0, 
-          "val": 8.992831994953924, 
+          "val_up": 4.616088011921987, 
+          "val_dn": -0.9175823732170851, 
+          "val": 3.6985056387049022, 
           "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
         }, 
         {
-          "val_up": 7.530906901282888, 
-          "val_dn": -8.152137564178014, 
-          "val": -0.6212306628951261, 
-          "row_name": "2KKSYF1KYKK"
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
+        }, 
+        {
+          "val_up": 7.829292391383924, 
+          "val_dn": 0, 
+          "val": 7.829292391383924, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
+        }, 
+        {
+          "val_up": 4.867689079880617, 
+          "val_dn": -1.949681234570142, 
+          "val": 2.918007845310475, 
+          "row_name": "KJY NWWEEERY KYYKY1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.444849108572447, 
+          "val": -9.444849108572447, 
+          "row_name": "N2SJW11SK Y9F"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "KJY NWWEEERY KYYKY1"
-        }, 
-        {
-          "val_up": 6.3290561413871815, 
-          "val_dn": -6.956389354140375, 
-          "val": -0.6273332127531939, 
           "row_name": "19N9  1EUUWDD1MSJJR9OA1"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -4.507605669392827, 
-          "val": -4.507605669392827, 
-          "row_name": "2DD"
+          "val_dn": -4.920399271625494, 
+          "val": -4.920399271625494, 
+          "row_name": "O1F1 JADUSSMM"
+        }, 
+        {
+          "val_up": 6.533725388442702, 
+          "val_dn": 0, 
+          "val": 6.533725388442702, 
+          "row_name": "NIM2UN "
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.354242207731014, 
+          "val": -5.354242207731014, 
+          "row_name": "92MDEK1F1YEMEDA M1W"
+        }, 
+        {
+          "val_up": 1.8363139405724416, 
+          "val_dn": 0, 
+          "val": 1.8363139405724416, 
+          "row_name": "F11AMII1EN"
+        }, 
+        {
+          "val_up": 4.638948737297816, 
+          "val_dn": -1.9769770844692658, 
+          "val": 2.6619716528285498, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.622453463621207, 
+          "val": -8.622453463621207, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
+        }, 
+        {
+          "val_up": 6.88576294166873, 
+          "val_dn": 0, 
+          "val": 6.88576294166873, 
+          "row_name": "IUJ"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -4.177938003022713, 
+          "val": -4.177938003022713, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -1.9757064717336492, 
+          "val": -1.9757064717336492, 
+          "row_name": "IEFEWUEEIEO1UUNW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.019555674271842, 
+          "val": -5.019555674271842, 
+          "row_name": "2DD"
+        }, 
+        {
+          "val_up": 4.605823522715981, 
+          "val_dn": 0, 
+          "val": 4.605823522715981, 
           "row_name": "MJRYJ1U9KFY"
         }, 
         {
           "val_up": 0, 
-          "val_dn": 0, 
-          "val": 0, 
+          "val_dn": -2.017743647204857, 
+          "val": -2.017743647204857, 
           "row_name": "R9  MWWRODFIDEYEMUJANW"
         }, 
         {
-          "val_up": 9.088946167243057, 
-          "val_dn": -0.23195650434397974, 
-          "val": 8.856989662899077, 
+          "val_up": 9.102690584168915, 
+          "val_dn": -2.6830250568489777, 
+          "val": 6.419665527319937, 
+          "row_name": " EJ1DORY2 KF99O1R O"
+        }, 
+        {
+          "val_up": 9.404671710236212, 
+          "val_dn": -5.2360581083557864, 
+          "val": 4.168613601880425, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
+        }, 
+        {
+          "val_up": 3.5263856129953486, 
+          "val_dn": 0, 
+          "val": 3.5263856129953486, 
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 1.3911976466341947, 
+          "val_dn": -5.089694653856958, 
+          "val": -3.698497007222763, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -6.934357607639874, 
+          "val": -6.934357607639874, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 9.173741191197212, 
+          "val_dn": -0.034893286055305284, 
+          "val": 9.138847905141906, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 1.197969543964258, 
+          "val_dn": -9.68840641802317, 
+          "val": -8.490436874058913, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "ANA2UK2199111K9"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
           "row_name": "ESY11"
         }, 
         {
-          "val_up": 6.308624424404757, 
-          "val_dn": -3.03429701803147, 
-          "val": 3.2743274063732866, 
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
           "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "EOKMEKYNNM"
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 0.09549543696977136, 
+          "val_dn": -4.411348734444291, 
+          "val": -4.31585329747452, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
+          "val_up": 2.0195719438946025, 
+          "val_dn": -0.101444875044846, 
+          "val": 1.9181270688497565, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -0.2710649774663043, 
-          "val": -0.2710649774663043, 
-          "row_name": "F11AMII1EN"
+          "val_dn": -5.0521122471674715, 
+          "val": -5.0521122471674715, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
         }, 
         {
-          "val_up": 8.332175452802216, 
+          "val_up": 2.7459577313941654, 
           "val_dn": 0, 
-          "val": 8.332175452802216, 
+          "val": 2.7459577313941654, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 4.9819733771229044, 
+          "val_dn": 0, 
+          "val": 4.9819733771229044, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -0.6675269515829174, 
+          "val": -0.6675269515829174, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 7.1140927754778795, 
+          "val_dn": -5.71706437011993, 
+          "val": 1.3970284053579496, 
+          "row_name": "EWWWE9 RNWY11IE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.824711548946793, 
+          "val": -3.824711548946793, 
+          "row_name": "2KKSYF1KYKK"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.5078893761782, 
+          "val": -8.5078893761782, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 1.256259890147553, 
+          "val_dn": -8.005236842217956, 
+          "val": -6.748976952070403, 
+          "row_name": "EOKMEKYNNM"
+        }, 
+        {
+          "val_up": 4.383302281691038, 
+          "val_dn": -3.7152805978866574, 
+          "val": 0.6680216838043807, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
@@ -498,90 +1550,300 @@
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
-        }, 
-        {
-          "val_up": 6.644918240298604, 
-          "val_dn": 0, 
-          "val": 6.644918240298604, 
-          "row_name": "YMNI2"
-        }, 
-        {
-          "val_up": 9.693779195076905, 
-          "val_dn": 0, 
-          "val": 9.693779195076905, 
-          "row_name": "EAAR IY12KN1E"
-        }, 
-        {
-          "val_up": 3.5052572429354045, 
-          "val_dn": -7.787418429904683, 
-          "val": -4.282161186969279, 
-          "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
-        }, 
-        {
-          "val_up": 5.973691777888769, 
-          "val_dn": 0, 
-          "val": 5.973691777888769, 
-          "row_name": "2KKSYF1KYKK"
+          "row_name": "AIM2JWOJE9EWE"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
+        }, 
+        {
+          "val_up": 4.4998511377907455, 
+          "val_dn": 0, 
+          "val": 4.4998511377907455, 
+          "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -4.428793528216165, 
+          "val": -4.428793528216165, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.362600018167502, 
+          "val": -9.362600018167502, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
+        }, 
+        {
+          "val_up": 2.9127915831516757, 
+          "val_dn": -6.213993195557097, 
+          "val": -3.3012016124054213, 
           "row_name": "KJY NWWEEERY KYYKY1"
         }, 
         {
-          "val_up": 3.597065470065716, 
-          "val_dn": -4.709689643760328, 
-          "val": -1.1126241736946119, 
+          "val_up": 0, 
+          "val_dn": -8.899422624041213, 
+          "val": -8.899422624041213, 
+          "row_name": "N2SJW11SK Y9F"
+        }, 
+        {
+          "val_up": 7.428665834161333, 
+          "val_dn": -5.982347876357227, 
+          "val": 1.4463179578041068, 
           "row_name": "19N9  1EUUWDD1MSJJR9OA1"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -5.491691586164032, 
-          "val": -5.491691586164032, 
-          "row_name": "2DD"
+          "val_dn": -0.3922720549317893, 
+          "val": -0.3922720549317893, 
+          "row_name": "O1F1 JADUSSMM"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
+          "row_name": "NIM2UN "
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "92MDEK1F1YEMEDA M1W"
+        }, 
+        {
+          "val_up": 5.576773385862576, 
+          "val_dn": 0, 
+          "val": 5.576773385862576, 
+          "row_name": "F11AMII1EN"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.773963690266683, 
+          "val": -8.773963690266683, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 4.466403398767589, 
+          "val_dn": 0, 
+          "val": 4.466403398767589, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
+        }, 
+        {
+          "val_up": 9.519265148701876, 
+          "val_dn": -4.5756208248236945, 
+          "val": 4.943644323878182, 
+          "row_name": "IUJ"
+        }, 
+        {
+          "val_up": 3.419351374367662, 
+          "val_dn": 0, 
+          "val": 3.419351374367662, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 5.671244978522947, 
+          "val_dn": -8.390303156337898, 
+          "val": -2.7190581778149516, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 9.365091574426614, 
+          "val_dn": 0, 
+          "val": 9.365091574426614, 
+          "row_name": "IEFEWUEEIEO1UUNW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "2DD"
+        }, 
+        {
+          "val_up": 9.261088259901648, 
+          "val_dn": 0, 
+          "val": 9.261088259901648, 
           "row_name": "MJRYJ1U9KFY"
         }, 
         {
-          "val_up": 5.856345104399629, 
-          "val_dn": -0.4219561638663094, 
-          "val": 5.434388940533319, 
+          "val_up": 2.73700047177584, 
+          "val_dn": -3.8656911526027504, 
+          "val": -1.1286906808269106, 
           "row_name": "R9  MWWRODFIDEYEMUJANW"
         }, 
         {
-          "val_up": 1.6149849293140317, 
+          "val_up": 8.979105891634697, 
+          "val_dn": -0.6985348983796202, 
+          "val": 8.280570993255077, 
+          "row_name": " EJ1DORY2 KF99O1R O"
+        }, 
+        {
+          "val_up": 9.080675112936596, 
+          "val_dn": -7.310790052303236, 
+          "val": 1.76988506063336, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
+        }, 
+        {
+          "val_up": 6.051212046875739, 
+          "val_dn": -1.0505755386798221, 
+          "val": 5.000636508195917, 
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
+        }, 
+        {
+          "val_up": 0, 
           "val_dn": 0, 
-          "val": 1.6149849293140317, 
+          "val": 0, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.15644319485769, 
+          "val": -8.15644319485769, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.127760410032168, 
+          "val": -7.127760410032168, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.604330883990119, 
+          "val": -5.604330883990119, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 3.3986239313109436, 
+          "val_dn": -6.338654321903249, 
+          "val": -2.9400303905923053, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -2.7411416983142125, 
+          "val": -2.7411416983142125, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.416930321732806, 
+          "val": -8.416930321732806, 
+          "row_name": "ANA2UK2199111K9"
+        }, 
+        {
+          "val_up": 7.0125163402300466, 
+          "val_dn": -3.5782184009464157, 
+          "val": 3.434297939283631, 
           "row_name": "ESY11"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 0.3994920351524578, 
+          "val_dn": -8.079371876216108, 
+          "val": -7.67987984106365, 
           "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
         }, 
         {
-          "val_up": 2.026250727743195, 
-          "val_dn": -8.499509250929048, 
-          "val": -6.473258523185853, 
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 1.7491162928796844, 
+          "val_dn": 0, 
+          "val": 1.7491162928796844, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.585094885029422, 
+          "val": -9.585094885029422, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.237599575829007, 
+          "val": -9.237599575829007, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
+        }, 
+        {
+          "val_up": 3.7888655816349726, 
+          "val_dn": 0, 
+          "val": 3.7888655816349726, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -6.9864455525695535, 
+          "val": -6.9864455525695535, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 7.616254036518077, 
+          "val_dn": 0, 
+          "val": 7.616254036518077, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 9.197598902681555, 
+          "val_dn": -4.240593987556012, 
+          "val": 4.957004915125544, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "EWWWE9 RNWY11IE"
+        }, 
+        {
+          "val_up": 9.408107893574286, 
+          "val_dn": 0, 
+          "val": 9.408107893574286, 
+          "row_name": "2KKSYF1KYKK"
+        }, 
+        {
+          "val_up": 0.5007543510779677, 
+          "val_dn": -8.280214432086614, 
+          "val": -7.779460081008647, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.2553930969700273, 
+          "val": -3.2553930969700273, 
           "row_name": "EOKMEKYNNM"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -5.497466164712731, 
-          "val": -5.497466164712731, 
-          "row_name": "F11AMII1EN"
-        }, 
-        {
-          "val_up": 4.885037473064146, 
-          "val_dn": -7.439858385138565, 
-          "val": -2.554820912074419, 
+          "val_dn": 0, 
+          "val": 0, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
@@ -592,93 +1854,303 @@
       "col_name": "Col-7 make name longer", 
       "data": [
         {
+          "val_up": 3.3320955037131816, 
+          "val_dn": -2.0144613206956787, 
+          "val": 1.317634183017503, 
+          "row_name": "AIM2JWOJE9EWE"
+        }, 
+        {
+          "val_up": 9.138359393486287, 
+          "val_dn": -3.953479957607536, 
+          "val": 5.18487943587875, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
+        }, 
+        {
           "val_up": 0, 
-          "val_dn": -7.548339584624295, 
-          "val": -7.548339584624295, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
-        }, 
-        {
-          "val_up": 8.02141268333611, 
-          "val_dn": -7.387005839678107, 
-          "val": 0.6344068436580024, 
-          "row_name": "YMNI2"
-        }, 
-        {
-          "val_up": 5.229356490193289, 
-          "val_dn": -1.892119055878354, 
-          "val": 3.3372374343149347, 
-          "row_name": "EAAR IY12KN1E"
-        }, 
-        {
-          "val_up": 6.383505961562338, 
-          "val_dn": -6.043442525153001, 
-          "val": 0.3400634364093369, 
+          "val_dn": -2.3784815065508322, 
+          "val": -2.3784815065508322, 
           "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
         }, 
         {
-          "val_up": 7.895005561302904, 
-          "val_dn": -9.007677180191742, 
-          "val": -1.1126716188888377, 
-          "row_name": "2KKSYF1KYKK"
-        }, 
-        {
-          "val_up": 3.276158073186056, 
-          "val_dn": -8.861111769023939, 
-          "val": -5.584953695837883, 
-          "row_name": "KJY NWWEEERY KYYKY1"
-        }, 
-        {
-          "val_up": 9.253779100345005, 
+          "val_up": 6.534539759582917, 
           "val_dn": 0, 
-          "val": 9.253779100345005, 
-          "row_name": "19N9  1EUUWDD1MSJJR9OA1"
-        }, 
-        {
-          "val_up": 2.4263572972620384, 
-          "val_dn": 0, 
-          "val": 2.4263572972620384, 
-          "row_name": "2DD"
-        }, 
-        {
-          "val_up": 4.21753165150601, 
-          "val_dn": -0.9268115644624964, 
-          "val": 3.290720087043514, 
-          "row_name": "MJRYJ1U9KFY"
-        }, 
-        {
-          "val_up": 0, 
-          "val_dn": -2.703633550392862, 
-          "val": -2.703633550392862, 
-          "row_name": "R9  MWWRODFIDEYEMUJANW"
-        }, 
-        {
-          "val_up": 0, 
-          "val_dn": -7.566404512998011, 
-          "val": -7.566404512998011, 
-          "row_name": "ESY11"
-        }, 
-        {
-          "val_up": 8.177376176070963, 
-          "val_dn": 0, 
-          "val": 8.177376176070963, 
-          "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
-        }, 
-        {
-          "val_up": 6.382336973586779, 
-          "val_dn": -8.139055306323556, 
-          "val": -1.756718332736777, 
-          "row_name": "EOKMEKYNNM"
-        }, 
-        {
-          "val_up": 9.24155876144678, 
-          "val_dn": -4.502103376885973, 
-          "val": 4.739455384560808, 
-          "row_name": "F11AMII1EN"
+          "val": 6.534539759582917, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "KJY NWWEEERY KYYKY1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "N2SJW11SK Y9F"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "19N9  1EUUWDD1MSJJR9OA1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -4.678698477895328, 
+          "val": -4.678698477895328, 
+          "row_name": "O1F1 JADUSSMM"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "NIM2UN "
+        }, 
+        {
+          "val_up": 1.6732654271926128, 
+          "val_dn": -0.4434690110366102, 
+          "val": 1.2297964161560027, 
+          "row_name": "92MDEK1F1YEMEDA M1W"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "F11AMII1EN"
+        }, 
+        {
+          "val_up": 0.2206681338701333, 
+          "val_dn": 0, 
+          "val": 0.2206681338701333, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
+        }, 
+        {
+          "val_up": 9.01840055907526, 
+          "val_dn": 0, 
+          "val": 9.01840055907526, 
+          "row_name": "IUJ"
+        }, 
+        {
+          "val_up": 7.788752662194598, 
+          "val_dn": -4.4139806968187045, 
+          "val": 3.374771965375894, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 5.4702239931054075, 
+          "val_dn": 0, 
+          "val": 5.4702239931054075, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 3.4207456604120976, 
+          "val_dn": 0, 
+          "val": 3.4207456604120976, 
+          "row_name": "IEFEWUEEIEO1UUNW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -1.7742924765409085, 
+          "val": -1.7742924765409085, 
+          "row_name": "2DD"
+        }, 
+        {
+          "val_up": 3.527446027560759, 
+          "val_dn": 0, 
+          "val": 3.527446027560759, 
+          "row_name": "MJRYJ1U9KFY"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.017318546572365, 
+          "val": -3.017318546572365, 
+          "row_name": "R9  MWWRODFIDEYEMUJANW"
+        }, 
+        {
+          "val_up": 8.640445777964896, 
+          "val_dn": 0, 
+          "val": 8.640445777964896, 
+          "row_name": " EJ1DORY2 KF99O1R O"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -1.4017540247961813, 
+          "val": -1.4017540247961813, 
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.502869004599946, 
+          "val": -7.502869004599946, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.023341114349249, 
+          "val": -8.023341114349249, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
+        }, 
+        {
+          "val_up": 6.193353038042039, 
+          "val_dn": -7.558041265008647, 
+          "val": -1.3646882269666083, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 6.302419709471208, 
+          "val_dn": -2.5849153677789207, 
+          "val": 3.7175043416922877, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.324373337113402, 
+          "val": -3.324373337113402, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 1.0705985449023858, 
+          "val_dn": -2.650563435838155, 
+          "val": -1.579964890935769, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.323089253950874, 
+          "val": -5.323089253950874, 
+          "row_name": "ANA2UK2199111K9"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "ESY11"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 1.2635558412263503, 
+          "val_dn": -0.7397268731989737, 
+          "val": 0.5238289680273767, 
+          "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.893788597096102, 
+          "val": -5.893788597096102, 
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 9.247629818533166, 
+          "val_dn": 0, 
+          "val": 9.247629818533166, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
+        }, 
+        {
+          "val_up": 0.21605460458418047, 
+          "val_dn": 0, 
+          "val": 0.21605460458418047, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -4.874364431245858, 
+          "val": -4.874364431245858, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -6.855512175122632, 
+          "val": -6.855512175122632, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.76900345255123, 
+          "val": -7.76900345255123, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 1.066011717398313, 
+          "val_dn": -4.0804017575929645, 
+          "val": -3.0143900401946517, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 3.382239708247071, 
+          "val_dn": -6.440076558353475, 
+          "val": -3.057836850106404, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.191277178514724, 
+          "val": -9.191277178514724, 
+          "row_name": "EWWWE9 RNWY11IE"
+        }, 
+        {
+          "val_up": 4.3097925291160575, 
+          "val_dn": -3.6840277963054535, 
+          "val": 0.625764732810604, 
+          "row_name": "2KKSYF1KYKK"
+        }, 
+        {
+          "val_up": 6.680412279980379, 
+          "val_dn": -8.934785887049703, 
+          "val": -2.254373607069324, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 1.2031082229550305, 
+          "val_dn": -8.380768590631957, 
+          "val": -7.177660367676927, 
+          "row_name": "EOKMEKYNNM"
+        }, 
+        {
+          "val_up": 4.760777026897807, 
+          "val_dn": 0, 
+          "val": 4.760777026897807, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
@@ -689,22 +2161,16 @@
       "col_name": "Col-8 make name longer", 
       "data": [
         {
-          "val_up": 0.5363459910023094, 
+          "val_up": 0, 
           "val_dn": 0, 
-          "val": 0.5363459910023094, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
+          "val": 0, 
+          "row_name": "AIM2JWOJE9EWE"
         }, 
         {
-          "val_up": 4.105284031464959, 
-          "val_dn": -7.428002849357681, 
-          "val": -3.3227188178927225, 
-          "row_name": "YMNI2"
-        }, 
-        {
-          "val_up": 3.6058184722150632, 
-          "val_dn": -4.644702205369484, 
-          "val": -1.0388837331544205, 
-          "row_name": "EAAR IY12KN1E"
+          "val_up": 3.57418300308919, 
+          "val_dn": -6.094172889138504, 
+          "val": -2.5199898860493137, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
         }, 
         {
           "val_up": 0, 
@@ -714,26 +2180,104 @@
         }, 
         {
           "val_up": 0, 
-          "val_dn": -2.9272932300395715, 
-          "val": -2.9272932300395715, 
-          "row_name": "2KKSYF1KYKK"
+          "val_dn": -7.2334557897568965, 
+          "val": -7.2334557897568965, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -1.0276549266368473, 
-          "val": -1.0276549266368473, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
+        }, 
+        {
+          "val_up": 9.216504513516268, 
+          "val_dn": 0, 
+          "val": 9.216504513516268, 
           "row_name": "KJY NWWEEERY KYYKY1"
         }, 
         {
-          "val_up": 0, 
+          "val_up": 7.518862597385266, 
+          "val_dn": -6.879856242525007, 
+          "val": 0.6390063548602587, 
+          "row_name": "N2SJW11SK Y9F"
+        }, 
+        {
+          "val_up": 1.332097911387684, 
           "val_dn": 0, 
-          "val": 0, 
+          "val": 1.332097911387684, 
           "row_name": "19N9  1EUUWDD1MSJJR9OA1"
+        }, 
+        {
+          "val_up": 3.0033974697343977, 
+          "val_dn": -2.1152497284160576, 
+          "val": 0.8881477413183401, 
+          "row_name": "O1F1 JADUSSMM"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
+          "row_name": "NIM2UN "
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "92MDEK1F1YEMEDA M1W"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.606245424964621, 
+          "val": -7.606245424964621, 
+          "row_name": "F11AMII1EN"
+        }, 
+        {
+          "val_up": 9.956167304256379, 
+          "val_dn": -4.161547458954745, 
+          "val": 5.794619845301634, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
+        }, 
+        {
+          "val_up": 1.3790689911154141, 
+          "val_dn": 0, 
+          "val": 1.3790689911154141, 
+          "row_name": "IUJ"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 4.133902156828988, 
+          "val_dn": -2.1027160757423013, 
+          "val": 2.0311860810866866, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 4.943602533567859, 
+          "val_dn": 0, 
+          "val": 4.943602533567859, 
+          "row_name": "IEFEWUEEIEO1UUNW"
+        }, 
+        {
+          "val_up": 7.333403851184327, 
+          "val_dn": 0, 
+          "val": 7.333403851184327, 
           "row_name": "2DD"
         }, 
         {
@@ -743,39 +2287,177 @@
           "row_name": "MJRYJ1U9KFY"
         }, 
         {
-          "val_up": 1.6898043339718682, 
+          "val_up": 2.578820361199327, 
           "val_dn": 0, 
-          "val": 1.6898043339718682, 
+          "val": 2.578820361199327, 
           "row_name": "R9  MWWRODFIDEYEMUJANW"
         }, 
         {
-          "val_up": 7.636356348346681, 
+          "val_up": 7.996392749156051, 
+          "val_dn": -1.6793816435546927, 
+          "val": 6.317011105601359, 
+          "row_name": " EJ1DORY2 KF99O1R O"
+        }, 
+        {
+          "val_up": 2.092138784890337, 
           "val_dn": 0, 
-          "val": 7.636356348346681, 
-          "row_name": "ESY11"
+          "val": 2.092138784890337, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
         }, 
         {
-          "val_up": 1.59288781236831, 
-          "val_dn": -6.81410451525908, 
-          "val": -5.2212167028907706, 
-          "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
+          "val_up": 1.2369201409591701, 
+          "val_dn": -8.013490549674371, 
+          "val": -6.776570408715201, 
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
         }, 
         {
-          "val_up": 0.5003178904649341, 
-          "val_dn": -1.690660533744851, 
-          "val": -1.190342643279917, 
-          "row_name": "EOKMEKYNNM"
-        }, 
-        {
-          "val_up": 5.502273004595917, 
+          "val_up": 8.950008823455459, 
           "val_dn": 0, 
-          "val": 5.502273004595917, 
-          "row_name": "F11AMII1EN"
+          "val": 8.950008823455459, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 6.70218238536802, 
+          "val_dn": -5.305281631066986, 
+          "val": 1.3969007543010337, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -7.58886190987896, 
-          "val": -7.58886190987896, 
+          "val_dn": -1.6862958042932874, 
+          "val": -1.6862958042932874, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 5.73624666452049, 
+          "val_dn": -9.752767871245826, 
+          "val": -4.016521206725336, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.5286882976093645, 
+          "val": -5.5286882976093645, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 5.043955662577089, 
+          "val_dn": -2.5645507341545724, 
+          "val": 2.4794049284225164, 
+          "row_name": "ANA2UK2199111K9"
+        }, 
+        {
+          "val_up": 3.1113420924612023, 
+          "val_dn": 0, 
+          "val": 3.1113420924612023, 
+          "row_name": "ESY11"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -6.168321782554592, 
+          "val": -6.168321782554592, 
+          "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 3.463849427514125, 
+          "val_dn": -8.758392778284264, 
+          "val": -5.294543350770139, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
+        }, 
+        {
+          "val_up": 3.3773579689857716, 
+          "val_dn": 0, 
+          "val": 3.3773579689857716, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -2.586834967672406, 
+          "val": -2.586834967672406, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -2.3143537049668272, 
+          "val": -2.3143537049668272, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -0.7858763696974647, 
+          "val": -0.7858763696974647, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -0.36194804318388063, 
+          "val": -0.36194804318388063, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "EWWWE9 RNWY11IE"
+        }, 
+        {
+          "val_up": 6.685585496650447, 
+          "val_dn": -8.935653151811847, 
+          "val": -2.2500676551614003, 
+          "row_name": "2KKSYF1KYKK"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.206339105514317, 
+          "val": -7.206339105514317, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 1.520547567676086, 
+          "val_dn": 0, 
+          "val": 1.520547567676086, 
+          "row_name": "EOKMEKYNNM"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
@@ -786,46 +2468,118 @@
       "col_name": "Col-9 make name longer", 
       "data": [
         {
-          "val_up": 6.574361527019979, 
+          "val_up": 4.184449513424999, 
           "val_dn": 0, 
-          "val": 6.574361527019979, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
+          "val": 4.184449513424999, 
+          "row_name": "AIM2JWOJE9EWE"
         }, 
         {
-          "val_up": 0.5590607504462897, 
-          "val_dn": 0, 
-          "val": 0.5590607504462897, 
-          "row_name": "YMNI2"
+          "val_up": 7.936295366905645, 
+          "val_dn": -5.135732916516391, 
+          "val": 2.800562450389254, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
         }, 
         {
-          "val_up": 0, 
-          "val_dn": -5.366406402555322, 
-          "val": -5.366406402555322, 
-          "row_name": "EAAR IY12KN1E"
-        }, 
-        {
-          "val_up": 3.732365388558047, 
-          "val_dn": -5.8188821857853394, 
-          "val": -2.0865167972272927, 
+          "val_up": 9.737820838257838, 
+          "val_dn": -3.9939845828575593, 
+          "val": 5.743836255400279, 
           "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
         }, 
         {
           "val_up": 0, 
-          "val_dn": 0, 
-          "val": 0, 
-          "row_name": "2KKSYF1KYKK"
+          "val_dn": -7.542110605140761, 
+          "val": -7.542110605140761, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
         }, 
         {
-          "val_up": 7.952419536471832, 
+          "val_up": 8.16891081408069, 
           "val_dn": 0, 
-          "val": 7.952419536471832, 
+          "val": 8.16891081408069, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
+        }, 
+        {
+          "val_up": 6.77885568971492, 
+          "val_dn": 0, 
+          "val": 6.77885568971492, 
           "row_name": "KJY NWWEEERY KYYKY1"
+        }, 
+        {
+          "val_up": 0.9049045129689537, 
+          "val_dn": -6.414045664005955, 
+          "val": -5.509141151037001, 
+          "row_name": "N2SJW11SK Y9F"
+        }, 
+        {
+          "val_up": 1.2860799300058823, 
+          "val_dn": -0.9277965797259946, 
+          "val": 0.35828335027988767, 
+          "row_name": "19N9  1EUUWDD1MSJJR9OA1"
+        }, 
+        {
+          "val_up": 7.478897462092666, 
+          "val_dn": 0, 
+          "val": 7.478897462092666, 
+          "row_name": "O1F1 JADUSSMM"
+        }, 
+        {
+          "val_up": 1.6544287564941018, 
+          "val_dn": -4.777419661940698, 
+          "val": -3.122990905446596, 
+          "row_name": "NIM2UN "
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
-          "row_name": "19N9  1EUUWDD1MSJJR9OA1"
+          "row_name": "92MDEK1F1YEMEDA M1W"
+        }, 
+        {
+          "val_up": 7.501504523086919, 
+          "val_dn": -3.861410725485813, 
+          "val": 3.6400937976011063, 
+          "row_name": "F11AMII1EN"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -0.6380384704958453, 
+          "val": -0.6380384704958453, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 4.299165885946752, 
+          "val_dn": -1.1647225734585276, 
+          "val": 3.1344433124882243, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "IUJ"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 2.410553680603975, 
+          "val_dn": -1.6549365320291265, 
+          "val": 0.7556171485748486, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 7.104856301416912, 
+          "val_dn": -0.1362510939397188, 
+          "val": 6.968605207477193, 
+          "row_name": "IEFEWUEEIEO1UUNW"
         }, 
         {
           "val_up": 0, 
@@ -834,45 +2588,183 @@
           "row_name": "2DD"
         }, 
         {
-          "val_up": 4.362446757747276, 
-          "val_dn": 0, 
-          "val": 4.362446757747276, 
+          "val_up": 0, 
+          "val_dn": -6.353234854894142, 
+          "val": -6.353234854894142, 
           "row_name": "MJRYJ1U9KFY"
         }, 
         {
-          "val_up": 1.754029748521606, 
-          "val_dn": -0.04382763075076457, 
-          "val": 1.7102021177708415, 
+          "val_up": 9.390689152385608, 
+          "val_dn": 0, 
+          "val": 9.390689152385608, 
           "row_name": "R9  MWWRODFIDEYEMUJANW"
         }, 
         {
-          "val_up": 6.405240234880739, 
-          "val_dn": 0, 
-          "val": 6.405240234880739, 
-          "row_name": "ESY11"
+          "val_up": 0, 
+          "val_dn": -3.181006692645245, 
+          "val": -3.181006692645245, 
+          "row_name": " EJ1DORY2 KF99O1R O"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -5.9192235559621675, 
-          "val": -5.9192235559621675, 
+          "val_dn": -3.280306020443499, 
+          "val": -3.280306020443499, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
+        }, 
+        {
+          "val_up": 5.0576882221053765, 
+          "val_dn": -5.2136420549441365, 
+          "val": -0.15595383283875996, 
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
+        }, 
+        {
+          "val_up": 0.259534565049343, 
+          "val_dn": -4.965817565339885, 
+          "val": -4.706283000290542, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.610226035949296, 
+          "val": -5.610226035949296, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -0.13989603802874395, 
+          "val": -0.13989603802874395, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 3.373194329245559, 
+          "val_dn": 0, 
+          "val": 3.373194329245559, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -5.025902932345225, 
+          "val": -5.025902932345225, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -0.5761838561035904, 
+          "val": -0.5761838561035904, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.8004560973193895, 
+          "val": -7.8004560973193895, 
+          "row_name": "ANA2UK2199111K9"
+        }, 
+        {
+          "val_up": 8.857030702307249, 
+          "val_dn": 0, 
+          "val": 8.857030702307249, 
+          "row_name": "ESY11"
+        }, 
+        {
+          "val_up": 1.3331942045550094, 
+          "val_dn": 0, 
+          "val": 1.3331942045550094, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.5232894340047274, 
+          "val": -3.5232894340047274, 
           "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
         }, 
         {
-          "val_up": 1.660636835879209, 
+          "val_up": 0, 
+          "val_dn": -8.93595818566824, 
+          "val": -8.93595818566824, 
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -1.6811306422099814, 
+          "val": -1.6811306422099814, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
+          "val_up": 0, 
           "val_dn": 0, 
-          "val": 1.660636835879209, 
+          "val": 0, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
+        }, 
+        {
+          "val_up": 5.916107981472899, 
+          "val_dn": -5.4581046513327856, 
+          "val": 0.4580033301401132, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
+        }, 
+        {
+          "val_up": 1.6643922246373477, 
+          "val_dn": -9.696146326496988, 
+          "val": -8.03175410185964, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.9972291721034727, 
+          "val": -3.9972291721034727, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 1.2225455804653595, 
+          "val_dn": 0, 
+          "val": 1.2225455804653595, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 8.43085731902151, 
+          "val_dn": -7.820970802166878, 
+          "val": 0.6098865168546315, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 0.35853744624365524, 
+          "val_dn": -2.248987636404196, 
+          "val": -1.8904501901605408, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 8.959557230213285, 
+          "val_dn": 0, 
+          "val": 8.959557230213285, 
+          "row_name": "EWWWE9 RNWY11IE"
+        }, 
+        {
+          "val_up": 8.561627162534371, 
+          "val_dn": 0, 
+          "val": 8.561627162534371, 
+          "row_name": "2KKSYF1KYKK"
+        }, 
+        {
+          "val_up": 4.6059362606276295, 
+          "val_dn": -9.830693200168062, 
+          "val": -5.224756939540432, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
           "row_name": "EOKMEKYNNM"
         }, 
         {
-          "val_up": 1.8807976281421657, 
-          "val_dn": 0, 
-          "val": 1.8807976281421657, 
-          "row_name": "F11AMII1EN"
-        }, 
-        {
-          "val_up": 5.664818743937239, 
-          "val_dn": 0, 
-          "val": 5.664818743937239, 
+          "val_up": 0, 
+          "val_dn": -6.966952477312191, 
+          "val": -6.966952477312191, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
@@ -884,63 +2776,201 @@
       "data": [
         {
           "val_up": 0, 
-          "val_dn": -4.071662173259364, 
-          "val": -4.071662173259364, 
-          "row_name": "U1EUJEFMR9RJ9OYNS"
+          "val_dn": -8.439919308826195, 
+          "val": -8.439919308826195, 
+          "row_name": "AIM2JWOJE9EWE"
         }, 
         {
-          "val_up": 8.527834090506342, 
+          "val_up": 6.840600838605074, 
           "val_dn": 0, 
-          "val": 8.527834090506342, 
-          "row_name": "YMNI2"
-        }, 
-        {
-          "val_up": 8.458507924017605, 
-          "val_dn": 0, 
-          "val": 8.458507924017605, 
-          "row_name": "EAAR IY12KN1E"
-        }, 
-        {
-          "val_up": 2.758754969066457, 
-          "val_dn": 0, 
-          "val": 2.758754969066457, 
-          "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
-        }, 
-        {
-          "val_up": 7.113185933535645, 
-          "val_dn": 0, 
-          "val": 7.113185933535645, 
-          "row_name": "2KKSYF1KYKK"
+          "val": 6.840600838605074, 
+          "row_name": "1EYINE1MFMYDES DF RSFYNSJEJW1"
         }, 
         {
           "val_up": 0, 
+          "val_dn": -6.4309136214388785, 
+          "val": -6.4309136214388785, 
+          "row_name": "2N1OJA121MUK9 YI1IWO9  S2RMOA"
+        }, 
+        {
+          "val_up": 3.010757585023093, 
           "val_dn": 0, 
-          "val": 0, 
+          "val": 3.010757585023093, 
+          "row_name": "FIJI22E1JEEEDO1D E19U11S9"
+        }, 
+        {
+          "val_up": 6.586012354909946, 
+          "val_dn": -8.868381860534463, 
+          "val": -2.2823695056245166, 
+          "row_name": "E1UMR1YUAWJJNAFMJKFW2K9IE2YIRUYE"
+        }, 
+        {
+          "val_up": 4.103548388176127, 
+          "val_dn": -9.490648494939201, 
+          "val": -5.387100106763074, 
           "row_name": "KJY NWWEEERY KYYKY1"
         }, 
         {
-          "val_up": 5.831748324348366, 
-          "val_dn": -8.343825561071887, 
-          "val": -2.5120772367235205, 
+          "val_up": 0, 
+          "val_dn": -9.47584705984615, 
+          "val": -9.47584705984615, 
+          "row_name": "N2SJW11SK Y9F"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -6.896257100191406, 
+          "val": -6.896257100191406, 
           "row_name": "19N9  1EUUWDD1MSJJR9OA1"
         }, 
         {
           "val_up": 0, 
+          "val_dn": -0.6783261514508476, 
+          "val": -0.6783261514508476, 
+          "row_name": "O1F1 JADUSSMM"
+        }, 
+        {
+          "val_up": 4.734139520043672, 
           "val_dn": 0, 
-          "val": 0, 
-          "row_name": "2DD"
+          "val": 4.734139520043672, 
+          "row_name": "NIM2UN "
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.970591166304906, 
+          "val": -8.970591166304906, 
+          "row_name": "92MDEK1F1YEMEDA M1W"
         }, 
         {
           "val_up": 0, 
           "val_dn": 0, 
           "val": 0, 
+          "row_name": "F11AMII1EN"
+        }, 
+        {
+          "val_up": 3.0164310444098263, 
+          "val_dn": -3.6523431852547517, 
+          "val": -0.6359121408449253, 
+          "row_name": "S12EMIWAEMEIF1EUNOU1O1D FF1K NO"
+        }, 
+        {
+          "val_up": 6.0267475058511275, 
+          "val_dn": -9.64681388663519, 
+          "val": -3.6200663807840625, 
+          "row_name": "K2FESJYJEERRR29UM11NK"
+        }, 
+        {
+          "val_up": 3.6678239515844338, 
+          "val_dn": -3.173520648767385, 
+          "val": 0.4943033028170487, 
+          "row_name": "IUJ"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "9FFEEDOEJ1FJOWMYFAJN1Y9IJIMNKINE"
+        }, 
+        {
+          "val_up": 7.229679930927984, 
+          "val_dn": -4.719754257065384, 
+          "val": 2.5099256738626003, 
+          "row_name": "A1WJKMONUYD K2DIKWEF"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "FJI2M1 JUUFEYAYJOJ1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "IEFEWUEEIEO1UUNW"
+        }, 
+        {
+          "val_up": 7.731398736983229, 
+          "val_dn": 0, 
+          "val": 7.731398736983229, 
+          "row_name": "2DD"
+        }, 
+        {
+          "val_up": 2.8684375049134014, 
+          "val_dn": 0, 
+          "val": 2.8684375049134014, 
           "row_name": "MJRYJ1U9KFY"
         }, 
         {
-          "val_up": 4.892825589551641, 
-          "val_dn": -8.412711952099981, 
-          "val": -3.5198863625483403, 
+          "val_up": 0, 
+          "val_dn": -3.413339468416281, 
+          "val": -3.413339468416281, 
           "row_name": "R9  MWWRODFIDEYEMUJANW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -7.8657040808648855, 
+          "val": -7.8657040808648855, 
+          "row_name": " EJ1DORY2 KF99O1R O"
+        }, 
+        {
+          "val_up": 7.206579247861359, 
+          "val_dn": 0, 
+          "val": 7.206579247861359, 
+          "row_name": "JKNN9AOUKIEOK 11 2S1JN2A"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "DKMMDSNEWAEU2U2WDIYDJOEFD1O1"
+        }, 
+        {
+          "val_up": 5.857697905193521, 
+          "val_dn": 0, 
+          "val": 5.857697905193521, 
+          "row_name": "KNYSAK1"
+        }, 
+        {
+          "val_up": 8.795966606804921, 
+          "val_dn": 0, 
+          "val": 8.795966606804921, 
+          "row_name": "MS2EK1FMEFKUEOFIMYJU9ND"
+        }, 
+        {
+          "val_up": 2.486489611719669, 
+          "val_dn": -8.639058469502626, 
+          "val": -6.152568857782956, 
+          "row_name": "122D1YAKYD1OMWE1UDAFJ9WEUWJ D9WY"
+        }, 
+        {
+          "val_up": 8.62447935388587, 
+          "val_dn": -4.175656434740434, 
+          "val": 4.448822919145437, 
+          "row_name": "SW2Y"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.180310496262085, 
+          "val": -3.180310496262085, 
+          "row_name": "RUEO19JWANEOD9W"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "YMNI2"
+        }, 
+        {
+          "val_up": 7.184553089281723, 
+          "val_dn": -4.140084417109955, 
+          "val": 3.0444686721717673, 
+          "row_name": "EAAR IY12KN1E"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "ANA2UK2199111K9"
         }, 
         {
           "val_up": 0, 
@@ -949,27 +2979,99 @@
           "row_name": "ESY11"
         }, 
         {
-          "val_up": 0, 
-          "val_dn": -5.7298250358423815, 
-          "val": -5.7298250358423815, 
+          "val_up": 7.604471628015908, 
+          "val_dn": 0, 
+          "val": 7.604471628015908, 
+          "row_name": "11EMO92I"
+        }, 
+        {
+          "val_up": 7.713454589567156, 
+          "val_dn": -4.613251143499587, 
+          "val": 3.1002034460675683, 
           "row_name": "AMY IWAUMKU9 DE2EEINMJJMI WOKFN"
         }, 
         {
+          "val_up": 3.109418074137944, 
+          "val_dn": -5.916349034107949, 
+          "val": -2.8069309599700047, 
+          "row_name": "OMJ19 DME J1UK NEU"
+        }, 
+        {
+          "val_up": 4.644280605350532, 
+          "val_dn": 0, 
+          "val": 4.644280605350532, 
+          "row_name": "RNMWMNYEE1SJIE2U"
+        }, 
+        {
           "val_up": 0, 
-          "val_dn": -0.28966496108376205, 
-          "val": -0.28966496108376205, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "DIIMOJ9SNKNKEE1SS21EUFI1UU2O1"
+        }, 
+        {
+          "val_up": 2.479849576561781, 
+          "val_dn": -5.693235749680564, 
+          "val": -3.213386173118783, 
+          "row_name": "1M1EAD2NIF2RDUJ1WMYIU9F2"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "U1EUJEFMR9RJ9OYNS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "SAK2FFAMMIUWJRS1K1UFWAM"
+        }, 
+        {
+          "val_up": 5.473899598636041, 
+          "val_dn": -8.11466897993973, 
+          "val": -2.6407693813036888, 
+          "row_name": "FYFW"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -9.7021500456592, 
+          "val": -9.7021500456592, 
+          "row_name": "FEUYJ2JIWE1"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "RR1DD1IFO1MEWJ22R1YMNAF JIEEUWU"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": 0, 
+          "val": 0, 
+          "row_name": "EWWWE9 RNWY11IE"
+        }, 
+        {
+          "val_up": 3.7586466036094612, 
+          "val_dn": 0, 
+          "val": 3.7586466036094612, 
+          "row_name": "2KKSYF1KYKK"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -8.6602107813707, 
+          "val": -8.6602107813707, 
+          "row_name": "1UO1EEFYD19N2AOS"
+        }, 
+        {
+          "val_up": 0, 
+          "val_dn": -3.1096706253759088, 
+          "val": -3.1096706253759088, 
           "row_name": "EOKMEKYNNM"
         }, 
         {
           "val_up": 0, 
-          "val_dn": -6.0455919776875, 
-          "val": -6.0455919776875, 
-          "row_name": "F11AMII1EN"
-        }, 
-        {
-          "val_up": 3.840212158058136, 
-          "val_dn": -4.722813671640038, 
-          "val": -0.8826015135819021, 
+          "val_dn": -8.480642849699782, 
+          "val": -8.480642849699782, 
           "row_name": "YMAUU1JKDS  WIMNS2Y2"
         }
       ], 
