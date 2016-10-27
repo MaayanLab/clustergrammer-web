@@ -6,15 +6,28 @@ def get_network_from_mongo(user_objid, mongo_address):
   client = MongoClient(mongo_address)
   db = client.clustergrammer
 
-  try: 
+  try:
     obj_id = ObjectId(user_objid)
   except:
     obj_id = 'error'
 
+  # load object
   if obj_id != 'error':
     net = db.networks.find_one({'_id': obj_id })
   else:
     net = 'error'
+
+  # look up sim_row and sim_col if necessary
+
+  for inst_rc in ['sim_row', 'sim_col']:
+    if type(net[inst_rc]) is not dict:
+
+      inst_id = net[inst_rc]
+
+      found_sim = db.networks.find_one({'_id': inst_id})
+
+      net[inst_rc] = found_sim
+      found_sim['_id'] = str(found_sim['_id'])
 
   client.close()
 
@@ -23,16 +36,16 @@ def get_network_from_mongo(user_objid, mongo_address):
 def render_page(net, page_route, mat_type='clust'):
   if net != 'error':
 
-    # render sim_mats page 
+    # render sim_mats page
     if page_route == 'viz_sim_mats.html':
 
       viz_id = str(net['_id'])
 
-      return render_template(page_route, viz_network=net['viz'], 
-        viz_name=net['name'], viz_sim_row=net['sim_row'], 
+      return render_template(page_route, viz_network=net['viz'],
+        viz_name=net['name'], viz_sim_row=net['sim_row'],
         viz_sim_col=net['sim_col'], viz_id=viz_id)
 
-    # render viz page 
+    # render viz page
     else:
 
       if mat_type == 'clust':
@@ -43,9 +56,9 @@ def render_page(net, page_route, mat_type='clust'):
         else:
           viz_network = net['viz']
 
-      return render_template(page_route, viz_network=viz_network, 
+      return render_template(page_route, viz_network=viz_network,
         viz_name=net['name'])
-      
+
   else:
     error_desc = 'Invalid visualization Id.'
-    return redirect('/clustergrammer/error/'+error_desc)  
+    return redirect('/clustergrammer/error/'+error_desc)

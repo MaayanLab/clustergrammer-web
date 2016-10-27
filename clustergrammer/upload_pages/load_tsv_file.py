@@ -6,7 +6,12 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   from flask import request
   # from clustergrammer import Network
   # from clustergrammer_v120 import Network
-  from clustergrammer_v132 import Network
+  # from clustergrammer_v132 import Network
+
+  # clustergrammer.py version 1.1.2 latest: 10-27-2016
+  # version number is different because the python library was separated from
+  # the JS library
+  from clustergrammer_py_v112 import Network
   import StringIO
 
   client = MongoClient(mongo_address)
@@ -54,9 +59,19 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
 
   found_viz['viz'] = update_viz
   found_viz['dat'] = update_dat
+
   if req_sim_mat:
-    found_viz['sim_row'] = update_sim_row
-    found_viz['sim_col'] = update_sim_col
+
+    sim_row_id = db.networks.insert(update_sim_row)
+    found_viz['sim_row'] = sim_row_id
+
+    sim_col_id = db.networks.insert(update_sim_col)
+    found_viz['sim_col'] = sim_col_id
+
+    # do not directly save sim_row and sim_col to net, save them separately
+    # and keep the id with links in net only
+    # found_viz['sim_row'] = update_sim_row
+    # found_viz['sim_col'] = update_sim_col
 
   print('updating document ' + inst_filename)
   db.networks.update_one( {'_id':viz_id}, {'$set': found_viz} )
