@@ -76,21 +76,18 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
 
   try:
     print('updating document ' + inst_filename)
-
-    viz_json_string = json.dumps(found_viz['viz'])
-    grid_id = fs.put(viz_json_string)
-
-    found_viz['grid_id'] = grid_id
-
-    # grid_viz = {}
-    # grid_viz['grid_id'] = grid_id
-    # db.networks.update_one( {'_id':viz_id}, {'$set': grid_viz} )
-
-
     db.networks.update_one( {'_id':viz_id}, {'$set': found_viz} )
 
   except:
-    pass
+
+    # save viz structure using gridfs
+    viz_json_string = json.dumps(found_viz['viz'])
+    grid_id = fs.put(viz_json_string)
+    found_viz['viz'] = 'saved_to_grid_fs'
+
+    found_viz['grid_id'] = grid_id
+
+    db.networks.update_one( {'_id':viz_id}, {'$set': found_viz} )
 
   client.close()
 

@@ -18,20 +18,13 @@ def get_network_from_mongo(user_objid, mongo_address):
   if obj_id != 'error':
     net = db.networks.find_one({'_id': obj_id })
 
-    inst_out = fs.get(net['grid_id'])
-    grid_net = inst_out.read()
+    if net['viz'] == 'saved_to_grid_fs':
 
-    print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-    print('\n\n\n')
-    print(grid_net)
-    print('\n\n\n')
-    print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
-
-    grid_net = json.loads(grid_net)
-
-    # grid_net['viz'] = json.loads(grid_net['viz'])
-
-    # net['viz'] = grid_net['viz']
+      # get viz from gridfs
+      inst_out = fs.get(net['grid_id'])
+      grid_net = inst_out.read()
+      grid_net = json.loads(grid_net)
+      net['viz'] = grid_net
 
   else:
     net = 'error'
