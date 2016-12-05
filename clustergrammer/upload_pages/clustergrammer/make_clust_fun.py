@@ -2,8 +2,8 @@ def make_clust(net, dist_type='cosine', run_clustering=True,
                           dendro=True, requested_views=['pct_row_sum', 'N_row_sum'],
                           linkage_type='average', sim_mat=False):
 
-  ''' This will calculate multiple views of a clustergram by filtering the 
-  data and clustering after each filtering. This filtering will keep the top 
+  ''' This will calculate multiple views of a clustergram by filtering the
+  data and clustering after each filtering. This filtering will keep the top
   N rows based on some quantity (sum, num-non-zero, etc). '''
 
   from copy import deepcopy
@@ -21,13 +21,13 @@ def make_clust(net, dist_type='cosine', run_clustering=True,
   # calculate initial view with no row filtering
   net.df_to_dat(df)
 
-  # preparing to make similarity matrices of rows and cols 
+  # preparing to make similarity matrices of rows and cols
   ###########################################################
-  # tmp_dist_mat = calc_clust.calc_distance_matrix(net.dat['mat'], 'col', 
-  #                                                get_sim=True, 
-  #                                                make_squareform=True, 
+  # tmp_dist_mat = calc_clust.calc_distance_matrix(net.dat['mat'], 'col',
+  #                                                get_sim=True,
+  #                                                make_squareform=True,
   #                                                filter_sim_below=0.1)
-  # 
+  #
   # print(tmp_dist_mat)
 
   # print(net.dat['node_info']['row'])
@@ -35,9 +35,9 @@ def make_clust(net, dist_type='cosine', run_clustering=True,
   # print(net.dat['node_info']['col'])
 
 
-  calc_clust.cluster_row_and_col(net, dist_type=dist_type, 
-                                linkage_type=linkage_type, 
-                                run_clustering=run_clustering, 
+  calc_clust.cluster_row_and_col(net, dist_type=dist_type,
+                                linkage_type=linkage_type,
+                                run_clustering=run_clustering,
                                 dendro=dendro, ignore_cat=False)
 
   all_views = []
