@@ -1,10 +1,13 @@
 from flask import render_template, redirect
 from pymongo import MongoClient
 from bson.objectid import ObjectId
+import gridfs
+import json
 
 def get_network_from_mongo(user_objid, mongo_address):
   client = MongoClient(mongo_address)
   db = client.clustergrammer
+  fs = gridfs.GridFS(db)
 
   try:
     obj_id = ObjectId(user_objid)
@@ -14,6 +17,22 @@ def get_network_from_mongo(user_objid, mongo_address):
   # load object
   if obj_id != 'error':
     net = db.networks.find_one({'_id': obj_id })
+
+    inst_out = fs.get(net['grid_id'])
+    grid_net = inst_out.read()
+
+    print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+    print('\n\n\n')
+    print(grid_net)
+    print('\n\n\n')
+    print('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
+
+    grid_net = json.loads(grid_net)
+
+    # grid_net['viz'] = json.loads(grid_net['viz'])
+
+    # net['viz'] = grid_net['viz']
+
   else:
     net = 'error'
 

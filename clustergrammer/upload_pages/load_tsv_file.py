@@ -4,6 +4,8 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   from bson.objectid import ObjectId
   from pymongo import MongoClient
   from flask import request
+  import gridfs
+  import json
 
   # clustergrammer.py version 1.1.2 latest: 10-27-2016
   # version number is different because the python library was separated from
@@ -13,6 +15,7 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
 
   client = MongoClient(mongo_address)
   db = client.clustergrammer
+  fs = gridfs.GridFS(db)
 
   viz_id = ObjectId(viz_id)
   found_viz = db.networks.find_one({'_id':viz_id})
@@ -57,6 +60,7 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   found_viz['viz'] = update_viz
   found_viz['dat'] = update_dat
 
+
   if req_sim_mat:
 
     sim_row_id = db.networks.insert(update_sim_row)
@@ -70,8 +74,23 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
     # found_viz['sim_row'] = update_sim_row
     # found_viz['sim_col'] = update_sim_col
 
-  print('updating document ' + inst_filename)
-  db.networks.update_one( {'_id':viz_id}, {'$set': found_viz} )
+  try:
+    print('updating document ' + inst_filename)
+
+    viz_json_string = json.dumps(found_viz['viz'])
+    grid_id = fs.put(viz_json_string)
+
+    found_viz['grid_id'] = grid_id
+
+    # grid_viz = {}
+    # grid_viz['grid_id'] = grid_id
+    # db.networks.update_one( {'_id':viz_id}, {'$set': grid_viz} )
+
+
+    db.networks.update_one( {'_id':viz_id}, {'$set': found_viz} )
+
+  except:
+    pass
 
   client.close()
 
