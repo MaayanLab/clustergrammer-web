@@ -194,20 +194,20 @@ h2 {
 
 #example_title{
   font-size: 25px;
-  font-weight: 300; 
+  font-weight: 300;
   margin-bottom: 20px;
   margin-left: 15px;
 }
 
 .example_single_title{
   font-size: 19px;
-  font-weight: 300; 
+  font-weight: 300;
   text-align: center;
 }
 
 .example_single_description{
   font-size: 15px;
-  font-weight: 300; 
+  font-weight: 300;
   text-align: justify;
   padding: 5px;
 }
@@ -215,7 +215,7 @@ h2 {
 .example_image_container{
   width:100%;
   height: 200px;
-  /*background: red;*/ 
+  /*background: red;*/
   border: 1px solid #DEDEDE
 }
 
@@ -225,6 +225,12 @@ h2 {
   width:285px;
   height: 180px;
   border: 0;
+}
+
+.github_logo{
+  width: 215px;
+  margin-left: 45px;
+  margin-top: 10px;
 }
 
 #CCLE_image{
