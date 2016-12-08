@@ -233,6 +233,19 @@ h2 {
   margin-top: 10px;
 }
 
+.jupyter_logo{
+  width: 198px;
+  margin-left: 51px;
+  margin-top: 0px;
+}
+
+#enrichr_example{
+  width: 245px;
+  margin-left: 29px;
+  margin-top: 0px;
+}
+
+
 #CCLE_image{
   margin-left: 5px;
   margin-top: 5px;
