@@ -40,6 +40,7 @@ function load_viz_new(network_data){
 
   d3.select(cgm.params.root + ' .wait_message').remove();
 
+  // add clustergrammer logo
   d3.select(cgm.params.root+ ' .title_section')
     .append('a')
     .attr('href', '/clustergrammer/')
@@ -47,8 +48,8 @@ function load_viz_new(network_data){
     .classed('title_image',true)
     .attr('src','static/img/clustergrammer_logo.png')
     .attr('alt','clustergrammer')
-    .style('width','163px')
-    .style('margin-left','2px')
+    .style('width','145px')
+    .style('margin-left','3px')
     .style('margin-top','5px');
 
   check_setup_enrichr(cgm);

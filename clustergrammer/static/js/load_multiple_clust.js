@@ -1,11 +1,13 @@
+var tmp_num;
+var cat_colors;
+// global cgm
 cgm = {};
 resize_container();
 
-function load_viz_multiple_clust(network_data, network_sim_row, network_sim_col,
-  viz_id, viz_name){
+var hzome = ini_hzome();
 
-  var tmp_num;
-  var cat_colors;
+function load_multiple_clust(network_data, network_sim_row, network_sim_col,
+  viz_id, viz_name){
 
   make_clust(network_data, make_sim_mats, network_sim_row, network_sim_col);
 
@@ -27,27 +29,21 @@ d3.select('.blockMsg').select('h1').text('Please wait...');
 var viz_size = {'width':1140, 'height':750};
 
 // define arguments object
-var default_args = {
-  'show_tile_tooltips':true,
-  'about':'Zoom, scroll, and click buttons to interact with the clustergram.',
-  'row_search_placeholder':'Gene'
-};
+var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="http://amp.pharm.mssm.edu/clustergrammer/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
+
+var args = {};
 
 function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_col){
 
-  var args = $.extend(true, {}, default_args);
   args.root = '#container-id-1';
   args.network_data = network_data;
-  args.row_tip_callback = gene_info;
+  args.row_tip_callback = hzome.gene_info;
 
   cgm.clust = Clustergrammer(args);
   d3.select(cgm.clust.params.root+' .wait_message').remove();
   cat_colors = cgm.clust.params.viz.cat_colors;
 
-  // Enrichr categories
-  //////////////////////
-  enr_obj = Enrichr_request(cgm['clust']);
-  enr_obj.enrichr_icon();
+  check_setup_enrichr(cgm['clust']);
 
   make_sim_mats(network_sim_col, 'col', cat_colors, unblock);
   make_sim_mats(network_sim_row, 'row', cat_colors, unblock);
@@ -81,7 +77,6 @@ function make_sim_mats(inst_network, inst_rc, cat_colors, unblock){
 
   clust_name = 'mult_view_sim_'+inst_rc+'.json'
 
-  var args = $.extend(true, {}, default_args);
   args.cat_colors = {};
   if (inst_rc === 'col'){
     tmp_num = 2;
