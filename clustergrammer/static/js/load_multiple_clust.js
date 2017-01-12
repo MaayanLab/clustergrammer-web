@@ -124,20 +124,6 @@ window.onscroll = function() {
   var hide_col_sim = 1800;
   var inst_scroll = $(document).scrollTop();
 
-  // // load col sim mat
-  // if (inst_scroll > show_col_sim){
-  //   if (d3.select('#container-id-2 .viz_svg').empty()){
-  //     make_sim_mats('col', cat_colors)
-  //   }
-  // }
-
-  // // load row sim mat
-  // if (inst_scroll > show_row_sim){
-  //   if (d3.select('#container-id-3 .viz_svg').empty()){
-  //     make_sim_mats('row', cat_colors)
-  //   }
-  // }
-
   // hide clust
   if (inst_scroll > hide_clust){
     d3.select('#container-id-1 .viz_svg')
