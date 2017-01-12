@@ -1,6 +1,8 @@
 function load_viz_new(network_data){
 
-  console.log('load_viz_new')
+  console.log('upating optional modules')
+
+  var hzome = ini_hzome();
 
   var outer_margins = {
       'top':5,
@@ -14,60 +16,20 @@ function load_viz_new(network_data){
     'height':600
   };
 
-  about_string = 'Zoom, scroll, and click buttons to interact with the clustergram.';
+  var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="http://amp.pharm.mssm.edu/clustergrammer/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
 
-  // define arguments object
   var args = {
     root: '#container-id-1',
     'network_data': network_data,
-    // 'row_label':'Input Genes',
-    // 'col_label':'Enriched Terms',
-    'outer_margins': outer_margins,
-    // 'outline_colors':['black','yellow'],
-    // 'tile_click_hlight':true,
-    'show_label_tooltips':true,
-    // 'show_tile_tooltips':true,
-    // 'make_tile_tooltip':make_tile_tooltip,
-    // 'highlight_color':'yellow',
-    // 'super_label_scale':1.25,
-    // 'transpose':true,
-    // 'ini_expand':true,
-    // 'col_label_scale':1.5,
-    // 'row_label_scale':0.8
-    // 'force_square':1
-    // 'opacity_scale':'log',
-    // 'input_domain':2,
-    // 'do_zoom':false,
-    // 'tile_colors':['#ED9124','#1C86EE'],
-    // 'bar_colors':['#ff6666','#1C86EE'],
-    // 'tile_colors':['#ff6666','#1C86EE'],
-    // 'background_color':'orange',
-    // 'tile_title': true,
-    // 'click_group': click_group_callback,
-    // 'size':viz_size
-    // 'order':'rank'
-    // 'row_order':'clust'
-    // 'col_order':'rank',
-    // 'ini_view':{'N_row_sum':'25', 'N_col_sum':'10'},
-    // 'current_col_cat':'category-one'
-    // 'title':'Clustergrammer',
     'about':about_string,
-    // 'sidebar_width':150,
-    'row_search_placeholder':'Gene',
-    'row_tip_callback':gene_info
+    'row_tip_callback':hzome.gene_info,
+    'dendro_callback':dendro_callback,
+    'matrix_update_callback':matrix_update_callback,
+    'sidebar_width':150,
   };
 
-  function resize_container(){
 
-    var screen_width = window.innerWidth;
-    var screen_height = window.innerHeight - 30;
-
-    d3.select(args.root)
-      .style('width', screen_width+'px')
-      .style('height', screen_height+'px');
-  }
-
-  resize_container();
+  resize_container(args);
 
   d3.select(window).on('resize',function(){
     resize_container();
@@ -75,7 +37,6 @@ function load_viz_new(network_data){
   });
 
   cgm = Clustergrammer(args);
-
 
   d3.select(cgm.params.root + ' .wait_message').remove();
 
@@ -90,8 +51,38 @@ function load_viz_new(network_data){
     .style('margin-left','2px')
     .style('margin-top','5px');
 
-  // Enrichr categories
-  //////////////////////
-  enr_obj = Enrichr_request(cgm);
-  enr_obj.enrichr_icon();
+  check_setup_enrichr(cgm);
+}
+
+
+function resize_container(args){
+
+  var screen_width = window.innerWidth;
+  var screen_height = window.innerHeight - 30;
+
+  d3.select(args.root)
+    .style('width', screen_width+'px')
+    .style('height', screen_height+'px');
+}
+
+function matrix_update_callback(){
+  if (genes_were_found){
+    enr_obj.clear_enrichr_results();
+  }
+}
+
+function dendro_callback(inst_selection){
+
+  var inst_rc;
+  var inst_data = inst_selection.__data__;
+
+  // toggle enrichr export section
+  if (inst_data.inst_rc === 'row'){
+    d3.select('.enrichr_export_section')
+      .style('display', 'block');
+  } else {
+    d3.select('.enrichr_export_section')
+      .style('display', 'none');
+  }
+
 }
