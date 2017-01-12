@@ -1,6 +1,8 @@
 var genes_were_found = false;
 function check_setup_enrichr(inst_cgm){
 
+  console.log('checking whether to set up Enrichrgram')
+
   var all_rows = inst_cgm.params.network_data.row_nodes_names;
   var max_num_genes = 20;
 

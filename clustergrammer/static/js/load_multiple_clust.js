@@ -31,13 +31,16 @@ var viz_size = {'width':1140, 'height':750};
 // define arguments object
 var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="http://amp.pharm.mssm.edu/clustergrammer/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
 
-var args = {};
+var default_args = {};
+  default_args.row_tip_callback = hzome.gene_info;
+  default_args.crop_callback = crop_callback;
+  default_args.dendro_callback = dendro_callback;
 
 function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_col){
 
+  var args = $.extend(true, {}, default_args);
   args.root = '#container-id-1';
   args.network_data = network_data;
-  args.row_tip_callback = hzome.gene_info;
 
   cgm.clust = Clustergrammer(args);
   d3.select(cgm.clust.params.root+' .wait_message').remove();
@@ -77,6 +80,7 @@ function make_sim_mats(inst_network, inst_rc, cat_colors, unblock){
 
   clust_name = 'mult_view_sim_'+inst_rc+'.json'
 
+  var args = $.extend(true, {}, default_args);
   args.cat_colors = {};
   if (inst_rc === 'col'){
     tmp_num = 2;
@@ -166,3 +170,35 @@ d3.select(window).on('resize',function(){
   })
 
 });
+
+
+function crop_callback(){
+  if (genes_were_found){
+    enr_obj.clear_enrichr_results();
+  }
+}
+
+function dendro_callback(inst_selection){
+
+  var clust_num = this.root.split('-')[2];
+
+  var inst_data = inst_selection.__data__;
+
+  // toggle enrichr export section
+  if (inst_data.inst_rc === 'row'){
+
+    if (clust_num !== '2'){
+      d3.selectAll('.enrichr_export_section')
+        .style('display', 'block');
+    } else {
+
+      d3.selectAll('.enrichr_export_section')
+        .style('display', 'none');
+    }
+
+  } else {
+    d3.selectAll('.enrichr_export_section')
+      .style('display', 'none');
+  }
+
+}
