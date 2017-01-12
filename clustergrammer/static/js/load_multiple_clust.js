@@ -33,7 +33,7 @@ var about_string = 'Zoom, scroll, and click buttons to interact with the cluster
 
 var default_args = {};
   default_args.row_tip_callback = hzome.gene_info;
-  default_args.crop_callback = crop_callback;
+  default_args.matrix_update_callback = matrix_update_callback;
   default_args.dendro_callback = dendro_callback;
 
 function make_clust(network_data, make_sim_mats, network_sim_row, network_sim_col){
@@ -172,7 +172,7 @@ d3.select(window).on('resize',function(){
 });
 
 
-function crop_callback(){
+function matrix_update_callback(){
   if (genes_were_found){
     enr_obj.clear_enrichr_results();
   }

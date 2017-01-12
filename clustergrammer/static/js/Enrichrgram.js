@@ -1,8 +1,6 @@
 var genes_were_found = false;
 function check_setup_enrichr(inst_cgm){
 
-  console.log('checking whether to set up Enrichrgram')
-
   var all_rows = inst_cgm.params.network_data.row_nodes_names;
   var max_num_genes = 20;
 
@@ -79,8 +77,6 @@ function check_gene_request(inst_cgm, gene_symbol, check_enrichr_callback){
 
   if (genes_were_found === false){
 
-    // console.log('making gene request - genes were not found yet')
-
     $.get(url, function(data) {
 
       data = JSON.parse(data);
@@ -109,7 +105,7 @@ function Enrichr_request(inst_cgm){
     //                           'using Enrichr to find biological information that is unique to your list.'
     var enrichr_description = 'Perform enrichment analysis, using Enrichr, to find biological <br>'+
                               'information specific to your set (or subset) of genes. <br><br>' +
-                              'Select a subset of genes for analysis by cropping the matrix.'
+                              'Select a subset of genes for analysis by cropping the matrix using: the brush-cropping tool in the sidebar, or the crop buttons on the dendrogram.'
     // d3-tooltip
     var enr_tip = d3_tip_custom()
       .attr('class', function(){
@@ -652,7 +648,7 @@ function Enrichr_request(inst_cgm){
   }
 
   function make_enr_wait_circle(){
-    var pos_x = 71;
+    var pos_x = 72;
     var pos_y = 25;
 
      var click_circle = d3.select(inst_cgm.params.root+' .viz_svg')
@@ -660,7 +656,7 @@ function Enrichr_request(inst_cgm){
         .classed('enr_wait_circle', true)
         .attr('cx',pos_x)
         .attr('cy',pos_y)
-        .attr('r',22)
+        .attr('r',23)
         .style('stroke','#666666')
         .style('stroke-width','3px')
         .style('fill','white')

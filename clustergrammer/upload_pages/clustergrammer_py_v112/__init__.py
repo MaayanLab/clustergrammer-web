@@ -80,7 +80,7 @@ class Network(object):
     '''
     Expose this to user for their optional use
     '''
-    self.dat['mat_orig'] = deepcopy(self.dat['mat'])
+    # self.dat['mat_orig'] = deepcopy(self.dat['mat'])
     import numpy as np
     self.dat['mat'][np.isnan(self.dat['mat'])] = 0
 
