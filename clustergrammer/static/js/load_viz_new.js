@@ -61,7 +61,7 @@ function resize_container(args){
   var screen_width = window.innerWidth;
   var screen_height = window.innerHeight - 30;
 
-  d3.select(args.root)
+  d3.select('#container-id-1')
     .style('width', screen_width+'px')
     .style('height', screen_height+'px');
 }
