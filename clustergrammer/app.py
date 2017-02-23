@@ -17,6 +17,10 @@ app = Flask(__name__, static_url_path='')
 
 ENTRY_POINT = '/clustergrammer'
 
+#########################
+# v1.5.1
+#########################
+
 # address for mongodbs
 
 # # local
@@ -32,13 +36,13 @@ mongo_address = '146.203.54.131'
 # switch for local and docker development
 ##########################################
 
-# for local development
-SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer-web/clustergrammer'
+# # for local development
+# SERVER_ROOT = os.path.dirname(os.getcwd()) + '/clustergrammer-web/clustergrammer'
 
-# # for docker development
-# SERVER_ROOT = '/app/clustergrammer'
-# # change routing of logs when running docker
-# logging.basicConfig(stream=sys.stderr)
+# for docker development
+SERVER_ROOT = '/app/clustergrammer'
+# change routing of logs when running docker
+logging.basicConfig(stream=sys.stderr)
 
 ######################################
 ######################################
