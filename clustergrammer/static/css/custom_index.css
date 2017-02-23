@@ -184,7 +184,7 @@ h2 {
 
 #homepage_examples{
   /*divider*/
-  margin-top: 55px;
+  margin-top: 30px;
   padding-top: 40px;
   border-top: 1px solid #DEDEDE;
   width:920px;a
@@ -271,4 +271,8 @@ h2 {
   font-size: 30px;
   margin-top: -11px;
   margin-left: 10px;
+}
+
+#doc_info{
+  margin-top: 20px;
 }

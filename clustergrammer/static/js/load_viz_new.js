@@ -16,7 +16,7 @@ function load_viz_new(network_data){
     'height':600
   };
 
-  var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="http://amp.pharm.mssm.edu/clustergrammer/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
+  var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="https://clustergrammer.readthedocs.io/getting_started.html" target="_blank"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
 
   var args = {
     root: '#container-id-1',
@@ -44,6 +44,7 @@ function load_viz_new(network_data){
   d3.select(cgm.params.root+ ' .title_section')
     .append('a')
     .attr('href', '/clustergrammer/')
+    .attr('target', '_blank')
     .append('img')
     .classed('title_image',true)
     .attr('src','static/img/clustergrammer_logo.png')
