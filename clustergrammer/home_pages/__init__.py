@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 
 def add_routes(app=None):
   home_pages = Blueprint('home_pages', __name__, static_url_path='/home_pages/static',
@@ -12,7 +12,8 @@ def add_routes(app=None):
 
   @home_pages.route("/clustergrammer/help")
   def help():
-    return render_template('help.html')
+    # redirect the user to readthedocs getting started
+    return redirect('https://clustergrammer.readthedocs.io/getting_started.html')
 
   @home_pages.route("/clustergrammer/CCLE/")
   @home_pages.route("/Clustergrammer/CCLE/")
