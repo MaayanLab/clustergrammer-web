@@ -61,7 +61,7 @@
 
           <div id='upload_section'>
 
-            <p class='initial_paragraph'>Your uploaded tab-separated matrix file should have the following format: </p>
+            <p class='initial_paragraph'>Your tab-separated matrix file should be in one of the supported <a href="http://clustergrammer.readthedocs.io/matrix_format_io.html"  target="_blank"> matrix formats</a> and have a .txt or .tsv file extension. See example simple matrix format below: </p>
 
               <pre id='example_tsv' class='prettyprint'>
 
@@ -71,7 +71,7 @@ Row-B   3.0     0.0     8.0
 Row-C   0.2     0.1     2.5
               </pre>
 
-            <p class='initial_paragraph'>and have a .txt or .tsv file extension. </p>
+            <p class='initial_paragraph'> </p>
             <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization. </p>
 
             <form id='input_form'  action="{{ url_for('upload_pages.upload_network') }}" method=post enctype=multipart/form-data>
