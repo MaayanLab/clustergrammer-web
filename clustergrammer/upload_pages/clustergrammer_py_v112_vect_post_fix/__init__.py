@@ -35,6 +35,7 @@ class Network(object):
     '''
     load vector format to network
     '''
+    print('\nLOAD VECT POST TO NET\n---------------------\n')
     from . import load_vect_post
     load_vect_post.main(self, vect_post)
 

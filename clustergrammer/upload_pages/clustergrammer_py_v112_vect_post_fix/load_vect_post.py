@@ -1,4 +1,6 @@
 def main(real_net, vect_post):
+
+  print('\nin load vect post \n====================\n')
   import numpy as np
   from copy import deepcopy
   from .__init__ import Network
