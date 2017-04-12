@@ -1,13 +1,5 @@
-from . import make_unique_labels
-
-def df_to_dat(net, df, define_cat_colors=False):
-  '''
-  This is always run when data is loaded.
-  '''
+def df_to_dat(net, df):
   from . import categories
-
-  # check if df has unique values
-  df['mat'] = make_unique_labels.main(net, df['mat'])
 
   net.dat['mat'] = df['mat'].values
   net.dat['nodes']['row'] = df['mat'].index.tolist()
@@ -36,7 +28,7 @@ def df_to_dat(net, df, define_cat_colors=False):
   if 'mat_orig' in df:
     net.dat['mat_orig'] = df['mat_orig'].values
 
-  categories.dict_cat(net, define_cat_colors=define_cat_colors)
+  categories.dict_cat(net)
 
 def dat_to_df(net):
   import pandas as pd
@@ -61,10 +53,10 @@ def dat_to_df(net):
       columns=nodes['col'], index=nodes['row'])
 
   if 'mat_orig' in net.dat:
-    df['mat_orig'] = pd.DataFrame(data=net.dat['mat_orig'],
+    df['mat_orig'] = pd.DataFrame(data=net.dat['mat_orig'], 
       columns=nodes['col'], index=nodes['row'])
 
-  return df
+  return df  
 
 def mat_to_numpy_arr(self):
   ''' convert list to numpy array - numpy arrays can not be saved as json '''

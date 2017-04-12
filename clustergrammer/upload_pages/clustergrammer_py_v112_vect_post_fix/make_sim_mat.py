@@ -1,20 +1,18 @@
-def main(net, inst_dm, which_sim, filter_sim, sim_mat_views=['N_row_sum']):
+def main(net, inst_dm, filter_sim, sim_mat_views=['N_row_sum']):
   from .__init__ import Network
   from copy import deepcopy
   from . import calc_clust, make_views
 
-  print('in make_sim_mat, which_sim: ' + str(which_sim))
-
   sim_dict = {}
 
-  for inst_rc in which_sim:
+  for inst_rc in ['row','col']:
 
     sim_dict[inst_rc] = dm_to_sim(inst_dm[inst_rc], make_squareform=True,
                              filter_sim=filter_sim)
 
   sim_net = {}
 
-  for inst_rc in which_sim:
+  for inst_rc in ['row','col']:
 
     sim_net[inst_rc] = deepcopy(Network())
 

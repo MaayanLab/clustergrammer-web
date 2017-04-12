@@ -36,25 +36,15 @@ def check_categories(lines):
 
   return num_labels
 
-def dict_cat(net, define_cat_colors=False):
+def dict_cat(net):
   '''
   make a dictionary of node-category associations
   '''
-
-  # print('---------------------------------')
-  # print('---- dict_cat: before setting cat colors')
-  # print('---------------------------------\n')
-  # print(define_cat_colors)
-  # print(net.viz['cat_colors'])
-
-  net.persistent_cat = True
-
   for inst_rc in ['row', 'col']:
     inst_keys = list(net.dat['node_info'][inst_rc].keys())
     all_cats = [x for x in inst_keys if 'cat-' in x]
 
     for inst_name_cat in all_cats:
-
       dict_cat = {}
       tmp_cats = net.dat['node_info'][inst_rc][inst_name_cat]
       tmp_nodes = net.dat['nodes'][inst_rc]
@@ -70,68 +60,6 @@ def dict_cat(net, define_cat_colors=False):
 
       tmp_name = 'dict_' + inst_name_cat.replace('-', '_')
       net.dat['node_info'][inst_rc][tmp_name] = dict_cat
-
-  # merge with old cat_colors by default
-  cat_colors = net.viz['cat_colors']
-
-  if define_cat_colors == True:
-    cat_number = 0
-
-    for inst_rc in ['row', 'col']:
-
-      inst_keys = list(net.dat['node_info'][inst_rc].keys())
-      all_cats = [x for x in inst_keys if 'cat-' in x]
-
-      for cat_index in all_cats:
-
-        if cat_index not in cat_colors[inst_rc]:
-          cat_colors[inst_rc][cat_index] = {}
-
-        cat_names = sorted(list(set(net.dat['node_info'][inst_rc][cat_index])))
-
-        # loop through each category name and assign a color
-        for tmp_name in cat_names:
-
-          # using the same rules as the front-end to define cat_colors
-          inst_color = get_cat_color(cat_number + cat_names.index(tmp_name))
-
-          check_name = tmp_name
-
-          # check for default non-color
-          if ': ' in check_name:
-            check_name = check_name.split(': ')[1]
-
-          # if check_name == 'False' or check_name == 'false':
-          if 'False' in check_name or 'false' in check_name:
-            inst_color = '#eee'
-
-          if 'Not ' in check_name:
-            inst_color = '#eee'
-
-          # check if category is string type and non-numeric
-          try:
-            float(check_name)
-            is_string_cat = False
-          except:
-            is_string_cat = True
-
-          # print('cat_colors')
-          # print('----------')
-          # print(cat_colors[inst_rc][cat_index])
-
-          # do not overwrite old colors
-          if tmp_name not in cat_colors[inst_rc][cat_index] and is_string_cat:
-
-            cat_colors[inst_rc][cat_index][tmp_name] = inst_color
-            # print('overwrite: ' + tmp_name + ' -> ' + str(inst_color))
-
-          cat_number = cat_number + 1
-
-    net.viz['cat_colors'] = cat_colors
-
-    # print('after setting cat_colors')
-    # print(net.viz['cat_colors'])
-    # print('======================================\n\n')
 
 def calc_cat_clust_order(net, inst_rc):
   '''
@@ -311,121 +239,3 @@ def is_number(s):
         return True
     except ValueError:
         return False
-
-def get_cat_color(cat_num):
-
-  all_colors = [ "#393b79", "#aec7e8", "#ff7f0e", "#ffbb78", "#98df8a", "#bcbd22",
-    "#404040", "#ff9896", "#c5b0d5", "#8c564b", "#1f77b4", "#5254a3", "#FFDB58",
-    "#c49c94", "#e377c2", "#7f7f7f", "#2ca02c", "#9467bd", "#dbdb8d", "#17becf",
-    "#637939", "#6b6ecf", "#9c9ede", "#d62728", "#8ca252", "#8c6d31", "#bd9e39",
-    "#e7cb94", "#843c39", "#ad494a", "#d6616b", "#7b4173", "#a55194", "#ce6dbd",
-    "#de9ed6"];
-
-  inst_color = all_colors[cat_num % len(all_colors)]
-
-  return inst_color
-
-def dendro_cats(net, axis, dendro_level):
-
-  if axis == 0:
-    axis = 'row'
-  if axis == 1:
-    axis = 'col'
-
-  dendro_level = str(dendro_level)
-  dendro_level_name = dendro_level
-  if len(dendro_level) == 1:
-    dendro_level = '0' + dendro_level
-
-  df = net.export_df()
-
-  if axis == 'row':
-    old_names = df.index.tolist()
-  elif axis == 'col':
-    old_names = df.columns.tolist()
-
-  if 'group' in net.dat['node_info'][axis]:
-    inst_groups = net.dat['node_info'][axis]['group'][dendro_level]
-
-    new_names = []
-    for i in range(len(old_names)):
-      inst_name = old_names[i]
-      group_cat = 'Group '+ str(dendro_level_name) +': cat-' + str(inst_groups[i])
-      inst_name = inst_name + (group_cat,)
-      new_names.append(inst_name)
-
-    if axis == 'row':
-      df.index = new_names
-    elif axis == 'col':
-      df.columns = new_names
-
-    net.load_df(df)
-
-  else:
-    print('please cluster, using make_clust, to define dendrogram groups before running dendro_cats')
-
-def add_cats(net, axis, cat_data):
-
-  try:
-    df = net.export_df()
-
-    if axis == 'row':
-      labels = df.index.tolist()
-    elif axis == 'col':
-      labels = df.columns.tolist()
-
-    if 'title' in cat_data:
-      inst_title = cat_data['title']
-    else:
-      inst_title = 'New Category'
-
-    all_cats = cat_data['cats']
-
-    # loop through all labels
-    new_labels = []
-    for inst_label in labels:
-
-      if type(inst_label) is tuple:
-        check_name = inst_label[0]
-        found_tuple = True
-      else:
-        check_name = inst_label
-        found_tuple = False
-
-      if ': ' in check_name:
-        check_name = check_name.split(': ')[1]
-
-      # default to False for found cat, overwrite if necessary
-      found_cat = inst_title + ': False'
-
-      # check all categories in cats
-      for inst_cat in all_cats:
-
-        inst_names = all_cats[inst_cat]
-
-        if check_name in inst_names:
-          found_cat = inst_title + ': ' + inst_cat
-
-      # add category to label
-      if found_tuple is True:
-        new_label = inst_label + (found_cat,)
-      else:
-        new_label = (inst_label, found_cat)
-
-      new_labels.append(new_label)
-
-
-    # add labels back to DataFrame
-    if axis == 'row':
-      df.index = new_labels
-    elif axis == 'col':
-      df.columns = new_labels
-
-    net.load_df(df)
-
-  except:
-    print('error adding new categories')
-
-
-
-

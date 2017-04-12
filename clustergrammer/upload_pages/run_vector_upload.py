@@ -17,7 +17,8 @@ def main(mongo_address, viz_id, vector_post):
 def clust_vect(db, viz_doc, vector_post):
 
   # from clustergrammer import Network
-  from clustergrammer_py_v112 import Network
+  from clustergrammer_py_v112_vect_post_fix import Network
+  # from clustergrammer_py_v1_13_2 import Network
 
   try:
     net = Network()
