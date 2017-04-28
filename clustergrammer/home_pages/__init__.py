@@ -19,7 +19,9 @@ def add_routes(app=None):
   @home_pages.route("/Clustergrammer/CCLE/")
   @home_pages.route("/CLUSTERGRAMMER/CCLE/")
   def ccle():
-    return render_template('ccle.html', flask_var='')
+    # return render_template('ccle.html', flask_var='')
+    return redirect('https://maayanlab.github.io/CCLE_Clustergrammer/')
+
 
   @home_pages.route("/clustergrammer/error/<error_desc>")
   def render_error_page(error_desc):
