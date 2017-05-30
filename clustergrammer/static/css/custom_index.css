@@ -298,6 +298,14 @@ h2 {
   border: 0;
 }
 
+#gene_info_image{
+  margin-left: 0px;
+  margin-top: 20px;
+  width:295px;
+  /*height: 190px;*/
+  border: 0;
+}
+
 .example_section{
   /*height: 380px;*/
   margin-top: 7px;
