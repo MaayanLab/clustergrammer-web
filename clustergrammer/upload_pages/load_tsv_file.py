@@ -39,7 +39,7 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
 
   views = ['N_row_sum', 'N_row_var']
 
-  net.make_clust(dist_type='cosine', dendro=True, views=views, \
+  net.cluster(dist_type='cosine', dendro=True, views=views, \
                  linkage_type='average', sim_mat=req_sim_mat)
 
   export_dat = {}
@@ -47,7 +47,7 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   export_dat['dat'] = net.export_net_json('dat')
   export_dat['source'] = 'user_upload'
 
-  dat_id = db.network_data.insert(export_dat)
+  dat_id = db.network_data.insert(export_dat, check_keys=False)
 
   update_viz = net.viz
   update_dat = dat_id
@@ -67,13 +67,12 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   found_viz['viz'] = update_viz
   found_viz['dat'] = update_dat
 
-
   if req_sim_mat:
 
-    sim_row_id = db.networks.insert(update_sim_row)
+    sim_row_id = db.networks.insert(update_sim_row, check_keys=False)
     found_viz['sim_row'] = sim_row_id
 
-    sim_col_id = db.networks.insert(update_sim_col)
+    sim_col_id = db.networks.insert(update_sim_col, check_keys=False)
     found_viz['sim_col'] = sim_col_id
 
     # do not directly save sim_row and sim_col to net, save them separately
