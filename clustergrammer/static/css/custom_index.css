@@ -193,11 +193,11 @@ h2 {
 }
 
 .example_title{
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 300;
   margin-bottom: 20px;
   margin-left: 15px;
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
 .example_single_title{
@@ -286,6 +286,14 @@ h2 {
   margin-left: 5px;
   margin-top: 5px;
   width:290px;
+  height: 190px;
+  border: 0;
+}
+
+#Iris_image{
+  margin-left: 25px;
+  margin-top: 5px;
+  width:260px;
   height: 190px;
   border: 0;
 }
