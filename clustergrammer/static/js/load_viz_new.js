@@ -68,8 +68,8 @@ function resize_container(args){
 }
 
 function matrix_update_callback(){
-  if (genes_were_found){
-    enr_obj.clear_enrichr_results();
+  if (genes_were_found[this.root]){
+    enr_obj[this.root].clear_enrichr_results(false);
   }
 }
 

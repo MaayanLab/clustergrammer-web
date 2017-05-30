@@ -159,8 +159,10 @@ d3.select(window).on('resize',function(){
 
 
 function matrix_update_callback(){
-  if (genes_were_found){
-    enr_obj.clear_enrichr_results();
+  if (_.has(enr_obj, this.root)){
+    if (genes_were_found){
+      enr_obj[this.root].clear_enrichr_results();
+    }
   }
 }
 
