@@ -266,6 +266,22 @@ h2 {
   border: 0;
 }
 
+#MNIST_image{
+  margin-left: 20px;
+  margin-top: 5px;
+  width:270px;
+  height: 190px;
+  border: 0;
+}
+
+#kinase_network_image{
+  margin-left: 55px;
+  margin-top: 5px;
+  width:195px;
+  /*height: 190px;*/
+  border: 0;
+}
+
 #CCLE_image{
   margin-left: 5px;
   margin-top: 5px;
@@ -276,7 +292,7 @@ h2 {
 
 .example_section{
   /*height: 380px;*/
-  margin-top: 5px;
+  margin-top: 7px;
 }
 
 #harmonizome{
