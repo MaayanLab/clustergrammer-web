@@ -255,6 +255,13 @@ h2 {
   border: 0;
 }
 
+#CyTOF_image{
+  margin-left: 25px;
+  margin-top: 5px;
+  width:250px;
+  height: 190px;
+  border: 0;
+}
 
 #CCLE_image{
   margin-left: 5px;
@@ -262,6 +269,10 @@ h2 {
   width:290px;
   height: 190px;
   border: 0;
+}
+
+.example_section{
+  height: 375px;
 }
 
 #harmonizome{
