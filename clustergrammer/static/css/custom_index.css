@@ -247,6 +247,15 @@ h2 {
 }
 
 
+#CST_image{
+  margin-left: 15px;
+  margin-top: 5px;
+  width:275px;
+  height: 190px;
+  border: 0;
+}
+
+
 #CCLE_image{
   margin-left: 5px;
   margin-top: 5px;
