@@ -119,7 +119,7 @@ h2 {
 
 /*position file upload button*/
 #file_upload_button{
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
 /*style example_tsv*/
@@ -167,7 +167,7 @@ h2 {
 
 #upload_section{
   margin-top: 10px;
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
 .footer_text{
@@ -353,13 +353,13 @@ h2 {
   margin-top: 15px;
 }
 
-#distance-dropdown{
-  margin-top: 10px;
+.options-dropdown{
+  margin-top: 5px;
 }
 
 #all-dropdown-container{
   height: 75px;
-  display: none;
+  display: block;
 }
 
 .single-dropdown-container{

@@ -92,19 +92,25 @@ Row-C   0.2     0.1     2.5
 
                 <div id='all-dropdown-container'>
 
+
                   <div class='single-dropdown-container'>
                       Distance type
-                      <select name="cars" class='form-control' id='distance-dropdown'>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
+                      <select name="distance-type" class='form-control options-dropdown'>
+                        <option value="cosine">Cosine</option>
+                        <option value="euclidean">Euclidean</option>
+                        <option value="correlation">Correlation</option>
+                        <option value="jaccard">Jaccard</option>
                       </select>
                   </div>
 
+                  <!-- 'average', 'single', 'complete', and 'weighted'. -->
                   <div class='single-dropdown-container'>
                       Linkage type
-                      <select name="cars" class='form-control' id='distance-dropdown'>
-                        <option value="volvo">Volvo</option>
-                        <option value="saab">Saab</option>
+                      <select name="linkage-type" class='form-control options-dropdown'>
+                        <option value="average">Average</option>
+                        <option value="single">Single</option>
+                        <option value="complete">Complete</option>
+                        <option value="weighted">Weighted</option>
                       </select>
                   </div>
 

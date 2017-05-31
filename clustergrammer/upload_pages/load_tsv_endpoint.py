@@ -7,8 +7,15 @@ def main(mongo_address, response_type='redirect', req_sim_mat=False):
 
   if request.method == 'POST':
 
-    # print('REQUEST values')
-    # print(request.values)
+    # set values for distance and linkage types
+    #############################################
+    if 'distance-type' in request.values:
+      print('distance type')
+      print(request.values['distance-type'])
+
+    if 'linkage-type' in request.values:
+      print('linkage type')
+      print(request.values['linkage-type'])
 
     req_file = request.files['file']
     buff = StringIO.StringIO(req_file.read())
