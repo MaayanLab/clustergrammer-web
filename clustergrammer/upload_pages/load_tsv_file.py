@@ -1,4 +1,6 @@
-def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
+def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False,
+          distance_type='cosine', linkage_type='average'):
+
   import numpy as np
   import flask
   from bson.objectid import ObjectId
@@ -31,8 +33,11 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
 
   views = ['N_row_sum', 'N_row_var']
 
-  net.cluster(dist_type='cosine', dendro=True, views=views, \
-                 linkage_type='average', sim_mat=req_sim_mat)
+  print('distance type: ' + str(distance_type))
+  print('linkage type: ' + str(linkage_type))
+
+  net.cluster(dist_type=distance_type, dendro=True, views=views, \
+                 linkage_type=linkage_type, sim_mat=req_sim_mat)
 
   export_dat = {}
   export_dat['name'] = inst_filename
