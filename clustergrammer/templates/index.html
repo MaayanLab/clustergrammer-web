@@ -90,19 +90,30 @@ Row-C   0.2     0.1     2.5
 
                 <input type=file name=file title='Choose File' id='InputFile'>
 
-                <!-- <input type="text" name="usrname"> -->
+                <div id='all-dropdown-container'>
 
-                <!-- <select name="cars" class='form-control'>
-                  <option value="volvo">Volvo</option>
-                  <option value="saab">Saab</option>
-                  <option value="fiat">Fiat</option>
-                  <option value="audi">Audi</option>
-                </select> -->
+                  <div class='single-dropdown-container'>
+                      Distance type
+                      <select name="cars" class='form-control' id='distance-dropdown'>
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                      </select>
+                  </div>
 
+                  <div class='single-dropdown-container'>
+                      Linkage type
+                      <select name="cars" class='form-control' id='distance-dropdown'>
+                        <option value="volvo">Volvo</option>
+                        <option value="saab">Saab</option>
+                      </select>
+                  </div>
 
-                <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
+                </div>
 
-                <a href="help" target="_blank" class="btn share-button" id="help_link"><i class="fa fa-question-circle"></i></a>
+                <div id='upload-button-container'>
+                  <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
+                  <a href="help" target="_blank" class="btn share-button" id="help_link"><i class="fa fa-question-circle"></i></a>
+                </div>
 
                 <!-- <input class='btn btn-primary' id='new_button' type=new_button value=New-Button> -->
 
