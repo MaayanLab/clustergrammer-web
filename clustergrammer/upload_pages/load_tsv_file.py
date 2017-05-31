@@ -7,14 +7,6 @@ def main( buff, inst_filename, mongo_address, viz_id, req_sim_mat=False):
   import gridfs
   import json
 
-  # # clustergrammer.py version 1.1.2 latest: 10-27-2016
-  # # version number is different because the python library was separated from
-  # # the JS library
-  # from clustergrammer_py_v112 import Network
-
-  # # Clustergrammer-PY 4-12-2017 1.13.3 release
-  # from clustergrammer_py_v1_13_3 import Network
-
   # Clustergrammer-PY 5-30-2017 1.13.4 release
   from clustergrammer_py_v1_13_4 import Network
 
