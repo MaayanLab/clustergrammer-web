@@ -45,7 +45,7 @@
           <img src="static/icons/graham_cracker_70.png" id='home_graham_cracker' style="width:35px;height:35px;" >
           <h1 id='website_title'> clustergrammer</h1>
 
-          <p class='initial_paragraph first_instructions'>Clustergrammer is a visualization tool that enables users to easily generate highly interactive and shareable clustergram/heatmap visualizations from a matrix of their own data. Press play or explore the example below to see the interactive features. </p>
+          <p class='initial_paragraph first_instructions'>Clustergrammer is a web-based tool for visualizing and analyzing high-dimensional data as interactive and shareable hierarchically clustered heatmaps. Clustergrammer enables intuitive exploration of high-dimensional data and has several optional <a href="http://clustergrammer.readthedocs.io/biology_specific_features.html" target='_blank'>biology-specific features</a>. Press play or explore the example below to see the <a href="http://clustergrammer.readthedocs.io/interacting_with_viz.html" target='_blank'>interactive features</a>. </p>
 
           <!-- non-local mongodb -->
           <!-- <iframe id='iframe_preview' src="/clustergrammer/  demo/566f6bbfb1a04e7f4087fcad?preview=true" frameBorder="0"></iframe>  -->
@@ -61,7 +61,7 @@
 
           <div id='upload_section'>
 
-            <p class='initial_paragraph'>Your tab-separated matrix file should be in one of the supported <a href="http://clustergrammer.readthedocs.io/matrix_format_io.html"  target="_blank"> matrix formats</a> and have a .txt or .tsv file extension. See example simple matrix format below: </p>
+            <p class='initial_paragraph'>Your tab-separated matrix file should be in one of the supported <a href="http://clustergrammer.readthedocs.io/matrix_format_io.html"  target="_blank"> matrix formats</a> and have a .txt or .tsv file extension. See example simple-matrix format below: </p>
 
               <pre id='example_tsv' class='prettyprint'>
 
@@ -72,7 +72,7 @@ Row-C   0.2     0.1     2.5
               </pre>
 
             <p class='initial_paragraph'> </p>
-            <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization. </p>
+            <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization (see example visualization page). </p>
 
             <form id='input_form'  action="{{ url_for('upload_pages.upload_network') }}" method=post enctype=multipart/form-data>
               <input type=file name=file title='Choose File' >
@@ -83,7 +83,9 @@ Row-C   0.2     0.1     2.5
 
 
             <p class='initial_paragraph' id='doc_info'>
-              Please see Clustergrammer's <a href="https://clustergrammer.readthedocs.io/" target="_blank">Documentation</a> or <a href="https://clustergrammer.readthedocs.io/getting_started.html" target="_blank">Getting Started</a> for more information.
+              Clustergrammer can also be used within a Jupyter notebook as an interactive widget and be shared online using Nbviewer (see example notebook).
+
+              Please see Clustergrammer's <a href="https://clustergrammer.readthedocs.io/" target="_blank">Documentation</a> and <a href="https://clustergrammer.readthedocs.io/getting_started.html" target="_blank">Getting Started</a> for more information about the web application and the interactive widget.
             </p>
 
           </div>
