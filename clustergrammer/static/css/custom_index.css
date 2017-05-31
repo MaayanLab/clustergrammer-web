@@ -142,8 +142,15 @@ h2 {
 }
 
 #input_form{
+  margin-top: 10px;
   margin-bottom: 10px;
   float:left;
+}
+
+#help_link{
+  font-size: 30px;
+  margin-top: -2px;
+  margin-left: 10px;
 }
 
 #demo_paragraph{
@@ -322,12 +329,6 @@ h2 {
 .example_col{
   padding-left: 7px;
   padding-right: 7px;
-}
-
-#help_link{
-  font-size: 30px;
-  margin-top: -11px;
-  margin-left: 10px;
 }
 
 #doc_info{
