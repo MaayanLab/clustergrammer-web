@@ -7,8 +7,8 @@ def main(mongo_address, response_type='redirect', req_sim_mat=False):
 
   if request.method == 'POST':
 
-    print('REQUEST values')
-    print(request.values)
+    # print('REQUEST values')
+    # print(request.values)
 
     req_file = request.files['file']
     buff = StringIO.StringIO(req_file.read())
