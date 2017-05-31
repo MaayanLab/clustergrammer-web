@@ -86,8 +86,13 @@ Row-C   0.2     0.1     2.5
             <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization (see <a href="viz_sim_mats/58a492b4a63cb826f0be6476/rc_two_cats.txt">example page</a>). </p>
 
             <form id='input_form'  action="{{ url_for('upload_pages.upload_network') }}" method=post enctype=multipart/form-data>
+
               <input type=file name=file title='Choose File' id='InputFile'>
+
               <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
+
+              <!-- <input class='btn btn-primary' id='new_button' type=new_button value=New-Button> -->
+
             </form>
 
             <a href="help" target="_blank" class="btn share-button" id="help_link"><i class="fa fa-question-circle"></i></a>
@@ -313,7 +318,6 @@ Row-C   0.2     0.1     2.5
   <script src="static/lib/js/d3.js"></script>
 
   <!-- stylized file upload button -->
-  <!-- http://gregpike.net/demos/bootstrap-file-input/demo.html -->
   <script type="text/javascript" src="static/lib/js/bootstrap.file-input.js"> </script>
   <script type="text/javascript">
     $('input[type=file]').bootstrapFileInput();
@@ -321,33 +325,13 @@ Row-C   0.2     0.1     2.5
   </script>
   <script type="text/javascript" src="static/lib/js/prettify.js"> </script>
 
-  <!-- style code -->
-  <!-- Clustergram Scripts -->
-
   <script>
 
     // display the upload button
     d3.select('#input_form').style('display','block');
 
-    // d3.select('#file_upload_button').attr('disabled','true');
-
-    // d3.select('#input_form')
-    //   .on('click',function(){
-
-    //     // setTimeout(toggle_upload_button, 250);
-
-
-    //   });
-
-    // function toggle_upload_button(){
-    //   console.log('toggle_upload_button')
-    //   if (d3.select('.file-input-name').empty() === false){
-    //     d3.select('#file_upload_button')
-    //       .attr('disabled', null);
-    //   }
-    // }
-
-    d3.select('#file_upload_button').on('click',function(){
+    d3.select('#file_upload_button')
+      .on('click',function(){
 
         if (!document.getElementById("InputFile").value) {
 
@@ -370,10 +354,12 @@ Row-C   0.2     0.1     2.5
             d3.select('.blockMsg').select('h1').text('Please wait...');
         }
 
+    });
 
-
-
-    })
+    // d3.select('#new_button')
+    //   .on('click', function(){
+    //     console.log('clicking new button')
+    //   });
 
   </script>
 
