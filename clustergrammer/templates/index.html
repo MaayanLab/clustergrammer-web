@@ -85,17 +85,30 @@ Row-C   0.2     0.1     2.5
             <p class='initial_paragraph'> </p>
             <p class='initial_paragraph'>Once uploaded you will obtain a permanent and shareable link to your visualization (see <a href="viz_sim_mats/58a492b4a63cb826f0be6476/rc_two_cats.txt">example page</a>). </p>
 
-            <form id='input_form'  action="{{ url_for('upload_pages.upload_network') }}" method=post enctype=multipart/form-data>
+            <div id='form-container'>
+              <form id='input_form'  action="{{ url_for('upload_pages.upload_network') }}" method=post enctype=multipart/form-data>
 
-              <input type=file name=file title='Choose File' id='InputFile'>
+                <input type=file name=file title='Choose File' id='InputFile'>
 
-              <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
+                <!-- <input type="text" name="usrname"> -->
 
-              <!-- <input class='btn btn-primary' id='new_button' type=new_button value=New-Button> -->
+                <!-- <select name="cars" class='form-control'>
+                  <option value="volvo">Volvo</option>
+                  <option value="saab">Saab</option>
+                  <option value="fiat">Fiat</option>
+                  <option value="audi">Audi</option>
+                </select> -->
 
-            </form>
 
-            <a href="help" target="_blank" class="btn share-button" id="help_link"><i class="fa fa-question-circle"></i></a>
+                <input class='btn btn-primary' id='file_upload_button' type=submit value=Upload>
+
+                <a href="help" target="_blank" class="btn share-button" id="help_link"><i class="fa fa-question-circle"></i></a>
+
+                <!-- <input class='btn btn-primary' id='new_button' type=new_button value=New-Button> -->
+
+              </form>
+            </div>
+
 
 
             <p class='initial_paragraph' id='doc_info'>

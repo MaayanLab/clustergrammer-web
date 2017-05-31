@@ -332,5 +332,10 @@ h2 {
 }
 
 #doc_info{
-  margin-top: 20px;
+  margin-top: 0px;
+}
+
+#form-container{
+  height: 150px;
+  background: red;
 }
