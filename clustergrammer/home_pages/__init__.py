@@ -10,6 +10,10 @@ def add_routes(app=None):
   def index():
     return render_template('index.html')
 
+  @home_pages.route("/clustergrammer/case_study_data")
+  def case_study_data():
+    return render_template('case_study_data.html')
+
   @home_pages.route("/clustergrammer/help")
   def help():
     # redirect the user to readthedocs getting started
@@ -19,7 +23,7 @@ def add_routes(app=None):
   @home_pages.route("/Clustergrammer/CCLE/")
   @home_pages.route("/CLUSTERGRAMMER/CCLE/")
   def ccle():
-    # return render_template('ccle.html', flask_var='')
+    # redirect to the updated version of the CCLE explorer
     return redirect('https://maayanlab.github.io/CCLE_Clustergrammer/')
 
 
