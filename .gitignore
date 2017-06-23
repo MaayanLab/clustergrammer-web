@@ -58,3 +58,7 @@ sftp-config.json
 # git add .
 # git commit -m "fixing .gitignore"
 *.pyc
+
+
+# ignore large case study files
+clustergrammer/static/case_study_data
