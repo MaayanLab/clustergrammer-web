@@ -1,3 +1,3 @@
 # clustergrammer
 
-Please refer to the help documents available on - http://amp.pharm.mssm.edu/clustergrammer/help . 
+Please refer to the Clustergrammer Web App Documentation: http://clustergrammer.readthedocs.io/clustergrammer_web.html
