@@ -21,18 +21,22 @@ def add_routes(app=None, mongo_address=None):
     return vector_upload_endpoint.main(mongo_address)
 
   @upload_pages.route('/clustergrammer/get_viz_json/<user_objid>', methods=['GET'])
+  @cross_origin()
   def proc_get_viz_json(user_objid):
     return get_viz_json_endpoint.main(mongo_address, user_objid)
 
   @upload_pages.route('/clustergrammer/upload_network/', methods=['POST'])
+  @cross_origin()
   def upload_network():
     return load_tsv_endpoint.main(mongo_address, response_type='redirect', req_sim_mat=True)
 
   @upload_pages.route('/clustergrammer/test_sim_mat', methods=['POST'])
+  @cross_origin()
   def test_sim_mat():
     return load_tsv_endpoint.main(mongo_address, response_type='redirect', req_sim_mat=True)
 
   @upload_pages.route('/clustergrammer/matrix_upload/', methods=['POST'])
+  @cross_origin()
   def proc_matrix_upload():
     return load_tsv_endpoint.main(mongo_address, response_type='link')
 
