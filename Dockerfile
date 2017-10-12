@@ -1,12 +1,12 @@
 # Get a clean Debian image
-FROM debian:stable
+FROM debian:8.5
 
 RUN apt-get update && apt-get install -y python
 RUN apt-get update && apt-get install -y python-dev
 RUN apt-get update && apt-get install -y python-pip
 RUN apt-get update && apt-get install -y python-setuptools
 RUN apt-get update && apt-get install -y apache2
-RUN apt-get update && apt-get install -y apache2-prefork-dev
+RUN apt-get update && apt-get install -y -f apache2-prefork-dev
 RUN apt-get update && apt-get install -y gfortran
 RUN apt-get update && apt-get install -y libopenblas-dev
 RUN apt-get update && apt-get install -y liblapack-dev
