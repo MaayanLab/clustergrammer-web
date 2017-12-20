@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta name="robots" content="noindex">
     <base href='/clustergrammer/'>
 
     <title>Clustergrammer</title>
@@ -27,7 +28,7 @@
     <link rel="stylesheet" href="static/css/font-awesome.min.css">
 
     <style>
-      
+
     </style>
 
 </head>
@@ -74,7 +75,7 @@
 
           <a target='_blank' href="/clustergrammer/">
             <div>
-              <img class='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer"> 
+              <img class='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer">
             </div>
           </a>
 
@@ -99,13 +100,13 @@
           <h4 class="modal-title">Save a snapshot of the visualization:</h4>
         </div>
         <div class="modal-body"
-          <input class='bootstrap_highlight share_url'></input> 
+          <input class='bootstrap_highlight share_url'></input>
           <div class='download_buttons'></div>
         </div>
       </div>
 
     </div>
-  </div>  
+  </div>
 
 
   <!-- Vendor -->
@@ -142,7 +143,7 @@
 
   viz_name = {{viz_name|tojson|safe}};
 
-  // add Enrichr to viz_name 
+  // add Enrichr to viz_name
   viz_name = 'Enrichr_'+viz_name;
 
   load_viz_enrichr(network_data);
