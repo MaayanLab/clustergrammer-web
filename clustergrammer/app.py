@@ -30,7 +30,7 @@ ENTRY_POINT = '/clustergrammer'
 # mongo_address = '146.203.54.165'
 
 # hannah
-mongo_address = '146.203.54.131'
+mongo_address = os.environ.get('MONGODB', '146.203.54.131')
 
 ##########################################
 # switch for local and docker development
