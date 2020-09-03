@@ -1,6 +1,9 @@
 import os
-from dotenv import load_dotenv
-load_dotenv()
+try:
+  from dotenv import load_dotenv
+  load_dotenv()
+except:
+  pass
 
 MONGODB = os.environ.get('MONGODB', '146.203.54.131')
 ORIGIN = os.environ.get('ORIGIN', 'https://amp.pharm.mssm.edu')
