@@ -1,4 +1,4 @@
-from flask import render_template, redirect
+from flask import render_template, redirect, current_app
 from pymongo import MongoClient
 from bson.objectid import ObjectId
 import gridfs
@@ -58,7 +58,8 @@ def render_page(net, page_route, mat_type='clust'):
 
       return render_template(page_route, viz_network=net['viz'],
         viz_name=net['name'], viz_sim_row=net['sim_row'],
-        viz_sim_col=net['sim_col'], viz_id=viz_id)
+        viz_sim_col=net['sim_col'], viz_id=viz_id,
+        config=current_app.config)
 
     # render viz page
     else:
@@ -72,8 +73,8 @@ def render_page(net, page_route, mat_type='clust'):
           viz_network = net['viz']
 
       return render_template(page_route, viz_network=viz_network,
-        viz_name=net['name'])
+        viz_name=net['name'], config=current_app.config)
 
   else:
     error_desc = 'Invalid visualization Id.'
-    return redirect('/clustergrammer/error/'+error_desc)
+    return redirect(current_app.config['ENTRY_POINT'] + '/error/'+error_desc)

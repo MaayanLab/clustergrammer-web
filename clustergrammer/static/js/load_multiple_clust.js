@@ -29,7 +29,7 @@ d3.select('.blockMsg').select('h1').text('Please wait...');
 var viz_size = {'width':1140, 'height':750};
 
 // define arguments object
-var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="http://amp.pharm.mssm.edu/clustergrammer/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
+var about_string = 'Zoom, scroll, and click buttons to interact with the clustergram. <a href="' + window._config.ORIGIN + window._config.ENTRY_POINT + '/help"> <i class="fa fa-question-circle" aria-hidden="true"></i> </a>';
 
 var default_args = {};
   default_args.row_tip_callback = hzome.gene_info;

@@ -24,7 +24,7 @@ function ini_hzome(root_id){
       gene_symbol = ini_gene_symbol;
     }
 
-    var base_url = 'https://amp.pharm.mssm.edu/Harmonizome/api/1.0/gene/';
+    var base_url = window._config.HARMONIZOME_URL + '/api/1.0/gene/';
     var url = base_url + gene_symbol;
 
     $.get(url, function(data) {

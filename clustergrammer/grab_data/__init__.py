@@ -5,19 +5,19 @@ def add_routes(app=None):
   grab_data = Blueprint('grab_data', __name__, static_url_path='/grab_data/static',
     static_folder='./static', template_folder='./templates')
 
-  # @grab_data.route('/clustergrammer/gene_info', methods=['GET'])
+  # @grab_data.route(app.config['ENTRY_POINT'] + '/gene_info', methods=['GET'])
   # @cross_origin()
   # def gene_info():
-  #   return render_template('help.html')
+  #   return render_template('help.html', config=app.config)
 
-  @grab_data.route("/clustergrammer/gene_info/<gene_symbol>")
+  @grab_data.route(app.config['ENTRY_POINT'] + "/gene_info/<gene_symbol>")
   @cross_origin()
   def gene_info(gene_symbol):
     import requests
 
     print('imported requests\n*****************')
 
-    base_url = 'http://amp.pharm.mssm.edu/Harmonizome/api/1.0/gene/'
+    base_url = app.config['HARMONIZOME_URL'] + '/api/1.0/gene/'
 
     url = base_url + gene_symbol
 

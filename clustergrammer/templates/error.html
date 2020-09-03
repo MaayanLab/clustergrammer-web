@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <base href='/clustergrammer/'>
+    <base href='{{ config["ENTRY_POINT"] }}/'>
 
     <title>clustergrammer</title>
 
@@ -62,7 +62,7 @@
               {{error_desc}}
               </p>
 
-              <a href="/clustergrammer/" class="btn btn-primary" role="button">Return to clustergrammer</a>
+              <a href='{{ config["ENTRY_POINT"] }}/' class="btn btn-primary" role="button">Return to clustergrammer</a>
  
             <!-- <a href="load_saved/">load saved result</a> -->
 

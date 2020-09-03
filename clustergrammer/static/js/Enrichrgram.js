@@ -113,7 +113,7 @@ function check_gene_request(inst_cgm, gene_symbol, run_ini_enrichr){
   }
 
 
-  var base_url = 'https://amp.pharm.mssm.edu/Harmonizome/api/1.0/gene/';
+  var base_url = window._config.HARMONIZOME_URL + '/api/1.0/gene/';
   var url = base_url + gene_symbol;
 
   if (genes_were_found[inst_cgm.params.root] === false){
@@ -173,7 +173,7 @@ function Enrichrgram(inst_cgm){
      .attr('y', 2)
      .attr('width', icon_size)
      .attr('height', icon_size)
-     .attr("xlink:href", "https://amp.pharm.mssm.edu/Enrichr/images/enrichr-icon.png")
+     .attr("xlink:href", window._config.ENRICHR_URL + "/images/enrichr-icon.png")
      .style('opacity', low_opacity)
      .classed('enrichr_logo', true)
      .attr('id', function(){
@@ -489,7 +489,7 @@ function Enrichrgram(inst_cgm){
     var settings = {
      "async": true,
      "crossDomain": true,
-     "url": "https://amp.pharm.mssm.edu/Enrichr/addList",
+     "url": window._config.ENRICHR_URL + "/addList",
      "method": "POST",
      "processData": false,
      "contentType": false,
@@ -521,7 +521,7 @@ function Enrichrgram(inst_cgm){
     if (enr_obj.user_list_id !== null){
       var form = new FormData();
 
-      var base_url = 'https://amp.pharm.mssm.edu/Enrichr/enrich?';
+      var base_url = window._config.ENRICHR_URL + '/enrich?';
       var library_string = 'backgroundType=' + String(library);
       var list_id_string = 'userListId=' + String(enr_obj.user_list_id);
 

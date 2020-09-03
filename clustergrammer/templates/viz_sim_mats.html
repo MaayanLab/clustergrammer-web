@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="robots" content="noindex">
-    <base href='/clustergrammer/'>
+    <base href='{{ config["ENTRY_POINT"] }}/'>
 
     <title>Clustergrammer</title>
 
@@ -28,7 +28,7 @@
 
     <div class='row viz_title' id='clustergram_title'>
       <!-- Clustergrammer -->
-      <a href='/clustergrammer/'>
+      <a href='{{ config["ENTRY_POINT"] }}/'>
         <img id='clustergrammer_logo' src='static/img/clustergrammer_logo.png'>
       </a>
       <div id='file_title'></div>
@@ -108,6 +108,9 @@
   <script src="static/lib/js/bootstrap.min.js"></script>
   <script src="static/lib/js/underscore-min.js"></script>
   <script src="static/lib/js/blockUI.js"></script>
+
+  <!-- Configuration -->
+  {% include "config.html" %}
 
   <!-- Clustergrammer JS -->
   <script src='static/js/clustergrammer.v1.19.4.js'></script>

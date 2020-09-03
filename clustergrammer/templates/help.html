@@ -6,7 +6,7 @@
   <title>Clustergrammer - Help</title>
   <meta charset="UTF-8">
 
-  <base href='/clustergrammer/'>
+  <base href='{{ config["ENTRY_POINT"] }}/'>
   <link rel="shortcut icon" href="static/icons/graham_cracker.ico"  type="image/x-icon">
 
 </head><body onload="prettyPrint()">
@@ -20,30 +20,30 @@
 <div id="sidebar">
     <ul>
 
-      <li><a href="/clustergrammer/help#summary">Summary</a></li>
+      <li><a href="{{ config['ENTRY_POINT'] }}/help#summary">Summary</a></li>
 
-      <li><a href="/clustergrammer/help#tutorial">Tutorial</a></li>
+      <li><a href="{{ config['ENTRY_POINT'] }}/help#tutorial">Tutorial</a></li>
       <ul id="sideBarSub">
-        <li><a href="/clustergrammer/help#upload_matrix" > Upload Matrix </a></li>
-        <li><a href="/clustergrammer/help#data_processing" > Data Processing </a></li>
-        <li><a href="/clustergrammer/help#visualization" > Visualization </a></li>
+        <li><a href="{{ config['ENTRY_POINT'] }}/help#upload_matrix" > Upload Matrix </a></li>
+        <li><a href="{{ config['ENTRY_POINT'] }}/help#data_processing" > Data Processing </a></li>
+        <li><a href="{{ config['ENTRY_POINT'] }}/help#visualization" > Visualization </a></li>
 
-        <!-- <li><a href="/clustergrammer/help#clustergrammer_examples" > Examples </a></li> -->
+        <!-- <li><a href="{{ config['ENTRY_POINT'] }}/help#clustergrammer_examples" > Examples </a></li> -->
       </ul>
 
-      <li><a href="/clustergrammer/help#api">API</a></li>
+      <li><a href="{{ config['ENTRY_POINT'] }}/help#api">API</a></li>
       <ul id="sideBarSub">
-        <li><a href="/clustergrammer/help#submit_matrix"> Submit Matrix </a></li>
+        <li><a href="{{ config['ENTRY_POINT'] }}/help#submit_matrix"> Submit Matrix </a></li>
       </ul>
 
-      <li><a href="/clustergrammer/help#contact">Contact</a></li>
+      <li><a href="{{ config['ENTRY_POINT'] }}/help#contact">Contact</a></li>
 
     </ul>
 </div>
 
 <div id="content">
 
-  <a href="/clustergrammer/">
+  <a href="{{ config['ENTRY_POINT'] }}/">
   <img class='help_figure' id='clustergrammer_logo' src="static/img/clustergrammer_logo.png" alt="Clustergrammer">
   </a>
   <h4 id="subtitle">A web-based visualization tool that enables users and web-based applications to easily generate interactive and shareable clustergram-heatmap visualizations from a matrix of data.</h4>
@@ -99,12 +99,12 @@
 
 
     <!-- production -->
-    <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6bbfb1a04e7f4087fcad?preview=true&demo_text_size=30" frameBorder="0"></iframe>  -->
+    <!-- <iframe id='iframe_preview' src="{{ config['ENTRY_POINT'] }}/demo/566f6bbfb1a04e7f4087fcad?preview=true&demo_text_size=30" frameBorder="0"></iframe>  -->
 
-    <iframe id='iframe_preview' src="/clustergrammer/demo/" frameBorder="0"></iframe>
+    <iframe id='iframe_preview' src="{{ config['ENTRY_POINT'] }}/demo/" frameBorder="0"></iframe>
 
     <!-- local -->
-    <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true&demo_text_size=30" frameBorder="0"></iframe>  -->
+    <!-- <iframe id='iframe_preview' src="{{ config['ENTRY_POINT'] }}/demo/566f6ce2b1a04e810e0ed0a2?preview=true&demo_text_size=30" frameBorder="0"></iframe>  -->
 
     <p class="caption">Fig. 2 Interactive demo example.</p>
 
@@ -162,7 +162,7 @@
     <p>A user can post a matrix file to Clustergrammer using the endpoint </p>
 
 <pre>
-  http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/
+  {{ config['ORIGIN'] }}{ config['ENTRY_POINT'] }}/matrix_upload/
 </pre>
 
   <p> and receive a permanent link to their visualization. Below is an example in Python 2.7 showing the post request and how to obtain the permanent link from the response object.</p>
@@ -171,7 +171,7 @@
   import requests
 
   filename = 'example_matrix.txt'
-  upload_url = 'http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/'
+  upload_url = '{{ config['ORIGIN'] }}{{ config['ENTRY_POINT'] }}/matrix_upload/'
 
   r = requests.post(upload_url, files={'file': open(filename, 'rb')})
 
@@ -184,7 +184,7 @@
 <p>Users can also upload their data in a vector format usin the endpoint</p>
 
 <pre>
-  http://amp.pharm.mssm.edu/clustergrammer/vector_upload/
+  {{ config['ORIGIN'] }}{{ config['ENTRY_POINT'] }}/vector_upload/
 </pre>
 
 <p>The vector_upload endpoint takes the following format </p>
@@ -257,7 +257,7 @@ the permanent link from the response object.</p>
   import requests
   import json
 
-  upload_url = 'http://amp.pharm.mssm.edu/clustergrammer/vector_upload/'
+  upload_url = '{{ config['ORIGIN'] }}{{ config['ENTRY_POINT'] }}/vector_upload/'
 
   r = requests.post(upload_url, json.dumps(vector_json))
 

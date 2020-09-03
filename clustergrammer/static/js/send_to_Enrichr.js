@@ -13,7 +13,7 @@ function enrich(options) { // http://amp.pharm.mssm.edu/Enrichr/#help
 
   var form = document.createElement('form');
   form.setAttribute('method', 'post');
-  form.setAttribute('action', 'https://amp.pharm.mssm.edu/Enrichr/enrich');
+  form.setAttribute('action', window._config.ENRICHR_URL + '/enrich');
   if (options.popup)
     form.setAttribute('target', '_blank');
   form.setAttribute('enctype', 'multipart/form-data');

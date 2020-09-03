@@ -3,12 +3,13 @@ def fake_post():
   '''
   import requests
   import json
+  from flask import current_app
 
   gmt = 'ChEA_2015'
   userListId = 939279
 
   # define the get url
-  get_url = 'http://amp.pharm.mssm.edu/Enrichr/enrich'
+  get_url = current_app.config['ENRICHR_URL'] + '/enrich'
 
   # get parameters
   params = {'backgroundType':gmt,'userListId':userListId}

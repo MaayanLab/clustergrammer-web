@@ -6,7 +6,7 @@ def main(mongo_address):
   import flask
   import time
   import run_enrich_background as enr_sub
-  from flask import request
+  from flask import request, current_app
 
   if request.method == 'POST':
     enr_json = json.loads(request.data)
@@ -40,7 +40,7 @@ def main(mongo_address):
 
     thread.start()
 
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/Enrichr_new/'
+    viz_url = current_app.config['ORIGIN'] + current_app.config['ENTRY_POINT'] + '/Enrichr_new/'
     qs = '?preview=false&col_order=rank&row_order=clust&N_row_sum=20'
 
     max_wait_time = 30

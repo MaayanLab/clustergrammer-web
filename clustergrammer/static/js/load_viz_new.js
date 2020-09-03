@@ -43,7 +43,7 @@ function load_viz_new(network_data){
   // add clustergrammer logo
   d3.select(cgm.params.root+ ' .title_section')
     .append('a')
-    .attr('href', '/clustergrammer/')
+    .attr('href', window._config['ENTRY_POINT'] + '/')
     .attr('target', '_blank')
     .append('img')
     .classed('title_image',true)

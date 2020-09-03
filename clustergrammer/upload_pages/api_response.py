@@ -40,14 +40,16 @@ def get_viz_doc(mongo_address, viz_id):
   return viz_doc  
 
 def make_viz_url_name(viz_name):
+  from flask import current_app
+
   if viz_name == 'gen3va':
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/gen3va/'
+    viz_url = current_app.config['ORIGIN'] + current_app.config['ENTRY_POINT'] + '/gen3va/'
     viz_name = ''
   elif viz_name == 'harmonizome':
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/harmonizome/'
+    viz_url = current_app.config['ORIGIN'] + current_app.config['ENTRY_POINT'] + '/harmonizome/'
     viz_name = ''      
   else:
-    viz_url = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'
+    viz_url = current_app.config['ORIGIN'] + current_app.config['ENTRY_POINT'] + '/viz/'
     viz_name = '/' + viz_name
 
   return viz_name, viz_url  

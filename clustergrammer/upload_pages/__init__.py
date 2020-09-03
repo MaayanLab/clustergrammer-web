@@ -10,32 +10,32 @@ def add_routes(app=None, mongo_address=None):
     static_url_path='/upload_pages/static', static_folder='./static',
     template_folder='./templates')
 
-  @upload_pages.route('/clustergrammer/Enrichr_clustergram', methods=['POST','GET'])
+  @upload_pages.route(app.config['ENTRY_POINT'] + '/Enrichr_clustergram', methods=['POST','GET'])
   @cross_origin()
   def enrichr_clustergram():
     return enr_clust_endpoint.main(mongo_address)
 
-  @upload_pages.route('/clustergrammer/vector_upload/', methods=['POST'])
+  @upload_pages.route(app.config['ENTRY_POINT'] + '/vector_upload/', methods=['POST'])
   @cross_origin()
   def proc_vector_upload():
     return vector_upload_endpoint.main(mongo_address)
 
-  @upload_pages.route('/clustergrammer/get_viz_json/<user_objid>', methods=['GET'])
+  @upload_pages.route(app.config['ENTRY_POINT'] + '/get_viz_json/<user_objid>', methods=['GET'])
   @cross_origin()
   def proc_get_viz_json(user_objid):
     return get_viz_json_endpoint.main(mongo_address, user_objid)
 
-  @upload_pages.route('/clustergrammer/upload_network/', methods=['POST'])
+  @upload_pages.route(app.config['ENTRY_POINT'] + '/upload_network/', methods=['POST'])
   @cross_origin()
   def upload_network():
     return load_tsv_endpoint.main(mongo_address, response_type='redirect', req_sim_mat=True)
 
-  @upload_pages.route('/clustergrammer/test_sim_mat', methods=['POST'])
+  @upload_pages.route(app.config['ENTRY_POINT'] + '/test_sim_mat', methods=['POST'])
   @cross_origin()
   def test_sim_mat():
     return load_tsv_endpoint.main(mongo_address, response_type='redirect', req_sim_mat=True)
 
-  @upload_pages.route('/clustergrammer/matrix_upload/', methods=['POST'])
+  @upload_pages.route(app.config['ENTRY_POINT'] + '/matrix_upload/', methods=['POST'])
   @cross_origin()
   def proc_matrix_upload():
     return load_tsv_endpoint.main(mongo_address, response_type='link')

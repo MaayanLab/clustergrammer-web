@@ -1,5 +1,5 @@
 function get_calendar(popup, blanket){
-	$.get('http://amp.pharm.mssm.edu/L1000CDS2/countByDate', function(data) {
+	$.get(window._config.L1000CDS2_URL + '/countByDate', function(data) {
 		calendar = data;
 		// calendar = [[2013,2,26,3],[2013,2,27,5]];
 		draw_calendar(calendar, popup, blanket);

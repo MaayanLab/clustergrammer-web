@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <base href='/clustergrammer/'>
+    <base href='{{ config["ENTRY_POINT"] }}/'>
 
     <title>L1000CDS2-Clustergrammer</title>
     <link rel="shortcut icon" href="static/css/sigine.ico" type="image/x-icon">
@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel='stylesheet' href='static/css/l1000cds2-max-calendar.css'>
 
+    {% include "config.html" %}
     <script src="static/js/l1000cds2-max-calendar.js"></script>
 </head>
 
@@ -263,8 +264,7 @@
 
 
    <script>
-   var origin = "http://amp.pharm.mssm.edu";
-   // var origin = "http://localhost:8182";
+   var origin = '{{ config["ORIGIN"] }}';
    var countUrl = origin+"/L1000CDS2/count";
    var resultUrl = origin+"/L1000CDS2/#/result/";
    var splits = window.location.href.split('/');

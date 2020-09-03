@@ -88,19 +88,19 @@ def upload_error(inst_filename):
   return error_desc
 
 def make_response(viz_id, inst_filename, response_type='redirect', req_sim_mat=False):
-  from flask import redirect
+  from flask import redirect, current_app
 
   if response_type == 'redirect':
     if req_sim_mat:
-      inst_redirect = redirect('/clustergrammer/viz_sim_mats/'+viz_id+'/'+inst_filename)
+      inst_redirect = redirect(current_app.config['ENTRY_POINT'] + '/viz_sim_mats/'+viz_id+'/'+inst_filename)
     else:
-      inst_redirect = redirect('/clustergrammer/viz/'+viz_id+'/'+inst_filename)
+      inst_redirect = redirect(current_app.config['ENTRY_POINT'] + '/viz/'+viz_id+'/'+inst_filename)
     return inst_redirect
 
   elif response_type == 'link':
     if req_sim_mat:
-      inst_link = 'http://amp.pharm.mssm.edu/clustergrammer/viz_sim_mats/'+viz_id+'/'+inst_filename
+      inst_link = current_app.config['ORIGIN'] + current_app.config['ENTRY_POINT'] + '/viz_sim_mats/'+viz_id+'/'+inst_filename
     else:
-      inst_link = 'http://amp.pharm.mssm.edu/clustergrammer/viz/'+viz_id+'/'+inst_filename
+      inst_link = current_app.config['ORIGIN'] + current_app.config['ENTRY_POINT'] + '/viz/'+viz_id+'/'+inst_filename
 
     return inst_link

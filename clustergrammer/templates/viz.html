@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="robots" content="noindex">
-    <base href='/clustergrammer/'>
+    <base href='{{ config["ENTRY_POINT"] }}/'>
 
     <title>Clustergrammer</title>
 
@@ -48,6 +48,9 @@
   <script src="static/lib/js/jquery-ui.js"></script>
   <script src="static/lib/js/bootstrap.min.js"></script>
   <script src="static/lib/js/underscore-min.js"></script>
+
+  <!-- Configuration -->
+  {% include "config.html" %}
 
   <!-- clustergram.js -->
   <script src='static/js/clustergrammer.v1.19.4.js'></script>

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <base href='/clustergrammer/'>
+    <base href='{{ config["ENTRY_POINT"] }}/'>
 
     <title>Clustergrammer</title>
 
@@ -48,14 +48,14 @@
           <p class='initial_paragraph first_instructions'>Clustergrammer is a web-based tool for visualizing and analyzing high-dimensional data as interactive and shareable hierarchically clustered heatmaps. Clustergrammer enables intuitive exploration of high-dimensional data and has several optional <a href="http://clustergrammer.readthedocs.io/biology_specific_features.html" target='_blank'>biology-specific features</a>. Press play or explore the example below to see the <a href="http://clustergrammer.readthedocs.io/interacting_with_viz.html" target='_blank'>interactive features</a>. </p>
 
           <!-- non-local mongodb -->
-          <!-- <iframe id='iframe_preview' src="/clustergrammer/  demo/566f6bbfb1a04e7f4087fcad?preview=true" frameBorder="0"></iframe>  -->
+          <!-- <iframe id='iframe_preview' src="{{ config["ENTRY_POINT"] }}/  demo/566f6bbfb1a04e7f4087fcad?preview=true" frameBorder="0"></iframe>  -->
 
           <!-- category local example -->
-          <iframe id='iframe_preview' src="/clustergrammer/demo/" frameBorder="0"></iframe>
+          <iframe id='iframe_preview' src="{{ config["ENTRY_POINT"] }}/demo/" frameBorder="0"></iframe>
           <!-- 572a63400329efd3b8ed4b5e -->
 
           <!-- local mongodb -->
-          <!-- <iframe id='iframe_preview' src="/clustergrammer/demo/566f6ce2b1a04e810e0ed0a2?preview=true" frameBorder="0"></iframe>  -->
+          <!-- <iframe id='iframe_preview' src="{{ config["ENTRY_POINT"] }}/demo/566f6ce2b1a04e810e0ed0a2?preview=true" frameBorder="0"></iframe>  -->
 
           <a id=demo_link class='blue_links' href="viz_sim_mats/58a492b4a63cb826f0be6476/rc_two_cats.txt" target="_blank">See example page</a>
 
@@ -154,7 +154,7 @@ Row-C   0.2     0.1     2.5
 
               <div class='col-xs-4 example_col'>
                 <p class='example_single_title'>CCLE Explorer</p>
-                <a href='/clustergrammer/CCLE/'  target='_blank'>
+                <a href='{{ config["ENTRY_POINT"] }}/CCLE/'  target='_blank'>
                   <div class='example_image_container'>
                     <img id='CCLE_image' src="static/img/CCLE_tree.png" alt="CCLE Explorer">
                   </div>
@@ -194,7 +194,7 @@ Row-C   0.2     0.1     2.5
                     <img id='kinase_network_image' src="static/img/kinase_network_screenshot.png" alt="Kinase Network">
                   </div>
                 </a>
-                <p class='example_single_description'>The <a href="" target='_blank'>Kinase Substrate Similarity Network</a> uses Clustergrammer to visualize a large network of kinases based on shared substrates. Data obtained from the <a href="http://amp.pharm.mssm.edu/Harmonizome/dataset/KEA+Substrates+of+Kinases" target='_blank'>Harmonizome</a>.</p>
+                <p class='example_single_description'>The <a href="" target='_blank'>Kinase Substrate Similarity Network</a> uses Clustergrammer to visualize a large network of kinases based on shared substrates. Data obtained from the <a href="{{ config['HARMONIZOME_URL'] }}/dataset/KEA+Substrates+of+Kinases" target='_blank'>Harmonizome</a>.</p>
               </div>
 
               <div class='col-xs-4 example_col'>
@@ -275,34 +275,34 @@ Row-C   0.2     0.1     2.5
 
               <div class='col-xs-4 example_col'>
                 <p class='example_single_title'>Enrichr</p>
-                <a href='http://amp.pharm.mssm.edu/Enrichr/' target='_blank' >
+                <a href='{{ config["ENRICHR_URL"] }}' target='_blank' >
                   <div class='example_image_container'>
                       <img id='enrichr_example' src="static/img/Enrichr_example_wide.png" alt="CCLE Explorer">
                   </div>
                 </a>
-                <p class='example_single_description'>Clustergrammer visualizes enrichment analysis results from the Ma'ayan lab web-tool <a href="http://amp.pharm.mssm.edu/Enrichr/" target='_blank'>Enrichr</a> and displays the overlap of a user's input gene list and the gene lists of enriched terms.</p>
+                <p class='example_single_description'>Clustergrammer visualizes enrichment analysis results from the Ma'ayan lab web-tool <a href="{{ config['ENRICHR_URL'] }}/" target='_blank'>Enrichr</a> and displays the overlap of a user's input gene list and the gene lists of enriched terms.</p>
               </div>
 
 
               <div class='col-xs-4 example_col'>
                 <p class='example_single_title'>GEN3VA</p>
-                <a href='http://amp.pharm.mssm.edu/gen3va/report/approved/AGING_BD2K_LINCS_DCIC_COURSERA' target='_blank' >
+                <a href='{{ config["GEN3VA_URL"] }}/report/approved/AGING_BD2K_LINCS_DCIC_COURSERA' target='_blank' >
                   <div class='example_image_container'>
                       <img id='CCLE_image' src="static/img/GEN3VA_no_sidebar_small.png" alt="CCLE Explorer">
                   </div>
                 </a>
-                <p class='example_single_description'>Clustergrammer visualizes collections of gene expression signatures extracted from the Gene Expression Omnibus (GEO) using the Ma'ayan lab web-tool <a href="http://amp.pharm.mssm.edu/gen3va/"  target='_blank'>GEN3VA</a>.</p>
+                <p class='example_single_description'>Clustergrammer visualizes collections of gene expression signatures extracted from the Gene Expression Omnibus (GEO) using the Ma'ayan lab web-tool <a href="{{ config['GEN3VA_URL'] }}"  target='_blank'>GEN3VA</a>.</p>
               </div>
 
 
               <div class='col-xs-4 example_col'>
                 <p class='example_single_title'>L1000CDS2</p>
-                <a href='http://amp.pharm.mssm.edu/clustergrammer/l1000cds2/55e0b68a5bf3665f1a726bfa' target='_blank'>
+                <a href='{{ config["ORIGIN"] }}{{ config["ENTRY_POINT"] }}/l1000cds2/55e0b68a5bf3665f1a726bfa' target='_blank'>
                   <div class='example_image_container'>
                     <img class='example_image' id='L1000CDS2' src="static/img/L1000CDS2.png" alt="L1000CDS2">
                   </div>
                 </a>
-                <p class='example_single_description'>Clustergrammer visualizes gene-expression-signature search results from the Ma'ayan lab web tool <a href="http://amp.pharm.mssm.edu/l1000cds2/#/index"  target='_blank'>L1000CDS2</a>, which allows users to find perturbations from the L1000 project whose signatures are similar or antisimilar to their input signature. </p>
+                <p class='example_single_description'>Clustergrammer visualizes gene-expression-signature search results from the Ma'ayan lab web tool <a href="{{ config['L1000CDS2_URL'] }}/#/index"  target='_blank'>L1000CDS2</a>, which allows users to find perturbations from the L1000 project whose signatures are similar or antisimilar to their input signature. </p>
               </div>
 
             </div>

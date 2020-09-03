@@ -29481,7 +29481,7 @@ var Clustergrammer =
 	  ///////////////////////////////////////
 	  var share_modal = make_modal_skeleton(params, 'share_info');
 
-	  share_modal.header.append('a').attr('target', '_blank').attr('href', '/clustergrammer/');
+	  share_modal.header.append('a').attr('target', '_blank').attr('href', window._config.ENTRY_POINT + '/');
 
 	  share_modal.header.append('h4').classed('modal-title', true).html('Share the visualization using the current URL:');
 

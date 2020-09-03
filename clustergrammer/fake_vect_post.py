@@ -12,6 +12,7 @@ def post_request():
   from clustergrammer_old import Network
   import requests
   import json
+  from flask import current_app
 
   print('vector upload')
 
@@ -20,7 +21,7 @@ def post_request():
 
   # upload_url = 'http://localhost:9000/clustergrammer/vector_upload/'
   # upload_url = 'http://0.0.0.0:8087/clustergrammer/vector_upload/'
-  upload_url = 'http://amp.pharm.mssm.edu/clustergrammer/vector_upload/'
+  upload_url = current_app.config['ORIGIN'] + current_app.config['ENTRY_POINT'] + '/vector_upload/'
 
   print('making request')
   r = requests.post(upload_url, json.dumps(vect_post))

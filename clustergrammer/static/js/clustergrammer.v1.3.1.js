@@ -9304,7 +9304,7 @@ var Clustergrammer =
 
     var row = sidebar.select('.icons_section').style('margin-top', '7px');
 
-    row.append('div').classed('col-xs-4', true).append('a').attr('href', 'http://amp.pharm.mssm.edu/clustergrammer/help').attr('target', '_blank').append('i').classed('fa', true).classed('fa-question-circle', true).classed('icon_buttons', true).style('font-size', '25px');
+    row.append('div').classed('col-xs-4', true).append('a').attr('href', window._config.ORIGIN + window._config.ENTRY_POINT + '/help').attr('target', '_blank').append('i').classed('fa', true).classed('fa-question-circle', true).classed('icon_buttons', true).style('font-size', '25px');
 
     row.append('div').classed('col-xs-4', true).append('i').classed('fa', true).classed('fa-share-alt', true).classed('icon_buttons', true).style('font-size', '25px').on('click', function () {
 
@@ -9784,7 +9784,7 @@ var Clustergrammer =
     ///////////////////////////////////////
     var share_modal = make_modal_skeleton(params, 'share_info');
 
-    share_modal.header.append('a').attr('target', '_blank').attr('href', '/clustergrammer/');
+    share_modal.header.append('a').attr('target', '_blank').attr('href', window._config.ENTRY_POINT + '/');
 
     share_modal.header.append('h4').classed('modal-title', true).html('Share the visualization using the current URL:');
 

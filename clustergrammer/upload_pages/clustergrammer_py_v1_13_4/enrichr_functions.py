@@ -247,12 +247,13 @@ def post_request(input_genes, meta=''):
   # get metadata
   import requests
   import json
+  from flask import current_app
 
   # stringify list
   input_genes = '\n'.join(input_genes)
 
   # define post url
-  post_url = 'http://amp.pharm.mssm.edu/Enrichr/addList'
+  post_url = current_app.config['ENRICHR_URL'] + '/addList'
 
   # define parameters
   params = {'list':input_genes, 'description':''}
@@ -272,12 +273,13 @@ def post_request(input_genes, meta=''):
 def get_request(lib, userListId, max_terms=50 ):
   import requests
   import json
+  from flask import current_app
 
   # convert userListId to string
   userListId = str(userListId)
 
   # define the get url
-  get_url = 'http://amp.pharm.mssm.edu/Enrichr/enrich'
+  get_url = current_app.config['ENRICHR_URL'] + '/enrich'
 
   # get parameters
   params = {'backgroundType':lib,'userListId':userListId}

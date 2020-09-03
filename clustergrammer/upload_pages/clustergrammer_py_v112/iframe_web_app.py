@@ -1,9 +1,10 @@
 def main(net, filename=None, width=1000, height=800):
   import requests, json
+  from flask import current_app
   from io import StringIO
   from IPython.display import IFrame, display
   
-  clustergrammer_url = 'http://amp.pharm.mssm.edu/clustergrammer/matrix_upload/'
+  clustergrammer_url = current_app.config['ORIGIN'] + current_app.config['ENTRY_POINT'] + '/matrix_upload/'
 
   if filename is None:
     file_string = net.write_matrix_to_tsv()

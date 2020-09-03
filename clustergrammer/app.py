@@ -14,8 +14,7 @@ import status_check
 import grab_data
 
 app = Flask(__name__, static_url_path='')
-
-ENTRY_POINT = '/clustergrammer'
+app.config.from_pyfile('settings.py')
 
 #########################
 # v1.5.2
@@ -30,7 +29,10 @@ ENTRY_POINT = '/clustergrammer'
 # mongo_address = '146.203.54.165'
 
 # hannah
-mongo_address = os.environ.get('MONGODB', '146.203.54.131')
+# mongo_address = os.environ.get('MONGODB', '146.203.54.131')
+
+# from config
+mongo_address = app.config['MONGODB']
 
 ##########################################
 # switch for local and docker development
@@ -47,11 +49,11 @@ logging.basicConfig(stream=sys.stderr)
 ######################################
 ######################################
 
-@app.route(ENTRY_POINT + '/<path:path>')
+@app.route(app.config['ENTRY_POINT'] + '/<path:path>')
 def send_static(path):
   return send_from_directory(SERVER_ROOT, path)
 
-@app.route('/clustergrammer/l1000cds2/', methods=['POST'])
+@app.route(app.config['ENTRY_POINT'] + '/l1000cds2/', methods=['POST'])
 def l1000cds2_upload():
   '''
   l1000cds2 is using a old version of clustergrammer.py
@@ -96,7 +98,7 @@ def l1000cds2_upload():
 
   client.close()
 
-  return redirect('/clustergrammer/l1000cds2/'+l1000cds2['_id'])
+  return redirect(app.config['ENTRY_POINT'] + '/l1000cds2/'+l1000cds2['_id'])
 
 home_pages.add_routes(app)
 viz_pages.add_routes(app, mongo_address)

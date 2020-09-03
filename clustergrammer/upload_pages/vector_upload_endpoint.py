@@ -1,12 +1,12 @@
 def main(mongo_address):
-  from flask import request
+  from flask import request, current_app
   
   vector_post, inst_status, viz_name, viz_id = load_vector_data(request.data, mongo_address)
 
   if inst_status == 'processing':
     return clust_vector_background(mongo_address, viz_id, vector_post, viz_name)
   else:   
-    return make_error_json()
+    return make_error_json(current_app.config)
 
 def clust_vector_background(mongo_address, viz_id, vector_post, viz_name):
   import flask
@@ -80,8 +80,9 @@ def load_vector_data(data, mongo_address):
 
   return vector_post, inst_status, viz_name, viz_id
 
-def make_error_json():
+def make_error_json(app_config):
+  from flask import jsonify
   error_desc = 'Error in processing Enrichr enrichment vectors.'
-  return flask.jsonify({
-    'link': 'http://amp.pharm.mssm.edu/clustergrammer/error/'+error_desc
+  return jsonify({
+    'link': app_config['ORIGIN'] + app_config['ENTRY_POINT'] + '/error/' + error_desc
   }) 

@@ -7,7 +7,7 @@ def add_routes(app=None, mongo_address=None):
     static_url_path='/status_check/static', static_folder='./static',
     template_folder='./templates')
 
-  @status_check.route('/clustergrammer/status_check/<user_objid>', methods=['GET'])
+  @status_check.route(app.config['ENTRY_POINT'] + '/status_check/<user_objid>', methods=['GET'])
   def status_check_function(user_objid):
     import flask
     from bson.objectid import ObjectId
