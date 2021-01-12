@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect
+from flask import current_app, Blueprint, render_template, redirect
 
 def add_routes(app=None):
   home_pages = Blueprint('home_pages', __name__, static_url_path='/home_pages/static',
