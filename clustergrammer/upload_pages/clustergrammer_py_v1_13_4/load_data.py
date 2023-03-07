@@ -69,6 +69,8 @@ def load_tsv_to_net(net, file_buffer, filename=None):
   else:
     tmp_df['mat'] = pd.read_table(file_buffer, index_col=row_arr)
 
+  tmp_df['mat'].index = [ind.replace('.', '&period;') for ind in tmp_df['mat'].index]
+  tmp_df['mat'].columns = [ind.replace('.', '&period;') for ind in tmp_df['mat'].columns]
   tmp_df = proc_df_labels.main(tmp_df)
 
   net.df_to_dat(tmp_df, True)
