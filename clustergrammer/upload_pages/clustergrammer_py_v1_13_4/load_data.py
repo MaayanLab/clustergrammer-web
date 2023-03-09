@@ -54,6 +54,16 @@ def load_stdin(net):
 
   net.load_tsv_to_net(data)
 
+def sanitize_index(ind):
+  if type(ind) == str:
+    return ind.replace('.', '&period;')
+  elif type(ind) == tuple:
+    return tuple([sanitize_index(i) for i in ind])
+  elif type(ind) == list:
+    return [sanitize_index(i) for i in ind]
+  else:
+    return ind
+
 def load_tsv_to_net(net, file_buffer, filename=None):
   lines = file_buffer.getvalue().split('\n')
   num_labels = categories.check_categories(lines)
@@ -69,8 +79,8 @@ def load_tsv_to_net(net, file_buffer, filename=None):
   else:
     tmp_df['mat'] = pd.read_table(file_buffer, index_col=row_arr)
 
-  tmp_df['mat'].index = [ind.replace('.', '&period;') for ind in tmp_df['mat'].index]
-  tmp_df['mat'].columns = [ind.replace('.', '&period;') for ind in tmp_df['mat'].columns]
+  tmp_df['mat'].index = [sanitize_index(ind) for ind in tmp_df['mat'].index]
+  tmp_df['mat'].columns = [sanitize_index(ind) for ind in tmp_df['mat'].columns]
   tmp_df = proc_df_labels.main(tmp_df)
 
   net.df_to_dat(tmp_df, True)
